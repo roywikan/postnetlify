@@ -1,29 +1,28 @@
 const fetch = require('node-fetch');
 
 exports.handler = async () => {
-  const formEntriesEndpoint = `${process.env.NETLIFY_API_URL}/forms?access_token=${process.env.NETLIFY_ACCESS_TOKEN}`;
-
   try {
-    const response = await fetch(formEntriesEndpoint);
-    const data = await response.json();
-    const posts = data.map(entry => ({
-      title: entry.data.title,
-      slug: entry.data.slug,
-      tags: entry.data.tags,
-      category: entry.data.category,
-      bodypost: entry.data.bodypost,
-      author: entry.data.author,
-      imagefile: entry.data.imagefile,
-    }));
+    const NETLIFY_ACCESS_TOKEN = process.env.NETLIFY_ACCESS_TOKEN;
+    const formId = "postForm"; // Ganti dengan ID form Netlify Anda
+    const endpoint = `https://api.netlify.com/api/v1/forms/${formId}/submissions`;
 
+    const response = await fetch(`${endpoint}?access_token=${NETLIFY_ACCESS_TOKEN}`);
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ error: "Failed to fetch form submissions" }),
+      };
+    }
+
+    const submissions = await response.json();
     return {
       statusCode: 200,
-      body: JSON.stringify(posts),
+      body: JSON.stringify(submissions),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error fetching posts' }),
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
