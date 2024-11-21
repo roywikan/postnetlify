@@ -3,7 +3,9 @@ const fetch = require('node-fetch');
 exports.handler = async () => {
   try {
     const NETLIFY_ACCESS_TOKEN = process.env.NETLIFY_ACCESS_TOKEN;
-    const formId = "postForm"; // Ganti dengan ID form Netlify Anda
+   // Ganti dengan ID form Netlify Anda
+    const formId = "673faec750f0a700080c6bac";
+
     const endpoint = `https://api.netlify.com/api/v1/forms/${formId}/submissions`;
 
     const response = await fetch(`${endpoint}?access_token=${NETLIFY_ACCESS_TOKEN}`);
