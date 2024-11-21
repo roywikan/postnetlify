@@ -25,7 +25,7 @@
   <script>
     async function fetchPosts() {
       try {
-        const response = await fetch('/netlify/functions/readPosts');
+        const response = await fetch('/netlify/functions/readPosts.js');
         const posts = await response.json();
         const postsContainer = document.getElementById('posts');
         postsContainer.innerHTML = posts.map(post => `
