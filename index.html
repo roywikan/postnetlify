@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD System with Netlify Forms</title>
+</head>
+<body>
+  <h1>Create Post</h1>
+  <form name="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
+    <input type="hidden" name="form-name" value="postForm" />
+    <label>Title: <input type="text" name="title" required></label><br>
+    <label>Slug: <input type="text" name="slug" required></label><br>
+    <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
+    <label>Category: <input type="text" name="category"></label><br>
+    <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
+    <label>Author: <input type="text" name="author" required></label><br>
+    <label>Image: <input type="file" name="imagefile"></label><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Posts</h2>
+  <div id="posts"></div>
+
+  <script>
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        const posts = await response.json();
+        const postsContainer = document.getElementById('posts');
+        postsContainer.innerHTML = posts.map(post => `
+          <div>
+            <h3>${post.title}</h3>
+            <p><strong>Author:</strong> ${post.author}</p>
+            <p>${post.bodypost}</p>
+            <p><strong>Category:</strong> ${post.category} | <strong>Tags:</strong> ${post.tags}</p>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+      }
+    }
+
+    fetchPosts();
+  </script>
+</body>
+</html>
