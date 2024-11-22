@@ -9,14 +9,17 @@
   <b>Create Post</b><br>
   <form name="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
     <input type="hidden" name="form-name" value="postForm" />
-    <label>Title: <input type="text" name="title" required></label><br>
-    <label>Slug: <input type="text" name="slug" required></label><br>
-    <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
-    <label>Category: <input type="text" name="category"></label><br>
-    <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
-    <label>Author: <input type="text" name="author" required></label><br>
-    <label>Image: <input type="file" name="imagefile"></label><br>
-    <button type="submit">Submit</button>
+
+  <label>Title: <input type="text" name="title" required></label><br>
+  <label>Slug: <input type="text" name="slug" required></label><br>
+  <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
+  <label>Category: <input type="text" name="category"></label><br>
+  <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
+  <label>Author: <input type="text" name="author" ></label><br>
+  <label>Image: <input type="file" id="imageFile" name="imagefile" </label><br>
+
+
+      <button type="button" id="submitButton">Submit</button>
   </form>
 
 
