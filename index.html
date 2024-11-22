@@ -58,9 +58,19 @@ document.getElementById('submitButton').addEventListener('click', async () => {
     return;
   }
 
-  const fileName = slug || file.name.split('.')[0]; // Gunakan slug jika ada, jika tidak pakai nama file asli
-  const fileExtension = file.name.split('.').pop(); // Ekstensi file (jpg, png, dll)
-  const finalFileName = `${fileName}.${fileExtension}`; // Bentuk nama akhir dengan ekstensi
+
+
+const fileName = slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'); 
+// Gunakan slug jika ada, jika tidak gunakan nama file, keduanya tanpa spasi
+
+const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg'; 
+// Pastikan file memiliki ekstensi, jika tidak default ke 'jpg'
+
+const finalFileName = `${fileName}.${fileExtension}`; 
+// Nama file final
+
+  
+  
 
   const cloudinaryData = new FormData();
   cloudinaryData.append('file', file);
@@ -71,6 +81,19 @@ document.getElementById('submitButton').addEventListener('click', async () => {
   cloudinaryData.append('use_filename', 'true');
   cloudinaryData.append('unique_filename', 'false');
 
+
+if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
+  alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
+  return;
+}
+
+if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
+  alert('File is too large. Maximum allowed size is 5MB.');
+  return;
+}
+
+
+  
   try {
     // 2. Unggah gambar ke Cloudinary
     alert('Uploading image to Cloudinary...');
