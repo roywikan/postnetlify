@@ -42,67 +42,48 @@
 
   
 <script>
+
+
 const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
-const cloudinaryPreset = 'w5ksa5bs';
-
-document.getElementById('submitButton').addEventListener('click', async (event) => {
-    event.preventDefault(); // Mencegah perilaku bawaan
-    console.log('Submit button clicked'); // Debug log
-
-    const form = document.getElementById('postForm');
-    const formData = new FormData(form);
-
-    const file = formData.get('imagefile');
-    const slug = formData.get('slug');
-
-    if (!file) {
-        alert('Please select an image');
-        return;
+const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
+document.getElementById('submitButton').addEventListener('click', async () => {
+  const form = document.getElementById('postForm');
+  const formData = new FormData(form);
+  // 1. Unggah gambar ke Cloudinary
+  const file = formData.get('imagefile'); // Ambil file dari input
+  if (!file) {
+    alert('Please select an image');
+    return;
+  }
+  const cloudinaryData = new FormData();
+  cloudinaryData.append('file', file);
+  cloudinaryData.append('upload_preset', cloudinaryPreset);
+  try {
+    const cloudinaryResponse = await fetch(cloudinaryUrl, {
+      method: 'POST',
+      body: cloudinaryData,
+    });
+    if (!cloudinaryResponse.ok) {
+      throw new Error('Failed to upload image');
     }
-
-    const fileName = slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-');
-    const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
-    const finalFileName = `${fileName}.${fileExtension}`;
-
-    const cloudinaryData = new FormData();
-    cloudinaryData.append('file', file);
-    cloudinaryData.append('upload_preset', cloudinaryPreset);
-    cloudinaryData.append('public_id', finalFileName);
-    cloudinaryData.append('use_filename', 'true');
-    cloudinaryData.append('unique_filename', 'false');
-
-    try {
-        alert('Uploading image to Cloudinary...');
-        const cloudinaryResponse = await fetch(cloudinaryUrl, {
-            method: 'POST',
-            body: cloudinaryData,
-        });
-
-        if (!cloudinaryResponse.ok) {
-            throw new Error('Failed to upload image to Cloudinary');
-        }
-
-        const cloudinaryResult = await cloudinaryResponse.json();
-        const imageUrl = cloudinaryResult.secure_url;
-        alert('Image uploaded to Cloudinary successfully!');
-
-        formData.set('imagefile', imageUrl);
-
-        alert('Submitting post data to Netlify...');
-        const netlifyResponse = await fetch('/', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (!netlifyResponse.ok) {
-            throw new Error('Failed to submit form to Netlify');
-        }
-
-        alert('Post submitted to Netlify successfully!');
-    } catch (error) {
-        console.error('Error:', error);
-        alert(`Error: ${error.message}`);
+    const cloudinaryResult = await cloudinaryResponse.json();
+    const imageUrl = cloudinaryResult.secure_url; // URL gambar dari Cloudinary
+    // 2. Tambahkan URL gambar ke FormData untuk Netlify
+    formData.set('imagefile', imageUrl); // Ganti file dengan URL
+    // 3. Kirim data ke Netlify
+    const netlifyUrl = '/'; // URL form Netlify
+    const netlifyResponse = await fetch(netlifyUrl, {
+      method: 'POST',
+      body: formData,
+    });
+    if (!netlifyResponse.ok) {
+      throw new Error('Failed to submit form');
     }
+    alert('Form submitted successfully!');
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`);
+  }
 });
 
 
