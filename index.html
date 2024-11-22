@@ -27,6 +27,76 @@
   <h1>List of Posts</h1>
   <div id="post-list"></div>
   <script>
+
+const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
+const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
+
+document.getElementById('submitButton').addEventListener('click', async () => {
+  const form = document.getElementById('postForm');
+  const formData = new FormData(form);
+
+  // 1. Unggah gambar ke Cloudinary
+  const file = formData.get('imagefile'); // Ambil file dari input
+  if (!file) {
+    alert('Please select an image');
+    return;
+  }
+
+  const cloudinaryData = new FormData();
+  cloudinaryData.append('file', file);
+  cloudinaryData.append('upload_preset', cloudinaryPreset);
+
+  try {
+    const cloudinaryResponse = await fetch(cloudinaryUrl, {
+      method: 'POST',
+      body: cloudinaryData,
+    });
+
+    if (!cloudinaryResponse.ok) {
+      throw new Error('Failed to upload image');
+    }
+
+    const cloudinaryResult = await cloudinaryResponse.json();
+    const imageUrl = cloudinaryResult.secure_url; // URL gambar dari Cloudinary
+
+    // 2. Tambahkan URL gambar ke FormData untuk Netlify
+    formData.set('imagefile', imageUrl); // Ganti file dengan URL
+
+    // 3. Kirim data ke Netlify
+    const netlifyUrl = '/'; // URL form Netlify
+    const netlifyResponse = await fetch(netlifyUrl, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!netlifyResponse.ok) {
+      throw new Error('Failed to submit form');
+    }
+
+    alert('Form submitted successfully!');
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`Error: ${error.message}`);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
