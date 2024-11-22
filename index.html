@@ -49,13 +49,18 @@ document.getElementById('submitButton').addEventListener('click', async () => {
   const form = document.getElementById('postForm');
   const formData = new FormData(form);
 
-  // 1. Validasi file input
+  // Ambil data file dan slug
   const file = formData.get('imagefile');
   const slug = formData.get('slug'); // Misalnya input hidden untuk slug
+
   if (!file) {
     alert('Please select an image');
     return;
   }
+
+  const fileName = slug || file.name.split('.')[0]; // Gunakan slug jika ada, jika tidak pakai nama file asli
+  const fileExtension = file.name.split('.').pop(); // Ekstensi file (jpg, png, dll)
+  const finalFileName = `${fileName}.${fileExtension}`; // Bentuk nama akhir dengan ekstensi
 
   const cloudinaryData = new FormData();
   cloudinaryData.append('file', file);
