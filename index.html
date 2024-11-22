@@ -94,6 +94,20 @@
       }
     });
 
+
+
+
+
+
+
+
+
+
+
+
+  
+document.addEventListener('DOMContentLoaded', fetchPosts);
+
 async function fetchPosts() {
   try {
     const response = await fetch('/.netlify/functions/readPosts');
@@ -102,25 +116,20 @@ async function fetchPosts() {
     }
 
     const posts = await response.json();
+    console.log('Posts fetched:', posts); // Debug data
+
     const postList = document.getElementById('post-list');
 
-    // Jika tidak ada post, tampilkan pesan
     if (posts.length === 0) {
       postList.innerHTML = '<p>No posts available.</p>';
       return;
     }
 
-    // Bersihkan daftar post sebelumnya
     postList.innerHTML = '';
-
-    // Iterasi setiap post
     posts.forEach(post => {
+      console.log('Post data:', post); // Debug tiap post
       const postDiv = document.createElement('div');
-
-      // Ambil URL gambar dengan benar
-      const imageUrl = post.data.imagefile;
-
-      // Render HTML
+      const imageUrl = post.data.imagefile || '';
       postDiv.innerHTML = `
         <h2>${post.data.title}</h2>
         <p><strong>Slug:</strong> ${post.data.slug}</p>
@@ -138,6 +147,7 @@ async function fetchPosts() {
     document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
   }
 }
+
 
   </script>
 
