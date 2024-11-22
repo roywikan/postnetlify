@@ -51,6 +51,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
 
   // 1. Validasi file input
   const file = formData.get('imagefile');
+  const slug = formData.get('slug'); // Misalnya input hidden untuk slug
   if (!file) {
     alert('Please select an image');
     return;
@@ -59,6 +60,11 @@ document.getElementById('submitButton').addEventListener('click', async () => {
   const cloudinaryData = new FormData();
   cloudinaryData.append('file', file);
   cloudinaryData.append('upload_preset', cloudinaryPreset);
+
+  // Tambahkan parameter nama file ke Cloudinary
+  cloudinaryData.append('public_id', finalFileName); // Tentukan nama file di Cloudinary
+  cloudinaryData.append('use_filename', 'true');
+  cloudinaryData.append('unique_filename', 'false');
 
   try {
     // 2. Unggah gambar ke Cloudinary
