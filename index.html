@@ -12,7 +12,7 @@
 
 
 
-  <form name="postForm" id="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
+  <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
     <input type="hidden" name="form-name" value="postForm" />
 
     <label>Title: <input type="text" name="title" required></label><br>
@@ -45,97 +45,65 @@
 const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
 const cloudinaryPreset = 'w5ksa5bs';
 
-document.getElementById('submitButton').addEventListener('click', async () => {
-  console.log('Submit button clicked'); // Debug log
-  event.preventDefault(); // Mencegah perilaku bawaan
-  
-  const form = document.getElementById('postForm');
-  const formData = new FormData(form);
+document.getElementById('submitButton').addEventListener('click', async (event) => {
+    event.preventDefault(); // Mencegah perilaku bawaan
+    console.log('Submit button clicked'); // Debug log
 
-  // Ambil data file dan slug
-  const file = formData.get('imagefile');
-  const slug = formData.get('slug'); // Misalnya input hidden untuk slug
+    const form = document.getElementById('postForm');
+    const formData = new FormData(form);
 
-  if (!file) {
-    alert('Please select an image');
-    return;
-  }
+    const file = formData.get('imagefile');
+    const slug = formData.get('slug');
 
-/*
-
-const fileName = slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'); 
-// Gunakan slug jika ada, jika tidak gunakan nama file, keduanya tanpa spasi
-
-const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg'; 
-// Pastikan file memiliki ekstensi, jika tidak default ke 'jpg'
-
-const finalFileName = `${fileName}.${fileExtension}`; 
-// Nama file final
-*/
-  
-  
-
-  const cloudinaryData = new FormData();
-  cloudinaryData.append('file', file);
-  cloudinaryData.append('upload_preset', cloudinaryPreset);
-
-  // Tambahkan parameter nama file ke Cloudinary
-  cloudinaryData.append('public_id', finalFileName); // Tentukan nama file di Cloudinary
-  cloudinaryData.append('use_filename', 'true');
-  cloudinaryData.append('unique_filename', 'false');
-
-/*
-if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
-  alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
-  return;
-}
-
-if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
-  alert('File is too large. Maximum allowed size is 5MB.');
-  return;
-}
-*/
-
-  
-  try {
-    // 2. Unggah gambar ke Cloudinary
-    alert('Uploading image to Cloudinary...');
-    const cloudinaryResponse = await fetch(cloudinaryUrl, {
-      method: 'POST',
-      body: cloudinaryData,
-    });
-
-    if (!cloudinaryResponse.ok) {
-      throw new Error('Failed to upload image to Cloudinary');
+    if (!file) {
+        alert('Please select an image');
+        return;
     }
 
-    const cloudinaryResult = await cloudinaryResponse.json();
-    const imageUrl = cloudinaryResult.secure_url;
-    alert('Image uploaded to Cloudinary successfully!');
+    const fileName = slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-');
+    const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
+    const finalFileName = `${fileName}.${fileExtension}`;
 
-    // 3. Tambahkan URL gambar ke FormData untuk Netlify
-    formData.set('imagefile', imageUrl);
+    const cloudinaryData = new FormData();
+    cloudinaryData.append('file', file);
+    cloudinaryData.append('upload_preset', cloudinaryPreset);
+    cloudinaryData.append('public_id', finalFileName);
+    cloudinaryData.append('use_filename', 'true');
+    cloudinaryData.append('unique_filename', 'false');
 
-    // 4. Kirim data ke Netlify Forms
-    alert('Submitting post data to Netlify...');
-    const netlifyResponse = await fetch('/', {
-      method: 'POST',
-      body: formData,
-    });
+    try {
+        alert('Uploading image to Cloudinary...');
+        const cloudinaryResponse = await fetch(cloudinaryUrl, {
+            method: 'POST',
+            body: cloudinaryData,
+        });
 
-    if (!netlifyResponse.ok) {
-      throw new Error('Failed to submit form to Netlify');
+        if (!cloudinaryResponse.ok) {
+            throw new Error('Failed to upload image to Cloudinary');
+        }
+
+        const cloudinaryResult = await cloudinaryResponse.json();
+        const imageUrl = cloudinaryResult.secure_url;
+        alert('Image uploaded to Cloudinary successfully!');
+
+        formData.set('imagefile', imageUrl);
+
+        alert('Submitting post data to Netlify...');
+        const netlifyResponse = await fetch('/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!netlifyResponse.ok) {
+            throw new Error('Failed to submit form to Netlify');
+        }
+
+        alert('Post submitted to Netlify successfully!');
+    } catch (error) {
+        console.error('Error:', error);
+        alert(`Error: ${error.message}`);
     }
-
-    alert('Post submitted to Netlify successfully!');
-  } catch (error) {
-    console.error('Error:', error);
-    alert(`Error: ${error.message}`);
-  }
 });
-
-//console.log('Cloudinary Response:', cloudinaryResult);
-//console.log('Netlify Response:', netlifyResponse.status, netlifyResponse.statusText);
 
 
 
