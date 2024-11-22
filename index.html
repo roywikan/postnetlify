@@ -24,7 +24,9 @@
     
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
 
-    <button type="button" id="submitButton" name="submitButton">Submit</button>
+    <!-- button type="button" id="submitButton" name="submitButton">Submit</button -->
+    <button type="submit" id="submitButton" name="submitButton">Submit</button>
+
   </form>
 
 
@@ -46,7 +48,11 @@
 
 const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
 const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
-document.getElementById('submitButton').addEventListener('click', async () => {
+  
+document.getElementById('postForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  
   const form = document.getElementById('postForm');
   const formData = new FormData(form);
   // 1. Unggah gambar ke Cloudinary
