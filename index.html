@@ -7,99 +7,90 @@
 </head>
 <body>
   <b>Create Post</b><br>
-  <form name="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
+
+
+
+
+
+  <form name="postForm" id="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
     <input type="hidden" name="form-name" value="postForm" />
 
-  <label>Title: <input type="text" name="title" required></label><br>
-  <label>Slug: <input type="text" name="slug" required></label><br>
-  <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
-  <label>Category: <input type="text" name="category"></label><br>
-  <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
-  <label>Author: <input type="text" name="author" ></label><br>
-
-
+    <label>Title: <input type="text" name="title" required></label><br>
+    <label>Slug: <input type="text" name="slug" required></label><br>
+    <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
+    <label>Category: <input type="text" name="category"></label><br>
+    <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
+    <label>Author: <input type="text" name="author" required></label><br>
+    
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
 
-
-
-      <button type="button" id="submitButton">Submit</button>
+    <button type="button" id="submitButton">Submit</button>
   </form>
 
 
 
+
+
+
+
+
+
+  
   <h1>List of Posts</h1>
   <div id="post-list"></div>
-  <script>
+<script>
+    const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
+    const cloudinaryPreset = 'w5ksa5bs';
 
-const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
-const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
+    document.getElementById('submitButton').addEventListener('click', async () => {
+      const form = document.getElementById('postForm');
+      const formData = new FormData(form);
 
-document.getElementById('submitButton').addEventListener('click', async () => {
-  const form = document.getElementById('postForm');
-  const formData = new FormData(form);
+      // 1. Validasi file input
+      const file = formData.get('imagefile');
+      if (!file) {
+        alert('Please select an image');
+        return;
+      }
 
-  // 1. Unggah gambar ke Cloudinary
-  const file = formData.get('imagefile'); // Ambil file dari input
-  if (!file) {
-    alert('Please select an image');
-    return;
-  }
+      const cloudinaryData = new FormData();
+      cloudinaryData.append('file', file);
+      cloudinaryData.append('upload_preset', cloudinaryPreset);
 
-  const cloudinaryData = new FormData();
-  cloudinaryData.append('file', file);
-  cloudinaryData.append('upload_preset', cloudinaryPreset);
+      try {
+        // 2. Unggah gambar ke Cloudinary
+        const cloudinaryResponse = await fetch(cloudinaryUrl, {
+          method: 'POST',
+          body: cloudinaryData,
+        });
 
-  try {
-    const cloudinaryResponse = await fetch(cloudinaryUrl, {
-      method: 'POST',
-      body: cloudinaryData,
+        if (!cloudinaryResponse.ok) {
+          throw new Error('Failed to upload image to Cloudinary');
+        }
+
+        const cloudinaryResult = await cloudinaryResponse.json();
+        const imageUrl = cloudinaryResult.secure_url;
+
+        // 3. Tambahkan URL gambar ke FormData untuk Netlify
+        formData.set('imagefile', imageUrl);
+
+        // 4. Kirim data ke Netlify Forms
+        const netlifyResponse = await fetch('/', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!netlifyResponse.ok) {
+          throw new Error('Failed to submit form to Netlify');
+        }
+
+        alert('Post submitted successfully!');
+      } catch (error) {
+        console.error('Error:', error);
+        alert(`Error: ${error.message}`);
+      }
     });
 
-    if (!cloudinaryResponse.ok) {
-      throw new Error('Failed to upload image');
-    }
-
-    const cloudinaryResult = await cloudinaryResponse.json();
-    const imageUrl = cloudinaryResult.secure_url; // URL gambar dari Cloudinary
-
-    // 2. Tambahkan URL gambar ke FormData untuk Netlify
-    formData.set('imagefile', imageUrl); // Ganti file dengan URL
-
-    // 3. Kirim data ke Netlify
-    const netlifyUrl = '/'; // URL form Netlify
-    const netlifyResponse = await fetch(netlifyUrl, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!netlifyResponse.ok) {
-      throw new Error('Failed to submit form');
-    }
-
-    alert('Form submitted successfully!');
-  } catch (error) {
-    console.error('Error:', error);
-    alert(`Error: ${error.message}`);
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
@@ -110,6 +101,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
         const posts = await response.json();
         const postList = document.getElementById('post-list');
 
+        postList.innerHTML = ''; // Clear old posts
         if (posts.length === 0) {
           postList.innerHTML = '<p>No posts available.</p>';
           return;
@@ -123,6 +115,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
             <p><strong>Tags:</strong> ${post.data.tags}</p>
             <p><strong>Category:</strong> ${post.data.category || 'None'}</p>
             <p><strong>Author:</strong> ${post.data.author}</p>
+            <img src="${post.data.imagefile}" alt="Post Image" width="300"/>
             <p>${post.data.bodypost}</p>
             <hr>
           `;
