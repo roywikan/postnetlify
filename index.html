@@ -24,7 +24,7 @@
     
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
 
-    <button type="button" id="submitButton">Submit</button>
+    <button type="button" id="submitButton" name="submitButton">Submit</button>
   </form>
 
 
@@ -46,6 +46,9 @@ const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload
 const cloudinaryPreset = 'w5ksa5bs';
 
 document.getElementById('submitButton').addEventListener('click', async () => {
+  console.log('Submit button clicked'); // Debug log
+  event.preventDefault(); // Mencegah perilaku bawaan
+  
   const form = document.getElementById('postForm');
   const formData = new FormData(form);
 
@@ -131,6 +134,8 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
   }
 });
 
+console.log('Cloudinary Response:', cloudinaryResult);
+console.log('Netlify Response:', netlifyResponse.status, netlifyResponse.statusText);
 
 
 
