@@ -38,6 +38,9 @@
   
   <h1>List of Posts</h1>
   <div id="post-list"></div>
+
+
+  
 <script>
     const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
     const cloudinaryPreset = 'w5ksa5bs';
@@ -91,43 +94,60 @@
       }
     });
 
-    async function fetchPosts() {
-      try {
-        const response = await fetch('/.netlify/functions/readPosts');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const posts = await response.json();
-        const postList = document.getElementById('post-list');
-
-        postList.innerHTML = ''; // Clear old posts
-        if (posts.length === 0) {
-          postList.innerHTML = '<p>No posts available.</p>';
-          return;
-        }
-
-        posts.forEach(post => {
-          const postDiv = document.createElement('div');
-          postDiv.innerHTML = `
-            <h2>${post.data.title}</h2>
-            <p><strong>Slug:</strong> ${post.data.slug}</p>
-            <p><strong>Tags:</strong> ${post.data.tags}</p>
-            <p><strong>Category:</strong> ${post.data.category || 'None'}</p>
-            <p><strong>Author:</strong> ${post.data.author}</p>
-            <img src="${post.data.imagefile}" alt="Post Image" width="300"/>
-            <p>${post.data.bodypost}</p>
-            <hr>
-          `;
-          postList.appendChild(postDiv);
-        });
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
-      }
+async function fetchPosts() {
+  try {
+    const response = await fetch('/.netlify/functions/readPosts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    fetchPosts();
+    const posts = await response.json();
+    const postList = document.getElementById('post-list');
+
+    // Jika tidak ada post, tampilkan pesan
+    if (posts.length === 0) {
+      postList.innerHTML = '<p>No posts available.</p>';
+      return;
+    }
+
+    // Bersihkan daftar post sebelumnya
+    postList.innerHTML = '';
+
+    // Iterasi setiap post
+    posts.forEach(post => {
+      const postDiv = document.createElement('div');
+
+      // Ambil URL gambar dengan benar
+      const imageUrl = post.data.imagefile;
+
+      // Render HTML
+      postDiv.innerHTML = `
+        <h2>${post.data.title}</h2>
+        <p><strong>Slug:</strong> ${post.data.slug}</p>
+        <p><strong>Tags:</strong> ${post.data.tags}</p>
+        <p><strong>Category:</strong> ${post.data.category || 'None'}</p>
+        <p><strong>Author:</strong> ${post.data.author}</p>
+        <img src="${imageUrl}" alt="Post Image" width="300">
+        <p>${post.data.bodypost}</p>
+        <hr>
+      `;
+      postList.appendChild(postDiv);
+    });
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
+  }
+}
+
   </script>
+
+
+
+
+
+
+
+
+  
 </body>
 </html>
