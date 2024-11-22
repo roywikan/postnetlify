@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Post Link Generator</title>
+</head>
+<body>
+  <h1>Dynamic Link Generator</h1>
+
+  <!-- Input for slug and title -->
+  <form id="linkForm">
+    <label for="slug">Post Slug:</label>
+    <input type="text" id="slug" name="slug" placeholder="Enter post slug" required>
+    <br>
+    <label for="title">Post Title:</label>
+    <input type="text" id="title" name="title" placeholder="Enter post title" required>
+    <br>
+    <button type="button" id="generateLink">Generate Link</button>
+  </form>
+
+  <!-- Output area -->
+  <h2>Generated Link:</h2>
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('generateLink').addEventListener('click', () => {
+      // Get the current URL to determine the base domain
+      const currentUrl = window.location.origin; // Includes protocol and domain (e.g., https://sub.domain.com)
+
+      // Get input values for slug and title
+      const slug = document.getElementById('slug').value.trim();
+      const title = document.getElementById('title').value.trim();
+
+      // Validate inputs
+      if (!slug || !title) {
+        alert('Please enter both slug and title');
+        return;
+      }
+
+      // Construct the full URL using the slug
+      const postUrl = `${currentUrl}/${slug}`;
+
+      // Create the link as an HTML element
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = `<a href="${postUrl}" target="_blank">${title}</a>`;
+    });
+  </script>
+</body>
+</html>
