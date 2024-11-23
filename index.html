@@ -101,8 +101,8 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
 
  try {
     alert('Uploading image to Cloudinary...');
-   console.log('Uploading image to Cloudinary...');
-    const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
+   console.log('Uploading image to Cloudinary...', finalFileName);
+    //disabled sementara : const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
 
     console.log('Cloudinary Response:', cloudinaryResult);
     const imageUrl = cloudinaryResult.secure_url;
