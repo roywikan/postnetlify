@@ -53,13 +53,9 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   event.preventDefault();
 
   
-  const form = document.getElementById('postForm');
+ const form = document.getElementById('postForm');
   const formData = new FormData(form);
 
-
-
-
-  // Ambil data file dan slug
   const file = formData.get('imagefile');
   const slug = formData.get('slug'); // Misalnya input hidden untuk slug
 
@@ -68,34 +64,15 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     return;
   }
 
-  //const fileName = slug || file.name.split('.')[0]; // Gunakan slug jika ada, jika tidak pakai nama file asli
-  //const fileExtension = file.name.split('.').pop(); // Ekstensi file (jpg, png, dll)
-  //const finalFileName = `${fileName}.${fileExtension}`; // Bentuk nama akhir dengan ekstensi
-
-const validateFileName = (name) => {
-  return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 255);
-};
-const fileName = validateFileName(slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'));
-
-// Gunakan slug jika ada, jika tidak gunakan nama file, keduanya tanpa spasi
-const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg'; 
-// Pastikan file memiliki ekstensi, jika tidak default ke 'jpg'
-const finalFileName = `${fileName}.${fileExtension}`; 
-// Nama file final
-  
-
+  const validateFileName = (name) => {
+    return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 255);
+  };
+  const fileName = validateFileName(slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'));
+  const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
+  const finalFileName = `${fileName}.${fileExtension}`;
 
 
   
-
-  const cloudinaryData = new FormData();
-  cloudinaryData.append('file', file);
-  cloudinaryData.append('upload_preset', cloudinaryPreset);
-
-  // Tambahkan parameter nama file ke Cloudinary
-  cloudinaryData.append('public_id', finalFileName); // Tentukan nama file di Cloudinary
-  //cloudinaryData.append('use_filename', 'true');
-  //cloudinaryData.append('unique_filename', 'false');
 
 if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
   alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
@@ -105,33 +82,24 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
   alert('File is too large. Maximum allowed size is 5MB.');
   return;
 }
-  
-  try {
-    // 2. Unggah gambar ke Cloudinary
+
+
+
+
+
+ try {
     alert('Uploading image to Cloudinary...');
-    const cloudinaryResponse = await fetch(cloudinaryUrl, {
-      method: 'POST',
-      body: cloudinaryData,
-    });
-
-    
-
-    if (!cloudinaryResponse.ok) {
-      throw new Error('Failed to upload image to Cloudinary');
-    }
-
-    const cloudinaryResult = await cloudinaryResponse.json();
-    const imageUrl = cloudinaryResult.secure_url;
+    const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
 
     console.log('Cloudinary Response:', cloudinaryResult);
-
-    alert('Image uploaded to Cloudinary successfully!');
-
-    // 3. Tambahkan URL gambar ke FormData untuk Netlify
+    const imageUrl = cloudinaryResult.secure_url;
+   
+    console.log('Cloudinary Response:', cloudinaryResult);
+    
+   alert('Image uploaded to Cloudinary successfully!');
     formData.set('imagefile', imageUrl);
 
-    // 4. Kirim data ke Netlify Forms
-    alert('Submitting post data to Netlify...');
+    alert('Submitting post data...');
     const netlifyResponse = await fetch('/', {
       method: 'POST',
       body: formData,
@@ -141,12 +109,55 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
       throw new Error('Failed to submit form to Netlify');
     }
 
-    alert('Post submitted to Netlify successfully!');
+    alert('Post submitted successfully!');
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
   }
 });
+  ///////////
+  
+  //try {
+    // 2. Unggah gambar ke Cloudinary
+   // alert('Uploading image to Cloudinary...');
+   // const cloudinaryResponse = await fetch(cloudinaryUrl, {
+   //   method: 'POST',
+   //   body: cloudinaryData,
+   // });
+
+    
+
+    //if (!cloudinaryResponse.ok) {
+      //throw new Error('Failed to upload image to Cloudinary');
+    //}
+
+    //const cloudinaryResult = await cloudinaryResponse.json();
+    //const imageUrl = cloudinaryResult.secure_url;
+
+    //console.log('Cloudinary Response:', cloudinaryResult);
+
+    //alert('Image uploaded to Cloudinary successfully!');
+
+    // 3. Tambahkan URL gambar ke FormData untuk Netlify
+    //formData.set('imagefile', imageUrl);
+
+    // 4. Kirim data ke Netlify Forms
+    //alert('Submitting post data to Netlify...');
+    //const netlifyResponse = await fetch('/', {
+      //method: 'POST',
+      //body: formData,
+    //});
+
+    //if (!netlifyResponse.ok) {
+      //throw new Error('Failed to submit form to Netlify');
+    //}
+
+    //alert('Post submitted to Netlify successfully!');
+  //} catch (error) {
+    //console.error('Error:', error);
+    //alert(`Error: ${error.message}`);
+  //}
+//});
 
 
 
