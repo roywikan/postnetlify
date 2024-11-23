@@ -72,14 +72,20 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   //const fileExtension = file.name.split('.').pop(); // Ekstensi file (jpg, png, dll)
   //const finalFileName = `${fileName}.${fileExtension}`; // Bentuk nama akhir dengan ekstensi
 
-  
-const fileName = slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'); 
+const validateFileName = (name) => {
+  return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 255);
+};
+const fileName = validateFileName(slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'));
+
 // Gunakan slug jika ada, jika tidak gunakan nama file, keduanya tanpa spasi
 const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg'; 
 // Pastikan file memiliki ekstensi, jika tidak default ke 'jpg'
 const finalFileName = `${fileName}.${fileExtension}`; 
 // Nama file final
   
+
+
+
   
 
   const cloudinaryData = new FormData();
@@ -88,7 +94,7 @@ const finalFileName = `${fileName}.${fileExtension}`;
 
   // Tambahkan parameter nama file ke Cloudinary
   cloudinaryData.append('public_id', finalFileName); // Tentukan nama file di Cloudinary
-  cloudinaryData.append('use_filename', 'true');
+  //cloudinaryData.append('use_filename', 'true');
   //cloudinaryData.append('unique_filename', 'false');
 
 if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
@@ -108,12 +114,17 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
       body: cloudinaryData,
     });
 
+    
+
     if (!cloudinaryResponse.ok) {
       throw new Error('Failed to upload image to Cloudinary');
     }
 
     const cloudinaryResult = await cloudinaryResponse.json();
     const imageUrl = cloudinaryResult.secure_url;
+
+    console.log('Cloudinary Response:', cloudinaryResult);
+
     alert('Image uploaded to Cloudinary successfully!');
 
     // 3. Tambahkan URL gambar ke FormData untuk Netlify
