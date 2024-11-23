@@ -15,12 +15,12 @@
   <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" enctype="multipart/form-data">
     <input type="hidden" name="form-name" value="postForm" />
 
-    <label>Title: <input type="text" name="title" required></label><br>
-    <label>Slug: <input type="text" name="slug" required></label><br>
-    <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2"></label><br>
-    <label>Category: <input type="text" name="category"></label><br>
-    <label>Body: <textarea name="bodypost" rows="5" required></textarea></label><br>
-    <label>Author: <input type="text" name="author" required></label><br>
+    <label>Title: <input type="text" name="title" required>Ini Title Nya</label><br>
+    <label>Slug: <input type="text" name="slug" required>ini-slug-nya</label><br>
+    <label>Tags: <input type="text" name="tags" placeholder="tag1,tag2">ini tagnya</label><br>
+    <label>Category: <input type="text" name="category">ini category</label><br>
+    <label>Body: <textarea name="bodypost" rows="5" required></textarea>ini bodynya</label><br>
+    <label>Author: <input type="text" name="author" required>Authornya</label><br>
     
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
 
@@ -100,7 +100,7 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
 
 
  try {
-    alert('Uploading image to Cloudinary...');
+    alert('Uploading image to Cloudinary...' + finalFileName);
    console.log('Uploading image to Cloudinary...', finalFileName);
     //disabled sementara : const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
 
