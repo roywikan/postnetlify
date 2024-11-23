@@ -114,11 +114,16 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
     formData.set('imagefile', imageUrl);
 
     alert('Submitting post data...');
-   console.log('Submitting post data...');
+   console.log('Submitting post data...', formData);
+
+   
+    /* temporary disabled:
     const netlifyResponse = await fetch('/', {
       method: 'POST',
       body: formData,
     });
+
+    */
 
     if (!netlifyResponse.ok) {
       throw new Error('Failed to submit form to Netlify');
