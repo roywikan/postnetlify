@@ -45,6 +45,7 @@
   
 <script>
 console.log('JavaScript file loaded successfully');
+
 const form = document.getElementById('postForm');
 if (!form) {
   console.log('Form not found');
@@ -52,96 +53,80 @@ if (!form) {
   console.log('Form found and ready to attach event listener');
 }
 
-
-
 const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
 const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
-  
+
 document.getElementById('postForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  
- const form = document.getElementById('postForm');
+  const form = document.getElementById('postForm');
   const formData = new FormData(form);
 
   const file = formData.get('imagefile');
-  const slug = formData.get('slug'); // Misalnya input hidden untuk slug
+  const slug = formData.get('slug') || formData.get('title'); // Gunakan slug jika ada, atau fallback ke title
 
   if (!file) {
     alert('Please select an image');
     console.log('Please select an image');
-    
     return;
   }
 
   const validateFileName = (name) => {
-    return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 150);
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9-_]/g, '')
+      .substring(0, 150);
   };
-  const fileName = validateFileName(slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'));
+
+  const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
   const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
-  const finalFileName = `${fileName}.${fileExtension}`;
+  const finalFileName = `${slugifiedName}.${fileExtension}`;
 
+  if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
+    alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
+    console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');
+    return;
+  }
 
-  
+  if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
+    alert('File is too large. Maximum allowed size is 5MB.');
+    console.log('File is too large. Maximum allowed size is 5MB.');
+    return;
+  }
 
-if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
-  alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
-  console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');  
-  return;
-}
-if (file.size > 1 * 1024 * 1024) { // Batas 5 MB
-  alert('File is too large. Maximum allowed size is 5MB.');
-  console.log('File is too large. Maximum allowed size is 5MB.');
-  return;
-}
-
-
-
-
-
- try {
-    alert('Uploading image to Cloudinary...' + finalFileName);
+  try {
+    alert('Uploading image to Cloudinary...');
     console.log('Uploading image to Cloudinary...', finalFileName);
-    
+
     const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
     console.log('Cloudinary Response:', cloudinaryResult);
-    alert('Cloudinary Response:' + cloudinaryResult); 
-   
-    const imageUrl = cloudinaryResult.secure_url;
-    console.log('imageUrl:' + imageUrl);
-    
-    alert('Image uploaded to Cloudinary successfully!');
-    console.log('Image uploaded to Cloudinary successfully!');
-    formData.set('imagefile', imageUrl);
 
-    alert('Submitting post data...' + formData);
+    const imageUrl = cloudinaryResult.secure_url;
+    console.log('Image URL:', imageUrl);
+
+    alert('Image uploaded to Cloudinary successfully!');
+    formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
+
+    alert('Submitting post data...');
     console.log('Submitting post data...', formData);
 
-   
-    // temporary disabled:
+    // Kirim data ke Netlify
     const netlifyResponse = await fetch('/', {
       method: 'POST',
       body: formData,
     });
-
-    
 
     if (!netlifyResponse.ok) {
       throw new Error('Failed to submit form to Netlify');
     }
 
     alert('Post submitted successfully to Netlify!');
-   console.log('Post submitted successfully!');
+    console.log('Post submitted successfully!');
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
   }
 });
-  ///////////
-  
-
-
-
 
 const uploadToCloudinary = async (file, fileName) => {
   const cloudinaryData = new FormData();
@@ -160,6 +145,10 @@ const uploadToCloudinary = async (file, fileName) => {
 
   return await response.json();
 };
+
+  
+
+
 
 
 
