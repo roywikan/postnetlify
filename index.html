@@ -111,19 +111,19 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
     
    alert('Image uploaded to Cloudinary successfully!');
    console.log('Image uploaded to Cloudinary successfully!');
-    formData.set('imagefile', imageUrl);
+    //disabled sementara: formData.set('imagefile', imageUrl);
 
     alert('Submitting post data...');
    console.log('Submitting post data...', formData);
 
    
-    /* temporary disabled:
-    const netlifyResponse = await fetch('/', {
-      method: 'POST',
-      body: formData,
-    });
+    // temporary disabled:
+    //const netlifyResponse = await fetch('/', {
+      //method: 'POST',
+      //body: formData,
+    //});
 
-    */
+    
 
     if (!netlifyResponse.ok) {
       throw new Error('Failed to submit form to Netlify');
