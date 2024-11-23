@@ -69,6 +69,8 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
   if (!file) {
     alert('Please select an image');
+    console.log('Please select an image');
+    
     return;
   }
 
@@ -84,10 +86,12 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
 if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
   alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
+  console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');  
   return;
 }
 if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
   alert('File is too large. Maximum allowed size is 5MB.');
+  console.log('File is too large. Maximum allowed size is 5MB.');
   return;
 }
 
@@ -97,6 +101,7 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
 
  try {
     alert('Uploading image to Cloudinary...');
+   console.log('Uploading image to Cloudinary...');
     const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
 
     console.log('Cloudinary Response:', cloudinaryResult);
@@ -105,9 +110,11 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
     console.log('Cloudinary Response:', cloudinaryResult);
     
    alert('Image uploaded to Cloudinary successfully!');
+   console.log('Image uploaded to Cloudinary successfully!');
     formData.set('imagefile', imageUrl);
 
     alert('Submitting post data...');
+   console.log('Submitting post data...');
     const netlifyResponse = await fetch('/', {
       method: 'POST',
       body: formData,
@@ -118,6 +125,7 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
     }
 
     alert('Post submitted successfully!');
+   console.log('Post submitted successfully!');
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
