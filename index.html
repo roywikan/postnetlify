@@ -44,6 +44,14 @@
 
   
 <script>
+console.log('JavaScript file loaded successfully');
+const form = document.getElementById('postForm');
+if (!form) {
+  console.log('Form not found');
+} else {
+  console.log('Form found and ready to attach event listener');
+}
+
 
 
 const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
@@ -65,7 +73,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   }
 
   const validateFileName = (name) => {
-    return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 255);
+    return name.replace(/[^a-zA-Z0-9-_]/g, '').substring(0, 150);
   };
   const fileName = validateFileName(slug?.trim().replace(/\s+/g, '-') || file.name.split('.')[0].trim().replace(/\s+/g, '-'));
   const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
