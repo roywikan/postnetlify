@@ -19,7 +19,7 @@
     <label>Slug: <input type="text" name="slug"  value="ini-slug-nya" required></label><br>
     <label>Tags: <input type="text" name="tags"  value="ini tagnya" placeholder="tag1,tag2"></label><br>
     <label>Category: <input type="text" name="category"  value="ini category" ></label><br>
-    <label>Body: <textarea name="bodypost" rows="5"  value="ini bodynya" required></textarea></label><br>
+    <label>Body: <textarea name="bodypost" rows="5"  required>Ini Textarea bodynya</textarea></label><br>
     <label>Author: <input type="text" name="author"  value="Authornya" required></label><br>
     
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
@@ -143,6 +143,23 @@ if (file.size > 1 * 1024 * 1024) { // Batas 5 MB
 
 
 
+const uploadToCloudinary = async (file, fileName) => {
+  const cloudinaryData = new FormData();
+  cloudinaryData.append('file', file);
+  cloudinaryData.append('upload_preset', cloudinaryPreset);
+  cloudinaryData.append('public_id', fileName);
+
+  const response = await fetch(cloudinaryUrl, {
+    method: 'POST',
+    body: cloudinaryData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload image');
+  }
+
+  return await response.json();
+};
 
 
 
