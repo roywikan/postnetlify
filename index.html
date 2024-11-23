@@ -89,7 +89,7 @@ const finalFileName = `${fileName}.${fileExtension}`;
   // Tambahkan parameter nama file ke Cloudinary
   cloudinaryData.append('public_id', finalFileName); // Tentukan nama file di Cloudinary
   cloudinaryData.append('use_filename', 'true');
-  cloudinaryData.append('unique_filename', 'false');
+  //cloudinaryData.append('unique_filename', 'false');
 
 if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
   alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
