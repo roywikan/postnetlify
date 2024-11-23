@@ -89,7 +89,7 @@ if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
   console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');  
   return;
 }
-if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
+if (file.size > 1 * 1024 * 1024) { // Batas 5 MB
   alert('File is too large. Maximum allowed size is 5MB.');
   console.log('File is too large. Maximum allowed size is 5MB.');
   return;
@@ -101,27 +101,28 @@ if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
 
  try {
     alert('Uploading image to Cloudinary...' + finalFileName);
-   console.log('Uploading image to Cloudinary...', finalFileName);
-    //disabled sementara : const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
-
-    console.log('Cloudinary Response:', cloudinaryResult);
-    const imageUrl = cloudinaryResult.secure_url;
-   
-    console.log('Cloudinary Response:', cloudinaryResult);
+    console.log('Uploading image to Cloudinary...', finalFileName);
     
-   alert('Image uploaded to Cloudinary successfully!');
-   console.log('Image uploaded to Cloudinary successfully!');
-    //disabled sementara: formData.set('imagefile', imageUrl);
+    const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
+    console.log('Cloudinary Response:', cloudinaryResult);
+    alert('Cloudinary Response:' + cloudinaryResult); 
+   
+    const imageUrl = cloudinaryResult.secure_url;
+    console.log('imageUrl:' + imageUrl);
+    
+    alert('Image uploaded to Cloudinary successfully!');
+    console.log('Image uploaded to Cloudinary successfully!');
+    formData.set('imagefile', imageUrl);
 
-    alert('Submitting post data...');
-   console.log('Submitting post data...', formData);
+    alert('Submitting post data...' + formData);
+    console.log('Submitting post data...', formData);
 
    
     // temporary disabled:
-    //const netlifyResponse = await fetch('/', {
-      //method: 'POST',
-      //body: formData,
-    //});
+    const netlifyResponse = await fetch('/', {
+      method: 'POST',
+      body: formData,
+    });
 
     
 
