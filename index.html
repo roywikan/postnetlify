@@ -79,6 +79,10 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   };
 
   const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
+  // Regular expression to remove any known image file extensions at the end of slugifiedName
+  const cleanedSlugifiedName = slugifiedName.replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '');
+
+  
   const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
   const finalFileName = `${slugifiedName}.${fileExtension}`;
 
