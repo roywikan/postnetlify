@@ -99,7 +99,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   }
 
   try {
-    alert('Uploading image to Cloudinary...');
+    //alert('Uploading image to Cloudinary...');
     console.log('Uploading image to Cloudinary...', finalFileName);
 
     const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
@@ -108,10 +108,10 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     const imageUrl = cloudinaryResult.secure_url;
     console.log('Image URL:', imageUrl);
 
-    alert('Image uploaded to Cloudinary successfully!');
+    //alert('Image uploaded to Cloudinary successfully!');
     formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
 
-    alert('Submitting post data...');
+    //alert('Submitting post data...');
     console.log('Submitting post data...', formData);
 
     // Kirim data ke Netlify
@@ -124,7 +124,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
       throw new Error('Failed to submit form to Netlify');
     }
 
-    alert('Post submitted successfully to Netlify!');
+    //alert('Post submitted successfully to Netlify!');
     console.log('Post submitted successfully!');
   } catch (error) {
     console.error('Error:', error);
