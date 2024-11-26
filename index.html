@@ -82,7 +82,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
   const finalFileName = `${slugifiedName}.${fileExtension}`;
 
-  if (!['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
+  if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
     alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
     console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');
     return;
