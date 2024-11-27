@@ -126,6 +126,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
     //alert('Post submitted successfully to Netlify!');
     console.log('Post submitted successfully!');
+    document.addEventListener('DOMContentLoaded', fetchPosts);
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
@@ -162,7 +163,7 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
   
-document.addEventListener('DOMContentLoaded', fetchPosts);
+//document.addEventListener('DOMContentLoaded', fetchPosts);
 
 async function fetchPosts() {
   try {
