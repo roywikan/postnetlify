@@ -105,7 +105,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   }
 
   try {
-    //alert('Uploading image to Cloudinary...');
+    alert('Uploading image to Cloudinary...');
     console.log('Uploading image to Cloudinary...', finalFileName);
 
     const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
@@ -130,7 +130,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
       throw new Error('Failed to submit form to Netlify');
     }
 
-    //alert('Post submitted successfully to Netlify!');
+    alert('Post submitted successfully to Netlify!');
     console.log('Post submitted successfully!');
     window.location.reload(); // Refresh halaman setelah berhasil submit
   } catch (error) {
