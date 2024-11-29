@@ -163,7 +163,7 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
   
-//document.addEventListener('DOMContentLoaded', fetchPosts);
+
 
 async function fetchPosts() {
   try {
@@ -194,7 +194,7 @@ posts.forEach(post => {
       <p><strong>Author:</strong> ${post.data.author}</p>
       ${
         imageUrl
-          ? `<img src="${imageUrl}" alt="Post Image" width="300">`
+          ? `<img src="${imageUrl}" alt="${post.data.title}" width="300">`
           : '<p>No image available</p>'
       }
       <p>${imageUrl}</p>
@@ -209,6 +209,7 @@ posts.forEach(post => {
   }
 }
 
+  document.addEventListener('DOMContentLoaded', fetchPosts);
 
   </script>
 
