@@ -80,11 +80,9 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
 
     const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
-    //const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
+    const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
     
-  const slugifiedName = validateFileName(
-  slug?.trim().replace(/\s+/g, '-').replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') || 'untitled'
-);
+  //const slugifiedName = validateFileName(  slug?.trim().replace(/\s+/g, '-').replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') || 'untitled');
 
 
 
