@@ -59,6 +59,13 @@ const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudin
 document.getElementById('postForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
+  const submitButton = document.getElementById('submitButton');
+
+  if (submitButton.disabled) return; // Hindari pengiriman ulang
+  submitButton.disabled = true;
+
+  
+
   const form = document.getElementById('postForm');
   const formData = new FormData(form);
 
@@ -71,20 +78,14 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     return;
   }
 
-  const validateFileName = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9-_]/g, '')
-      .substring(0, 150);
-  };
+    const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
+    const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
 
-  const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
-  // Regular expression to remove any known image file extensions at the end of slugifiedName
-  const cleanedSlugifiedName = slugifiedName.replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '');
-
-  
-  const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
-  const finalFileName = `${cleanedSlugifiedName}.${fileExtension}`;
+    const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
+    let finalFileName = slugifiedName;
+    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
+      finalFileName = `${slugifiedName}.${fileExtension}`;
+    }
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
     alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
@@ -126,10 +127,12 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
     //alert('Post submitted successfully to Netlify!');
     console.log('Post submitted successfully!');
-    
+    window.location.reload(); // Refresh halaman setelah berhasil submit
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
+  } finally {
+    submitButton.disabled = false; // Aktifkan kembali tombol
   }
 });
 
