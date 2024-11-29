@@ -2,7 +2,8 @@ const fetch = require('node-fetch');
 
 exports.handler = async () => {
   try {
-    const NETLIFY_ACCESS_TOKEN = process.env.NETLIFY_ACCESS_TOKEN;
+    const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
+    //nfp_J9noW6zg8YM1XFrUJF1Sa3DYUrbaoJvB8b90
    // Ganti dengan ID form Netlify Anda
     const formId = "673faec750f0a700080c6bac";
 
