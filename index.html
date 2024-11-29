@@ -84,7 +84,7 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
   
   const fileExtension = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
-  const finalFileName = `${slugifiedName}.${fileExtension}`;
+  const finalFileName = `${cleanedSlugifiedName}.${fileExtension}`;
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
     alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
@@ -92,9 +92,9 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     return;
   }
 
-  if (file.size > 5 * 1024 * 1024) { // Batas 5 MB
-    alert('File is too large. Maximum allowed size is 5MB.');
-    console.log('File is too large. Maximum allowed size is 5MB.');
+  if (file.size > 1 * 1024 * 1024) { // Batas 5 MB
+    alert('File is too large. Maximum allowed size is 1MB.');
+    console.log('File is too large. Maximum allowed size is 1MB.');
     return;
   }
 
