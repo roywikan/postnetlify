@@ -78,25 +78,34 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     return;
   }
 
+// Fungsi untuk memvalidasi nama file awal
+const validateFileName = (name) => 
+  name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
 
-
-
-    const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
-    const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
-
-    const validateSlugifiedName = (slugifiedName) => {
-  return slugifiedName
+// Fungsi untuk membersihkan ekstensi jika sudah ada pada slugifiedName
+const validateSlugifiedName = (slugifiedName) => 
+  slugifiedName
     .toLowerCase()
-    .replace(/[^a-z0-9-_]/g, '')
     .replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') // Hapus ekstensi jika sudah ada
     .substring(0, 150);
-};
 
-    const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
-    let finalFileName = validateSlugifiedName;
-    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(validateSlugifiedName)) {
-      finalFileName = `${validateSlugifiedName}.${fileExtension}`;
-    }
+// Mengambil slug dan memprosesnya
+const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
+
+// Menghapus ekstensi jika ada, menggunakan validateSlugifiedName
+const cleanSlugifiedName = validateSlugifiedName(slugifiedName);
+
+// Menentukan ekstensi file
+const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
+
+// Menambahkan ekstensi jika belum ada
+let finalFileName = cleanSlugifiedName;
+if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(cleanSlugifiedName)) {
+  finalFileName = `${cleanSlugifiedName}.${fileExtension}`;
+}
+
+// Output hasil
+console.log(finalFileName);
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
     alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
