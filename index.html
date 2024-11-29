@@ -91,12 +91,11 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
     .replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') // Hapus ekstensi jika sudah ada
     .substring(0, 150);
 };
-  let slugifiedName = validateSlugifiedName;//back again
 
     const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
-    let finalFileName = slugifiedName;
-    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
-      finalFileName = `${slugifiedName}.${fileExtension}`;
+    let finalFileName = validateSlugifiedName;
+    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(validateSlugifiedName)) {
+      finalFileName = `${validateSlugifiedName}.${fileExtension}`;
     }
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
