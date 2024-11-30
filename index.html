@@ -27,6 +27,9 @@
     
     <!-- button type="button" id="submitButton" name="submitButton">Submit</button -->
     <button type="submit" id="submitButton" name="submitButton">Submit</button>
+        <div>
+        <button id="refreshButton" style="display:none;" onclick="refreshPage()">Segarkan Halaman</button>
+    </div>
 
   </form>
 
@@ -83,6 +86,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   
 <script>
+
+
+ // Fungsi untuk menampilkan tombol refresh setelah aksi sukses
+function aksiSukses() {
+    // Menampilkan tombol refresh setelah aksi berhasil
+    document.getElementById('refreshButton').style.display = 'block';
+    document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
+}
+
+// Fungsi untuk menyegarkan halaman
+function refreshPage() {
+    // Menggunakan window.location.reload() untuk me-refresh halaman
+    window.location.reload();
+}
+
+
+  
 console.log('JavaScript file loaded successfully');
 
 const form = document.getElementById('postForm');
@@ -201,7 +221,7 @@ console.log('Netlify Response OK:', netlifyResponse.ok);
     }
 
     //alert('Post submitted successfully to Netlify!');
-    console.log('Post submitted to Netlify Form successfully!');
+    //console.log('Post submitted to Netlify Form successfully!');
 
     
     //DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
@@ -213,6 +233,8 @@ if (netlifyResponse.ok) {
     
     // Refresh halaman hanya setelah sukses
     //window.location.reload();
+  setTimeout(aksiSukses, 2000); // Aksi berhasil setelah 2 detik
+
   } else {
     console.error('Failed to submit form to Netlify');
     alert('Failed to submit form. Please try again.');
