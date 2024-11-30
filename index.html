@@ -12,7 +12,7 @@
 
 
 
-  <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
+  <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data">
     <input type="hidden" name="form-name" value="postForm" />
   <p class="hidden">
     <label>
@@ -27,7 +27,8 @@
     <label>Author: <input type="text" name="author"  value="Authornya" required></label><br>
     
     <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
-
+  <div data-netlify-recaptcha="true"></div>
+    
     <!-- button type="button" id="submitButton" name="submitButton">Submit</button -->
     <button type="submit" id="submitButton" name="submitButton">Submit</button>
 
