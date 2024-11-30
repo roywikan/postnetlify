@@ -181,7 +181,7 @@ console.log('Netlify Response OK:', netlifyResponse.ok);
 // Coba parsing JSON respons jika tersedia
 try {
   const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
-  console.log('Netlify Response Text:', netlifyResponseText);
+  //console.log('Netlify Response Text:', netlifyResponseText);
   
   // Jika respons adalah JSON, coba parsing
   const netlifyResponseJSON = JSON.parse(netlifyResponseText);
