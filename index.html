@@ -101,6 +101,7 @@ if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(finalFileName)) {
   const extPattern = /\.(jpg|jpeg|png|gif|webp|avif)$/i;
   if (!finalFileName.toLowerCase().endsWith(fileExtension.toLowerCase())) {
     finalFileName = `${slugifiedName}.${fileExtension}`;
+    finalFileName = `${slugifiedName}`;
   }
 }
 
