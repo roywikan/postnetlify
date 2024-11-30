@@ -65,10 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-  // Fungsi delay menggunakan Promise
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 
 </script>
 
@@ -212,8 +209,7 @@ try {
 if (netlifyResponse.ok) {
     console.log('Form successfully submitted to Netlify');
     //alert('Form successfully submitted!');
-      //await sleep(10000); // 10 detik = 10000 ms
-
+    
     // Refresh halaman hanya setelah sukses
     //window.location.reload();
   } else {
