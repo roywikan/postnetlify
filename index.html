@@ -104,6 +104,32 @@ if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(finalFileName)) {
   }
 }
 
+
+function removeDoubleExtension(filename) {
+    // Daftar ekstensi gambar yang akan diperiksa
+    const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+
+    // Memeriksa dan menghapus ekstensi ganda jika ada
+    for (let ext of extensions) {
+        const regex = new RegExp('\\.' + ext + '\\.' + ext + '$');
+        
+        if (regex.test(filename)) {
+            // Menghapus ekstensi ganda dan mengembalikan nama file yang benar
+            return filename.slice(0, -ext.length - 1);
+        }
+    }
+
+    // Jika tidak ada ekstensi ganda, kembalikan nama file seperti semula
+    return filename;
+}
+
+// Contoh penggunaan
+//let finalFileName = "photo.png.png";  // Nama file contoh dengan ekstensi ganda
+finalFileName = removeDoubleExtension(finalFileName);  // Menghapus ekstensi ganda
+
+console.log('finalFileName:', finalFileName);  // Output: photo.png
+
+  
   
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
@@ -112,7 +138,7 @@ if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(finalFileName)) {
     return;
   }
 
-  if (file.size > 1 * 1024 * 1024) { // Batas 5 MB
+  if (file.size > 1 * 1024 * 1024) { // Batas 1 MB
     alert('File is too large. Maximum allowed size is 1MB.');
     console.log('File is too large. Maximum allowed size is 1MB.');
     return;
