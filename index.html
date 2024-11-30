@@ -88,9 +88,23 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
 
     const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
     let finalFileName = slugifiedName;
-    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
-      finalFileName = `${slugifiedName}.${fileExtension}`;
-    }
+    //if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
+      //finalFileName = `${slugifiedName}.${fileExtension}`;
+    //}
+
+  // Memeriksa apakah finalFileName sudah memiliki ekstensi yang sesuai
+if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(finalFileName)) {
+  // Jika tidak, tambahkan ekstensi yang sesuai
+  finalFileName = `${slugifiedName}.${fileExtension}`;
+} else {
+  // Jika sudah ada ekstensi yang sesuai, pastikan tidak duplikat
+  const extPattern = /\.(jpg|jpeg|png|gif|webp|avif)$/i;
+  if (!finalFileName.toLowerCase().endsWith(fileExtension.toLowerCase())) {
+    finalFileName = `${slugifiedName}.${fileExtension}`;
+  }
+}
+
+  
 
   if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
     alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
