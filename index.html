@@ -157,9 +157,17 @@ console.log('finalFileName:', finalFileName);  // Output: photo.png
 
     //alert('Image uploaded to Cloudinary successfully!');
     formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
+    formData.set('form-name', 'postForm'); // Pastikan form-name tetap ada
+
+
 
     //alert('Submitting post data...');
     console.log('Submitting post data...', formData);
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
 
     // Kirim data ke Netlify
     const netlifyResponse = await fetch('/', {
@@ -167,6 +175,8 @@ console.log('finalFileName:', finalFileName);  // Output: photo.png
       body: formData,
     });
 
+
+    
     if (!netlifyResponse.ok) {
       throw new Error('Failed to submit form to Netlify');
     }
