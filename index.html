@@ -29,7 +29,41 @@
 
   </form>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Mengambil elemen title dan slug
+    const titleInput = document.querySelector('[name="title"]');
+    const slugInput = document.querySelector('[name="slug"]');
 
+    // Fungsi untuk membuat slug
+    function generateSlugFromTitle() {
+        // Ambil nilai title
+        let title = titleInput.value;
+
+        // Mengubah title menjadi huruf kecil
+        title = title.toLowerCase();
+
+        // Ganti semua karakter non-alphanumerik (termasuk spasi) dengan tanda dash
+        title = title.replace(/[^a-z0-9]+/g, '-');
+
+        // Menghapus dash di awal atau akhir
+        title = title.replace(/^-+|-+$/g, '');
+
+        // Menambahkan 3 angka acak di akhir slug
+        const randomSuffix = Math.floor(100 + Math.random() * 900); // Membuat 3 angka acak
+        title += '-' + randomSuffix;
+
+        // Masukkan slug yang sudah dibuat ke input slug
+        slugInput.value = title;
+    }
+
+    // Setiap kali ada perubahan pada input title, update slug
+    titleInput.addEventListener('input', generateSlugFromTitle);
+
+    // Inisialisasi slug saat halaman pertama kali dimuat (jika title sudah terisi)
+    generateSlugFromTitle();
+});
+</script>
 
 
 
