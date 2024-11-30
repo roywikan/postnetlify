@@ -196,8 +196,14 @@ try {
     }
 
     //alert('Post submitted successfully to Netlify!');
-    console.log('Post submitted successfully!');
-    window.location.reload(); // Refresh halaman setelah berhasil submit
+    console.log('Post submitted to Netlify Form successfully!');
+
+    
+    //DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
+    //window.location.reload(); // Refresh halaman setelah berhasil submit
+
+
+    
   } catch (error) {
     console.error('Error:', error);
     alert(`Error: ${error.message}`);
