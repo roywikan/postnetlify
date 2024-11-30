@@ -187,16 +187,16 @@ console.log('Netlify Response Status:', netlifyResponse.status);
 console.log('Netlify Response OK:', netlifyResponse.ok);
 
 // Coba parsing JSON respons jika tersedia
-try {
-  const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
+//try {
+  //const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
   //console.log('Netlify Response Text:', netlifyResponseText);
   
   // Jika respons adalah JSON, coba parsing
-  const netlifyResponseJSON = JSON.parse(netlifyResponseText);
+  //const netlifyResponseJSON = JSON.parse(netlifyResponseText);
   //console.log('Netlify Response JSON:', netlifyResponseJSON);
-} catch (parseError) {
+//} catch (parseError) {
   //console.error('Error parsing Netlify response:', parseError);
-}
+//}
 
     
     if (!netlifyResponse.ok) {
