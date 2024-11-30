@@ -200,8 +200,24 @@ try {
 
     
     //DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
-    window.location.reload(); // Refresh halaman setelah berhasil submit
+    //window.location.reload(); // Refresh halaman setelah berhasil submit
 
+if (netlifyResponse.ok) {
+    console.log('Form successfully submitted to Netlify');
+    //alert('Form successfully submitted!');
+      await sleep(10000); // 10 detik = 10000 ms
+
+    // Refresh halaman hanya setelah sukses
+    window.location.reload();
+  } else {
+    console.error('Failed to submit form to Netlify');
+    alert('Failed to submit form. Please try again.');
+  }
+
+
+
+
+    
 
     
   } catch (error) {
