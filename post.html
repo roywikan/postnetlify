@@ -12,38 +12,36 @@
   <img id="post-image" alt="Post Image" />
 
   <script>
-    async function fetchPostBySlug() {
-      try {
-        // Get the slug from the URL (assuming URL is like /post/{slug})
-        const slug = window.location.pathname.split('/')[2];
+const postContainer = document.getElementById('post-container');
 
-        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+async function fetchPostBySlug() {
+  try {
+    const slug = window.location.pathname.split('/')[2];
+    const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
 
-        const post = await response.json();
-        console.log('Post fetched:', post);
-
-        // Update HTML with post data
-        document.getElementById('post-title').innerHTML = `<h2>${post.data.title}</h2>`;
-        document.getElementById('post-content').innerHTML = `
-          <p><strong>Slug:</strong> ${post.data.slug}</p>
-          <p><strong>Category:</strong> ${post.data.category}</p>
-          <p><strong>Tags:</strong> ${post.data.tags}</p>
-          <p><strong>Author:</strong> ${post.data.author}</p>
-          <p>${post.data.bodypost}</p>
-        `;
-        document.getElementById('post-image').src = post.data.imagefile.url;
-
-      } catch (error) {
-        console.error('Error fetching post:', error);
-        document.getElementById('post-content').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
-      }
+    if (!response.ok) {
+      throw new Error(`Error fetching post with slug: ${slug}`);
     }
 
-    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+    const post = await response.json();
+
+    postContainer.innerHTML = `
+      <h2>${post.data.title}</h2>
+      <p><strong>Slug:</strong> ${post.data.slug}</p>
+      <p><strong>Category:</strong> ${post.data.category}</p>
+      <p><strong>Tags:</strong> ${post.data.tags}</p>
+      <p><strong>Author:</strong> ${post.data.author}</p>
+      <div><img src="${post.data.imagefile.url}" alt="${post.data.title}" class="post-image"></div>
+      <p>${post.data.bodypost}</p>
+    `;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    postContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
   </script>
 
 </body>
