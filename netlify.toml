@@ -3,6 +3,6 @@
 
 [[redirects]]
   from = "/post/:slug"
-  to = "/.netlify/functions/readSinglePost?slug=:slug"
+  to = "/functions/readSinglePost?slug=:slug"
   status = 200
   force = true
