@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post Details</title>
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+  
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <title id="page-title"></title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,25 +42,32 @@
       font-size: 1.1em;
       line-height: 1.6;
     }
-    .post-category, .post-tags {
-      font-size: 1.1em;
-      margin-bottom: 8px;
+    .post-meta {
+      font-size: 1em;
+      margin-top: 10px;
+      color: #777;
+    }
+    .post-meta span {
+      margin-right: 15px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Post Details</h1>
+  <h1 id="post-title">Post Title</h1>
+  
+  <!-- Post Meta -->
+  <div id="post-meta" class="post-meta">
+    <span id="post-author"></span>
+    <span id="post-category"></span>
+    <span id="post-tags"></span>
+    <span id="post-date"></span>
+  </div>
   
   <!-- Container for post content -->
   <div id="post-container" class="post-container">
-    <h2 id="post-title"></h2>
-    <p id="post-slug"></p>
-    <p id="post-category" class="post-category"></p>
-    <p id="post-tags" class="post-tags"></p>
-    <p id="post-author"></p>
     <img id="post-image" class="post-image" alt="Post Image" />
-    <p id="post-body" class="post-body"></p>
+    <div id="post-body" class="post-body"></div>
   </div>
 
   <script>
@@ -75,14 +96,41 @@
         // Log post data for debugging purposes
         console.log('Fetched Post:', post);
 
+        // Human readable date
+        const createdAt = new Date(post.data.created_at);
+        const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+
         // Update the page with the post data
         document.getElementById('post-title').innerText = post.data.title;
-        document.getElementById('post-slug').innerText = `Slug: ${post.data.slug}`;
+        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
         document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
         document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
-        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+        document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
+
+        // Display the post body content
         document.getElementById('post-image').src = post.data.imagefile.url;
         document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+        // Update SEO meta tags dynamically
+        document.getElementById('meta-description').content = post.data.bodypost.slice(0, 155); // First 155 chars
+        document.getElementById('meta-author').content = post.data.author;
+
+        document.getElementById('page-title').innerText = post.data.title;
+        document.querySelector('meta[property="og:title"]').content = post.data.title;
+        document.querySelector('meta[property="og:description"]').content = post.data.bodypost.slice(0, 155);
+        document.querySelector('meta[property="og:image"]').content = post.data.imagefile.url;
+        document.querySelector('meta[property="og:url"]').content = window.location.href;
+
+        document.querySelector('meta[name="twitter:title"]').content = post.data.title;
+        document.querySelector('meta[name="twitter:description"]').content = post.data.bodypost.slice(0, 155);
+        document.querySelector('meta[name="twitter:image"]').content = post.data.imagefile.url;
 
       } catch (error) {
         console.error('Error fetching post:', error);
@@ -93,6 +141,6 @@
     // Call the function when the page is loaded
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
-  
+
 </body>
 </html>
