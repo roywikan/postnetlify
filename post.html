@@ -16,6 +16,9 @@
   <meta name="twitter:image" content="">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Prefetch DNS untuk Cloudinary -->
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+
   <title id="page-title"></title>
 
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -24,18 +27,13 @@
 </noscript>
 
   <style>
-   body {
-        font-family: "Roboto", sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-    }
 
 
 
 
 .post-image {
-    margin: 20px 0;
-    max-width: 100%;
+    
+    max-width: 96%;
     aspect-ratio: 3/4;
     height: auto;
     border-radius: 8px;
@@ -48,7 +46,7 @@
 /* Untuk tablet dan layar yang lebih besar */
 @media (min-width: 768px) {
     .post-image {
-        aspect-ratio: 16/9; /* Rasio layar yang lebih lebar */
+        aspect-ratio: 3/4; /* Rasio layar yang lebih lebar */
         min-height: 150px; /* Menyesuaikan ukuran minimum */
         max-width: 80%; /* Memberikan sedikit ruang pada sisi */
     }
@@ -57,7 +55,7 @@
 /* Untuk layar laptop/PC */
 @media (min-width: 1024px) {
     .post-image {
-        aspect-ratio: 16/9;
+        aspect-ratio: 3/4;
         min-height: 200px; /* Ukuran lebih besar untuk perangkat besar */
         max-width: 70%;
         margin: 30px auto; /* Tengahkan untuk layar lebar */
@@ -110,7 +108,7 @@ footer {
     
     <!-- Container for post content -->
     <div id="post-container" class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-margin-top">
-      <img loading="lazy" id="post-image" class="post-image" alt="Post Image" src="" />
+      <img id="post-image" class="post-image" alt="Post Image" src="" />
       <div id="post-body"></div>
     </div>
 
@@ -242,6 +240,6 @@ footer {
   </script>
 
   <!-- UIkit JS (Non-blocking with async or defer) -->
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" async></script>
 </body>
 </html>
