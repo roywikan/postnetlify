@@ -16,24 +16,24 @@
   <script>
   //const postContainer = document.getElementById('post-title');
 
- async function fetchPostBySlug() {
+async function fetchPostBySlug() {
   try {
-    // Capture slug from URL (assuming URL is like /post/{slug})
+    // Capture slug from URL
     const pathArray = window.location.pathname.split('/');
-    const slug = pathArray[2];
-
+    const slug = pathArray[2];  // This should capture the slug part of the URL
+    
     console.log('Captured slug:', slug);
-
+    
     if (!slug) {
       console.error('Slug parameter is missing');
       return;
     }
-
-    // Fetch post by slug from backend function
+    
+    // Fetch the post data using the slug (No redirection, just fetch)
     const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const post = await response.json();
@@ -55,8 +55,10 @@
   }
 }
 
+document.addEventListener('DOMContentLoaded', fetchPostBySlug);
 
-  document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
+
   </script>
 
 </body>
