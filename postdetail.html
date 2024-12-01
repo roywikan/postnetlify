@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    .post-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .post-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .post-body {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .post-category, .post-tags {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Post Details</h1>
+  
+  <!-- Container for post content -->
+  <div id="post-container" class="post-container">
+    <h2 id="post-title"></h2>
+    <p id="post-slug"></p>
+    <p id="post-category" class="post-category"></p>
+    <p id="post-tags" class="post-tags"></p>
+    <p id="post-author"></p>
+    <img id="post-image" class="post-image" alt="Post Image" />
+    <div id="post-body" class="post-body"></div>
+  </div>
+
+  <script>
+    async function fetchPostBySlug() {
+      try {
+        // Ambil slug dari URL
+        const pathArray = window.location.pathname.split('/');
+        const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
+        
+        if (!slug) {
+          throw new Error('Slug not found in the URL');
+        }
+
+        // Fetch data dari fungsi Netlify
+        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+
+        if (!response.ok) {
+          throw new Error(`Error fetching post: ${response.status}`);
+        }
+
+        // Parse JSON response
+        const post = await response.json();
+
+        // Menampilkan data post ke elemen HTML
+        document.getElementById('post-title').innerText = post.data.title;
+        document.getElementById('post-slug').innerText = `Slug: ${post.data.slug}`;
+        document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+        document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+        document.getElementById('post-image').src = post.data.imagefile.url;
+        document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+      }
+    }
+
+    // Call the function when the page is loaded
+    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+  </script>
+  
+</body>
+</html>
