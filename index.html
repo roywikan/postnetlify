@@ -3,374 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRUD System with Netlify Forms</title>
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">CRUD System with Netlify Forms</title>
+
+  <!-- Menambahkan UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
+  
+  <style>
+    .post-container {
+      padding: 20px;
+    }
+
+    .post-item {
+      background-color: #f9f9f9;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .post-item h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+    }
+
+    .post-item p {
+      line-height: 1.6;
+    }
+
+    .post-meta {
+      font-size: 0.8em;
+      color: #888;
+    }
+
+    /* Custom styling for pagination */
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .pagination li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .pagination a {
+      padding: 5px 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <b>Create A Post</b><br>
 
+  <div class="uk-container uk-container-large">
+    <h1 class="uk-heading-medium uk-text-center">Posts</h1>
 
+    <div id="post-list" class="uk-grid-small uk-grid-match" uk-grid></div>
 
+    <!-- Pagination -->
+    <div id="pagination" class="pagination"></div>
+  </div>
 
+  <!-- Menambahkan UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script>
 
-  <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data">
-    <input type="hidden" name="form-name" value="postForm" />
+  <script>
+    let currentPage = 1;
+    const postsPerPage = 12;
 
-    <label>Title: <input type="text" name="title" value="Ini Title Nya" required></label><br>
-    <label>Slug: <input type="text" name="slug"  value="ini-slug-nya" required></label><br>
-    <label>Tags: <input type="text" name="tags"  value="ini tagnya" placeholder="tag1,tag2"></label><br>
-    <label>Category: <input type="text" name="category"  value="ini category" ></label><br>
-    <label>Body: <textarea name="bodypost" rows="5"  required>Ini Textarea bodynya</textarea></label><br>
-    <label>Author: <input type="text" name="author"  value="Authornya" required></label><br>
-    
-    <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
-  <div data-netlify-recaptcha="true"></div>
-    
-    <br>
-    <button type="submit" id="submitButton" name="submitButton">Submit</button>
-
-
-  </form>
-        <div>
-        <button id="refreshButton" style="display:none;" onclick="refreshPage()">Segarkan Halaman</button>
-    </div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Mengambil elemen title dan slug
-    const titleInput = document.querySelector('[name="title"]');
-    const slugInput = document.querySelector('[name="slug"]');
-
-    // Fungsi untuk membuat slug
-    function generateSlugFromTitle() {
-        // Ambil nilai title
-        let title = titleInput.value;
-
-        // Mengubah title menjadi huruf kecil
-        title = title.toLowerCase();
-
-        // Ganti semua karakter non-alphanumerik (termasuk spasi) dengan tanda dash
-        title = title.replace(/[^a-z0-9]+/g, '-');
-
-        // Menghapus dash di awal atau akhir
-        title = title.replace(/^-+|-+$/g, '');
-
-        // Menambahkan 3 angka acak di akhir slug
-        const randomSuffix = Math.floor(100 + Math.random() * 900); // Membuat 3 angka acak
-        title += '-' + randomSuffix;
-
-        // Masukkan slug yang sudah dibuat ke input slug
-        slugInput.value = title;
+    // Function to generate a snippet from the post body
+    function generateSnippet(body) {
+      const words = body.split(' ');
+      return words.slice(0, 15).join(' ') + (words.length > 15 ? '...' : '');
     }
 
-    // Setiap kali ada perubahan pada input title, update slug
-    titleInput.addEventListener('input', generateSlugFromTitle);
-
-    // Inisialisasi slug saat halaman pertama kali dimuat (jika title sudah terisi)
-    generateSlugFromTitle();
-});
-
-
-
-
-</script>
-
-
-
-
-
-
-
-  
-  <h1>List of Posts</h1>
-  <div id="post-list"></div>
-
-
-  
-<script>
-
-
- // Fungsi untuk menampilkan tombol refresh setelah aksi sukses
-function aksiSukses() {
-    // Menampilkan tombol refresh setelah aksi berhasil
-    document.getElementById('refreshButton').style.display = 'block';
-    document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
-}
-
-// Fungsi untuk menyegarkan halaman
-function refreshPage() {
-    // Menggunakan window.location.reload() untuk me-refresh halaman
-    window.location.reload();
-}
-
-
-  
-console.log('JavaScript file loaded successfully');
-
-const form = document.getElementById('postForm');
-if (!form) {
-  console.log('Form not found');
-} else {
-  console.log('Form found and ready to attach event listener');
-}
-
-const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
-const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
-
-document.getElementById('postForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const submitButton = document.getElementById('submitButton');
-
-  if (submitButton.disabled) return; // Hindari pengiriman ulang
-  submitButton.disabled = true;
-
-  
-
-  const form = document.getElementById('postForm');
-  const formData = new FormData(form);
-
-  const file = formData.get('imagefile');
-  const slug = formData.get('slug') || formData.get('title'); // Gunakan slug jika ada, atau fallback ke title
-
-  if (!file) {
-    alert('Please select an image');
-    console.log('Please select an image');
-    return;
-  }
-
-
-    const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
-    const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
-    
-  //const slugifiedName = validateFileName(  slug?.trim().replace(/\s+/g, '-').replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') || 'untitled');
-
-
-
-    const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
-    let finalFileName = slugifiedName;
-    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
-      finalFileName = `${slugifiedName}.${fileExtension}`;
-    }
-
-
-
-console.log('finalFileName:', finalFileName);  // Output: photo.png
-
-  
-  
-
-  if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
-    alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
-    console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');
-    return;
-  }
-
-  if (file.size > 1 * 1024 * 1024) { // Batas 1 MB
-    alert('File is too large. Maximum allowed size is 1MB.');
-    console.log('File is too large. Maximum allowed size is 1MB.');
-    return;
-  }
-
-  try {
-    //alert('Uploading image to Cloudinary...' + finalFileName);
-    console.log('Uploading image to Cloudinary...', finalFileName);
-
-    const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
-    console.log('Cloudinary Response:', cloudinaryResult);
-
-    const imageUrl = cloudinaryResult.secure_url;
-    console.log('Image URL:', imageUrl);
-
-    //alert('Image uploaded to Cloudinary successfully!');
-    formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
-    formData.set('form-name', 'postForm'); // Pastikan form-name tetap ada
-
-
-
-    //alert('Submitting post data...');
-    console.log('Submitting post data...', formData);
-
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
-    }
-
-
-    // Kirim data ke Netlify
-    const netlifyResponse = await fetch('/', {
-      method: 'POST',
-      body: formData,
-    });
-
-console.log('Netlify Response Status:', netlifyResponse.status);
-console.log('Netlify Response OK:', netlifyResponse.ok);
-
-// Coba parsing JSON respons jika tersedia
-//try {
-  //const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
-  //console.log('Netlify Response Text:', netlifyResponseText);
-  
-  // Jika respons adalah JSON, coba parsing
-  //const netlifyResponseJSON = JSON.parse(netlifyResponseText);
-  //console.log('Netlify Response JSON:', netlifyResponseJSON);
-//} catch (parseError) {
-  //console.error('Error parsing Netlify response:', parseError);
-//}
-
-    
-    if (!netlifyResponse.ok) {
-      throw new Error('Failed to submit form to Netlify');
-    }
-
-    //alert('Post submitted successfully to Netlify!');
-    //console.log('Post submitted to Netlify Form successfully!');
-
-    
-    //DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
-    //window.location.reload(); // Refresh halaman setelah berhasil submit
-
-if (netlifyResponse.ok) {
-    console.log('Form successfully submitted to Netlify');
-    //alert('Form successfully submitted!');
-    
-    // Refresh halaman hanya setelah sukses
-    //window.location.reload();
-  setTimeout(aksiSukses, 2000); // Aksi berhasil setelah 2 detik
-
-  } else {
-    console.error('Failed to submit form to Netlify');
-    alert('Failed to submit form. Please try again.');
-  }
-
-
-
-
-    
-
-    
-  } catch (error) {
-    console.error('Error:', error);
-    alert(`Error: ${error.message}`);
-  } finally {
-    submitButton.disabled = false; // Aktifkan kembali tombol
-  }
-});
-
-const uploadToCloudinary = async (file, fileName) => {
-  const cloudinaryData = new FormData();
-  cloudinaryData.append('file', file);
-  cloudinaryData.append('upload_preset', cloudinaryPreset);
-  cloudinaryData.append('public_id', fileName);
-
-  const response = await fetch(cloudinaryUrl, {
-    method: 'POST',
-    body: cloudinaryData,
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to upload image ' + fileName);
-  }
-
-  return await response.json();
-};
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-async function fetchPosts() {
-  try {
-    const response = await fetch('/.netlify/functions/readPosts');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const posts = await response.json();
-    console.log('Posts fetched:', posts); // Debug data
-
-    const postList = document.getElementById('post-list');
-
-    if (posts.length === 0) {
-      postList.innerHTML = '<p>No posts available.</p>';
-      return;
-    }
-
-    postList.innerHTML = '';
-
-/*    
-posts.forEach(post => {
-  const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
-  document.body.innerHTML += `
-    <div>
-      <h2>${post.data.title}</h2>
-      <p><strong>Slug:</strong> ${post.data.slug}</p>
-      <p><strong>Tags:</strong> ${post.data.tags}</p>
-      <p><strong>Category:</strong> ${post.data.category}</p>
-      <p><strong>Author:</strong> ${post.data.author}</p>
-      ${
-        imageUrl
-          ? `<img src="${imageUrl}" alt="${post.data.title}" width="300">`
-          : '<p>No image available</p>'
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        const postList = document.getElementById('post-list');
+        const pagination = document.getElementById('pagination');
+
+        // Calculate the start and end index for the current page
+        const startIndex = (currentPage - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const paginatedPosts = posts.slice(startIndex, endIndex);
+
+        // Clear the post list and render the paginated posts
+        postList.innerHTML = '';
+        paginatedPosts.forEach(post => {
+          const imageUrl = post.data.imagefile?.url || '';
+          const snippet = generateSnippet(post.data.bodypost);
+
+          // Create each post item
+          const postElement = document.createElement('div');
+          postElement.classList.add('uk-width-1-4@m', 'uk-width-1-2@s', 'uk-width-1-1@xs'); // UIkit grid classes for responsive layout
+
+          postElement.innerHTML = `
+            <div class="post-item uk-card uk-card-default uk-card-body">
+              <a href="/post/${post.data.slug}" class="uk-link-reset">
+                ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}" class="uk-margin-bottom">` : ''}
+                <h2 class="uk-heading-line uk-text-center"><span>${post.data.title}</span></h2>
+                <p>${snippet}</p>
+              </a>
+            </div>
+          `;
+
+          postList.appendChild(postElement);
+
+          // Update SEO for meta title, description, and author
+          if (currentPage === 1) {
+            document.getElementById('meta-description').content = snippet;
+            document.getElementById('meta-author').content = post.data.author;
+            document.getElementById('page-title').innerText = post.data.title;
+          }
+        });
+
+        // Handle pagination
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+        let paginationHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+          paginationHtml += `
+            <li><a href="#" class="uk-button uk-button-default ${i === currentPage ? 'uk-active' : ''}" onclick="changePage(${i})">${i}</a></li>
+          `;
+        }
+        pagination.innerHTML = `<ul class="uk-pagination">${paginationHtml}</ul>`;
+
+        // Add 'noindex, follow' for pagination
+        if (currentPage > 1) {
+          document.querySelector('meta[name="robots"]').setAttribute('content', 'noindex, follow');
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
       }
-      <p>${imageUrl}</p>
-      <p>${post.data.bodypost}</p>
-      <hr>
-    </div>
-  `;
-});
-*/
+    }
 
+    function changePage(pageNumber) {
+      currentPage = pageNumber;
+      fetchPosts();
+    }
 
-
-
-
-
-    posts.forEach(post => {
-   const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
-      const postElement = document.createElement('div');
-  postElement.innerHTML = `
-    <h2>${post.data.title}</h2>
-    <p><strong>Slug:</strong> ${post.data.slug}</p>
-    <p><strong>Tags:</strong> ${post.data.tags}</p>
-    <p><strong>Category:</strong> ${post.data.category}</p>
-    <p><strong>Author:</strong> ${post.data.author}</p>
-    ${post.data.imagefile
-      ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}" width="300">`
-      : '<p>No image available</p>'}
-      <p>${imageUrl}</p>
-      <p>${post.data.bodypost}</p>
-    <hr>
-  `;
-  document.getElementById('post-list').appendChild(postElement);
-});
-
-
-    
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
-  }
-}
-
-  document.addEventListener('DOMContentLoaded', fetchPosts);
-
+    document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
 
-
-
-
-
-
-
-
-  
 </body>
 </html>
