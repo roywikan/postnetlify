@@ -18,7 +18,7 @@
 
   <title id="page-title"></title>
 
-  <!-- Include UI Kit CSS -->
+  <!-- Include UI Kit CSS (Non-blocking with defer) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 
   <style>
@@ -27,19 +27,37 @@
       margin: 20px;
       background-color: #f9f9f9;
     }
+    
+    /* Apply 'font-display: swap' to prevent font shifting */
+    @font-face {
+      font-family: "Roboto";
+      src: url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap") format("truetype");
+      font-display: swap;
+    }
+    
+    /* Global styles */
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+
     .post-image {
       max-width: 100%;
+      height: auto;
+      aspect-ratio: 16/9; /* Prevent layout shift for images */
       border-radius: 8px;
       margin: 20px 0;
     }
+
     .post-meta {
       font-size: 1em;
       margin-top: 10px;
       color: #777;
     }
+
     .post-meta span {
       margin-right: 15px;
     }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -48,12 +66,16 @@
       font-size: 0.9em;
       color: #555;
     }
+
+    /* Fix for layout shifts in post-container */
+    #post-container {
+      min-height: 300px; /* Minimum height to prevent layout shift */
+    }
   </style>
 </head>
 <body>
 
   <div class="uk-container uk-container-large">
-
     <h1 class="uk-heading-line"><span id="post-title">Post Title</span></h1>
 
     <!-- Post Meta -->
@@ -66,7 +88,7 @@
     
     <!-- Container for post content -->
     <div id="post-container" class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-margin-top">
-      <img id="post-image" class="post-image" alt="Post Image" />
+      <img id="post-image" class="post-image" alt="Post Image" src="" />
       <div id="post-body"></div>
     </div>
 
@@ -197,7 +219,7 @@
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
-  <!-- UIkit JS (Optional for components like modals, accordions, etc.) -->
-  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script -->
+  <!-- UIkit JS (Non-blocking with async or defer) -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" defer></script>
 </body>
 </html>
