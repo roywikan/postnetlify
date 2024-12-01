@@ -43,7 +43,7 @@
       line-height: 1.6;
     }
     .post-meta {
-      font-size: 1em;
+      font-size: 0.8em;
       margin-top: 10px;
       color: #777;
     }
@@ -97,7 +97,7 @@
         console.log('Fetched Post:', post);
 
         // Human readable date
-        const createdAt = new Date(post.data.created_at);
+        const createdAt = new Date(post.created_at);
         const humanReadableDate = createdAt.toLocaleString('id-ID', { 
           weekday: 'long', 
           year: 'numeric', 
