@@ -91,16 +91,24 @@ async function fetchPosts() {
         posts.forEach(post => {
           const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
 
-          // Mengonversi waktu 'created_at' ke format human-readable
-          const createdAt = new Date(post.data.created_at);
-          const humanReadableDate = createdAt.toLocaleString('id-ID', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric', 
-            hour: '2-digit', 
-            minute: '2-digit' 
-          });
+
+      // Mengonversi waktu 'created_at' ke format human-readable
+      const createdAt = new Date(post.data.created_at);
+
+      // Cek apakah tanggal valid
+      if (isNaN(createdAt.getTime())) {
+        console.error(`Invalid date for post: ${post.data.title}`);
+        return;
+      }
+
+      const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
 
           
           const postElement = document.createElement('div');
@@ -118,7 +126,7 @@ async function fetchPosts() {
                <p>${imageUrl}</p>
             <p>${post.data.bodypost}</p>
             <hr>
-            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p>
+            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p> atau ${post.data.created_at}
 
           `;
           //document.getElementById('post-list').appendChild(postElement);
