@@ -2,7 +2,7 @@
   functions = "netlify/functions"
 
 [[redirects]]
-  from = "/post/:slug"
-  to = "/.netlify/functions/readSinglePost?slug=:slug"
+  from = "/post/*"
+  to = "/.netlify/functions/readSinglePost?slug=:splat"
   status = 200
   force = true
