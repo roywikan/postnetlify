@@ -3,64 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post</title>
+  <title>Post Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    .post-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .post-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .post-body {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .post-category, .post-tags {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Post</h1>
-
-  <div id="post-title"></div>
-  <div id="post-content"></div>
-  <img id="post-image" alt="Post Image" />
+  <h1>Post Details</h1>
+  
+  <!-- Container for post content -->
+  <div id="post-container" class="post-container">
+    <h2 id="post-title"></h2>
+    <p id="post-slug"></p>
+    <p id="post-category" class="post-category"></p>
+    <p id="post-tags" class="post-tags"></p>
+    <p id="post-author"></p>
+    <img id="post-image" class="post-image" alt="Post Image" />
+    <p id="post-body" class="post-body"></p>
+  </div>
 
   <script>
-  //const postContainer = document.getElementById('post-title');
+    async function fetchPostBySlug() {
+      try {
+        // Extract slug from the URL (assumes it's the 3rd part of the URL after '/post/')
+        const slug = window.location.pathname.split('/')[2];
+        if (!slug) {
+          throw new Error('Slug not found in the URL');
+        }
 
-async function fetchPostBySlug() {
-  try {
-    // Ambil slug dari URL
-    const pathArray = window.location.pathname.split('/');
-    const slug = pathArray[2];  // Ambil slug dari URL, biasanya bagian ketiga (indeks 2)
+        // Fetch the post data from the Netlify Lambda function
+        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
 
-    if (!slug) {
-      console.error('Slug parameter is missing');
-      return;
+        if (!response.ok) {
+          throw new Error(`Error fetching post: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const post = await response.json();
+
+        // Log post data for debugging purposes
+        console.log('Fetched Post:', post);
+
+        // Update the page with the post data
+        document.getElementById('post-title').innerText = post.data.title;
+        document.getElementById('post-slug').innerText = `Slug: ${post.data.slug}`;
+        document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+        document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+        document.getElementById('post-image').src = post.data.imagefile.url;
+        document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+      }
     }
 
-    // Ambil data post berdasarkan slug
-    const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const post = await response.json();
-    console.log('Post fetched:', post);
-
-    // Tampilkan data post di halaman
-    document.getElementById('post-title').innerHTML = `
-      <h2>${post.data.title}</h2>
-      <p><strong>Slug:</strong> ${post.data.slug}</p>
-      <p><strong>Category:</strong> ${post.data.category}</p>
-      <p><strong>Tags:</strong> ${post.data.tags}</p>
-      <p><strong>Author:</strong> ${post.data.author}</p>
-      <div><img src="${post.data.imagefile.url}" alt="${post.data.title}" class="post-image"></div>
-      <p>${post.data.bodypost}</p>
-    `;
-  } catch (error) {
-    console.error('Error fetching post:', error);
-    document.getElementById('post-title').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
-  }
-}
-
-document.addEventListener('DOMContentLoaded', fetchPostBySlug);
-
-
-
-
-
-
+    // Call the function when the page is loaded
+    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
-
+  
 </body>
 </html>
