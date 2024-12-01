@@ -26,8 +26,8 @@ exports.handler = async (event, context) => {
 
     const submissions = await response.json();
 
-    // Ensure that slug is extracted from the URL correctly
-    const { slug } = event.queryStringParameters; // Extracting slug from query params
+    // Extract slug from the URL parameters
+    const slug = event.queryStringParameters.slug;
 
     if (!slug) {
       return {
