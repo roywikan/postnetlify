@@ -1,1 +1,1 @@
-/post/*  /.netlify/functions/readSinglePost?slug=:splat
+/post-test/*  /.netlify/functions/readSinglePost?slug=:splat
