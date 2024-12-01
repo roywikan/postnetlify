@@ -1,16 +1,33 @@
-const fetch = require('node-fetch');
+const fetch = require('node-fetch');  // Pastikan untuk mengimpor fetch jika belum ada
 
 exports.handler = async (event, context) => {
   try {
-    const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
-    
-    if (!NETLIFY_ACCESS_TOKEN) {
-      throw new Error("NET_TOKEN environment variable is missing");
+    // Ambil slug dari query string parameter
+    const { slug } = event.queryStringParameters;
+
+    // Jika slug tidak ada, kembalikan error 400
+    if (!slug) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Slug parameter is missing" }),
+      };
     }
 
-    const formId = "673faec750f0a700080c6bac";
+    // Gunakan slug untuk mengambil data dari sumber data Anda
+    // Misalnya mengambil data dari formulir Netlify
+    const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;  // Token akses untuk API Netlify
+    const formId = "673faec750f0a700080c6bac";  // Form ID Anda
     const endpoint = `https://api.netlify.com/api/v1/forms/${formId}/submissions`;
 
+    // Pastikan token akses disediakan
+    if (!NETLIFY_ACCESS_TOKEN) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "NET_TOKEN environment variable is missing" }),
+      };
+    }
+
+    // Mengambil data submission dari Netlify Forms menggunakan API
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${NETLIFY_ACCESS_TOKEN}`,
@@ -24,25 +41,13 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Parsing response JSON
     const submissions = await response.json();
 
-    // Extract slug from the URL parameters
-    const slug = event.queryStringParameters.slug;
-
-
-    console.log('Slug from URL:', slug);  // Debug log
-
-
-    if (!slug) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Slug parameter is missing" }),
-      };
-    }
-
-    // Find the post with the matching slug
+    // Mencari post yang sesuai dengan slug
     const post = submissions.find(submission => submission.data.slug === slug);
 
+    // Jika post tidak ditemukan, kembalikan error 404
     if (!post) {
       return {
         statusCode: 404,
@@ -50,14 +55,17 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Jika post ditemukan, kembalikan status 200 dengan data post
     return {
       statusCode: 200,
       body: JSON.stringify(post),
     };
   } catch (error) {
+    // Jika terjadi error, kembalikan error 500
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message }),
     };
   }
 };
+
