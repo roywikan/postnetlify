@@ -18,28 +18,26 @@
 
 async function fetchPostBySlug() {
   try {
-    // Capture slug from URL
+    // Ambil slug dari URL
     const pathArray = window.location.pathname.split('/');
-    const slug = pathArray[2];  // This should capture the slug part of the URL
-    
-    console.log('Captured slug:', slug);
-    
+    const slug = pathArray[2];  // Ambil slug dari URL, biasanya bagian ketiga (indeks 2)
+
     if (!slug) {
       console.error('Slug parameter is missing');
       return;
     }
-    
-    // Fetch the post data using the slug (No redirection, just fetch)
+
+    // Ambil data post berdasarkan slug
     const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-    
+
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const post = await response.json();
     console.log('Post fetched:', post);
 
-    // Display post content in the page
+    // Tampilkan data post di halaman
     document.getElementById('post-title').innerHTML = `
       <h2>${post.data.title}</h2>
       <p><strong>Slug:</strong> ${post.data.slug}</p>
@@ -56,6 +54,9 @@ async function fetchPostBySlug() {
 }
 
 document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
+
+
 
 
 
