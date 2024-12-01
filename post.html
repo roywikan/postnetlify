@@ -19,6 +19,26 @@
 
 async function fetchPostBySlug() {
   try {
+
+       // Log the full pathname to understand its structure
+    console.log('window.location.pathname:', window.location.pathname);
+
+
+
+        // Split pathname into an array to understand its structure
+    const pathArray = window.location.pathname.split('/');
+    console.log('Path Array:', pathArray);
+
+    // Get the slug from the array (assuming it's the third element, index 2)
+    const slug = pathArray[2];
+    console.log('Captured slug:', slug);
+
+
+
+
+
+
+    
     // Get the slug from the URL (assuming URL is like /post/{slug})
     const slug = window.location.pathname.split('/')[2];  // Ini yang akan menangkap slug
 
