@@ -82,30 +82,7 @@
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
   </footer>
 
-  <!-- Schema.org JSON-LD for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "{{post.data.title}}",
-    "author": {
-      "@type": "Person",
-      "name": "{{post.data.author}}"
-    },
-    "datePublished": "{{post.data.created_at}}",
-    "dateModified": "{{post.data.updated_at}}",
-    "image": "{{post.data.imagefile.url}}",
-    "articleBody": "{{post.data.bodypost}}",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Your Blog Name",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://example.com/logo.png"
-      }
-    }
-  }
-  </script>
+
 
   <script>
     async function fetchPostBySlug() {
@@ -170,6 +147,33 @@
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
+
+    <!-- Schema.org JSON-LD for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{post.data.title}}",
+    "author": {
+      "@type": "Person",
+      "name": "{{post.data.author}}"
+    },
+    "datePublished": "{{post.created_at}}",
+    "dateModified": "{{post.created_at}}",
+    "image": "{{post.data.imagefile.url}}",
+    "articleBody": "{{post.data.bodypost}}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "POSTNETLIFY",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    }
+  }
+  </script>
+
+  
   <!-- UIkit JS (Optional for components like modals, accordions, etc.) -->
   <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script -->
 </body>
