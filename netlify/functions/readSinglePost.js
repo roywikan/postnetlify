@@ -1,4 +1,4 @@
-rconst fetch = require('node-fetch');  // Pastikan untuk mengimpor fetch jika belum ada
+const fetch = require('node-fetch');  // Pastikan untuk mengimpor fetch jika belum ada
 
 exports.handler = async (event, context) => {
   try {
@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
     if (!slug) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Kode 400: Slug parameter is missing" }),
+        body: JSON.stringify({ error: "Slug parameter is missing" }),
       };
     }
 
@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
     if (!NETLIFY_ACCESS_TOKEN) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: "Kode 500 : NET_TOKEN environment variable is missing" }),
+        body: JSON.stringify({ error: "NET_TOKEN environment variable is missing" }),
       };
     }
 
@@ -51,7 +51,7 @@ exports.handler = async (event, context) => {
     if (!post) {
       return {
         statusCode: 404,
-        body: JSON.stringify({ error: `Kode 404 : Post with slug '${slug}' not found.` }),
+        body: JSON.stringify({ error: `Post with slug '${slug}' not found.` }),
       };
     }
 
@@ -68,4 +68,3 @@ exports.handler = async (event, context) => {
     };
   }
 };
-
