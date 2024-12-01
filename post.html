@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" id="meta-description" content="">
   <meta name="author" id="meta-author" content="">
-  
+
   <meta property="og:title" content="">
   <meta property="og:description" content="">
   <meta property="og:image" content="">
@@ -15,8 +15,11 @@
   <meta name="twitter:description" content="">
   <meta name="twitter:image" content="">
   <meta name="twitter:card" content="summary_large_image">
-  
+
   <title id="page-title"></title>
+
+  <!-- Include UI Kit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 
   <style>
     body {
@@ -24,26 +27,13 @@
       margin: 20px;
       background-color: #f9f9f9;
     }
-    h1 {
-      color: #333;
-    }
-    .post-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
     .post-image {
       max-width: 100%;
       border-radius: 8px;
       margin: 20px 0;
     }
-    .post-body {
-      font-size: 1.1em;
-      line-height: 1.6;
-    }
     .post-meta {
-      font-size: 0.8em;
+      font-size: 1em;
       margin-top: 10px;
       color: #777;
     }
@@ -54,20 +44,24 @@
 </head>
 <body>
 
-  <h1 id="post-title">Post Title</h1>
-  
-  <!-- Post Meta -->
-  <div id="post-meta" class="post-meta">
-    <span id="post-author"></span>
-    <span id="post-category"></span>
-    <span id="post-tags"></span>
-    <span id="post-date"></span>
-  </div>
-  
-  <!-- Container for post content -->
-  <div id="post-container" class="post-container">
-    <img id="post-image" class="post-image" alt="Post Image" />
-    <div id="post-body" class="post-body"></div>
+  <div class="uk-container uk-container-large">
+
+    <h1 class="uk-heading-line"><span id="post-title">Post Title</span></h1>
+
+    <!-- Post Meta -->
+    <div id="post-meta" class="post-meta uk-text-muted">
+      <span id="post-author"></span>
+      <span id="post-category"></span>
+      <span id="post-tags"></span>
+      <span id="post-date"></span>
+    </div>
+    
+    <!-- Container for post content -->
+    <div id="post-container" class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-margin-top">
+      <img id="post-image" class="post-image" alt="Post Image" />
+      <div id="post-body"></div>
+    </div>
+
   </div>
 
   <script>
@@ -142,5 +136,7 @@
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
+  <!-- UIkit JS (Optional for components like modals, accordions, etc.) -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 </body>
 </html>
