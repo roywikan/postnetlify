@@ -98,7 +98,7 @@ async function fetchPosts() {
       // Cek apakah tanggal valid
       if (isNaN(createdAt.getTime())) {
         console.error(`Invalid date for post: ${post.data.title}`);
-        return;
+        //return;
       }
 
       const humanReadableDate = createdAt.toLocaleString('id-ID', { 
