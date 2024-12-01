@@ -51,6 +51,10 @@ async function fetchPostBySlug() {
          // Extract slug from the URL parameters
           const slug = event.queryStringParameters.slug;
     }
+    
+    if(!slug){
+        const slug = 'ini-title-nya-test-kedua-884';
+    }
 
 
     const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
