@@ -50,43 +50,34 @@
   </div>
 
   <script>
-    async function fetchPostBySlug() {
-      try {
-        // Ambil slug dari URL
-        const pathArray = window.location.pathname.split('/');
-        const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
-        
-        if (!slug) {
-          throw new Error('Slug not found in the URL');
-        }
-
-        // Fetch data dari fungsi Netlify
-        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-
-        if (!response.ok) {
-          throw new Error(`Error fetching post: ${response.status}`);
-        }
-
-        // Parse JSON response
-        const post = await response.json();
-
-        // Menampilkan data post ke elemen HTML
-        document.getElementById('post-title').innerText = post.data.title;
-        document.getElementById('post-slug').innerText = `Slug: ${post.data.slug}`;
-        document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
-        document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
-        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
-        document.getElementById('post-image').src = post.data.imagefile.url;
-        document.getElementById('post-body').innerHTML = post.data.bodypost;
-
-      } catch (error) {
-        console.error('Error fetching post:', error);
-        document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+    // Data hardcoded untuk pengujian
+    const post = {
+      "data": {
+        "title": "Ini Title Nya test kedua",
+        "slug": "ini-title-nya-test-kedua-884",
+        "category": "ini category",
+        "tags": "ini tagnya",
+        "author": "Authornya",
+        "imagefile": {
+          "url": "https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733008258/ini-title-nya-test-kedua-884.png.jpg"
+        },
+        "bodypost": "Ini Textarea bodynya"
       }
+    };
+
+    // Fungsi untuk menampilkan data di halaman
+    function displayPost() {
+      document.getElementById('post-title').innerText = post.data.title;
+      document.getElementById('post-slug').innerText = `Slug: ${post.data.slug}`;
+      document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+      document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+      document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+      document.getElementById('post-image').src = post.data.imagefile.url;
+      document.getElementById('post-body').innerHTML = post.data.bodypost;
     }
 
-    // Call the function when the page is loaded
-    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+    // Panggil fungsi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', displayPost);
   </script>
   
 </body>
