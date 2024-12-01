@@ -93,7 +93,7 @@ async function fetchPosts() {
 
 
       // Mengonversi waktu 'created_at' ke format human-readable
-      const createdAt = new Date(post.data.created_at);
+      const createdAt = new Date(post.created_at);
 
       // Cek apakah tanggal valid
       if (isNaN(createdAt.getTime())) {
@@ -126,7 +126,7 @@ async function fetchPosts() {
                <p>${imageUrl}</p>
             <p>${post.data.bodypost}</p>
             <hr>
-            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p> atau ${post.data.created_at}
+            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p> atau ${post.created_at}
 
           `;
           //document.getElementById('post-list').appendChild(postElement);
