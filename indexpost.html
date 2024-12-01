@@ -45,8 +45,8 @@
   </div>
 
   <!-- Menambahkan UIkit JS -->
-  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script ==>
+  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script -->
+  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script -->
 
 
 
@@ -87,33 +87,51 @@ async function fetchPosts() {
 
 
 
-    posts.forEach(post => {
-   const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
-      const postElement = document.createElement('div');
-  postElement.innerHTML = `
-    <h2>${post.data.title}</h2>
-    <p><strong>Slug:</strong> ${post.data.slug}</p>
-    <p><strong>Tags:</strong> ${post.data.tags}</p>
-    <p><strong>Category:</strong> ${post.data.category}</p>
-    <p><strong>Author:</strong> ${post.data.author}</p>
-    ${post.data.imagefile
-      ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}" width="300">`
-      : '<p>No image available</p>'}
-      <p>${imageUrl}</p>
-      <p>${post.data.bodypost}</p>
-    <hr>
-  `;
-  document.getElementById('post-list').appendChild(postElement);
-});
+  
+        posts.forEach(post => {
+          const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
+          const postElement = document.createElement('div');
+          postElement.classList.add('post-item', 'uk-card', 'uk-card-default', 'uk-card-body'); // Menambahkan kelas UIkit
+
+          postElement.innerHTML = `
+            <h2 class="uk-heading-line uk-text-center"><span>${post.data.title}</span></h2>
+            <p><strong>Slug:</strong> ${post.data.slug}</p>
+            <p><strong>Tags:</strong> ${post.data.tags}</p>
+            <p><strong>Category:</strong> ${post.data.category}</p>
+            <p><strong>Author:</strong> ${post.data.author}</p>
+            ${post.data.imagefile
+              ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}" class="uk-margin-bottom">`
+              : '<p>No image available</p>'}
+               <p>${imageUrl}</p>
+            <p>${post.data.bodypost}</p>
+            <hr>
+          `;
+          //document.getElementById('post-list').appendChild(postElement);
+          postList.appendChild(postElement);
+        });
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
+      }
+    }
 
 
-    
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
-  }
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   document.addEventListener('DOMContentLoaded', fetchPosts);
 
   </script>
