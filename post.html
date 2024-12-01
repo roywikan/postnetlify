@@ -12,34 +12,39 @@
   <img id="post-image" alt="Post Image" />
 
   <script>
-    async function loadPostDetails(slug) {
-  try {
-    const response = await fetch(`/.netlify/functions/readPost?slug=${slug}`);
-    const postData = await response.json();
+    async function fetchPostBySlug() {
+      try {
+        // Get the slug from the URL (assuming URL is like /post/{slug})
+        const slug = window.location.pathname.split('/')[2];
 
-    if (postData.error) {
-      document.getElementById('post-content').innerHTML = postData.error;
-      return;
+        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const post = await response.json();
+        console.log('Post fetched:', post);
+
+        // Update HTML with post data
+        document.getElementById('post-title').innerHTML = `<h2>${post.data.title}</h2>`;
+        document.getElementById('post-content').innerHTML = `
+          <p><strong>Slug:</strong> ${post.data.slug}</p>
+          <p><strong>Category:</strong> ${post.data.category}</p>
+          <p><strong>Tags:</strong> ${post.data.tags}</p>
+          <p><strong>Author:</strong> ${post.data.author}</p>
+          <p>${post.data.bodypost}</p>
+        `;
+        document.getElementById('post-image').src = post.data.imagefile.url;
+
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        document.getElementById('post-content').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+      }
     }
 
-    // Render the post content dynamically
-    document.getElementById('post-title').innerText = postData.data.title;
-    document.getElementById('post-content').innerHTML = postData.data.bodypost;
-
-    // Optionally, display the post image
-    if (postData.data.imagefile) {
-      document.getElementById('post-image').src = postData.data.imagefile.url;
-    }
-  } catch (error) {
-    console.error('Error loading post:', error);
-    document.getElementById('post-content').innerHTML = 'Error loading post.';
-  }
-}
-
-// Get the slug from the URL path
-const slug = window.location.pathname.split('/').pop(); // Assumes the URL is like /post/{slug}
-loadPostDetails(slug);
-
+    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
+
 </body>
 </html>
