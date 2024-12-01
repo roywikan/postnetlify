@@ -40,6 +40,14 @@
     .post-meta span {
       margin-right: 15px;
     }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f1f1f1;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -64,14 +72,46 @@
 
   </div>
 
+  <!-- Navigation to Home -->
+  <div class="uk-text-center uk-margin-top">
+    <a href="/" class="uk-button uk-button-default">Back to Home</a>
+  </div>
+
+  <!-- Footer with Copyright -->
+  <footer>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+  </footer>
+
+  <!-- Schema.org JSON-LD for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{post.data.title}}",
+    "author": {
+      "@type": "Person",
+      "name": "{{post.data.author}}"
+    },
+    "datePublished": "{{post.data.created_at}}",
+    "dateModified": "{{post.data.updated_at}}",
+    "image": "{{post.data.imagefile.url}}",
+    "articleBody": "{{post.data.bodypost}}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Your Blog Name",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    }
+  }
+  </script>
+
   <script>
     async function fetchPostBySlug() {
       try {
-        // Misalnya URL adalah /post/ini-title-nya-test-kedua-884
         const pathArray = window.location.pathname.split('/');
         const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
-
-        console.log("Captured slug:", slug);
 
         if (!slug) {
           throw new Error('Slug not found in the URL');
@@ -86,9 +126,6 @@
 
         // Parse the JSON response
         const post = await response.json();
-
-        // Log post data for debugging purposes
-        console.log('Fetched Post:', post);
 
         // Human readable date
         const createdAt = new Date(post.created_at);
@@ -107,8 +144,6 @@
         document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
         document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
         document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
-
-        // Display the post body content
         document.getElementById('post-image').src = post.data.imagefile.url;
         document.getElementById('post-body').innerHTML = post.data.bodypost;
 
@@ -132,14 +167,10 @@
       }
     }
 
-    // Call the function when the page is loaded
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
   <!-- UIkit JS (Optional for components like modals, accordions, etc.) -->
   <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script -->
-  <div>
-    <a href="/">Home</a>
-  </div>
 </body>
 </html>
