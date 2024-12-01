@@ -1,8 +1,8 @@
 {
-  "name": "guestbook",
+  "name": "readPosts",
   "version": "1.0.0",
   "description": "A serverless post html content function for Netlify",
-  "main": "guestbook.js",
+  "main": "readPosts.js",
   "scripts": {
     "start": "netlify dev",
     "build": "echo 'No build step required'"
