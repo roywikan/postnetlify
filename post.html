@@ -52,24 +52,13 @@
   <script>
     async function fetchPostBySlug() {
       try {
-
         // Misalnya URL adalah /post/ini-title-nya-test-kedua-884
         const pathArray = window.location.pathname.split('/');
         const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
 
         console.log("Captured slug:", slug);
 
-       if (!slug) {
-                // Extract slug from the URL (assumes it's the 3rd part of the URL after '/post/')
-                const slug = window.location.pathname.split('/')[2];
-       }
-       
-        
         if (!slug) {
-        console.log("Captured pathArray 1:", pathArray[1]);
-          console.log("Captured pathArray 2:", pathArray[2]);
-
-          
           throw new Error('Slug not found in the URL');
         }
 
@@ -77,7 +66,6 @@
         const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
 
         if (!response.ok) {
-          
           throw new Error(`Error fetching post: ${response.status}`);
         }
 
