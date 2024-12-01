@@ -1,9 +1,10 @@
 const fetch = require('node-fetch');
 
-exports.handler = async () => {
+exports.handler = async (event, context) => {
   try {
     const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
-    //NET_TOKEN  //nfp_J9noW6zg8YM1XFrUJF1Sa3DYUrbaoJvB8b90
+     //NET_TOKEN  //nfp_J9noW6zg8YM1XFrUJF1Sa3DYUrbaoJvB8b90
+
     if (!NETLIFY_ACCESS_TOKEN) {
       throw new Error("NET_TOKEN environment variable is missing");
     }
@@ -25,9 +26,23 @@ exports.handler = async () => {
     }
 
     const submissions = await response.json();
+
+    // Get slug from the query string
+    const { slug } = event.queryStringParameters;
+    
+    // Find the post with the matching slug
+    const post = submissions.find(submission => submission.data.slug === slug);
+
+    if (!post) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: `Post with slug '${slug}' not found.` }),
+      };
+    }
+
     return {
       statusCode: 200,
-      body: JSON.stringify(submissions),
+      body: JSON.stringify(post),
     };
   } catch (error) {
     return {
@@ -36,5 +51,4 @@ exports.handler = async () => {
     };
   }
 };
-
 
