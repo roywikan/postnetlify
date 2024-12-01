@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Detail</title>
+</head>
+<body>
+
+  <div id="post-title"></div>
+  <div id="post-content"></div>
+  <img id="post-image" alt="Post Image" />
+
+  <script>
+    async function loadPostDetails(slug) {
+  try {
+    const response = await fetch(`/.netlify/functions/readPost?slug=${slug}`);
+    const postData = await response.json();
+
+    if (postData.error) {
+      document.getElementById('post-content').innerHTML = postData.error;
+      return;
+    }
+
+    // Render the post content dynamically
+    document.getElementById('post-title').innerText = postData.data.title;
+    document.getElementById('post-content').innerHTML = postData.data.bodypost;
+
+    // Optionally, display the post image
+    if (postData.data.imagefile) {
+      document.getElementById('post-image').src = postData.data.imagefile.url;
+    }
+  } catch (error) {
+    console.error('Error loading post:', error);
+    document.getElementById('post-content').innerHTML = 'Error loading post.';
+  }
+}
+
+// Get the slug from the URL path
+const slug = window.location.pathname.split('/').pop(); // Assumes the URL is like /post/{slug}
+loadPostDetails(slug);
+
+  </script>
+</body>
+</html>
