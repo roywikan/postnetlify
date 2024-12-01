@@ -29,6 +29,10 @@ exports.handler = async (event, context) => {
     // Extract slug from the URL parameters
     const slug = event.queryStringParameters.slug;
 
+
+    console.log('Slug from URL:', slug);  // Debug log
+
+
     if (!slug) {
       return {
         statusCode: 400,
