@@ -1,8 +1,9 @@
+[[redirects]]
+  from = "/post/:slug"
+  to = "/.netlify/functions/readSinglePost?slug=:slug"
+  status = 200
+  force = true
+
 [build]
   functions = "netlify/functions"
 
-[[redirects]]
-  from = "/post/*"
-  to = "/.netlify/functions/readSinglePost?slug=:splat"
-  status = 200
-  force = true
