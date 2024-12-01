@@ -4,124 +4,122 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD System with Netlify Forms</title>
-   <style>
-    /* Reset dan gaya dasar */
-    body, h1, form, input, button, label, textarea {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+   <!-- Menambahkan UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
 
-    body {
-      background-color: #f9f9f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    /* Container form */
+  <style>
+    /* Custom Style untuk mempercantik tampilan */
     .form-container {
-      background-color: white;
+      max-width: 800px;
+      margin: 0 auto;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
-      color: #333;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    input, textarea {
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px;
-      width: 40%;
-      max-width: 80%;
-    }
-
-    button {
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    /* Menyembunyikan tombol refresh pada awalnya */
     #refreshButton {
       display: none;
     }
 
-    /* Responsivitas untuk layar kecil */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-      }
-
-      input, textarea, button {
-        font-size: 14px;
-      }
-
-      .form-container {
-        padding: 15px;
-      }
+    .uk-form-label {
+      font-weight: bold;
     }
+
+    .uk-form-controls input, .uk-form-controls textarea, .uk-form-controls button {
+      font-size: 16px;
+    }
+
   </style>
 </head>
 <body>
 
 
+  
+
+ <div class="uk-container uk-container-small">
     <div class="form-container">
-    <h1>Create A Post</h1>
-    <form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data">
-      <input type="hidden" name="form-name" value="postForm" />
+      <h1 class="uk-heading-medium uk-text-center">Create A Post</h1>
 
-      <label>Title: <input type="text" name="title" value="Ini Title Nya" required></label><br>
-      <label>Slug: <input type="text" name="slug" value="ini-slug-nya" required></label><br>
-      <label>Tags: <input type="text" name="tags" value="ini tagnya" placeholder="tag1,tag2"></label><br>
-      <label>Category: <input type="text" name="category" value="ini category"></label><br>
-      <label>Body: <textarea name="bodypost" rows="5" required>Ini Textarea bodynya</textarea></label><br>
-      <label>Author: <input type="text" name="author" value="Authornya" required></label><br>
-      
-      <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*"></label><br>
-      <div data-netlify-recaptcha="true"></div><br><br>
+      <form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data" class="uk-form-stacked">
+        <input type="hidden" name="form-name" value="postForm" />
 
-      <button type="submit" id="submitButton" name="submitButton">Submit</button><br>
-    </form>
+        <!-- Title -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="title">Title</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="title" id="title" value="Ini Title Nya" required />
+          </div>
+        </div>
 
-    <div>
-       <br><button id="refreshButton" style="display:none;" onclick="refreshPage()">Segarkan Halaman</button>
+        <!-- Slug -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="slug">Slug</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="slug" id="slug" value="ini-slug-nya" required />
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="tags">Tags</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="tags" id="tags" value="ini tagnya" placeholder="tag1, tag2" />
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="category">Category</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="category" id="category" value="ini category" />
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="bodypost">Body</label>
+          <div class="uk-form-controls">
+            <textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
+          </div>
+        </div>
+
+        <!-- Author -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="author">Author</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="author" id="author" value="Authornya" required />
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="uk-margin">
+          <label class="uk-form-label" for="imageFile">Image</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" type="file" id="imageFile" name="imagefile" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <div data-netlify-recaptcha="true"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="uk-margin">
+          <button class="uk-button uk-button-primary" type="submit" id="submitButton" name="submitButton">Submit</button>
+        </div>
+      </form>
+
+      <!-- Tombol Refresh -->
+      <div class="uk-margin">
+        <button class="uk-button uk-button-default" id="refreshButton" onclick="refreshPage()">Segarkan Halaman</button>
+      </div>
+
+      <div class="uk-text-center">
+        <a href="/index.html?ref=createpost.html" target="_blank">Lihat Posts</a>
+      </div>
     </div>
-
-    <div><br><a target="_blank" href="/indexpost.html?ref=createpost.html">Lihat Posts</a></div>
-      
   </div>
+  <!-- Menambahkan UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
