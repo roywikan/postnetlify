@@ -14,51 +14,47 @@
   <img id="post-image" alt="Post Image" />
 
   <script>
-  const postContainer = document.getElementById('post-title');
+  //const postContainer = document.getElementById('post-title');
 
-  async function fetchPostBySlug() {
-    try {
-      // Log the full pathname to understand its structure
-      console.log('window.location.pathname:', window.location.pathname);
+ async function fetchPostBySlug() {
+  try {
+    // Capture slug from URL (assuming URL is like /post/{slug})
+    const pathArray = window.location.pathname.split('/');
+    const slug = pathArray[2];
 
-      // Split pathname into an array to understand its structure
-      const pathArray = window.location.pathname.split('/');
-      console.log('Path Array:', pathArray);
+    console.log('Captured slug:', slug);
 
-      // Get the slug from the array (assuming it's the third element, index 2)
-      const slug = pathArray[2];  // This should capture the slug
-
-      console.log('Captured slug:', slug);
-
-      if (!slug) {
-        console.error('Slug parameter is missing');
-        return;
-      }
-
-      const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const post = await response.json();
-      console.log('Post fetched:', post);
-
-      // Display post data in the HTML
-      postContainer.innerHTML = `
-        <h2>${post.data.title}</h2>
-        <p><strong>Slug:</strong> ${post.data.slug}</p>
-        <p><strong>Category:</strong> ${post.data.category}</p>
-        <p><strong>Tags:</strong> ${post.data.tags}</p>
-        <p><strong>Author:</strong> ${post.data.author}</p>
-        <div><img src="${post.data.imagefile.url}" alt="${post.data.title}" class="post-image"></div>
-        <p>${post.data.bodypost}</p>
-      `;
-    } catch (error) {
-      console.error('Error fetching post:', error);
-      document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+    if (!slug) {
+      console.error('Slug parameter is missing');
+      return;
     }
+
+    // Fetch post by slug from backend function
+    const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const post = await response.json();
+    console.log('Post fetched:', post);
+
+    // Display post content in the page
+    document.getElementById('post-title').innerHTML = `
+      <h2>${post.data.title}</h2>
+      <p><strong>Slug:</strong> ${post.data.slug}</p>
+      <p><strong>Category:</strong> ${post.data.category}</p>
+      <p><strong>Tags:</strong> ${post.data.tags}</p>
+      <p><strong>Author:</strong> ${post.data.author}</p>
+      <div><img src="${post.data.imagefile.url}" alt="${post.data.title}" class="post-image"></div>
+      <p>${post.data.bodypost}</p>
+    `;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    document.getElementById('post-title').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
   }
+}
+
 
   document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
