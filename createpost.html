@@ -4,35 +4,122 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD System with Netlify Forms</title>
+   <style>
+    /* Reset dan gaya dasar */
+    body, h1, form, input, button, label, textarea {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Container form */
+    .form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, textarea {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Menyembunyikan tombol refresh pada awalnya */
+    #refreshButton {
+      display: none;
+    }
+
+    /* Responsivitas untuk layar kecil */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      input, textarea, button {
+        font-size: 14px;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <b>Create A Post</b><br>
 
 
+    <div class="form-container">
+    <h1>Create A Post</h1>
+    <form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data">
+      <input type="hidden" name="form-name" value="postForm" />
 
+      <label>Title: <input type="text" name="title" value="Ini Title Nya" required></label><br>
+      <label>Slug: <input type="text" name="slug" value="ini-slug-nya" required></label><br>
+      <label>Tags: <input type="text" name="tags" value="ini tagnya" placeholder="tag1,tag2"></label><br>
+      <label>Category: <input type="text" name="category" value="ini category"></label><br>
+      <label>Body: <textarea name="bodypost" rows="5" required>Ini Textarea bodynya</textarea></label><br>
+      <label>Author: <input type="text" name="author" value="Authornya" required></label><br>
+      
+      <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*"></label><br>
+      <div data-netlify-recaptcha="true"></div><br><br>
 
+      <button type="submit" id="submitButton" name="submitButton">Submit</button><br>
+    </form>
 
-  <form  action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data">
-    <input type="hidden" name="form-name" value="postForm" />
-
-    <label>Title: <input type="text" name="title" value="Ini Title Nya" required></label><br>
-    <label>Slug: <input type="text" name="slug"  value="ini-slug-nya" required></label><br>
-    <label>Tags: <input type="text" name="tags"  value="ini tagnya" placeholder="tag1,tag2"></label><br>
-    <label>Category: <input type="text" name="category"  value="ini category" ></label><br>
-    <label>Body: <textarea name="bodypost" rows="5"  required>Ini Textarea bodynya</textarea></label><br>
-    <label>Author: <input type="text" name="author"  value="Authornya" required></label><br>
-    
-    <label>Image: <input type="file" id="imageFile" name="imagefile" accept="image/*" ></label><br>
-  <div data-netlify-recaptcha="true"></div>
-    
-    <br>
-    <button type="submit" id="submitButton" name="submitButton">Submit</button>
-
-
-  </form>
-        <div>
-        <button id="refreshButton" style="display:none;" onclick="refreshPage()">Segarkan Halaman</button>
+    <div>
+       <br><button id="refreshButton" style="display:none;" onclick="refreshPage()">Segarkan Halaman</button>
     </div>
+
+    <div><br><a target="_blank" href="/index.html?ref=createpost.html">Lihat Posts</a></div>
+  </div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Mengambil elemen title dan slug
