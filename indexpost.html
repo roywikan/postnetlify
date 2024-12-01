@@ -34,6 +34,11 @@
     .post-item p {
       line-height: 1.6;
     }
+    
+    .post-meta {
+      font-size: 0.8em;
+      color: #888;
+    }
   </style>
 </head>
 <body>
@@ -126,7 +131,7 @@ async function fetchPosts() {
                <p>${imageUrl}</p>
             <p>${post.data.bodypost}</p>
             <hr>
-            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p> atau ${post.created_at}
+            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate} atau ${post.created_at}</p> 
 
           `;
           //document.getElementById('post-list').appendChild(postElement);
