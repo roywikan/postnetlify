@@ -18,58 +18,55 @@
 
   <title id="page-title"></title>
 
-  <!-- Include UI Kit CSS (Non-blocking with defer) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css">
+</noscript>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-    }
-    
-    /* Apply 'font-display: swap' to prevent font shifting */
-    @font-face {
-      font-family: "Roboto";
-      src: url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap") format("truetype");
-      font-display: swap;
-    }
-    
-    /* Global styles */
-    body {
-      font-family: "Roboto", sans-serif;
+   body {
+        font-family: "Roboto", sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
     }
 
+
+
     .post-image {
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 16/9; /* Prevent layout shift for images */
-      border-radius: 8px;
-      margin: 20px 0;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        max-width: 600px;
+        aspect-ratio: 9/16; /* Prevent layout shift for images */
+        border-radius: 8px;
+        margin: 20px 0;
+        min-height: 400px; /* Cadangan ruang */
+    }
+
+    #post-container {
+        min-height: 300px;
+    }
+
+    @media (min-width: 768px) {
+        #post-container {
+            min-height: 500px;
+        }
     }
 
     .post-meta {
-      font-size: 1em;
-      margin-top: 10px;
-      color: #777;
-    }
-
-    .post-meta span {
-      margin-right: 15px;
+        font-size: 1em;
+        margin-top: 10px;
+        color: #777;
     }
 
     footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #f1f1f1;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #555;
-    }
-
-    /* Fix for layout shifts in post-container */
-    #post-container {
-      min-height: 300px; /* Minimum height to prevent layout shift */
+        height: 80px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f1f1f1;
+        margin-top: 40px;
+        font-size: 0.9em;
+        color: #555;
     }
   </style>
 </head>
