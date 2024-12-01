@@ -196,6 +196,8 @@ footer {
         document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
         document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
         document.getElementById('post-image').src = post.data.imagefile.url;
+        document.getElementById('post-image').alt = post.data.title;
+
         document.getElementById('post-body').innerHTML = post.data.bodypost;
 
         // Update SEO meta tags dynamically
