@@ -22,6 +22,12 @@ async function fetchPostBySlug() {
     // Get the slug from the URL (assuming URL is like /post/{slug})
     const slug = window.location.pathname.split('/')[2];  // Ini yang akan menangkap slug
 
+    const pos = window.location.pathname.split('/')[1];  // Ini yang akan menangkap slug
+    console.log('Post from URL:', pos);  // Debug log
+
+    console.log('Slug from URL:', slug);  // Debug log
+
+
     const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
     
     if (!response.ok) {
