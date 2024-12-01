@@ -90,6 +90,19 @@ async function fetchPosts() {
   
         posts.forEach(post => {
           const imageUrl = post.data.imagefile?.url || ''; // Gunakan properti 'url', atau fallback ke string kosong jika tidak ada
+
+          // Mengonversi waktu 'created_at' ke format human-readable
+          const createdAt = new Date(post.data.created_at);
+          const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+          });
+
+          
           const postElement = document.createElement('div');
           postElement.classList.add('post-item', 'uk-card', 'uk-card-default', 'uk-card-body'); // Menambahkan kelas UIkit
 
@@ -105,6 +118,8 @@ async function fetchPosts() {
                <p>${imageUrl}</p>
             <p>${post.data.bodypost}</p>
             <hr>
+            <p class="post-meta"><strong>Posted on:</strong> ${humanReadableDate}</p>
+
           `;
           //document.getElementById('post-list').appendChild(postElement);
           postList.appendChild(postElement);
