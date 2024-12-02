@@ -295,11 +295,31 @@ console.log('finalFileName:', finalFileName);  // Output: photo.png
     const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
     console.log('Cloudinary Response:', cloudinaryResult);
 
-    const imageUrl = cloudinaryResult.secure_url;
-    console.log('Image URL:', imageUrl);
+    //const imageUrl = cloudinaryResult.secure_url;
+    //console.log('Image URL:', imageUrl);
+
+
+
+const imageUrl = cloudinaryResult.secure_url;
+console.log('Image URL before f_auto:', imageUrl);
+
+// Menambahkan 'f_auto' pada URL gambar untuk mendapatkan format terbaik secara otomatis
+const imageUrlWithAutoFormat = imageUrl.replace('/upload/', '/upload/f_auto/');
+
+console.log('Image URL with f_auto:', imageUrlWithAutoFormat);
+
+// Ganti file asli dengan URL yang sudah ditambahkan f_auto
+formData.set('imagefile', imageUrlWithAutoFormat); 
+
+
+
+
+
+
+    
 
     //alert('Image uploaded to Cloudinary successfully!');
-    formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
+    //formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
     formData.set('form-name', 'postForm'); // Pastikan form-name tetap ada
 
 
