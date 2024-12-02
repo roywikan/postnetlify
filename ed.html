@@ -6,7 +6,7 @@
   <title>CRUD System with Netlify Forms</title>
    <!-- Menambahkan UIkit CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
-  <script src="https://cdn.ckeditor.com/ckeditor5/38.0.0/classic/ckeditor.js"></script>
+ 
   <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
 
 
@@ -393,27 +393,27 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Inisialisasi CKEditor
-    CKEDITOR.replace('bodypost');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inisialisasi CKEditor
+      CKEDITOR.replace('bodypost');
 
-    // Event listener untuk form submit
-    document.getElementById('postForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
+      // Event listener untuk submit form
+      document.getElementById('postForm').addEventListener('submit', (event) => {
+        event.preventDefault(); // Mencegah pengiriman default form
 
-      // Ambil konten CKEditor dan simpan ke textarea
-      const editorContent = CKEDITOR.instances.bodypost.getData(); // Ambil konten CKEditor
-      document.querySelector('#bodypost').value = editorContent; // Masukkan ke textarea
+        // Sinkronisasi data CKEditor ke textarea
+        const editorContent = CKEDITOR.instances.bodypost.getData();
+        document.getElementById('bodypost').value = editorContent;
 
-      const form = document.getElementById('postForm');
-      const formData = new FormData(form);
+        // Proses data form
+        const form = document.getElementById('postForm');
+        const formData = new FormData(form);
 
-      // Proses formData sesuai kebutuhan...
-      console.log('Form data ready for submission:', formData);
+        console.log('Form data ready for submission:', formData);
+      });
     });
-  });
-</script>
+  </script>
 
 
   
