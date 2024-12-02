@@ -35,16 +35,7 @@
 
 
 
-    /* CSS untuk memastikan body memusatkan tombol */
-    body {
-      font-family: "Roboto", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* Menyusun konten vertikal di tengah halaman */
-      margin: 0;
-      background-color: #f0f0f0;
-    }
+
 
     /* CSS untuk tombol logout */
     #logoutButton {
@@ -224,8 +215,11 @@
       </div>
 
       <div class="uk-text-center">
-        <a href="/index.html?ref=createpost.html" target="_blank">Lihat Posts</a>
+        <a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
       </div>
+
+       <!-- Tombol Logout -->
+        <br><button id="logoutButton" onclick="logout()">Logout</button>
     </div>
   </div>
   <!-- Menambahkan UIkit JS -->
@@ -511,8 +505,7 @@ const uploadToCloudinary = async (file, fileName) => {
  <!-- Tombol Logout -->
   <br>
 
-  <!-- Tombol Logout -->
-  <button id="logoutButton" onclick="logout()">Logout</button>
+ 
 
   <script>
     // Cek status login saat halaman dimuat
