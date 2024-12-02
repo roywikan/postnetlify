@@ -464,48 +464,15 @@ pagination.innerHTML = `<ul class="pagination">${paginationHtml}</ul>`;
   <div id="footer-placeholder" class="footer-placeholder"></div>
   <footer>
 
-<div id="identity-widget">
-  <button onclick="openIdentity()">Login</button>
-  <button onclick="logout()" style="display:none">Logout</button>
-</div>
 
-<script>
-// Fungsi untuk membuka widget login
-function openIdentity() {
-  netlifyIdentity.open();
-}
-
-// Fungsi logout
-function logout() {
-  netlifyIdentity.logout();
-}
-
-// Cek status login saat halaman dimuat
-document.addEventListener('DOMContentLoaded', function() {
-  const user = netlifyIdentity.currentUser();
-  if (user) {
-    document.querySelector("#identity-widget button:nth-child(1)").style.display = 'none';
-    document.querySelector("#identity-widget button:nth-child(2)").style.display = 'block';
-  } else {
-    document.querySelector("#identity-widget button:nth-child(1)").style.display = 'block';
-    document.querySelector("#identity-widget button:nth-child(2)").style.display = 'none';
-  }
-});
-
-  netlifyIdentity.on("login", user => {
-  console.log("User logged in:", user);
-  // Arahkan kembali ke halaman edit setelah login
-  window.location.href = "/ed/";
-});
-
-</script>
 
     
   <nav class="footer-menu">
     <a href="/">Home</a>
-    <a href="/privacy-policy">Privacy</a>
+    <a href="/privacy">Privacy</a>
     <a href="/about">About</a>
-    <a href="/terms-of-service">ToS</a>
+    <a href="/tos">ToS</a>
+    <a href="/login/">Login</a>
   </nav>
     <br>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
