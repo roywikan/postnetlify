@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <style>
+    /* CSS untuk memperbesar tombol login dan memusatkannya di tengah halaman */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    #identity-widget {
+      text-align: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    #identity-widget button {
+      font-size: 18px; /* Ukuran teks tombol */
+      padding: 15px 30px; /* Jarak dalam tombol */
+      background-color: #28a745; /* Warna latar belakang tombol */
+      color: white; /* Warna teks tombol */
+      border: none; /* Hapus border default */
+      border-radius: 8px; /* Sudut tombol melengkung */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 200px; /* Menambahkan lebar tombol */
+    }
+
+    #identity-widget button:hover {
+      background-color: #218838; /* Warna latar belakang saat hover */
+    }
+
+  </style>
 </head>
 <body>
 
@@ -24,7 +58,7 @@
     // Menangani login dan redirect setelah login berhasil
     netlifyIdentity.on("login", user => {
       console.log("User logged in:", user);
-      // Redirect ke halaman ed.html setelah login berhasil
+      // Redirect ke halaman edit.html setelah login berhasil
       window.location.href = "/ed/";  // Sesuaikan dengan path yang sesuai
     });
   </script>
