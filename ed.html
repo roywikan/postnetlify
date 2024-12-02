@@ -218,22 +218,23 @@
         <a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
       
 
-       <!-- Tombol Logout -->
-        <br><button id="logoutButton" onclick="logout()">Logout</button>
+       
+    
+    <button id="logoutButton" onclick="logout()">Logout</button>
+  
 
   <script>
-    // Cek status login saat halaman dimuat
+    // Cek jika pengguna sudah login
     document.addEventListener('DOMContentLoaded', function() {
       const user = netlifyIdentity.currentUser();
-      
-      // Jika pengguna belum login, arahkan ke halaman login.html
-      if (!user) {
-        window.location.href = '/login/';  // Arahkan ke halaman login jika belum login
-        return;
-      }
 
-      // Menampilkan tombol logout jika sudah login
-      document.querySelector("#logoutButton").style.display = 'block';
+      // Jika pengguna sudah login, tampilkan tombol logout
+      if (user) {
+        document.querySelector("#logoutButton").style.display = 'block';
+      } else {
+        // Jika pengguna tidak login, redirect ke login page
+        window.location.href = "/login/";
+      }
     });
 
     // Fungsi logout
