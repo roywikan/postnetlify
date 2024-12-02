@@ -7,7 +7,7 @@
    <!-- Menambahkan UIkit CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
  
-  <script src="https://cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 
 
   <style>
@@ -392,18 +392,25 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
-
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Inisialisasi CKEditor
-      CKEDITOR.replace('bodypost');
+      let editorInstance;
 
-      // Event listener untuk submit form
+      // Inisialisasi CKEditor 5
+      ClassicEditor.create(document.querySelector('#bodypost'))
+        .then(editor => {
+          editorInstance = editor;
+        })
+        .catch(error => {
+          console.error('Error initializing the editor:', error);
+        });
+
+      // Tangani pengiriman formulir
       document.getElementById('postForm').addEventListener('submit', (event) => {
-        event.preventDefault(); // Mencegah pengiriman default form
+        event.preventDefault();
 
         // Sinkronisasi data CKEditor ke textarea
-        const editorContent = CKEDITOR.instances.bodypost.getData();
+        const editorContent = editorInstance.getData();
         document.getElementById('bodypost').value = editorContent;
 
         // Proses data form
@@ -414,7 +421,6 @@ const uploadToCloudinary = async (file, fileName) => {
       });
     });
   </script>
-
 
   
 </body>
