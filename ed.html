@@ -42,7 +42,7 @@
     if (!user) {
       // Jika tidak ada pengguna yang login, arahkan ke halaman login atau homepage
       alert("You must be logged in to access this page.");
-      //window.location.href = "/"; // Bisa ganti dengan halaman lain seperti halaman login
+      window.location.href = "/"; // Bisa ganti dengan halaman lain seperti halaman login
     }
   });
 </script>
@@ -67,41 +67,7 @@
 
    
 
-   <div id="identity-widget">
-  <button onclick="openIdentity()">Login</button>
-  <button onclick="logout()" style="display:none">Logout</button>
-</div>
 
-<script>
-// Fungsi untuk membuka widget login
-function openIdentity() {
-  netlifyIdentity.open();
-}
-
-// Fungsi logout
-function logout() {
-  netlifyIdentity.logout();
-}
-
-// Cek status login saat halaman dimuat
-document.addEventListener('DOMContentLoaded', function() {
-  const user = netlifyIdentity.currentUser();
-  if (user) {
-    document.querySelector("#identity-widget button:nth-child(1)").style.display = 'none';
-    document.querySelector("#identity-widget button:nth-child(2)").style.display = 'block';
-  } else {
-    document.querySelector("#identity-widget button:nth-child(1)").style.display = 'block';
-    document.querySelector("#identity-widget button:nth-child(2)").style.display = 'none';
-  }
-});
-
-  netlifyIdentity.on("login", user => {
-  console.log("User logged in:", user);
-  // Arahkan kembali ke halaman edit setelah login
-  window.location.href = "/ed/";
-});
-
-</script>
 
 
 
