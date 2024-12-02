@@ -21,86 +21,88 @@
 
   <title id="page-title"></title>
 
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css">
-</noscript>
 
-  <style>
+ 
 
 
 
 
-.post-image {
-    
-    
-    /* aspect-ratio: 3/4; */
-
-    
-    border-radius: 8px;
-
-    min-width: 96%; width: 96%;  
-    min-height: 360px; height: auto; /* Memberikan ruang pasti untuk smartphone */
-    background-color: #eaeaea; /* Placeholder warna abu-abu */
 
 
-}
-
-/* Untuk tablet dan layar yang lebih besar */
-@media (min-width: 768px) {
-    .post-image {
-            /* aspect-ratio: 3/4; */
-
-
-
-          min-width: 96%; width: 96%;  
-    min-height: 400px; height: auto; /* Memberikan ruang pasti untuk smartphone */
-    }
-}
-
-/* Untuk layar laptop/PC */
-@media (min-width: 1024px) {
-    .post-image {
-           /* aspect-ratio: 3/4; */
-
-        
-        margin: 30px auto; /* Tengahkan untuk layar lebar */
-
-          min-width: 96%; width: 96%;  
-    min-height: 400px; height: auto; /* Memberikan ruang pasti untuk smartphone */
-    }
-}
-
-
-#post-container {
-    min-height: 600px;
-    padding: 20px; /* Pastikan ada ruang untuk isi */
-    box-sizing: border-box;
-}
-
-
-    @media (min-width: 768px) {
-        #post-container {
-            min-height: 600px;
-        }
+   <style>
+    /* Reset tanpa UIKit styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    /* Container for the page */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    /* Post meta */
     .post-meta {
-        font-size: 1em;
-        margin-top: 10px;
-        color: #777;
+      font-size: 1rem;
+      color: #777;
+      margin-bottom: 20px;
     }
 
-footer {
-    height: 80px; /* Konsisten dengan desain */
-    text-align: center;
-    padding: 20px 0;
-    background-color: #f1f1f1;
-    font-size: 0.9em;
-    color: #555;
-}
+    /* Post image */
+    .post-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
 
+    /* Post container */
+    .post-container {
+      background: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #f8f8f8;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Button */
+    .btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
   </style>
+
+
+
+  
 </head>
 <body>
 
@@ -250,7 +252,6 @@ footer {
     document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
-  <!-- UIkit JS (Non-blocking with async or defer) -->
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" async></script>
+
 </body>
 </html>
