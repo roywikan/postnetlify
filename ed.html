@@ -109,6 +109,20 @@
         </div>
       </form>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       <!-- Tombol Refresh -->
       <div class="uk-margin">
         <button class="uk-button uk-button-default" id="refreshButton" onclick="refreshPage()">Segarkan Halaman</button>
@@ -377,18 +391,29 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
+<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    ClassicEditor
-      .create(document.querySelector('#bodypost'))
-      .then(editor => {
-        console.log('CKEditor initialized successfully', editor);
-      })
-      .catch(error => {
-        console.error('Error initializing CKEditor:', error);
-      });
+    // Inisialisasi CKEditor
+    CKEDITOR.replace('bodypost');
+
+    // Event listener untuk form submit
+    document.getElementById('postForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Ambil konten CKEditor dan simpan ke textarea
+      const editorContent = CKEDITOR.instances.bodypost.getData(); // Ambil konten CKEditor
+      document.querySelector('#bodypost').value = editorContent; // Masukkan ke textarea
+
+      const form = document.getElementById('postForm');
+      const formData = new FormData(form);
+
+      // Proses formData sesuai kebutuhan...
+      console.log('Form data ready for submission:', formData);
+    });
   });
 </script>
+
 
   
 </body>
