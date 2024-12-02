@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD System with Netlify Forms</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
    <!-- Menambahkan UIkit CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
  
@@ -34,18 +36,6 @@
   </style>
 
 
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  // Cek jika ada pengguna yang sudah login
-  document.addEventListener('DOMContentLoaded', function() {
-    const user = netlifyIdentity.currentUser();
-    if (!user) {
-      // Jika tidak ada pengguna yang login, arahkan ke halaman login atau homepage
-      alert("You must be logged in to access this page.");
-      window.location.href = "/"; // Bisa ganti dengan halaman lain seperti halaman login
-    }
-  });
-</script>
 
 
   
@@ -287,10 +277,7 @@ const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudin
 document.getElementById('postForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const submitButton = document.getElementById('submitButton');
 
-  if (submitButton.disabled) return; // Hindari pengiriman ulang
-  submitButton.disabled = true;
 
   
 
@@ -300,9 +287,15 @@ document.getElementById('postForm').addEventListener('submit', async (event) => 
   const file = formData.get('imagefile');
   const slug = formData.get('slug') || formData.get('title'); // Gunakan slug jika ada, atau fallback ke title
 
+  const submitButton = document.getElementById('submitButton');
+
+  if (submitButton.disabled) return; // Hindari pengiriman ulang
+  if (file) {submitButton.disabled = true;}
+
+  
   if (!file) {
-    alert('Please select an image');
-    console.log('Please select an image');
+    alert('Need an image file. Please select an image');
+    console.log('No image. Please select an image');
     return;
   }
 
@@ -481,7 +474,31 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
+ <!-- Tombol Logout -->
+  <br>
+  <button id="logoutButton" style="display:none" onclick="logout()">Logout</button>
 
+  <script>
+    // Cek status login saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = netlifyIdentity.currentUser();
+      
+      // Jika pengguna belum login, arahkan ke halaman login.html
+      if (!user) {
+        window.location.href = '/login/';  // Arahkan ke halaman login jika belum login
+        return;
+      }
+
+      // Menampilkan tombol logout jika sudah login
+      document.querySelector("#logoutButton").style.display = 'block';
+    });
+
+    // Fungsi logout
+    function logout() {
+      netlifyIdentity.logout();
+      window.location.href = "/login/";  // Arahkan ke halaman login setelah logout
+    }
+  </script>
 
   
 </body>
