@@ -30,73 +30,109 @@
 
 
    <style>
-    /* Reset tanpa UIKit styles */
+     /* Global styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Container for the page */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
       padding: 20px;
     }
 
-    /* Header */
-    h1 {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
+    /* Container for page content */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Post meta */
+    /* Header title */
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* Post meta information */
     .post-meta {
-      font-size: 1rem;
-      color: #777;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
       margin-bottom: 20px;
+    }
+
+    .post-meta span {
+      display: inline-block;
+      margin-right: 10px;
     }
 
     /* Post image */
     .post-image {
       width: 100%;
-      max-width: 600px;
       height: auto;
+      border-radius: 8px;
       margin-bottom: 20px;
-      border-radius: 8px;
     }
 
-    /* Post container */
-    .post-container {
-      background: #fff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
+    /* Post content */
+    .post-body {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      line-height: 1.8;
     }
 
-    /* Footer */
-    footer {
-      background: #f8f8f8;
-      padding: 20px 0;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    /* Button */
+    /* Button Back to Home */
     .btn {
+      display: inline-block;
       background-color: #007bff;
-      color: white;
+      color: #fff;
       padding: 10px 20px;
       text-decoration: none;
       border-radius: 5px;
-      display: inline-block;
-      margin-top: 20px;
+      font-size: 1rem;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      margin: 0 auto;
+      display: block;
+      width: fit-content;
     }
 
     .btn:hover {
       background-color: #0056b3;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .post-body {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
     }
   </style>
 
@@ -119,15 +155,23 @@
     
     <!-- Container for post content -->
     <div id="post-container" class="post-container">
-      <img id="post-image" class="post-image" alt="Post Image" src="" />
-      <div id="post-body"></div>
+      <img id="post-image" class="post-image" alt="Post Image" src="https://via.placeholder.com/800x400" />
+      <div id="post-body" class="post-body"></div>
+
+      
+      <!-- Navigation to Home -->
+        <div class="text-center">
+          <a href="/" class="btn">Back to Home</a>
+        </div>
+
+
+      
     </div>
 
-  </div>
 
-  <!-- Navigation to Home -->
-  <div class="text-center">
-    <a href="/" class="btn">Back to Home</a>
+   
+
+    
   </div>
 
   <!-- Footer with Copyright -->
