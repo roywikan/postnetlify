@@ -110,7 +110,7 @@ footer {
   background-color: #f4f4f4; /* Pastikan latar belakang jelas */
 }
 
-.footer-placeholder {
+.footer-holder {
   height: 50px; /* Memastikan ada ruang untuk footer */
 }
 
@@ -238,6 +238,24 @@ h1 {
 }
 
 
+/* Placeholder untuk gambar yang menjaga rasio aspek */
+.image-placeholder {
+  position: relative;
+  width: 100%;  /* Gambar mengikuti lebar kontainer */
+  padding-top: 150%; /* Menjaga rasio aspek 2:3 (misalnya 467px x 1037px) */
+  background-color: #f4f4f4; /* Warna latar belakang jika gambar tidak tersedia */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-placeholder img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* Gambar akan menutupi area, tanpa merusak rasio */
+}
 
      
   </style>
@@ -265,7 +283,24 @@ h1 {
 
 
       
-      <img id="post-image" class="post-image" alt="Post Image" src="https://via.placeholder.com/350x500" async />
+ 
+
+<!-- Placeholder untuk gambar -->
+<div id="image-placeholder" class="image-placeholder">
+  <img id="post-image" class="post-image" alt="Post Image" src="https://via.placeholder.com/350x500" async />
+</div>
+
+
+
+
+
+
+
+
+
+
+
+      
       <div id="post-body" class="post-body"></div>
 
       
@@ -417,5 +452,29 @@ h1 {
   </script>
 
 
+
+  <script>
+
+// Menambahkan placeholder dinamis sebelum gambar dimuat
+document.addEventListener('DOMContentLoaded', function() {
+  const img = document.getElementById('post-image');
+  const placeholder = document.createElement('div');
+  
+  // Menyusun div pembungkus untuk gambar yang responsif
+  placeholder.style.position = 'relative';
+  placeholder.style.width = '100%';
+  placeholder.style.paddingTop = (img.naturalHeight / img.naturalWidth) * 100 + '%'; // Rasio aspek otomatis
+  
+  // Memasukkan placeholder sebelum gambar
+  img.parentNode.insertBefore(placeholder, img);
+  
+  // Memindahkan gambar ke dalam placeholder setelah dimuat
+  img.onload = function() {
+    placeholder.appendChild(img);
+  }
+});
+
+  
+</script>  
 </body>
 </html>
