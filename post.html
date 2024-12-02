@@ -242,10 +242,10 @@ h1 {
 .image-placeholder {
   position: relative;
   width: 100%;  /* Gambar mengikuti lebar kontainer */
-  padding-top: 150%; /* Menjaga rasio aspek 2:3 (misalnya 467px x 1037px) */
-  background-color: #f4f4f4; /* Warna latar belakang jika gambar tidak tersedia */
+  padding-top: 150%; /* Rasio 2:3, sesuai dengan ukuran 467x1037px (misalnya) */
+  background-color: #f4f4f4; /* Warna latar belakang jika gambar tidak ada */
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 8px; /* Membuat sudut membulat */
 }
 
 .image-placeholder img {
@@ -254,7 +254,7 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* Gambar akan menutupi area, tanpa merusak rasio */
+  object-fit: cover;  /* Gambar akan menutupi area tanpa merusak rasio */
 }
 
      
@@ -289,6 +289,7 @@ h1 {
 <div id="image-placeholder" class="image-placeholder">
   <img id="post-image" class="post-image" alt="Post Image" src="https://via.placeholder.com/350x500" async />
 </div>
+
 
 
 
@@ -455,24 +456,35 @@ h1 {
 
   <script>
 
-// Menambahkan placeholder dinamis sebelum gambar dimuat
 document.addEventListener('DOMContentLoaded', function() {
-  const img = document.getElementById('post-image');
-  const placeholder = document.createElement('div');
-  
-  // Menyusun div pembungkus untuk gambar yang responsif
-  placeholder.style.position = 'relative';
-  placeholder.style.width = '100%';
-  placeholder.style.paddingTop = (img.naturalHeight / img.naturalWidth) * 100 + '%'; // Rasio aspek otomatis
-  
-  // Memasukkan placeholder sebelum gambar
-  img.parentNode.insertBefore(placeholder, img);
-  
-  // Memindahkan gambar ke dalam placeholder setelah dimuat
-  img.onload = function() {
-    placeholder.appendChild(img);
+  async function fetchPostBySlug() {
+    try {
+      const pathArray = window.location.pathname.split('/');
+      const slug = pathArray[pathArray.length - 1]; // Ambil slug dari URL
+
+      if (!slug) {
+        throw new Error('Slug not found in the URL');
+      }
+
+      // Ambil data post dari API (contohnya Netlify Lambda)
+      const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+      if (!response.ok) {
+        throw new Error(`Error fetching post: ${response.status}`);
+      }
+
+      const post = await response.json();
+
+      // Memperbarui elemen gambar dan konten
+      document.getElementById('post-image').src = post.data.imagefile.url;
+      document.getElementById('post-image').alt = post.data.title;
+    } catch (error) {
+      console.error('Error fetching post:', error);
+    }
   }
+
+  fetchPostBySlug();
 });
+
 
   
 </script>  
