@@ -8,7 +8,7 @@
 #toolbar button {
   flex: 1 1 auto; /* Tombol akan menyesuaikan lebar */
   min-width: 40px; /* Lebar minimum tombol */
-  max-width: 50px; /* Lebar maximum tombol */
+  max-width: 70px; /* Lebar maximum tombol */
   padding: 10px; /* Ruang di dalam tombol */
   font-size: 14px; /* Ukuran font tombol */
   font-weight: bold;
