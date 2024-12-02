@@ -218,32 +218,7 @@
         <a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
       
 
-       
-    
-    <button id="logoutButton" onclick="logout()">Logout</button>
-  
-
-  <script>
-    // Cek jika pengguna sudah login
-    document.addEventListener('DOMContentLoaded', function() {
-      const user = netlifyIdentity.currentUser();
-
-      // Jika pengguna sudah login, tampilkan tombol logout
-      if (user) {
-        document.querySelector("#logoutButton").style.display = 'block';
-      } else {
-        // Jika pengguna tidak login, redirect ke login page
-        window.location.href = "/login/";
-      }
-    });
-
-    // Fungsi logout
-    function logout() {
-      netlifyIdentity.logout();
-      window.location.href = "/login/";  // Arahkan ke halaman login setelah logout
-    }
-  </script>
-
+     
 
 
 
@@ -531,7 +506,32 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
+   <div class="uk-text-center">
+    
+    <br><button id="logoutButton" onclick="logout()">Logout</button><br>
+  
 
+  <script>
+    // Cek jika pengguna sudah login
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = netlifyIdentity.currentUser();
+
+      // Jika pengguna sudah login, tampilkan tombol logout
+      if (user) {
+        document.querySelector("#logoutButton").style.display = 'block';
+      } else {
+        // Jika pengguna tidak login, redirect ke login page
+        window.location.href = "/login/";
+      }
+    });
+
+    // Fungsi logout
+    function logout() {
+      netlifyIdentity.logout();
+      window.location.href = "/";  // Arahkan ke halaman login setelah logout
+    }
+  </script>
+   </div>
 
 
 
