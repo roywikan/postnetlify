@@ -454,39 +454,6 @@ h1 {
 
 
 
-  <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-  async function fetchPostBySlug() {
-    try {
-      const pathArray = window.location.pathname.split('/');
-      const slug = pathArray[pathArray.length - 1]; // Ambil slug dari URL
-
-      if (!slug) {
-        throw new Error('Slug not found in the URL');
-      }
-
-      // Ambil data post dari API (contohnya Netlify Lambda)
-      const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-      if (!response.ok) {
-        throw new Error(`Error fetching post: ${response.status}`);
-      }
-
-      const post = await response.json();
-
-      // Memperbarui elemen gambar dan konten
-      document.getElementById('post-image').src = post.data.imagefile.url;
-      document.getElementById('post-image').alt = post.data.title;
-    } catch (error) {
-      console.error('Error fetching post:', error);
-    }
-  }
-
-  fetchPostBySlug();
-});
-
-
-  
-</script>  
 </body>
 </html>
