@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">CRUD System with Netlify Forms</title>
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css">
+</noscript>
+
+  
+  <style>
+.post-container {
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  .post-container {
+    padding: 20px;
+  }
+}
+
+.post-item {
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-item img {
+  height: auto;
+  max-height: 400px;
+  width: auto;
+  max-width: 96%;
+  border-radius: 8px;
+  /* aspect-ratio: 3 / 4;  Untuk mencegah pergeseran tata letak */
+  max-height: 400px; /* Cadangan ruang */
+}
+
+.post-item h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.post-item p {
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.post-meta {
+  font-size: 0.8em;
+  color: #888;
+}
+
+/* Custom styling for pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pagination a {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+  color: #333;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="uk-container uk-container-large">
+    <h1 class="uk-heading-medium uk-text-center">Posts</h1>
+
+    <div id="post-list" class="uk-grid-small uk-grid-match" uk-grid></div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="pagination"></div>
+  </div>
+
+
+
+  <script>
+    let currentPage = 1;
+    const postsPerPage = 12;
+
+    // Function to generate a snippet from the post body
+    function generateSnippet(body) {
+      const words = body.split(' ');
+      return words.slice(0, 15).join(' ') + (words.length > 15 ? '...' : '');
+    }
+
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        const postList = document.getElementById('post-list');
+        const pagination = document.getElementById('pagination');
+
+        // Calculate the start and end index for the current page
+        const startIndex = (currentPage - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const paginatedPosts = posts.slice(startIndex, endIndex);
+
+        // Clear the post list and render the paginated posts
+        postList.innerHTML = '';
+        paginatedPosts.forEach(post => {
+          const imageUrl = post.data.imagefile?.url || '';
+          const snippet = generateSnippet(post.data.bodypost);
+
+          // Create each post item
+          const postElement = document.createElement('div');
+          postElement.classList.add('uk-width-1-4@m', 'uk-width-1-2@s', 'uk-width-1-1@xs'); // UIkit grid classes for responsive layout
+
+          postElement.innerHTML = `
+            <div class="post-item uk-card uk-card-default uk-card-body">
+              <a href="/post/${post.data.slug}" class="uk-link-reset">
+                ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}" class="uk-margin-bottom">` : ''}
+                <h2 class="uk-heading-line uk-text-center"><span>${post.data.title}</span></h2>
+                <p>${snippet}</p>
+              </a>
+            </div>
+          `;
+
+          postList.appendChild(postElement);
+
+          // Update SEO for meta title, description, and author
+          if (currentPage === 1) {
+            document.getElementById('meta-description').content = snippet;
+            document.getElementById('meta-author').content = post.data.author;
+            document.getElementById('page-title').innerText = post.data.title;
+          }
+        });
+
+        // Handle pagination
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+        let paginationHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+          paginationHtml += `
+            <li><a href="#" class="uk-button uk-button-default ${i === currentPage ? 'uk-active' : ''}" onclick="changePage(${i})">${i}</a></li>
+          `;
+        }
+        pagination.innerHTML = `<ul class="uk-pagination">${paginationHtml}</ul>`;
+
+        // Add 'noindex, follow' for pagination
+        if (currentPage > 1) {
+          document.querySelector('meta[name="robots"]').setAttribute('content', 'noindex, follow');
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
+      }
+    }
+
+    function changePage(pageNumber) {
+      currentPage = pageNumber;
+      fetchPosts();
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+
+    <!-- Menambahkan UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js" defer></script>
+  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js" defer></script -->
+</body>
+</html>
