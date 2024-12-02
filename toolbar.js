@@ -95,3 +95,11 @@ function insertLink() {
 }
 
   
+function alignText(alignment) {
+  // Fokuskan ke textarea sebelum menerapkan alignment
+  const textarea = document.getElementById('bodypost');
+  textarea.focus();
+
+  // Gunakan document.execCommand untuk alignment
+  document.execCommand(alignment, false, null);
+}
