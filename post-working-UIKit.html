@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <title id="page-title"></title>
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css">
+</noscript>
+
+  <style>
+
+
+
+
+.post-image {
+    
+    
+    /* aspect-ratio: 3/4; */
+
+    
+    border-radius: 8px;
+
+    min-width: 96%; width: 96%;  
+    min-height: 360px; height: auto; /* Memberikan ruang pasti untuk smartphone */
+    background-color: #eaeaea; /* Placeholder warna abu-abu */
+
+
+}
+
+/* Untuk tablet dan layar yang lebih besar */
+@media (min-width: 768px) {
+    .post-image {
+            /* aspect-ratio: 3/4; */
+
+
+
+          min-width: 96%; width: 96%;  
+    min-height: 400px; height: auto; /* Memberikan ruang pasti untuk smartphone */
+    }
+}
+
+/* Untuk layar laptop/PC */
+@media (min-width: 1024px) {
+    .post-image {
+           /* aspect-ratio: 3/4; */
+
+        
+        margin: 30px auto; /* Tengahkan untuk layar lebar */
+
+          min-width: 96%; width: 96%;  
+    min-height: 400px; height: auto; /* Memberikan ruang pasti untuk smartphone */
+    }
+}
+
+
+#post-container {
+    min-height: 600px;
+    padding: 20px; /* Pastikan ada ruang untuk isi */
+    box-sizing: border-box;
+}
+
+
+    @media (min-width: 768px) {
+        #post-container {
+            min-height: 600px;
+        }
+    }
+
+    .post-meta {
+        font-size: 1em;
+        margin-top: 10px;
+        color: #777;
+    }
+
+footer {
+    height: 80px; /* Konsisten dengan desain */
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    font-size: 0.9em;
+    color: #555;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="uk-container uk-container-large">
+    <h1 class="uk-heading-line"><span id="post-title">Post Title</span></h1>
+
+    <!-- Post Meta -->
+    <div id="post-meta" class="post-meta uk-text-muted">
+      <span id="post-author"></span>
+      <span id="post-category"></span>
+      <span id="post-tags"></span>
+      <span id="post-date"></span>
+    </div>
+    
+    <!-- Container for post content -->
+    <div id="post-container" class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-margin-top">
+      <img id="post-image" class="post-image" alt="Post Image" src="" />
+      <div id="post-body"></div>
+    </div>
+
+  </div>
+
+  <!-- Navigation to Home -->
+  <div class="uk-text-center uk-margin-top">
+    <a href="/" class="uk-button uk-button-default">Back to Home</a>
+  </div>
+
+  <!-- Footer with Copyright -->
+  <footer>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+  </footer>
+
+  <!-- Schema.org JSON-LD for SEO (This will be filled dynamically) -->
+  <script type="application/ld+json" id="json-ld-schema">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "",
+    "author": {
+      "@type": "Person",
+      "name": ""
+    },
+    "datePublished": "",
+    "dateModified": "",
+    "image": "",
+    "articleBody": "",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Your Blog Name",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <script>
+    async function fetchPostBySlug() {
+      try {
+        const pathArray = window.location.pathname.split('/');
+        const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
+
+        if (!slug) {
+          throw new Error('Slug not found in the URL');
+        }
+
+        // Fetch the post data from the Netlify Lambda function
+        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+
+        if (!response.ok) {
+          throw new Error(`Error fetching post: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const post = await response.json();
+
+        // Human readable date
+        const createdAt = new Date(post.created_at);
+        const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+
+        // Update the page with the post data
+        document.getElementById('post-title').innerText = post.data.title;
+        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+        document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+        document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+        document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
+        document.getElementById('post-image').src = post.data.imagefile.url;
+        document.getElementById('post-image').alt = post.data.title;
+
+        document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+        // Update SEO meta tags dynamically
+        document.getElementById('meta-description').content = post.data.bodypost.slice(0, 155); // First 155 chars
+        document.getElementById('meta-author').content = post.data.author;
+
+        document.getElementById('page-title').innerText = post.data.title;
+        document.querySelector('meta[property="og:title"]').content = post.data.title;
+        document.querySelector('meta[property="og:description"]').content = post.data.bodypost.slice(0, 155);
+        document.querySelector('meta[property="og:image"]').content = post.data.imagefile.url;
+        document.querySelector('meta[property="og:url"]').content = window.location.href;
+
+        document.querySelector('meta[name="twitter:title"]').content = post.data.title;
+        document.querySelector('meta[name="twitter:description"]').content = post.data.bodypost.slice(0, 155);
+        document.querySelector('meta[name="twitter:image"]').content = post.data.imagefile.url;
+
+        // Update the Schema JSON-LD dynamically
+        const schemaElement = document.getElementById('json-ld-schema');
+        const schemaData = {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.data.title,
+          "author": {
+            "@type": "Person",
+            "url": "https://postnetlify.netlify.app/",
+            "name": post.data.author
+          },
+          "datePublished": post.created_at,
+          "dateModified": post.updated_at || post.created_at,
+          "image": post.data.imagefile.url,
+          "articleBody": post.data.bodypost,
+          "publisher": {
+            "@type": "Organization",
+            "name": "POST NETLIFY",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733006558/ini-title-nya-superhero-gadungan-664.png.png"
+            }
+          }
+        };
+        schemaElement.innerHTML = JSON.stringify(schemaData);
+
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+      }
+    }
+
+    // Call the function when the page is loaded
+    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+  </script>
+
+  <!-- UIkit JS (Non-blocking with async or defer) -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" async></script>
+</body>
+</html>
