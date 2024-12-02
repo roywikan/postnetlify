@@ -1,7 +1,7 @@
 //ngurusi buttons di textarea
     // Apply text formatting to textarea
     function applyFormat(command) {
-      const textarea = document.getElementById("message");
+      const textarea = document.getElementById("bodypost");
       const startPos = textarea.selectionStart;
       const endPos = textarea.selectionEnd;
       const selectedText = textarea.value.substring(startPos, endPos);
@@ -55,7 +55,7 @@ function insertImage() {
     // Create the <img> tag with optional height
     const imgTag = `<img loading="lazy" src="${imgURL}" alt="image" width="${width}" ${height ? `height="${height}"` : ""} />`;
     
-    const textarea = document.getElementById("message");
+    const textarea = document.getElementById("bodypost");
     const startPos = textarea.selectionStart;
     const endPos = textarea.selectionEnd;
     
