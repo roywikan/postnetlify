@@ -38,12 +38,14 @@
     }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto', Arial, sans-serif;
+  font-display: swap; /* Fallback cepat untuk font */
       line-height: 1.6;
       background-color: #f4f4f4;
       color: #333;
       padding: 20px;
     }
+
 
     /* Container for page content */
     .container {
@@ -91,33 +93,42 @@
       line-height: 1.8;
     }
 
-    /* Button Back to Home */
-    .btn {
-      display: inline-block;
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      text-align: center;
-      transition: background-color 0.3s ease;
-      margin: 0 auto;
-      display: block;
-      width: fit-content;
-    }
+
+/* Button Back to Home */
+.btn {
+  display: block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin: 20px auto; /* Atur margin */
+  width: 200px; /* Tambahkan lebar tetap */
+  height: 50px; /* Tambahkan tinggi tetap */
+  line-height: 30px; /* Untuk memastikan konten tombol tetap stabil */
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 20px;
+  padding: 10px; /* Tambahkan padding tetap */
+  height: 50px; /* Tetapkan tinggi tetap */
+  line-height: 50px; /* Vertikal rata tengah */
+  background-color: #f4f4f4; /* Tambahkan warna latar untuk memperjelas area footer */
+}
+
 
     .btn:hover {
       background-color: #0056b3;
     }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-top: 20px;
-    }
+
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -142,7 +153,7 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container" style="min-height: 400px;">
     <h1 class="post-title"><span id="post-title">Post Title</span></h1>
 
     <!-- Post Meta -->
