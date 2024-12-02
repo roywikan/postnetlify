@@ -28,112 +28,113 @@
 
 
 
+<style>
 
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-   <style>
-     /* Global styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-display: swap; /* Fallback cepat untuk font */
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
 
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      font-display: swap; /* Fallback cepat untuk font */
-      line-height: 1.6;
-      background-color: #f4f4f4;
-      color: #333;
-      padding: 20px;
-    }
+/* Container for page content */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+/* Header title */
+h1 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
-    /* Container for page content */
-    .container {
-      max-width: 1280px;
-      /* min-height: 1280px; */
-      margin: 0 auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+/* Post meta information */
+.post-meta {
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-    /* Header title */
-    h1 {
-      font-size: 3.6rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-align: center;
-    }
+.post-meta span {
+  display: inline-block;
+  margin-right: 10px;
+}
 
-    /* Post meta information */
-    .post-meta {
-      font-size: 0.9rem;
-      color: #999;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+/* Post image */
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
-    .post-meta span {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    /* Post image */
-    .post-image {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    /* Post content */
-    .post-body {
-      font-size: 2rem;
-      margin-bottom: 30px;
-      line-height: 2.6;
-    }
-
-
-
-
+/* Post content */
+.post-body {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  line-height: 2.6;
+}
 
 /* Footer */
 footer {
-  position: relative; /* Tetapkan tetap terlihat di layar bawah */
-  width: 100%;       /* Pastikan mengambil seluruh lebar */
+  position: fixed;
+  bottom: -100px;  /* Menyembunyikan footer di luar layar */
+  width: 100%;
+  background-color: #f4f4f4;
   text-align: center;
-  font-size: 0.9rem;
-  color: #777;
-  padding: 10px;     /* Tambahkan padding */
-  background-color: #f4f4f4; /* Pastikan latar belakang jelas */
+  padding: 10px;
+  font-size: 14px;
+  transition: bottom 0.3s ease;  /* Animasi transisi saat muncul */
 }
 
-.footer-holder {
-  height: 50px; /* Memastikan ada ruang untuk footer */
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
 }
 
+.footer-menu a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
 
+.footer-menu a:hover {
+  color: #007BFF;
+}
 
+/* Responsive adjustments for footer menu */
+@media (max-width: 768px) {
+  .footer-menu {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-
-
-     @media (max-width: 768px) {
-
-
-  footer {
-    position: relative; /* Tetapkan tetap terlihat di layar bawah */
-    bottom: 0;
+  .footer-menu a {
+    font-size: 12px;
   }
 }
 
-
-
-     
-
-/* Responsive adjustments */
-/* Default styles (desktop) */
+/* Mobile and tablet responsive adjustments */
 h1 {
   font-size: 4rem;
 }
@@ -202,82 +203,7 @@ h1 {
     line-height: 2.2;
   }
 }
-
-
-
-
-/* footer menu */
-.footer-menu {
-  display: flex; /* Jadikan elemen sejajar mendatar */
-  justify-content: center; /* Pusatkan secara horizontal */
-  gap: 20px; /* Jarak antar link */
-  margin-top: 20px;
-}
-
-.footer-menu a {
-  text-decoration: none; /* Hapus garis bawah */
-  color: #555; /* Warna teks */
-  font-size: 14px; /* Ukuran font */
-  font-family: 'Roboto', sans-serif; /* Font yang digunakan */
-  transition: color 0.3s ease; /* Efek transisi saat hover */
-}
-
-.footer-menu a:hover {
-  color: #007BFF; /* Warna hover */
-}
-
-@media (max-width: 768px) {
-  .footer-menu {
-    flex-wrap: wrap; /* Link akan membungkus jika layar kecil */
-    gap: 10px; /* Kurangi jarak antar link */
-  }
-
-  .footer-menu a {
-    font-size: 12px; /* Ukuran font lebih kecil untuk layar kecil */
-  }
-}
-
-
-
-/* Footer pada awalnya disembunyikan di bagian bawah */
-/* Menyembunyikan footer di bawah layar pada awalnya */
-footer {
-  position: fixed;
-  bottom: -100px;  /* Menyembunyikan footer di luar layar */
-  width: 100%;
-  background-color: #f4f4f4;
-  text-align: center;
-  padding: 10px;
-  font-size: 14px;
-  transition: bottom 0.3s ease;  /* Animasi transisi saat muncul */
-}
-
-/* Mengatur tampilan menu footer */
-.footer-menu {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-.footer-menu a {
-  text-decoration: none;
-  color: #555;
-  font-size: 14px;
-}
-
-.footer-menu a:hover {
-  color: #007BFF;
-}
-
-/* Placeholder untuk footer jika diperlukan (opsional) */
-.footer-placeholder {
-  height: 50px; /* Ukuran footer placeholder */
-}
-
-     
-  </style>
-
+</style>
 
 
   
@@ -303,10 +229,9 @@ footer {
       
  
 
-<!-- Placeholder untuk gambar -->
-<div id="image-placeholder" class="image-placeholder">
-  <img id="post-image" class="post-image" alt="Post Image" src="https://via.placeholder.com/350x500" async />
-</div>
+
+  <img id="post-image" class="post-image" alt="" src="https://via.placeholder.com/350x500" async />
+
 
 
 
