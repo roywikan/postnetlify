@@ -94,33 +94,38 @@
     }
 
 
-/* Button Back to Home */
-.btn {
-  display: block;
+     
+/* Tombol Back to Home */
+#back-to-home {
+  position: fixed; /* Posisi tetap di layar */
+  bottom: 20px;    /* Jarak dari bawah viewport */
+  right: 20px;     /* Jarak dari kanan viewport */
+  z-index: 100;    /* Pastikan berada di atas elemen lainnya */
+  width: 150px;    /* Tetapkan lebar */
+  height: 40px;    /* Tetapkan tinggi */
+  font-size: 1rem; /* Ukuran teks */
+  text-align: center;
+  line-height: 40px; /* Pusatkan teks secara vertikal */
   background-color: #007bff;
   color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
   border-radius: 5px;
-  font-size: 1rem;
-  text-align: center;
+  text-decoration: none;
   transition: background-color 0.3s ease;
-  margin: 20px auto; /* Atur margin */
-  width: 200px; /* Tambahkan lebar tetap */
-  height: 50px; /* Tambahkan tinggi tetap */
-  line-height: 30px; /* Untuk memastikan konten tombol tetap stabil */
 }
 
 /* Footer */
 footer {
+  position: relative; /* Tetap dalam tata letak halaman */
+  width: 100%;       /* Pastikan mengambil seluruh lebar */
   text-align: center;
   font-size: 0.9rem;
   color: #777;
-  margin-top: 20px;
-  padding: 10px; /* Tambahkan padding tetap */
-  height: 50px; /* Tetapkan tinggi tetap */
-  line-height: 50px; /* Vertikal rata tengah */
-  background-color: #f4f4f4; /* Tambahkan warna latar untuk memperjelas area footer */
+  padding: 10px;     /* Tambahkan padding */
+  background-color: #f4f4f4; /* Pastikan latar belakang jelas */
+}
+
+.footer-placeholder {
+  height: 50px; /* Memastikan ada ruang untuk footer */
 }
 
 
@@ -129,6 +134,21 @@ footer {
     }
 
 
+
+     @media (max-width: 768px) {
+  #back-to-home {
+    /* display: none; */
+  }
+
+  footer {
+    position: fixed; /* Tetapkan tetap terlihat di layar bawah */
+    bottom: 0;
+  }
+}
+
+
+
+     
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -170,10 +190,7 @@ footer {
       <div id="post-body" class="post-body"></div>
 
       
-      <!-- Navigation to Home -->
-        <div class="text-center">
-          <a href="/" class="btn">Back to Home</a>
-        </div>
+
 
 
       
@@ -182,14 +199,22 @@ footer {
 
    
 
-    
+          <!-- Navigation to Home -->
+        <div class="text-center">
+          <a href="/" class="btn">Back to Home</a>
+        </div>
   </div>
 
-  <!-- Footer with Copyright -->
+  <!-- Placeholder untuk Footer -->
+  <div id="footer-placeholder" class="footer-placeholder"></div>
   <footer>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
   </footer>
 
+  
+
+
+  
   <!-- Schema.org JSON-LD for SEO (This will be filled dynamically) -->
   <script type="application/ld+json" id="json-ld-schema">
   {
