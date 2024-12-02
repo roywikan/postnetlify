@@ -33,6 +33,26 @@
       font-size: 16px;
     }
 
+
+
+    #logoutButton {
+      display: none;
+      font-size: 18px; /* Ukuran teks tombol */
+      padding: 15px 30px; /* Jarak dalam tombol */
+      background-color: #007bff; /* Warna latar belakang tombol */
+      color: white; /* Warna teks tombol */
+      border: none; /* Hapus border default */
+      border-radius: 8px; /* Sudut tombol melengkung */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #logoutButton:hover {
+      background-color: #0056b3; /* Warna latar belakang saat hover */
+    }
+
+
+    
   </style>
 
 
@@ -476,7 +496,9 @@ const uploadToCloudinary = async (file, fileName) => {
 
  <!-- Tombol Logout -->
   <br>
-  <button id="logoutButton" style="display:none" onclick="logout()">Logout</button>
+
+  <!-- Tombol Logout -->
+  <button id="logoutButton" onclick="logout()">Logout</button>
 
   <script>
     // Cek status login saat halaman dimuat
