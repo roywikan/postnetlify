@@ -140,13 +140,13 @@
     footer {
       margin-top: 40px;
       padding: 20px;
-      background-color: #333;
-      color: #fff;
+      background-color: #747474;
+      color: #777;
       text-align: center;
     }
 
     footer a {
-      color: #ffa;
+      color: blue;
       text-decoration: none;
     }
 
@@ -199,7 +199,7 @@ footer {
   position: relative; /* Tetapkan tetap terlihat di layar bawah */
   width: 100%;       /* Pastikan mengambil seluruh lebar */
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: #777;
   padding: 10px;     /* Tambahkan padding */
   background-color: #f4f4f4; /* Pastikan latar belakang jelas */
@@ -228,17 +228,79 @@ footer {
      
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.5rem;
-      }
 
-      .post-body {
-        font-size: 0.9rem;
-      }
 
- 
-    }
+/* Responsive adjustments */
+/* Default styles (desktop) */
+h1 {
+  font-size: 4rem;
+}
+
+.post-body {
+  font-size: 2rem;
+  line-height: 1.8;
+}
+
+/* Smartphone (Portrait) - up to 480px width */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .post-body {
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+}
+
+/* Smartphone (Landscape) - up to 768px width */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .post-body {
+    font-size: 1.7rem;
+    line-height: 2;
+  }
+}
+
+/* iPad (Portrait) - up to 1024px width */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .post-body {
+    font-size: 1.8rem;
+    line-height: 1.9;
+  }
+}
+
+/* iPad Air / Tablet (Landscape) - up to 1366px width */
+@media (max-width: 1366px) {
+  h1 {
+    font-size: 3.8rem;
+  }
+
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+  }
+}
+
+/* Laptop and larger screens */
+@media (min-width: 1367px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+  }
+}
+
 
 
 
