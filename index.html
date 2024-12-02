@@ -9,10 +9,9 @@
 
   <title id="page-title">CRUD System with Netlify Forms</title>
 
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css">
-</noscript>
+  <!-- Prefetch DNS untuk Cloudinary -->
+<!-- link rel="dns-prefetch" href="https://via.placeholder.com" -->
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
 
   
   <style>
@@ -85,25 +84,58 @@
   </style>
 
    <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+
+       /* Global styles */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+  font-display: swap; /* Fallback cepat untuk font */
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+
+
+    /* Container for page content */
     .container {
-      max-width: 1200px;
+      max-width: 1280px;
+      /* min-height: 1280px; */
       margin: 0 auto;
       padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+
+
+
+
+    /* Header title */
     h1 {
-      text-align: center;
-      font-size: 2.5rem;
+      font-size: 2rem;
+      font-weight: 700;
       margin-bottom: 20px;
+      text-align: center;
     }
+     
 
+
+
+
+
+
+
+
+
+     
     .grid {
       display: flex;
       flex-wrap: wrap;
