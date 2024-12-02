@@ -165,6 +165,43 @@ footer {
         padding: 8px 16px;
       }
     }
+
+
+
+/* footer menu */
+.footer-menu {
+  display: flex; /* Mengatur elemen dalam satu baris */
+  justify-content: center; /* Posisi di tengah secara horizontal */
+  gap: 15px; /* Jarak antar link */
+  margin-top: 20px; /* Memberikan jarak dari konten di atasnya */
+}
+
+.footer-menu a {
+  text-decoration: none; /* Menghapus garis bawah pada link */
+  color: #555; /* Warna teks link */
+  font-size: 14px; /* Ukuran font */
+  font-family: 'Roboto', sans-serif; /* Menggunakan font Roboto */
+  transition: color 0.3s ease; /* Efek hover */
+}
+
+.footer-menu a:hover {
+  color: #007BFF; /* Ubah warna saat hover */
+}
+
+@media (max-width: 768px) {
+  .footer-menu {
+    flex-wrap: wrap; /* Menyusun link dalam beberapa baris jika layar kecil */
+    gap: 10px; /* Jarak antar link lebih kecil di layar kecil */
+  }
+
+  .footer-menu a {
+    font-size: 12px; /* Ukuran font lebih kecil di layar kecil */
+  }
+}
+
+
+
+     
   </style>
 
 
@@ -208,6 +245,14 @@ footer {
   <!-- Placeholder untuk Footer -->
   <div id="footer-placeholder" class="footer-placeholder"></div>
   <footer>
+      <nav class="footer-menu">
+    <ul>
+      <li><a href="/privacy-policy">Privacy</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/terms-of-service">ToS</a></li>
+    </ul>
+  </nav>
+    <br>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
   </footer>
 
