@@ -223,29 +223,32 @@ h1 {
     
     <!-- Container for post content -->
     <div id="post-container" class="post-container">
-
-
-
       
- 
+      <!-- img id="post-image" class="post-image" alt="" src="https://via.placeholder.com/350x500" async />
+      <div id="post-body" class="post-body"></div -->
 
+      <!-- Gambar yang dimuat pertama kali, akan diganti setelah gambar asli selesai dimuat -->
+<img id="post-image" class="post-image" alt="Alt Text Post Image" src="https://via.placeholder.com/350x500" async />
+<!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
+<div id="post-body" class="post-body" style="display: none;"></div>
 
-  <img id="post-image" class="post-image" alt="" src="https://via.placeholder.com/350x500" async />
+<script>
+  // Dapatkan referensi ke elemen gambar dan post-body
+  const img = document.getElementById('post-image');
+  const postBody = document.getElementById('post-body');
 
+  // Fungsi untuk menunda menampilkan post-body setelah gambar dimuat
+  img.onload = () => {
+    // Setelah gambar selesai dimuat, tampilkan post-body
+    postBody.style.display = 'block';
+  };
 
+  // Jika gambar gagal dimuat, pastikan post-body tetap tampil
+  img.onerror = () => {
+    postBody.style.display = 'block';
+  };
+</script>
 
-
-
-
-
-
-
-
-
-
-
-      
-      <div id="post-body" class="post-body"></div>
 
       
 
