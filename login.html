@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+  <h1>Login</h1>
+
+  <!-- Tombol Login -->
+  <div id="identity-widget">
+    <button onclick="openIdentity()">Login</button>
+  </div>
+
+  <script>
+    // Fungsi untuk membuka widget login
+    function openIdentity() {
+      netlifyIdentity.open();
+    }
+
+    // Menangani login dan redirect setelah login berhasil
+    netlifyIdentity.on("login", user => {
+      console.log("User logged in:", user);
+      // Redirect ke halaman ed.html setelah login berhasil
+      window.location.href = "/ed/";  // Sesuaikan dengan path yang sesuai
+    });
+  </script>
+
+</body>
+</html>
