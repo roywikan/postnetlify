@@ -40,7 +40,7 @@
 
  <div class="uk-container uk-container-small">
     <div class="form-container">
-      <h1 class="uk-heading-medium uk-text-center">Create A Post</h1>
+      <h1 class="uk-heading-medium uk-text-center">Post Editor</h1>
 
       <form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data" class="uk-form-stacked">
         <input type="hidden" name="form-name" value="postForm" />
@@ -94,6 +94,10 @@
   <button type="button" onclick="applyFormat('li')">LI</button>      
   <button type="button" onclick="insertImage()">IMG</button>
   <button type="button" onclick="insertLink()">Link</button>
+  <button type="button" onclick="alignText('justifyLeft')">Left</button>
+  <button type="button" onclick="alignText('justifyCenter')">Center</button>
+  <button type="button" onclick="alignText('justifyRight')">Right</button>
+  
 </div>
             <textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
           </div>
