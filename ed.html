@@ -216,10 +216,40 @@
 
       <div class="uk-text-center">
         <a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
-      </div>
+      
 
        <!-- Tombol Logout -->
         <br><button id="logoutButton" onclick="logout()">Logout</button>
+
+  <script>
+    // Cek status login saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = netlifyIdentity.currentUser();
+      
+      // Jika pengguna belum login, arahkan ke halaman login.html
+      if (!user) {
+        window.location.href = '/login/';  // Arahkan ke halaman login jika belum login
+        return;
+      }
+
+      // Menampilkan tombol logout jika sudah login
+      document.querySelector("#logoutButton").style.display = 'block';
+    });
+
+    // Fungsi logout
+    function logout() {
+      netlifyIdentity.logout();
+      window.location.href = "/login/";  // Arahkan ke halaman login setelah logout
+    }
+  </script>
+
+
+
+
+
+
+
+      </div>
     </div>
   </div>
   <!-- Menambahkan UIkit JS -->
@@ -502,32 +532,7 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
- <!-- Tombol Logout -->
-  <br>
 
- 
-
-  <script>
-    // Cek status login saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', function() {
-      const user = netlifyIdentity.currentUser();
-      
-      // Jika pengguna belum login, arahkan ke halaman login.html
-      if (!user) {
-        window.location.href = '/login/';  // Arahkan ke halaman login jika belum login
-        return;
-      }
-
-      // Menampilkan tombol logout jika sudah login
-      document.querySelector("#logoutButton").style.display = 'block';
-    });
-
-    // Fungsi logout
-    function logout() {
-      netlifyIdentity.logout();
-      window.location.href = "/login/";  // Arahkan ke halaman login setelah logout
-    }
-  </script>
 
   
 </body>
