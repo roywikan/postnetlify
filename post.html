@@ -94,9 +94,10 @@
     }
 
 
-     
+
+
 /* Tombol Back to Home */
-#back-to-home {
+.btn#back-to-home {
   position: fixed; /* Posisi tetap di layar */
   bottom: 20px;    /* Jarak dari bawah viewport */
   right: 20px;     /* Jarak dari kanan viewport */
@@ -170,32 +171,32 @@ footer {
 
 /* footer menu */
 .footer-menu {
-  display: flex; /* Mengatur elemen dalam satu baris */
-  justify-content: center; /* Posisi di tengah secara horizontal */
-  gap: 15px; /* Jarak antar link */
-  margin-top: 20px; /* Memberikan jarak dari konten di atasnya */
+  display: flex; /* Jadikan elemen sejajar mendatar */
+  justify-content: center; /* Pusatkan secara horizontal */
+  gap: 20px; /* Jarak antar link */
+  margin-top: 20px;
 }
 
 .footer-menu a {
-  text-decoration: none; /* Menghapus garis bawah pada link */
-  color: #555; /* Warna teks link */
+  text-decoration: none; /* Hapus garis bawah */
+  color: #555; /* Warna teks */
   font-size: 14px; /* Ukuran font */
-  font-family: 'Roboto', sans-serif; /* Menggunakan font Roboto */
-  transition: color 0.3s ease; /* Efek hover */
+  font-family: 'Roboto', sans-serif; /* Font yang digunakan */
+  transition: color 0.3s ease; /* Efek transisi saat hover */
 }
 
 .footer-menu a:hover {
-  color: #007BFF; /* Ubah warna saat hover */
+  color: #007BFF; /* Warna hover */
 }
 
 @media (max-width: 768px) {
   .footer-menu {
-    flex-wrap: wrap; /* Menyusun link dalam beberapa baris jika layar kecil */
-    gap: 10px; /* Jarak antar link lebih kecil di layar kecil */
+    flex-wrap: wrap; /* Link akan membungkus jika layar kecil */
+    gap: 10px; /* Kurangi jarak antar link */
   }
 
   .footer-menu a {
-    font-size: 12px; /* Ukuran font lebih kecil di layar kecil */
+    font-size: 12px; /* Ukuran font lebih kecil untuk layar kecil */
   }
 }
 
@@ -245,12 +246,10 @@ footer {
   <!-- Placeholder untuk Footer -->
   <div id="footer-placeholder" class="footer-placeholder"></div>
   <footer>
-      <nav class="footer-menu">
-    <ul>
-      <li><a href="/privacy-policy">Privacy</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/terms-of-service">ToS</a></li>
-    </ul>
+  <nav class="footer-menu">
+    <a href="/privacy-policy">Privacy</a>
+    <a href="/about">About</a>
+    <a href="/terms-of-service">ToS</a>
   </nav>
     <br>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
