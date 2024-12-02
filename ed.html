@@ -7,8 +7,9 @@
    <!-- Menambahkan UIkit CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
  
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
-
+ 
+  <link rel="stylesheet" href="/toolbar.css">
+  <script src="/toolbar.js"></script>
 
   <style>
     /* Custom Style untuk mempercantik tampilan */
@@ -80,6 +81,20 @@
         <div class="uk-margin">
           <label class="uk-form-label" for="bodypost">Body</label>
           <div class="uk-form-controls">
+                
+<div id="toolbar">
+  <button type="button" onclick="applyFormat('bold')">B</button>
+  <button type="button" onclick="applyFormat('italic')"><i>I</i></button>
+  <button type="button" onclick="applyFormat('p')">P</button>
+  <button type="button" onclick="applyFormat('h2')">H2</button>
+  <button type="button" onclick="applyFormat('h3')">H3</button>
+  <button type="button" onclick="applyFormat('h4')">H4</button>
+  <button type="button" onclick="applyFormat('ul')">UL</button>
+  <button type="button" onclick="applyFormat('ol')">OL</button>
+  <button type="button" onclick="applyFormat('li')">LI</button>      
+  <button type="button" onclick="insertImage()">IMG</button>
+  <button type="button" onclick="insertLink()">Link</button>
+</div>
             <textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
           </div>
         </div>
@@ -392,35 +407,6 @@ const uploadToCloudinary = async (file, fileName) => {
 
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let editorInstance;
-
-      // Inisialisasi CKEditor 5
-      ClassicEditor.create(document.querySelector('#bodypost'))
-        .then(editor => {
-          editorInstance = editor;
-        })
-        .catch(error => {
-          console.error('Error initializing the editor:', error);
-        });
-
-      // Tangani pengiriman formulir
-      document.getElementById('postForm').addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        // Sinkronisasi data CKEditor ke textarea
-        const editorContent = editorInstance.getData();
-        document.getElementById('bodypost').value = editorContent;
-
-        // Proses data form
-        const form = document.getElementById('postForm');
-        const formData = new FormData(form);
-
-        console.log('Form data ready for submission:', formData);
-      });
-    });
-  </script>
 
   
 </body>
