@@ -35,15 +35,29 @@
 
 
 
+    /* CSS untuk memastikan body memusatkan tombol */
+    body {
+      font-family: "Roboto", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Menyusun konten vertikal di tengah halaman */
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    /* CSS untuk tombol logout */
     #logoutButton {
-      display: none;
+      display: none; /* Tombol logout disembunyikan secara default */
       font-size: 18px; /* Ukuran teks tombol */
       padding: 15px 30px; /* Jarak dalam tombol */
       background-color: #007bff; /* Warna latar belakang tombol */
       color: white; /* Warna teks tombol */
-      border: none; /* Hapus border default */
+      border: none; /* Menghapus border default */
       border-radius: 8px; /* Sudut tombol melengkung */
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }or: pointer;
       transition: background-color 0.3s ease;
     }
 
