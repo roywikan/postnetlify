@@ -36,6 +36,15 @@
         case 'p':
           formattedText = `<p>${selectedText}</p>`;
           break;
+        case 'left':
+          formattedText = `<p style="text-align: left;">${selectedText}</p>`;
+          break;
+        case 'center':
+          formattedText = `<p style="text-align: center;">${selectedText}</p>`;
+          break;
+        case 'right':
+          formattedText = `<p style="text-align: right;">${selectedText}</p>`;
+          break;
         default:
           return;
       }
@@ -95,11 +104,3 @@ function insertLink() {
 }
 
   
-function alignText(alignment) {
-  // Fokuskan ke textarea sebelum menerapkan alignment
-  const textarea = document.getElementById('bodypost');
-  textarea.focus();
-
-  // Gunakan document.execCommand untuk alignment
-  document.execCommand(alignment, false, null);
-}
