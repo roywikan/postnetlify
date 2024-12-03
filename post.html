@@ -326,6 +326,7 @@ h1 {
 
           (function() {
             var d = document, s = d.createElement('script');
+            s.defer = true;
             s.src = 'https://postnetlify.disqus.com/embed.js';/* sesuaikan dengan snippet dari Disqus */
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
@@ -344,7 +345,8 @@ h1 {
 </script>
 
 
-      
+
+
 
 
 
@@ -523,6 +525,12 @@ document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
 
-<script id="dsq-count-scr" src="//postnetlify.disqus.com/count.js" async></script>
+<script>
+  window.addEventListener('load', function() {
+    var script = document.createElement('script');
+    script.src = 'https://disqus.com/embed.js';
+    document.body.appendChild(script);
+  });
+</script>
 </body>
 </html>
