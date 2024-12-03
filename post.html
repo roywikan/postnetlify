@@ -96,8 +96,8 @@ h1 {
 
 /* Footer */
 footer {
-  position: fixed;
-  bottom: -100px;  /* Menyembunyikan footer di luar layar */
+  position: relative;
+  /* bottom: 0px;   Menyembunyikan footer di luar layar */
   width: 100%;
   background-color: #f4f4f4;
   text-align: center;
@@ -106,23 +106,37 @@ footer {
   transition: bottom 0.3s ease;  /* Animasi transisi saat muncul */
 }
 
+
+footer a {
+  color: blue;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Footer menu */
 .footer-menu {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .footer-menu a {
   text-decoration: none;
   color: #555;
   font-size: 14px;
+  font-family: 'Roboto', sans-serif;
   transition: color 0.3s ease;
 }
 
 .footer-menu a:hover {
   color: #007BFF;
 }
+
 
 /* Responsive adjustments for footer menu */
 @media (max-width: 768px) {
@@ -421,32 +435,6 @@ document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
 
-<script>
-// Fungsi untuk menampilkan atau menyembunyikan footer berdasarkan scroll
-function toggleFooterOnScroll() {
-  const footer = document.querySelector('footer');
-  const windowHeight = window.innerHeight; // Tinggi viewport
-  const bodyHeight = document.body.scrollHeight; // Tinggi konten halaman
-  const scrollPosition = window.scrollY + windowHeight; // Posisi scroll saat ini
-
-  // Jika pengguna sudah mencapai bagian bawah halaman, tampilkan footer
-  if (scrollPosition >= bodyHeight) {
-    footer.style.bottom = '0';  // Menampilkan footer dengan geser ke atas
-  } else if (window.scrollY === 0) {
-    // Jika berada di posisi paling atas halaman, sembunyikan footer
-    footer.style.bottom = '-100px';  // Atau nilai lain untuk menyembunyikan footer di luar layar
-  } else {
-    // Jika menggulir ke atas atau tidak di bagian bawah, sembunyikan footer
-    footer.style.bottom = '-100px'; // Menyembunyikan footer jika tidak di bagian bawah
-  }
-}
-
-// Deteksi perubahan posisi scroll pada halaman
-window.addEventListener('scroll', toggleFooterOnScroll);
-
-
-
-</script>
 
 </body>
 </html>
