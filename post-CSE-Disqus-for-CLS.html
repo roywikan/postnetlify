@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+<link rel="dns-prefetch" href="https://via.placeholder.com">
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <title id="page-title"></title>
+
+
+ 
+
+
+
+
+<style>
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-display: swap; /* Fallback cepat untuk font */
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+/* Container for page content */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Gaya default untuk semua link di dalam elemen seperti p, div, table, span */
+p a, div a, table a, span a {
+  color: dodgerblue;  /* Warna link default */
+  text-decoration: none;  /* Menghilangkan garis bawah */
+  transition: color 0.3s ease;  /* Animasi transisi saat hover */
+}
+
+/* Gaya saat link di-hover */
+p a:hover, div a:hover, table a:hover, span a:hover {
+  color: navyblue;  /* Warna saat hover */
+}
+
+
+  /* Header title */
+h1 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Post meta information */
+.post-meta {
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-meta span {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Post image */
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Post content */
+.post-body {
+  font-size: 2rem;
+  margin-bottom: 100px;
+  line-height: 2.6;
+}
+
+/* Footer */
+footer {
+  position: relative;
+  /* bottom: 0px;   Menyembunyikan footer di luar layar */
+  width: 100%;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  transition: bottom 0.3s ease;  /* Animasi transisi saat muncul */
+}
+
+
+footer a {
+  color: dodgerblue;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Footer menu */
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.footer-menu a:hover {
+  color: navyblue;
+}
+
+
+/* Responsive adjustments for footer menu */
+@media (max-width: 768px) {
+  .footer-menu {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-menu a {
+    font-size: 12px;
+  }
+}
+
+/* Mobile and tablet responsive adjustments */
+h1 {
+  font-size: 4rem;
+}
+
+.post-body {
+  font-size: 2rem;
+  line-height: 1.8;
+}
+
+/* Smartphone (Portrait) - up to 480px width */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .post-body {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 100px;
+  }
+}
+
+/* Smartphone (Landscape) - up to 768px width */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .post-body {
+    font-size: 1.7rem;
+    line-height: 2;
+    margin-bottom: 120px;
+  }
+}
+
+/* iPad (Portrait) - up to 1024px width */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+  
+
+  .post-body {
+    font-size: 1.8rem;
+    line-height: 1.9;
+    margin-bottom: 150px;
+    
+  }
+}
+
+/* iPad Air / Tablet (Landscape) - up to 1366px width */
+@media (max-width: 1366px) {
+  h1 {
+    font-size: 3.8rem;
+  }
+
+
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+    margin-bottom: 200px;
+  }
+}
+
+/* Laptop and larger screens */
+@media (min-width: 1367px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+
+  
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+    margin-bottom: 200px;
+  }
+}
+</style>
+
+
+  
+</head>
+<body>
+
+  <div class="container" style="min-height: 1300px;">
+<!-- Post Title -->
+<h1 class="post-title" style="display: none;"><span id="post-title"></span></h1>
+
+<!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+<div id="post-meta" class="post-meta" style="display: none;">
+  <span id="post-author"></span>
+  <span id="post-category"></span>
+  <span id="post-tags"></span>
+  <span id="post-date"></span>
+</div>
+
+    
+    <!-- Container for post content -->
+    <div id="post-container" class="post-container">
+      
+      <!-- img id="post-image" class="post-image" alt="" src="https://via.placeholder.com/350x500" async />
+      <div id="post-body" class="post-body"></div -->
+
+      <!-- Gambar yang dimuat pertama kali, akan diganti setelah gambar asli selesai dimuat -->
+<img id="post-image" class="post-image" alt="Alt Text Post Image" src="https://via.placeholder.com/350x500" async />
+<!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
+<div id="post-body" class="post-body" style="display: none;"></div>
+
+<script>
+  // Dapatkan referensi ke elemen gambar dan post-body
+  const img = document.getElementById('post-image');
+  const postBody = document.getElementById('post-body');
+
+  // Fungsi untuk menunda menampilkan post-body setelah gambar dimuat
+  img.onload = () => {
+    // Setelah gambar selesai dimuat, tampilkan post-body
+    postBody.style.display = 'block';
+    // Memuat Google CSE setelah post-body ditampilkan
+    loadGoogleCSE();
+  };
+
+  // Jika gambar gagal dimuat, pastikan post-body tetap tampil
+  img.onerror = () => {
+    postBody.style.display = 'block';
+    // Memuat Google CSE jika gambar gagal dimuat
+    loadGoogleCSE();
+    
+  };
+
+
+          // Fungsi untuk memuat Google Custom Search Engine (CSE)
+ function loadGoogleCSE() {
+          const script = document.createElement('script');
+          script.defer = true;
+          script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
+          
+          // Append CSE script to the head tag for better performance
+          document.head.appendChild(script);
+
+          // Create the CSE container and append it to the container before Disqus
+          const gcseDiv = document.createElement('div');
+          gcseDiv.classList.add('gcse-search');
+          
+          // Append the div right before Disqus comment section
+          const disqusThread = document.getElementById('disqus_thread');
+          disqusThread.parentNode.insertBefore(gcseDiv, disqusThread);
+
+             // After Google CSE is loaded, load Disqus
+          loadDisqus();
+        }
+
+
+
+
+        // Fungsi untuk memuat Disqus
+        function loadDisqus() {
+          var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = window.location.pathname;
+          };
+
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.defer = true;
+            s.src = 'https://postnetlify.disqus.com/embed.js';/* sesuaikan dengan snippet dari Disqus */
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        }
+
+
+
+
+
+
+
+
+  
+  
+</script>
+
+
+
+
+
+
+
+      
+    </div>
+
+      <br><br><!-- div -->
+<!-- start of google PSE/CSE -->
+      <!-- script defer src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
+      </script>
+      <div class="gcse-search"></div><br><br -->
+<!-- end of google PSE/CSE -->      
+    <!-- /div -->
+
+
+
+
+
+
+
+    
+
+   <!-- start of Disqus Comment Section -->
+<br><br><div id="disqus_thread"></div>
+
+
+    
+
+
+
+  </div>
+
+<!-- Placeholder untuk Footer -->
+<div id="footer-placeholder" class="footer-placeholder"></div>
+
+<footer>
+  <nav class="footer-menu">
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/about">About</a>
+    <a href="/tos">ToS</a>
+    <a href="/login/">Login</a>
+  </nav>
+  <br>
+  <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+</footer>
+
+
+  
+
+
+  
+  <!-- Schema.org JSON-LD for SEO (This will be filled dynamically) -->
+  <script type="application/ld+json" id="json-ld-schema">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "",
+    "author": {
+      "@type": "Person",
+      "name": ""
+    },
+    "datePublished": "",
+    "dateModified": "",
+    "image": "",
+    "articleBody": "",
+    "url": "",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Your Blog Name",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <script>
+ async function fetchPostBySlug() {
+  try {
+    const pathArray = window.location.pathname.split('/');
+    const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
+
+    if (!slug) {
+      throw new Error('Slug not found in the URL');
+    }
+
+    // Fetch the post data from the Netlify Lambda function
+    const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching post: ${response.status}`);
+    }
+
+    // Parse the JSON response
+    const post = await response.json();
+
+    // Human readable date
+    const createdAt = new Date(post.created_at);
+    const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+
+    // Update the page with the post data
+    document.getElementById('post-title').innerText = post.data.title;
+    document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+    document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+    document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+    document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
+    document.getElementById('post-image').src = post.data.imagefile.url;
+    document.getElementById('post-image').alt = post.data.title;
+
+    // Isi konten post-body setelah data dimuat
+    document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+    // Menampilkan post-title dan post-meta secara bersamaan
+    document.querySelector('h1.post-title').style.display = 'block';
+    document.getElementById('post-meta').style.display = 'block';
+
+    // Update SEO meta tags dynamically
+    document.getElementById('meta-description').content = post.data.bodypost.slice(0, 155); // First 155 chars
+    document.getElementById('meta-author').content = post.data.author;
+
+    document.getElementById('page-title').innerText = post.data.title;
+    document.querySelector('meta[property="og:title"]').content = post.data.title;
+    document.querySelector('meta[property="og:description"]').content = post.data.bodypost.slice(0, 155);
+    document.querySelector('meta[property="og:image"]').content = post.data.imagefile.url;
+    document.querySelector('meta[property="og:url"]').content = window.location.href;
+
+    document.querySelector('meta[name="twitter:title"]').content = post.data.title;
+    document.querySelector('meta[name="twitter:description"]').content = post.data.bodypost.slice(0, 155);
+    document.querySelector('meta[name="twitter:image"]').content = post.data.imagefile.url;
+
+    // Update the Schema JSON-LD dynamically
+    const schemaElement = document.getElementById('json-ld-schema');
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.data.title,
+      "author": {
+        "@type": "Person",
+        "url": "https://postnetlify.netlify.app/",
+        "name": post.data.author
+      },
+      "datePublished": post.created_at,
+      "dateModified": post.updated_at || post.created_at,
+      "image": post.data.imagefile.url,
+      "articleBody": post.data.bodypost,
+        "url": window.location.href,  // Menambahkan URL halaman
+      "publisher": {
+        "@type": "Organization",
+        "name": "POST NETLIFY",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733006558/ini-title-nya-superhero-gadungan-664.png.png"
+        }
+      }
+    };
+    schemaElement.innerHTML = JSON.stringify(schemaData);
+
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+  }
+}
+
+// Panggil fungsi saat halaman dimuat
+document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
+  </script>
+
+
+<script>
+  window.addEventListener('load', function() {
+    var script = document.createElement('script');
+    script.src = 'https://disqus.com/embed.js';
+    document.body.appendChild(script);
+  });
+</script>
+</body>
+</html>
