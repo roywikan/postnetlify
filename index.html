@@ -7,7 +7,7 @@
   <meta name="author" id="meta-author" content="">
   <meta name="robots" content="index, follow">
 
-  <title id="page-title">CRUD System with Netlify Forms</title>
+  <title id="page-title">Post to Netlify Forms</title>
 
   <!-- Prefetch DNS untuk Cloudinary -->
 <!-- link rel="dns-prefetch" href="https://via.placeholder.com" -->
@@ -251,7 +251,31 @@ footer a:hover {
   </div>
 
 
+  <!-- Placeholder untuk Footer -->
+  <div id="footer-placeholder" class="footer-placeholder"></div>
+  <footer>
+    <nav class="footer-menu">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+      <a href="/tos">ToS</a>
+      <a href="/login/">Login</a>
+    </nav>
+    <br>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+  </footer>
 
+
+
+
+
+
+
+
+
+
+  
+  
   <script>
     let currentPage = 1;
     const postsPerPage = 12;
@@ -282,6 +306,15 @@ footer a:hover {
 
         const postList = document.getElementById('post-list');
         const pagination = document.getElementById('pagination');
+
+
+        const footer = document.querySelector('footer');
+        const footerPlaceholder = document.getElementById('footer-placeholder');
+        const h1 = document.querySelector('h1');
+
+        // Display h1 after container loads
+        h1.style.display = 'block';
+        
 
         // Calculate the start and end index for the current page
         const startIndex = (currentPage - 1) * postsPerPage;
@@ -322,6 +355,10 @@ footer a:hover {
           }
         });
 
+        // Show grid after posts are rendered
+        postList.style.display = 'flex';
+
+        
        // Handle pagination
 const totalPages = Math.ceil(posts.length / postsPerPage);
 let paginationHtml = '';
@@ -338,11 +375,20 @@ for (let i = 1; i <= totalPages; i++) {
 }
 pagination.innerHTML = `<ul class="pagination">${paginationHtml}</ul>`;
 
+        // Show pagination after it is generated
+        pagination.style.display = 'flex';
 
+        
         // Add 'noindex, follow' for pagination
         if (currentPage > 1) {
           document.querySelector('meta[name="robots"]').setAttribute('content', 'noindex, follow');
         }
+
+
+        // Show footer after pagination
+        footer.style.display = 'block';
+
+        
       } catch (error) {
         console.error('Error fetching posts:', error);
         document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
@@ -359,29 +405,7 @@ pagination.innerHTML = `<ul class="pagination">${paginationHtml}</ul>`;
 
 
 
-    <!-- Placeholder untuk Footer -->
-  <div id="footer-placeholder" class="footer-placeholder"></div>
-  <footer>
-
-
-
-    
-  <nav class="footer-menu">
-    <a href="/">Home</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/about">About</a>
-    <a href="/tos">ToS</a>
-    <a href="/login/">Login</a>
-  </nav>
-    <br>
-    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
-  </footer>
-
   
 
 </body>
 </html>
-
-
- 
-
