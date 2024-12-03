@@ -422,21 +422,28 @@ document.addEventListener('DOMContentLoaded', fetchPostBySlug);
 
 
 <script>
-// Fungsi untuk menampilkan footer setelah menggulir halaman
-function showFooterOnScroll() {
+// Fungsi untuk menampilkan atau menyembunyikan footer berdasarkan scroll
+function toggleFooterOnScroll() {
   const footer = document.querySelector('footer');
   const windowHeight = window.innerHeight; // Tinggi viewport
   const bodyHeight = document.body.scrollHeight; // Tinggi konten halaman
   const scrollPosition = window.scrollY + windowHeight; // Posisi scroll saat ini
 
-  // Jika pengguna sudah mencapai bagian bawah halaman
+  // Jika pengguna sudah mencapai bagian bawah halaman, tampilkan footer
   if (scrollPosition >= bodyHeight) {
     footer.style.bottom = '0';  // Menampilkan footer dengan geser ke atas
+  } else if (window.scrollY === 0) {
+    // Jika berada di posisi paling atas halaman, sembunyikan footer
+    footer.style.bottom = '-100px';  // Atau nilai lain untuk menyembunyikan footer di luar layar
+  } else {
+    // Jika menggulir ke atas atau tidak di bagian bawah, sembunyikan footer
+    footer.style.bottom = '-100px'; // Menyembunyikan footer jika tidak di bagian bawah
   }
 }
 
 // Deteksi perubahan posisi scroll pada halaman
-window.addEventListener('scroll', showFooterOnScroll);
+window.addEventListener('scroll', toggleFooterOnScroll);
+
 
 
 </script>
