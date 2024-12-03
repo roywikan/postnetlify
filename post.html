@@ -56,6 +56,17 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Gaya default untuk semua link di dalam elemen seperti p, div, table, span */
+p a, div a, table a, span a {
+  color: dodgerblue;  /* Warna link default */
+  text-decoration: none;  /* Menghilangkan garis bawah */
+  transition: color 0.3s ease;  /* Animasi transisi saat hover */
+}
+
+/* Gaya saat link di-hover */
+p a:hover, div a:hover, table a:hover, span a:hover {
+  color: navyblue;  /* Warna saat hover */
+}
 
 
   /* Header title */
@@ -108,7 +119,7 @@ footer {
 
 
 footer a {
-  color: blue;
+  color: dodgerblue;
   text-decoration: none;
 }
 
@@ -134,7 +145,7 @@ footer a:hover {
 }
 
 .footer-menu a:hover {
-  color: #007BFF;
+  color: navyblue;
 }
 
 
