@@ -21,6 +21,11 @@
   box-sizing: border-box;
 }
 
+ html, body {
+  height: 100%; /* Pastikan html dan body memiliki tinggi penuh */
+}
+ 
+
 body {
   font-family: 'Roboto', Arial, sans-serif;
   font-display: swap; /* Fallback cepat untuk font */
@@ -34,6 +39,7 @@ body {
 /* Container for page content */
 .container {
   max-width: 1280px;
+  min-height: 100vh; /* Agar container memiliki tinggi minimal untuk memungkinkan scroll */
   margin: 0 auto;
   margin-bottom: 100px;
   padding: 20px;
@@ -235,7 +241,18 @@ footer a:hover {
     line-height: 2.2;
     margin-bottom: 100px;
   }
+
+  footer {
+    position: fixed;
+    bottom: -100px;
+    width: 100%;
+    transition: bottom 0.3s ease; /* Untuk animasi footer yang lebih baik */
+  }
 }
+
+
+
+
 
 /* Laptop and larger screens */
 @media (min-width: 1367px) {
@@ -247,6 +264,13 @@ footer a:hover {
     font-size: 2rem;
     line-height: 2.2;
     margin-bottom: 100px;
+  }
+
+  footer {
+    position: fixed;
+    bottom: -100px;
+    width: 100%;
+    transition: bottom 0.3s ease; /* Untuk animasi footer yang lebih baik */
   }
 }
 </style>
