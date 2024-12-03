@@ -115,17 +115,25 @@ h1 {
   cursor: default;
 }
 
+
+
 /* Footer */
 footer {
-  position: relative;
+  position: fixed; /* position: relative; */
+  bottom: -100px;  /* Menyembunyikan footer di luar layar */
   width: 100%;
-  padding: 10px;
   background-color: #f4f4f4;
-  color: #777;
   text-align: center;
+  padding: 10px;
   font-size: 1.2rem;
+    color: #777;
+  transition: bottom 0.3s ease;  /* Animasi transisi saat muncul */
 }
 
+
+  
+
+  
 footer a {
   color: blue;
   text-decoration: none;
@@ -243,8 +251,7 @@ footer a:hover {
 </head>
 <body>
 
-
-  <div class="container">
+<div class="container" style="min-height: 1300px;">
     <h1>Posts</h1>
     <div id="post-list" class="grid"></div>
     <div id="pagination" class="pagination"></div>
