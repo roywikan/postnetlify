@@ -211,15 +211,17 @@ h1 {
 <body>
 
   <div class="container" style="min-height: 1300px;">
-    <h1 class="post-title"><span id="post-title"></span></h1>
+<!-- Post Title -->
+<h1 class="post-title" style="display: none;"><span id="post-title"></span></h1>
 
-    <!-- Post Meta -->
-    <div id="post-meta" class="post-meta">
-      <span id="post-author"></span>
-      <span id="post-category"></span>
-      <span id="post-tags"></span>
-      <span id="post-date"></span>
-    </div>
+<!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+<div id="post-meta" class="post-meta" style="display: none;">
+  <span id="post-author"></span>
+  <span id="post-category"></span>
+  <span id="post-tags"></span>
+  <span id="post-date"></span>
+</div>
+
     
     <!-- Container for post content -->
     <div id="post-container" class="post-container">
@@ -309,95 +311,101 @@ h1 {
   </script>
 
   <script>
-    async function fetchPostBySlug() {
-      try {
-        const pathArray = window.location.pathname.split('/');
-        const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
+ async function fetchPostBySlug() {
+  try {
+    const pathArray = window.location.pathname.split('/');
+    const slug = pathArray[pathArray.length - 1]; // Ambil slug dari akhir URL
 
-        if (!slug) {
-          throw new Error('Slug not found in the URL');
-        }
-
-        // Fetch the post data from the Netlify Lambda function
-        const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
-
-        if (!response.ok) {
-          throw new Error(`Error fetching post: ${response.status}`);
-        }
-
-        // Parse the JSON response
-        const post = await response.json();
-
-        // Human readable date
-        const createdAt = new Date(post.created_at);
-        const humanReadableDate = createdAt.toLocaleString('id-ID', { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric', 
-          hour: '2-digit', 
-          minute: '2-digit' 
-        });
-
-        // Update the page with the post data
-        document.getElementById('post-title').innerText = post.data.title;
-        document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
-        document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
-        document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
-        document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
-        document.getElementById('post-image').src = post.data.imagefile.url;
-        document.getElementById('post-image').alt = post.data.title;
-
-        document.getElementById('post-body').innerHTML = post.data.bodypost;
-
-        // Update SEO meta tags dynamically
-        document.getElementById('meta-description').content = post.data.bodypost.slice(0, 155); // First 155 chars
-        document.getElementById('meta-author').content = post.data.author;
-
-        document.getElementById('page-title').innerText = post.data.title;
-        document.querySelector('meta[property="og:title"]').content = post.data.title;
-        document.querySelector('meta[property="og:description"]').content = post.data.bodypost.slice(0, 155);
-        document.querySelector('meta[property="og:image"]').content = post.data.imagefile.url;
-        document.querySelector('meta[property="og:url"]').content = window.location.href;
-
-        document.querySelector('meta[name="twitter:title"]').content = post.data.title;
-        document.querySelector('meta[name="twitter:description"]').content = post.data.bodypost.slice(0, 155);
-        document.querySelector('meta[name="twitter:image"]').content = post.data.imagefile.url;
-
-        // Update the Schema JSON-LD dynamically
-        const schemaElement = document.getElementById('json-ld-schema');
-        const schemaData = {
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "headline": post.data.title,
-          "author": {
-            "@type": "Person",
-            "url": "https://postnetlify.netlify.app/",
-            "name": post.data.author
-          },
-          "datePublished": post.created_at,
-          "dateModified": post.updated_at || post.created_at,
-          "image": post.data.imagefile.url,
-          "articleBody": post.data.bodypost,
-          "publisher": {
-            "@type": "Organization",
-            "name": "POST NETLIFY",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733006558/ini-title-nya-superhero-gadungan-664.png.png"
-            }
-          }
-        };
-        schemaElement.innerHTML = JSON.stringify(schemaData);
-
-      } catch (error) {
-        console.error('Error fetching post:', error);
-        document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
-      }
+    if (!slug) {
+      throw new Error('Slug not found in the URL');
     }
 
-    // Call the function when the page is loaded
-    document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+    // Fetch the post data from the Netlify Lambda function
+    const response = await fetch(`/.netlify/functions/readSinglePost?slug=${slug}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching post: ${response.status}`);
+    }
+
+    // Parse the JSON response
+    const post = await response.json();
+
+    // Human readable date
+    const createdAt = new Date(post.created_at);
+    const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+
+    // Update the page with the post data
+    document.getElementById('post-title').innerText = post.data.title;
+    document.getElementById('post-author').innerText = `Author: ${post.data.author}`;
+    document.getElementById('post-category').innerText = `Category: ${post.data.category}`;
+    document.getElementById('post-tags').innerText = `Tags: ${post.data.tags}`;
+    document.getElementById('post-date').innerText = `Published on: ${humanReadableDate}`;
+    document.getElementById('post-image').src = post.data.imagefile.url;
+    document.getElementById('post-image').alt = post.data.title;
+
+    // Isi konten post-body setelah data dimuat
+    document.getElementById('post-body').innerHTML = post.data.bodypost;
+
+    // Menampilkan post-title dan post-meta secara bersamaan
+    document.querySelector('h1.post-title').style.display = 'block';
+    document.getElementById('post-meta').style.display = 'block';
+
+    // Update SEO meta tags dynamically
+    document.getElementById('meta-description').content = post.data.bodypost.slice(0, 155); // First 155 chars
+    document.getElementById('meta-author').content = post.data.author;
+
+    document.getElementById('page-title').innerText = post.data.title;
+    document.querySelector('meta[property="og:title"]').content = post.data.title;
+    document.querySelector('meta[property="og:description"]').content = post.data.bodypost.slice(0, 155);
+    document.querySelector('meta[property="og:image"]').content = post.data.imagefile.url;
+    document.querySelector('meta[property="og:url"]').content = window.location.href;
+
+    document.querySelector('meta[name="twitter:title"]').content = post.data.title;
+    document.querySelector('meta[name="twitter:description"]').content = post.data.bodypost.slice(0, 155);
+    document.querySelector('meta[name="twitter:image"]').content = post.data.imagefile.url;
+
+    // Update the Schema JSON-LD dynamically
+    const schemaElement = document.getElementById('json-ld-schema');
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.data.title,
+      "author": {
+        "@type": "Person",
+        "url": "https://postnetlify.netlify.app/",
+        "name": post.data.author
+      },
+      "datePublished": post.created_at,
+      "dateModified": post.updated_at || post.created_at,
+      "image": post.data.imagefile.url,
+      "articleBody": post.data.bodypost,
+      "publisher": {
+        "@type": "Organization",
+        "name": "POST NETLIFY",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733006558/ini-title-nya-superhero-gadungan-664.png.png"
+        }
+      }
+    };
+    schemaElement.innerHTML = JSON.stringify(schemaData);
+
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    document.getElementById('post-container').innerHTML = `<p>Error fetching post: ${error.message}</p>`;
+  }
+}
+
+// Panggil fungsi saat halaman dimuat
+document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
   </script>
 
 
