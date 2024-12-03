@@ -294,16 +294,21 @@ h1 {
 
 
           // Fungsi untuk memuat Google Custom Search Engine (CSE)
-        function loadGoogleCSE() {
+ function loadGoogleCSE() {
           const script = document.createElement('script');
           script.defer = true;
           script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
-          document.body.appendChild(script);
+          
+          // Append CSE script to the head tag for better performance
+          document.head.appendChild(script);
 
-          // Menambahkan div untuk Google CSE
+          // Create the CSE container and append it to the container before Disqus
           const gcseDiv = document.createElement('div');
           gcseDiv.classList.add('gcse-search');
-          document.body.appendChild(gcseDiv);
+          
+          // Append the div right before Disqus comment section
+          const disqusThread = document.getElementById('disqus_thread');
+          disqusThread.parentNode.insertBefore(gcseDiv, disqusThread);
         }
 
 
