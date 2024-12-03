@@ -280,12 +280,35 @@ h1 {
   img.onload = () => {
     // Setelah gambar selesai dimuat, tampilkan post-body
     postBody.style.display = 'block';
+    // Memuat Google CSE setelah post-body ditampilkan
+    loadGoogleCSE();
   };
 
   // Jika gambar gagal dimuat, pastikan post-body tetap tampil
   img.onerror = () => {
     postBody.style.display = 'block';
+    // Memuat Google CSE jika gambar gagal dimuat
+    loadGoogleCSE();
+    
   };
+
+
+          // Fungsi untuk memuat Google Custom Search Engine (CSE)
+        function loadGoogleCSE() {
+          const script = document.createElement('script');
+          script.defer = true;
+          script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
+          document.body.appendChild(script);
+
+          // Menambahkan div untuk Google CSE
+          const gcseDiv = document.createElement('div');
+          gcseDiv.classList.add('gcse-search');
+          document.body.appendChild(gcseDiv);
+        }
+
+
+
+  
 </script>
 
 
@@ -296,13 +319,13 @@ h1 {
       
     </div>
 
-      <br><br><div>
+      <br><br><!-- div -->
 <!-- start of google PSE/CSE -->
-      <script defer src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
+      <!-- script defer src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
       </script>
-      <div class="gcse-search"></div><br><br>
+      <div class="gcse-search"></div><br><br -->
 <!-- end of google PSE/CSE -->      
-    </div>
+    <!-- /div -->
 
 
 
