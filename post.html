@@ -297,7 +297,22 @@ h1 {
     </div>
 
 
-   
+   <!-- start of Disqus Comment Section -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = window.location.href;  // URL halaman saat ini
+    this.page.identifier = window.location.pathname;  // ID halaman
+  };
+
+  (function() {  // Disqus load script
+    var d = document, s = d.createElement('script');
+    s.src = 'https://YOUR_DISQUS_SHORTNAME_HERE.disqus.com/embed.js';  // Ganti dengan Shortname Anda
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+  <!-- end of Disqus Comment Section -->
 
 
   </div>
