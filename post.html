@@ -302,16 +302,17 @@ h1 {
           // Append CSE script to the head tag for better performance
           document.head.appendChild(script);
 
-          // Create the CSE container and append it to the container before Disqus
+          // Create the CSE container and append it to the container before COMMENT
           const gcseDiv = document.createElement('div');
           gcseDiv.classList.add('gcse-search');
           
-          // Append the div right before Disqus comment section
-          const disqusThread = document.getElementById('disqus_thread');
-          disqusThread.parentNode.insertBefore(gcseDiv, disqusThread);
+          // Append the div right before comment section
+          const commentThread = document.getElementById('comment_thread');
+          commentThread.parentNode.insertBefore(gcseDiv, commentThread);
 
-             // After Google CSE is loaded, load Disqus
-          loadDisqus();
+             // After Google CSE is loaded, load COMMENT
+          //loadDiscus();
+          loadCusdis();
         }
 
 
@@ -334,8 +335,31 @@ h1 {
         }
 
 
+// Fungsi untuk memuat Cusdis
+function loadCusdis() {
+  const pageUrl = window.location.href; // Mendapatkan URL halaman saat ini
+  const pageIdentifier = window.location.pathname; // Mendapatkan path halaman (identifier)
+  const pageTitle = document.title; // Mendapatkan judul halaman, atau Anda bisa menggunakan data dari artikel
 
+  // Membuat elemen div untuk thread Cusdis
+  const cusdisDiv = document.createElement('div');
+  cusdisDiv.id = "cusdis_thread";
+  cusdisDiv.setAttribute("data-host", "https://cusdis.com");
+  cusdisDiv.setAttribute("data-app-id", "e048e64e-1b6a-4db2-a0b8-fcd6ef3fc325");
+  cusdisDiv.setAttribute("data-page-id", pageIdentifier);
+  cusdisDiv.setAttribute("data-page-url", pageUrl);
+  cusdisDiv.setAttribute("data-page-title", pageTitle);
 
+  // Menambahkan elemen div ke body atau elemen kontainer tertentu
+  document.body.appendChild(cusdisDiv);
+
+  // Membuat dan menambahkan skrip Cusdis secara dinamis
+  const script = document.createElement('script');
+  script.async = true;
+  script.defer = true;
+  script.src = "https://cusdis.com/js/cusdis.es.js";
+  document.body.appendChild(script);
+}
 
 
 
@@ -369,8 +393,8 @@ h1 {
 
     
 
-   <!-- start of Disqus Comment Section -->
-<br><br><div id="disqus_thread"></div>
+   <!-- start of  Comment Section -->
+<br><br><div id="comment_thread"></div>
 
 
     
@@ -525,12 +549,12 @@ document.addEventListener('DOMContentLoaded', fetchPostBySlug);
   </script>
 
 
-<script>
+<!-- script>
   window.addEventListener('load', function() {
     var script = document.createElement('script');
     script.src = 'https://disqus.com/embed.js';
     document.body.appendChild(script);
   });
-</script>
+</script -->
 </body>
 </html>
