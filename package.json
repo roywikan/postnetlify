@@ -14,9 +14,6 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "devDependencies": {
-     "netlify-plugin-prerender": "latest"
-  },
   "author": "Your Name",
   "license": "ISC"
 }
