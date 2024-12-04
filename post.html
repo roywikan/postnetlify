@@ -276,23 +276,34 @@ h1 {
   const img = document.getElementById('post-image');
   const postBody = document.getElementById('post-body');
 
-  // Fungsi untuk menunda menampilkan post-body setelah gambar dimuat
-  img.onload = () => {
-    // Setelah gambar selesai dimuat, tampilkan post-body
-    postBody.style.display = 'block';
-    // Memuat Google CSE setelah post-body ditampilkan
-    loadGoogleCSE();
-    loadCusdis();
-  };
+let googleCSELoaded = false;
 
-  // Jika gambar gagal dimuat, pastikan post-body tetap tampil
-  img.onerror = () => {
-    postBody.style.display = 'block';
-    // Memuat Google CSE jika gambar gagal dimuat
+img.onload = () => {
+  // Setelah gambar selesai dimuat, tampilkan post-body
+  postBody.style.display = 'block';
+  
+  // Muat Google CSE hanya jika belum dimuat
+  if (!googleCSELoaded) {
     loadGoogleCSE();
     loadCusdis();
-    
-  };
+    googleCSELoaded = true;
+  }
+
+  
+};
+
+img.onerror = () => {
+  postBody.style.display = 'block';
+
+  // Muat Google CSE hanya jika belum dimuat
+  if (!googleCSELoaded) {
+    loadGoogleCSE();
+    loadCusdis();
+    googleCSELoaded = true;
+  }
+
+  
+};
 
 
           // Fungsi untuk memuat Google Custom Search Engine (CSE)
