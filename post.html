@@ -272,6 +272,7 @@ h1 {
 <div id="post-body" class="post-body" style="display: none;"></div>
 
 <script>
+  loadCusdis();
   // Dapatkan referensi ke elemen gambar dan post-body
   const img = document.getElementById('post-image');
   const postBody = document.getElementById('post-body');
@@ -285,7 +286,7 @@ img.onload = () => {
   // Muat Google CSE hanya jika belum dimuat
   if (!googleCSELoaded) {
     loadGoogleCSE();
-    loadCusdis();
+    //loadCusdis();
     googleCSELoaded = true;
   }
 
@@ -298,7 +299,7 @@ img.onerror = () => {
   // Muat Google CSE hanya jika belum dimuat
   if (!googleCSELoaded) {
     loadGoogleCSE();
-    loadCusdis();
+    //loadCusdis();
     googleCSELoaded = true;
   }
 
@@ -321,7 +322,7 @@ img.onerror = () => {
           
           // Append the div right before comment section
           const commentThread = document.getElementById('comment_thread');
-          commentThread.parentNode.insertBefore(gcseDiv, commentThread);
+          commentThread.parentNode.insertAfter(gcseDiv, commentThread);
 
              // After Google CSE is loaded, load COMMENT
           //loadDiscus();
@@ -433,8 +434,7 @@ function loadCusdis() {
 
 
 
-       <!-- start of  Comment Section -->
-<br><br><div id="comment_thread"></div>
+       <!-- start of  Comment Section --><br><br><div id="comment_thread"></div><!-- end of  Comment Section -->
 
 
 
