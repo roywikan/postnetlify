@@ -15,7 +15,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-  "netlify-plugin-prerender": "5.21.6"  // Pastikan versi yang terbaru
+  "netlify-plugin-prerender": "5.21.6"
   },
   "author": "Your Name",
   "license": "ISC"
