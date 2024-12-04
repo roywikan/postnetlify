@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="RSS Feed">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">RSS Feed for Blog Posts</title>
+</head>
+<body>
+  <h1>RSS Feed</h1>
+  <pre id="rss-feed"></pre> <!-- Tempat untuk menampilkan RSS Feed -->
+
+  <script>
+    // Function to generate a snippet from the post body
+    function generateSnippet(body) {
+      const words = body.split(' ');
+      return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+    }
+
+    // Function to fetch posts and generate RSS Feed
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        // Detect the base URL automatically based on the current location
+        const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
+
+        let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        rss += `<rss version="2.0">\n`;
+        rss += `<channel>\n`;
+        rss += `<title>Your Blog Name</title>\n`;
+        rss += `<link>${baseUrl}</link>\n`;
+        rss += `<description>Latest posts from Your Blog Name</description>\n`;
+
+        posts.forEach(post => {
+          const title = post.data.title;
+          const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+          const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+          const createdAt = new Date(post.created_at); // Create date object
+          const pubDate = createdAt.toUTCString(); // Get UTC format of date
+          const snippet = generateSnippet(post.data.bodypost); // Generate a snippet from the post body
+
+          // Add RSS item entry
+          rss += `
+            <item>
+              <title>${title}</title>
+              <link>${url}</link>
+              <description>${snippet}</description>
+              <pubDate>${pubDate}</pubDate>
+            </item>\n
+          `;
+        });
+
+        rss += `</channel>\n`;
+        rss += `</rss>\n`;
+
+        // Show the RSS feed in the <pre> tag
+        document.getElementById('rss-feed').textContent = rss;
+
+        // Optionally, you can download the RSS feed as a file by prompting the user to save it
+        const blob = new Blob([rss], { type: 'application/xml' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'rss-feed.xml';
+        link.innerText = 'Download RSS Feed';
+        document.body.appendChild(link);
+
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('rss-feed').textContent = `Error fetching posts: ${error.message}`;
+      }
+    }
+
+    // Fetch posts when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+</body>
+</html>
