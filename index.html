@@ -387,6 +387,45 @@ footer a:hover {
   
   
   <script>
+
+  // Menunda pemuatan Google CSE sampai semua post selesai ditampilkan
+  function loadGoogleCSE() {
+    // Memastikan bahwa grid-item sudah ter-render
+    const checkPostsRendered = setInterval(() => {
+      const gridItems = document.querySelectorAll('.grid-item');
+      if (gridItems.length > 0) {
+        // Jika sudah ada grid-item yang ter-render, muat CSE
+        clearInterval(checkPostsRendered);
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
+        script.onload = () => {
+          document.querySelector('.gcse-search').style.display = 'block'; // Menampilkan CSE setelah script dimuat
+        };
+        document.body.appendChild(script);
+      }
+    }, 100); // Cek setiap 100ms
+  }
+
+
+function waitForImages() {
+  const images = document.querySelectorAll('.grid-item img');
+  let loadedImages = 0;
+
+  images.forEach(img => {
+    img.onload = () => {
+      loadedImages++;
+      if (loadedImages === images.length) {
+        // Semua gambar sudah dimuat, sekarang bisa memuat CSE
+        loadGoogleCSE();
+      }
+    };
+  });
+}
+
+
+    
+    
     let currentPage = 1;
     const postsPerPage = 12;
 
@@ -497,6 +536,13 @@ pagination.innerHTML = `<ul class="pagination">${paginationHtml}</ul>`;
 
         // Show footer after pagination
         footer.style.display = 'block';
+      
+
+      // Setelah semua post selesai dimuat, baru load Google CSE
+      //loadGoogleCSE();
+      
+      // Another way, After all posts load, wait for images to be fully loaded
+      waitForImages();
 
         
       } catch (error) {
