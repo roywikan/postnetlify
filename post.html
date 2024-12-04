@@ -22,6 +22,9 @@
 
   <title id="page-title"></title>
 
+    <!-- Placeholder untuk JSON-LD yang akan ditambahkan secara dinamis -->
+  <script type="application/ld+json" id="json-ld-schema"></script>
+
 
  
 
@@ -439,13 +442,7 @@ window.addEventListener('load', loadCusdis);
       
     </div>
 
-      <br><br><!-- div -->
-<!-- start of google PSE/CSE -->
-      <!-- script defer src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
-      </script>
-      <div class="gcse-search"></div><br><br -->
-<!-- end of google PSE/CSE -->      
-    <!-- /div -->
+      <br><br>
 
 
 
@@ -511,6 +508,58 @@ window.addEventListener('load', loadCusdis);
   </script>
 
   <script>
+
+    document.addEventListener('DOMContentLoaded', async () => {
+  await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
+  updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
+});
+
+
+
+
+
+// Fungsi untuk memperbarui JSON-LD schema secara dinamis
+function updateJsonLdSchema() {
+  const postData = window.postData; // Ambil data post dari variabel global
+
+  // Periksa jika postData ada
+  if (!postData) {
+    console.error("Post data is not available yet.");
+    return;
+  }
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": postData.title,
+    "author": {
+      "@type": "Person",
+      "name": postData.author,
+      "url": postData.authorUrl || "https://example.com/author"
+    },
+    "datePublished": postData.datePublished,
+    "dateModified": postData.dateModified || postData.datePublished,
+    "image": postData.imageUrl,
+    "articleBody": postData.body,
+    "url": window.location.href,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Your Blog Name",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    }
+  };
+
+  // Menyisipkan data JSON-LD ke dalam elemen <script>
+  const jsonLdScript = document.getElementById('json-ld-schema');
+  jsonLdScript.innerHTML = JSON.stringify(schemaData);
+}
+
+
+
+    
  async function fetchPostBySlug() {
   try {
     const pathArray = window.location.pathname.split('/');
@@ -529,6 +578,13 @@ window.addEventListener('load', loadCusdis);
 
     // Parse the JSON response
     const post = await response.json();
+
+  //const post = await response.json();
+    window.postData = post.data; // Simpan data post ke dalam variabel global
+if (!window.postData) {
+  console.error("Post data is not available.");
+  return;
+}
 
     // Human readable date
     const createdAt = new Date(post.created_at);
