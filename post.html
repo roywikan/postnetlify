@@ -240,6 +240,12 @@ h1 {
     margin-bottom: 200px;
   }
 }
+
+ #cusdis_thread {
+    min-height: 500px; /* Tentukan tinggi minimum */
+   visibility: hidden; /* Menyembunyikan elemen tapi tetap mengambil ruang di layout */
+}
+
 </style>
 
 
@@ -278,7 +284,11 @@ h1 {
   const img = document.getElementById('post-image');
   const postBody = document.getElementById('post-body');
   
-  loadCusdis();
+  //loadCusdis();
+  //window.addEventListener('load', () => {
+    //loadCusdis(); // Panggil setelah seluruh halaman dimuat
+  //});
+
 
 let googleCSELoaded = false;
 
@@ -360,8 +370,7 @@ function loadGoogleCSE() {
 
 
 
-
-
+// Fungsi untuk menyesuaikan tinggi iframe Cusdis secara otomatis
 function adjustCusdisIframeHeight() {
   const iframe = document.querySelector('iframe');
   if (iframe) {
@@ -369,14 +378,14 @@ function adjustCusdisIframeHeight() {
     const interval = setInterval(() => {
       const newHeight = iframe.contentWindow.document.body.scrollHeight;
       if (newHeight && iframe.style.height !== `${newHeight}px`) {
-        iframe.style.height = `${newHeight}px`;
-        clearInterval(interval); // Berhenti setelah ukuran diperbarui
+        iframe.style.height = `${newHeight}px`; // Mengatur tinggi iframe
+        clearInterval(interval); // Berhenti setelah ukuran iframe diperbarui
       }
     }, 100);
   }
 }
 
-// Panggil fungsi setelah script Cusdis dimuat
+// Fungsi untuk memuat Cusdis
 function loadCusdis() {
   const pageUrl = window.location.href;
   const pageIdentifier = window.location.pathname;
@@ -394,19 +403,30 @@ function loadCusdis() {
   // Menambahkan elemen div ke dalam post-body setelah selesai dimuat
   const postBody = document.getElementById('post-body');
   if (postBody) {
-    postBody.parentNode.insertBefore(cusdisDiv, postBody.nextSibling);
+    postBody.parentNode.insertBefore(cusdisDiv, postBody.nextSibling); // Tempatkan setelah post-body
   }
 
   // Membuat dan menambahkan skrip Cusdis
   const script = document.createElement('script');
   script.src = "https://cusdis.com/js/cusdis.es.js";
-  script.onload = adjustCusdisIframeHeight; // Memanggil fungsi adjust setelah script selesai dimuat
-  document.body.appendChild(script);
+
+  // Menunggu sampai skrip Cusdis selesai dimuat sebelum mengubah visibilitas
+  script.onload = () => {
+    cusdisDiv.style.visibility = 'visible'; // Menampilkan setelah skrip dimuat
+    adjustCusdisIframeHeight(); // Menyesuaikan tinggi iframe setelah skrip dimuat
+  };
+
+  document.body.appendChild(script); // Menambahkan skrip ke dalam body
 }
 
+// Memanggil loadCusdis setelah halaman sepenuhnya dimuat
+window.addEventListener('load', loadCusdis);
 
-  
-  
+
+
+
+
+
   
 </script>
 
