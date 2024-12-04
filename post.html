@@ -356,7 +356,7 @@ function loadCusdis() {
   // Membuat dan menambahkan skrip Cusdis secara dinamis
   const script = document.createElement('script');
   script.async = true;
-  script.defer = true;
+  script.defer = false;
   script.src = "https://cusdis.com/js/cusdis.es.js";
   document.body.appendChild(script);
 }
@@ -372,8 +372,7 @@ function loadCusdis() {
 
 
 
-   <!-- start of  Comment Section -->
-<br><br><div id="comment_thread"></div>
+
 
       
     </div>
@@ -392,7 +391,8 @@ function loadCusdis() {
 
 
 
-    
+       <!-- start of  Comment Section -->
+<br><br><div id="comment_thread"></div>
 
 
 
