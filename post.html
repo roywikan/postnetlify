@@ -352,62 +352,28 @@ img.onerror = () => {
         }
 
 
-// Fungsi untuk memuat Cusdis
-function loadCusdisBUTBEFOREENDOFPAGE() {
-  const pageUrl = window.location.href; // Mendapatkan URL halaman saat ini
-  const pageIdentifier = window.location.pathname; // Mendapatkan path halaman (identifier)
-  const pageTitle = document.title; // Mendapatkan judul halaman, atau Anda bisa menggunakan data dari artikel
 
-  // Membuat elemen div untuk thread Cusdis
-  const cusdisDiv = document.createElement('div');
-  cusdisDiv.id = "cusdis_thread";
-  cusdisDiv.setAttribute("data-host", "https://cusdis.com");
-  cusdisDiv.setAttribute("data-app-id", "e048e64e-1b6a-4db2-a0b8-fcd6ef3fc325");
-  cusdisDiv.setAttribute("data-page-id", pageIdentifier);
-  cusdisDiv.setAttribute("data-page-url", pageUrl);
-  cusdisDiv.setAttribute("data-page-title", pageTitle);
 
-  // Menambahkan elemen div ke body atau elemen kontainer tertentu
-  document.body.appendChild(cusdisDiv);
 
-  // Membuat dan menambahkan skrip Cusdis secara dinamis
-  const script = document.createElement('script');
-  script.async = true;
-  script.defer = false;
-  script.src = "https://cusdis.com/js/cusdis.es.js";
-  document.body.appendChild(script);
+
+
+
+
+function adjustCusdisIframeHeight() {
+  const iframe = document.querySelector('iframe');
+  if (iframe) {
+    // Set interval untuk memeriksa tinggi iframe setiap 100ms
+    const interval = setInterval(() => {
+      const newHeight = iframe.contentWindow.document.body.scrollHeight;
+      if (newHeight && iframe.style.height !== `${newHeight}px`) {
+        iframe.style.height = `${newHeight}px`;
+        clearInterval(interval); // Berhenti setelah ukuran diperbarui
+      }
+    }, 100);
+  }
 }
 
-
-
-
-
-
-// Fungsi untuk memuat Cusdis
-function loadCusdisLama() {
-  const pageUrl = window.location.href;
-  const pageIdentifier = window.location.pathname;
-  const pageTitle = document.title;
-
-  // Membuat elemen div untuk thread Cusdis
-  const cusdisDiv = document.createElement('div');
-  cusdisDiv.id = "cusdis_thread";
-  cusdisDiv.setAttribute("data-host", "https://cusdis.com");
-  cusdisDiv.setAttribute("data-app-id", "e048e64e-1b6a-4db2-a0b8-fcd6ef3fc325");
-  cusdisDiv.setAttribute("data-page-id", pageIdentifier);
-  cusdisDiv.setAttribute("data-page-url", pageUrl);
-  cusdisDiv.setAttribute("data-page-title", pageTitle);
-
-  // Menambahkan elemen div ke body atau elemen kontainer tertentu
-  document.body.appendChild(cusdisDiv);
-
-  // Membuat dan menambahkan skrip Cusdis secara langsung (tanpa async dan defer)
-  const script = document.createElement('script');
-  script.src = "https://cusdis.com/js/cusdis.es.js";
-  document.body.appendChild(script);
-}
-
-
+// Panggil fungsi setelah script Cusdis dimuat
 function loadCusdis() {
   const pageUrl = window.location.href;
   const pageIdentifier = window.location.pathname;
@@ -422,7 +388,7 @@ function loadCusdis() {
   cusdisDiv.setAttribute("data-page-url", pageUrl);
   cusdisDiv.setAttribute("data-page-title", pageTitle);
 
-  // Temukan elemen post-body dan tambahkan Cusdis setelahnya
+  // Menambahkan elemen div ke dalam post-body setelah selesai dimuat
   const postBody = document.getElementById('post-body');
   if (postBody) {
     postBody.parentNode.insertBefore(cusdisDiv, postBody.nextSibling);
@@ -431,8 +397,10 @@ function loadCusdis() {
   // Membuat dan menambahkan skrip Cusdis
   const script = document.createElement('script');
   script.src = "https://cusdis.com/js/cusdis.es.js";
+  script.onload = adjustCusdisIframeHeight; // Memanggil fungsi adjust setelah script selesai dimuat
   document.body.appendChild(script);
 }
+
 
   
   
