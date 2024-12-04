@@ -384,7 +384,7 @@ function loadCusdisBUTBEFOREENDOFPAGE() {
 
 
 // Fungsi untuk memuat Cusdis
-function loadCusdis() {
+function loadCusdisLama() {
   const pageUrl = window.location.href;
   const pageIdentifier = window.location.pathname;
   const pageTitle = document.title;
@@ -408,6 +408,31 @@ function loadCusdis() {
 }
 
 
+function loadCusdis() {
+  const pageUrl = window.location.href;
+  const pageIdentifier = window.location.pathname;
+  const pageTitle = document.title;
+
+  // Membuat elemen div untuk thread Cusdis
+  const cusdisDiv = document.createElement('div');
+  cusdisDiv.id = "cusdis_thread";
+  cusdisDiv.setAttribute("data-host", "https://cusdis.com");
+  cusdisDiv.setAttribute("data-app-id", "e048e64e-1b6a-4db2-a0b8-fcd6ef3fc325");
+  cusdisDiv.setAttribute("data-page-id", pageIdentifier);
+  cusdisDiv.setAttribute("data-page-url", pageUrl);
+  cusdisDiv.setAttribute("data-page-title", pageTitle);
+
+  // Temukan elemen post-body dan tambahkan Cusdis setelahnya
+  const postBody = document.getElementById('post-body');
+  if (postBody) {
+    postBody.parentNode.insertBefore(cusdisDiv, postBody.nextSibling);
+  }
+
+  // Membuat dan menambahkan skrip Cusdis
+  const script = document.createElement('script');
+  script.src = "https://cusdis.com/js/cusdis.es.js";
+  document.body.appendChild(script);
+}
 
   
   
