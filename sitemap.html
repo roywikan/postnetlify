@@ -3,16 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Link Extractor">
-  <meta name="author" content="Your Name">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
   <meta name="robots" content="index, follow">
-  <title>Link Extractor</title>
+
+  <title id="page-title">Links to Post from Netlify Forms</title>
+
+
+  
 </head>
 <body>
-  <div class="container">
-    <h1>Internal Links Extractor</h1>
+  
 
+
+
+
+
+  
+<div class="container">
+    <h1>Posts</h1>
+    <div id="post-list" class="grid"></div>
+
+
+<br><br>
+
+
+
+  
   </div>
+
+
+
+
+
+  
+  
+  
+  
+  
+  <!-- Placeholder untuk Footer -->
+  <div id="footer-placeholder" class="footer-placeholder"></div>
+  <footer>
+    <nav class="footer-menu">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+      <a href="/tos">ToS</a>
+      <a href="/login/">Login</a>
+    </nav>
+    <br>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script>
+
+
+
+    // Function to generate a snippet from the post body
+    function generateSnippet(body) {
+      const words = body.split(' ');
+      return words.slice(0, 15).join(' ') + (words.length > 15 ? '...' : '');
+    }
+
+
+
+
+
+
+
+
+    
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        const postList = document.getElementById('post-list');
+
+
+
+        const footer = document.querySelector('footer');
+        const footerPlaceholder = document.getElementById('footer-placeholder');
+        const h1 = document.querySelector('h1');
+
+        // Display h1 after container loads
+        h1.style.display = 'block';
+        
+
+
+
+        // Clear the post list and render the paginated posts
+        postList.innerHTML = '';
+        paginatedPosts.forEach(post => {
+          
+          const snippet = generateSnippet(post.data.bodypost);
+
+          // Create each post item
+          const postElement = document.createElement('div');
+          // grid classes for responsive layout
+          postElement.classList.add('grid-item');
+
+
+          
+
+          postElement.innerHTML = `
+            <a href="/post/${post.data.slug}" style="text-decoration: none; color: inherit;">
+              ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
+              <h2>${post.data.title}</h2>
+              <p>${snippet}</p>
+            </a>
+          `;
+
+          
+
+          postList.appendChild(postElement);
+
+          // Update SEO for meta title, description, and author
+          if (currentPage === 1) {
+            document.getElementById('meta-description').content = snippet;
+            document.getElementById('meta-author').content = post.data.author;
+            document.getElementById('page-title').innerText = post.data.title;
+          }
+        });
+
+        // Show grid after posts are rendered
+        postList.style.display = 'flex';
+
+        
+
+
+
+        // Show footer after pagination
+        footer.style.display = 'block';
+      
+
+
+        
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+
 
   <script>
 async function fetchPosts() {
@@ -55,5 +206,9 @@ async function fetchPosts() {
 document.addEventListener('DOMContentLoaded', fetchPosts);
 
   </script>
+  
+
+
+ 
 </body>
 </html>
