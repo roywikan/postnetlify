@@ -8,41 +8,14 @@
   <meta name="robots" content="index, follow">
 
   <title id="page-title">Links to Post from Netlify Forms</title>
-
-
-  
 </head>
 <body>
-  
-
-
-
-
-
-  
-<div class="container">
+  <div class="container">
     <h1>Posts</h1>
     <div id="post-list" class="grid"></div>
-
-
-<br><br>
-
-
-
-  
   </div>
 
-
-
-
-
-  
-  
-  
-  
-  
-  <!-- Placeholder untuk Footer -->
-  <div id="footer-placeholder" class="footer-placeholder"></div>
+  <!-- Footer -->
   <footer>
     <nav class="footer-menu">
       <a href="/">Home</a>
@@ -51,39 +24,16 @@
       <a href="/tos">ToS</a>
       <a href="/login/">Login</a>
     </nav>
-    <br>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
   </footer>
 
-
-
-
-
-
-
-
-
-
-  
-  
   <script>
-
-
-
     // Function to generate a snippet from the post body
     function generateSnippet(body) {
       const words = body.split(' ');
       return words.slice(0, 15).join(' ') + (words.length > 15 ? '...' : '');
     }
 
-
-
-
-
-
-
-
-    
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
@@ -95,65 +45,49 @@
         console.log('Posts fetched:', posts);
 
         const postList = document.getElementById('post-list');
+        postList.innerHTML = ''; // Clear the existing list
 
+        posts.forEach(post => {
+          const title = post.data.title;
+          const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+          const url = `/post/${slug}`; // Create URL using slug
+          const createdAt = new Date(post.created_at); // Create date object
 
+          // Format the date into a human-readable format
+          const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+          });
 
-        const footer = document.querySelector('footer');
-        const footerPlaceholder = document.getElementById('footer-placeholder');
-        const h1 = document.querySelector('h1');
-
-        // Display h1 after container loads
-        h1.style.display = 'block';
-        
-
-
-
-        // Clear the post list and render the paginated posts
-        postList.innerHTML = '';
-        paginatedPosts.forEach(post => {
-          
+          // Generate the post snippet
           const snippet = generateSnippet(post.data.bodypost);
 
-          // Create each post item
+          // Create post item element
           const postElement = document.createElement('div');
-          // grid classes for responsive layout
           postElement.classList.add('grid-item');
-
-
           
-
           postElement.innerHTML = `
-            <a href="/post/${post.data.slug}" style="text-decoration: none; color: inherit;">
+            <a href="${url}" style="text-decoration: none; color: inherit;">
               ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
-              <h2>${post.data.title}</h2>
+              <h2>${title}</h2>
               <p>${snippet}</p>
+              <p><small>Created on: ${humanReadableDate}</small></p>
             </a>
           `;
 
-          
-
           postList.appendChild(postElement);
 
-          // Update SEO for meta title, description, and author
-          if (currentPage === 1) {
+          // Update SEO for meta title, description, and author for the first post
+          if (document.getElementById('meta-description').content === '') {
             document.getElementById('meta-description').content = snippet;
             document.getElementById('meta-author').content = post.data.author;
             document.getElementById('page-title').innerText = post.data.title;
           }
         });
-
-        // Show grid after posts are rendered
-        postList.style.display = 'flex';
-
-        
-
-
-
-        // Show footer after pagination
-        footer.style.display = 'block';
-      
-
-
         
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -161,54 +95,8 @@
       }
     }
 
+    // Fetch posts when the DOM is fully loaded
     document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
-
-
-  <script>
-async function fetchPosts() {
-  try {
-    const response = await fetch('/.netlify/functions/readPosts');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const posts = await response.json();
-    const postList = document.getElementById('post-list');
-
-    postList.innerHTML = ''; // Clear the existing list
-
-    posts.forEach(post => {
-      const title = post.data.title;
-      const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
-      const url = `/post/${slug}`; // Create URL using slug
-      const createdAt = post.data.created_at; // Use created_at from post data
-
-      // Create a list item for each post
-      const postElement = document.createElement('div');
-      postElement.classList.add('grid-item');
-      
-      postElement.innerHTML = `
-        <a href="${url}" style="text-decoration: none; color: inherit;">
-          <h2>${title}</h2>
-          <p>Created on: ${createdAt}</p>
-        </a>
-      `;
-      
-      postList.appendChild(postElement);
-    });
-
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', fetchPosts);
-
-  </script>
-  
-
-
- 
 </body>
 </html>
