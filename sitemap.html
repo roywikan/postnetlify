@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Link Extractor">
+  <meta name="author" content="Your Name">
+  <meta name="robots" content="index, follow">
+  <title>Link Extractor</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Internal Links Extractor</h1>
+
+  </div>
+
+  <script>
+async function fetchPosts() {
+  try {
+    const response = await fetch('/.netlify/functions/readPosts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const posts = await response.json();
+    const postList = document.getElementById('post-list');
+
+    postList.innerHTML = ''; // Clear the existing list
+
+    posts.forEach(post => {
+      const title = post.data.title;
+      const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+      const url = `/post/${slug}`; // Create URL using slug
+      const createdAt = post.data.created_at; // Use created_at from post data
+
+      // Create a list item for each post
+      const postElement = document.createElement('div');
+      postElement.classList.add('grid-item');
+      
+      postElement.innerHTML = `
+        <a href="${url}" style="text-decoration: none; color: inherit;">
+          <h2>${title}</h2>
+          <p>Created on: ${createdAt}</p>
+        </a>
+      `;
+      
+      postList.appendChild(postElement);
+    });
+
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', fetchPosts);
+
+  </script>
+</body>
+</html>
