@@ -282,6 +282,7 @@ h1 {
     postBody.style.display = 'block';
     // Memuat Google CSE setelah post-body ditampilkan
     loadGoogleCSE();
+    loadCusdis();
   };
 
   // Jika gambar gagal dimuat, pastikan post-body tetap tampil
@@ -289,6 +290,7 @@ h1 {
     postBody.style.display = 'block';
     // Memuat Google CSE jika gambar gagal dimuat
     loadGoogleCSE();
+    loadCusdis();
     
   };
 
@@ -312,7 +314,7 @@ h1 {
 
              // After Google CSE is loaded, load COMMENT
           //loadDiscus();
-          loadCusdis();
+          //loadCusdis();
         }
 
 
@@ -336,7 +338,7 @@ h1 {
 
 
 // Fungsi untuk memuat Cusdis
-function loadCusdis() {
+function loadCusdisBUTBEFOREENDOFPAGE() {
   const pageUrl = window.location.href; // Mendapatkan URL halaman saat ini
   const pageIdentifier = window.location.pathname; // Mendapatkan path halaman (identifier)
   const pageTitle = document.title; // Mendapatkan judul halaman, atau Anda bisa menggunakan data dari artikel
@@ -364,6 +366,35 @@ function loadCusdis() {
 
 
 
+
+
+// Fungsi untuk memuat Cusdis
+function loadCusdis() {
+  const pageUrl = window.location.href;
+  const pageIdentifier = window.location.pathname;
+  const pageTitle = document.title;
+
+  // Membuat elemen div untuk thread Cusdis
+  const cusdisDiv = document.createElement('div');
+  cusdisDiv.id = "cusdis_thread";
+  cusdisDiv.setAttribute("data-host", "https://cusdis.com");
+  cusdisDiv.setAttribute("data-app-id", "e048e64e-1b6a-4db2-a0b8-fcd6ef3fc325");
+  cusdisDiv.setAttribute("data-page-id", pageIdentifier);
+  cusdisDiv.setAttribute("data-page-url", pageUrl);
+  cusdisDiv.setAttribute("data-page-title", pageTitle);
+
+  // Menambahkan elemen div ke body atau elemen kontainer tertentu
+  document.body.appendChild(cusdisDiv);
+
+  // Membuat dan menambahkan skrip Cusdis secara langsung (tanpa async dan defer)
+  const script = document.createElement('script');
+  script.src = "https://cusdis.com/js/cusdis.es.js";
+  document.body.appendChild(script);
+}
+
+
+
+  
   
   
 </script>
