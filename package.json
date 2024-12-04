@@ -15,7 +15,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "netlify-plugin-prerender": ">=3.0"
+    "netlify-plugin-prerender"
   },
   "author": "Your Name",
   "license": "ISC"
