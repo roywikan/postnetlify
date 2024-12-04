@@ -69,12 +69,14 @@
           // Create post item element
           const postElement = document.createElement('div');
           postElement.classList.add('grid-item');
+          //${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
+          //<p>${snippet}</p>
+
           
           postElement.innerHTML = `
-            <a href="${url}" style="text-decoration: none; color: inherit;">
-              ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
+            <a href="${url}" style="text-decoration: none; color: inherit;">              
               <h2>${title}</h2>
-              <p>${snippet}</p>
+              
               <p><small>Created on: ${humanReadableDate}</small></p>
             </a>
           `;
