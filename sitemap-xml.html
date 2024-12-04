@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">XML Sitemap</title>
+</head>
+<body>
+  <h1>XML Sitemap</h1>
+  <pre id="xml-sitemap"></pre> <!-- Tempat untuk menampilkan XML -->
+
+  <script>
+    // Function to generate XML sitemap from posts data
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        // Detect the base URL automatically based on the current location
+        const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
+
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+        posts.forEach(post => {
+          const title = post.data.title;
+          const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+          const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+          const createdAt = new Date(post.created_at); // Create date object
+          const lastmod = createdAt.toISOString(); // Get ISO format of date
+
+          // Add URL entry in XML
+          xml += `
+            <url>
+              <loc>${url}</loc>
+              <lastmod>${lastmod}</lastmod>
+              <priority>0.5</priority>
+            </url>\n
+          `;
+        });
+
+        xml += `</urlset>`;
+
+        // Show the XML sitemap in the <pre> tag
+        document.getElementById('xml-sitemap').textContent = xml;
+
+        // Optionally, you can download the XML as a file by prompting the user to save it
+        const blob = new Blob([xml], { type: 'application/xml' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'sitemap.xml';
+        link.innerText = 'Download XML Sitemap';
+        document.body.appendChild(link);
+
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('xml-sitemap').textContent = `Error fetching posts: ${error.message}`;
+      }
+    }
+
+    // Fetch posts when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+</body>
+</html>
