@@ -310,30 +310,33 @@ img.onerror = () => {
 };
 
 
-          // Fungsi untuk memuat Google Custom Search Engine (CSE)
- function loadGoogleCSE() {
-          const script = document.createElement('script');
-          script.defer = true;
-          script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
-          
-          // Append CSE script to the head tag for better performance
-          document.head.appendChild(script);
+// Fungsi untuk memuat Google Custom Search Engine (CSE)
+function loadGoogleCSE() {
+  const script = document.createElement('script');
+  script.defer = true;
+  script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
 
-          // Create the CSE container and append it to the container before COMMENT
-          const gcseDiv = document.createElement('div');
-          gcseDiv.classList.add('gcse-search');
-          
-          // Append the div right before comment section
-          const commentThread = document.getElementById('comment_thread');
-          commentThread.parentNode.insertAfter(gcseDiv, commentThread);
+  // Append CSE script to the head tag for better performance
+  document.head.appendChild(script);
 
-             // After Google CSE is loaded, load COMMENT
+  // Create the CSE container and append it to the container before COMMENT
+  const gcseDiv = document.createElement('div');
+  gcseDiv.classList.add('gcse-search');
+
+  // Locate commentThread element
+  const commentThread = document.getElementById('comment_thread');
+  if (commentThread && commentThread.parentNode) {
+    // Insert the gcseDiv before the commentThread
+    commentThread.parentNode.insertBefore(gcseDiv, commentThread);
+  }
+
+     // After Google CSE is loaded, load COMMENT
           //loadDiscus();
           //loadCusdis();
-        }
+}
 
 
-
+  
 
         // Fungsi untuk memuat Disqus
         function loadDisqus() {
