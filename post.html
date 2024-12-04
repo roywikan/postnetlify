@@ -270,12 +270,15 @@ h1 {
 <img id="post-image" class="post-image" alt="Alt Text Post Image" src="https://via.placeholder.com/350x500" async />
 <!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
 <div id="post-body" class="post-body" style="display: none;"></div>
+<!-- start of  Comment Section --><br><br><div id="comment_thread"></div><!-- end of  Comment Section -->
 
 <script>
-  loadCusdis();
+  
   // Dapatkan referensi ke elemen gambar dan post-body
   const img = document.getElementById('post-image');
   const postBody = document.getElementById('post-body');
+  
+  loadCusdis();
 
 let googleCSELoaded = false;
 
@@ -434,7 +437,7 @@ function loadCusdis() {
 
 
 
-       <!-- start of  Comment Section --><br><br><div id="comment_thread"></div><!-- end of  Comment Section -->
+
 
 
 
