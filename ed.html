@@ -1,541 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta name="robots" content="noindex, nofollow">
-  <title>CRUD System with Netlify Forms</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-   <!-- Menambahkan UIkit CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
- 
- 
-  <link rel="stylesheet" href="/toolbar.css">
-  <script src="/toolbar.js"></script>
-
-  <style>
-    /* Custom Style untuk mempercantik tampilan */
-    .form-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    #refreshButton {
-      display: none;
-    }
-
-    .uk-form-label {
-      font-weight: bold;
-    }
-
-    .uk-form-controls input, .uk-form-controls textarea, .uk-form-controls button {
-      font-size: 16px;
-    }
-
-
-
-
-
-    /* CSS untuk tombol logout */
-    #logoutButton {
-      display: none; /* Tombol logout disembunyikan secara default */
-      font-size: 18px; /* Ukuran teks tombol */
-      padding: 15px 30px; /* Jarak dalam tombol */
-      background-color: #007bff; /* Warna latar belakang tombol */
-      color: white; /* Warna teks tombol */
-      border: none; /* Menghapus border default */
-      border-radius: 8px; /* Sudut tombol melengkung */
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }or: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #logoutButton:hover {
-      background-color: #0056b3; /* Warna latar belakang saat hover */
-    }
-
-
-    
-  </style>
-
-
-
-
-  
-</head>
-<body>
-
-
-  
-
- <div class="uk-container uk-container-small">
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-   
-    <div class="form-container">
-      <h1 class="uk-heading-medium uk-text-center">Post Editor</h1>
-
-      <form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data" class="uk-form-stacked">
-        <input type="hidden" name="form-name" value="postForm" />
-
-        <!-- Title -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="title">Title</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="title" id="title" value="Ini Title Nya" required />
-          </div>
-        </div>
-
-        <!-- Slug -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="slug">Slug</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="slug" id="slug" value="ini-slug-nya" required />
-          </div>
-        </div>
-
-        <!-- Tags -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="tags">Tags</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="tags" id="tags" value="ini tagnya" placeholder="tag1, tag2" />
-          </div>
-        </div>
-
-        <!-- Category -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="category">Category</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="category" id="category" value="ini category" />
-          </div>
-        </div>
-
-        <!-- Body -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="bodypost">Body</label>
-          <div class="uk-form-controls">
-                
-<div id="toolbar">
-  <button type="button" onclick="applyFormat('bold')">B</button>
-  <button type="button" onclick="applyFormat('italic')"><i>I</i></button>
-  <button type="button" onclick="applyFormat('p')">P</button>
-  <button type="button" onclick="applyFormat('h2')">H2</button>
-  <button type="button" onclick="applyFormat('h3')">H3</button>
-  <button type="button" onclick="applyFormat('h4')">H4</button>
-  <button type="button" onclick="applyFormat('ul')">UL</button>
-  <button type="button" onclick="applyFormat('ol')">OL</button>
-  <button type="button" onclick="applyFormat('li')">LI</button>      
-  <button type="button" onclick="insertImage()">IMG</button>
-  <button type="button" onclick="insertLink()">Link</button>
-  <button type="button" onclick="applyFormat('left')">Left</button>
-  <button type="button" onclick="applyFormat('center')">Center</button>
-  <button type="button" onclick="applyFormat('right')">Right</button>
-  
-</div>
-            <textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
-          </div>
-        </div>
-
-        <!-- Author -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="author">Author</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="author" id="author" value="Authornya" required />
-          </div>
-        </div>
-
-        <!-- Image -->
-        <div class="uk-margin">
-          <label class="uk-form-label" for="imageFile">Image</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" type="file" id="imageFile" name="imagefile" accept="image/*" />
-          </div>
-        </div>
-
-        <div class="uk-margin">
-          <div data-netlify-recaptcha="true"></div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="uk-margin">
-          <button class="uk-button uk-button-primary" type="submit" id="submitButton" name="submitButton">Submit</button>
-        </div>
-      </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-      <!-- Tombol Refresh -->
-      <div class="uk-margin">
-        <button class="uk-button uk-button-default" id="refreshButton" onclick="refreshPage()">Segarkan Halaman</button>
-      </div>
-
-      <div class="uk-text-center">
-        <a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
-      
-
-     
-
-
-
-
-
-
-      </div>
-    </div>
-  </div>
-  <!-- Menambahkan UIkit JS -->
-  <!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script -->
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Mengambil elemen title dan slug
-    const titleInput = document.querySelector('[name="title"]');
-    const slugInput = document.querySelector('[name="slug"]');
-
-    // Fungsi untuk membuat slug
-    function generateSlugFromTitle() {
-        // Ambil nilai title
-        let title = titleInput.value;
-
-        // Mengubah title menjadi huruf kecil
-        title = title.toLowerCase();
-
-        // Ganti semua karakter non-alphanumerik (termasuk spasi) dengan tanda dash
-        title = title.replace(/[^a-z0-9]+/g, '-');
-
-        // Menghapus dash di awal atau akhir
-        title = title.replace(/^-+|-+$/g, '');
-
-        // Menambahkan 3 angka acak di akhir slug
-        const randomSuffix = Math.floor(100 + Math.random() * 900); // Membuat 3 angka acak
-        title += '-' + randomSuffix;
-
-        // Masukkan slug yang sudah dibuat ke input slug
-        slugInput.value = title;
-    }
-
-    // Setiap kali ada perubahan pada input title, update slug
-    titleInput.addEventListener('input', generateSlugFromTitle);
-
-    // Inisialisasi slug saat halaman pertama kali dimuat (jika title sudah terisi)
-    generateSlugFromTitle();
-});
-
-
-
-
-</script>
-
-
-
-
-
-
-  
-<script>
-
-
- // Fungsi untuk menampilkan tombol refresh setelah aksi sukses
-function aksiSukses() {
-    // Menampilkan tombol refresh setelah aksi berhasil
-    document.getElementById('refreshButton').style.display = 'block';
-    document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
-}
-
-// Fungsi untuk menyegarkan halaman
-function refreshPage() {
-    // Menggunakan window.location.reload() untuk me-refresh halaman
-    window.location.reload();
-}
-
-
-  
-console.log('JavaScript file loaded successfully');
-
-const form = document.getElementById('postForm');
-if (!form) {
-  console.log('Form not found');
-} else {
-  console.log('Form found and ready to attach event listener');
-}
-
-const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
-const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
-
-document.getElementById('postForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-
-
-  
-
-  const form = document.getElementById('postForm');
-  const formData = new FormData(form);
-
-  const file = formData.get('imagefile');
-  const slug = formData.get('slug') || formData.get('title'); // Gunakan slug jika ada, atau fallback ke title
-
-  const submitButton = document.getElementById('submitButton');
-
-  if (submitButton.disabled) return; // Hindari pengiriman ulang
-  if (file) {submitButton.disabled = true;}
-
-  
-  if (!file) {
-    alert('Need an image file. Please select an image');
-    console.log('No image. Please select an image');
-    return;
-  }
-
-
-    const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
-    const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
-    
-  //const slugifiedName = validateFileName(  slug?.trim().replace(/\s+/g, '-').replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') || 'untitled');
-
-
-
-    const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
-    let finalFileName = slugifiedName;
-    if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
-      finalFileName = `${slugifiedName}.${fileExtension}`;
-    }
-
-
-
-console.log('finalFileName:', finalFileName);  // Output: photo.png
-
-  
-  
-
-  if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
-    alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
-    console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');
-    return;
-  }
-
-  if (file.size > 1 * 1024 * 1024) { // Batas 1 MB
-    alert('File is too large. Maximum allowed size is 1MB.');
-    console.log('File is too large. Maximum allowed size is 1MB.');
-    return;
-  }
-
-  try {
-    //alert('Uploading image to Cloudinary...' + finalFileName);
-    console.log('Uploading image to Cloudinary...', finalFileName);
-
-    const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
-    console.log('Cloudinary Response:', cloudinaryResult);
-
-    //const imageUrl = cloudinaryResult.secure_url;
-    //console.log('Image URL:', imageUrl);
-
-
-
-const imageUrl = cloudinaryResult.secure_url;
-console.log('Image URL before f_auto:', imageUrl);
-
-// Menambahkan 'f_auto' pada URL gambar untuk mendapatkan format terbaik secara otomatis
-const imageUrlWithAutoFormat = imageUrl.replace('/upload/', '/upload/f_auto/');
-
-console.log('Image URL with f_auto:', imageUrlWithAutoFormat);
-
-// Ganti file asli dengan URL yang sudah ditambahkan f_auto
-formData.set('imagefile', imageUrlWithAutoFormat); 
-
-
-
-
-
-
-    
-
-    //alert('Image uploaded to Cloudinary successfully!');
-    //formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
-    formData.set('form-name', 'postForm'); // Pastikan form-name tetap ada
-
-
-
-    //alert('Submitting post data...');
-    console.log('Submitting post data...', formData);
-
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
-    }
-
-
-    // Kirim data ke Netlify
-    const netlifyResponse = await fetch('/', {
-      method: 'POST',
-      body: formData,
-    });
-
-console.log('Netlify Response Status:', netlifyResponse.status);
-console.log('Netlify Response OK:', netlifyResponse.ok);
-
-// Coba parsing JSON respons jika tersedia
-//try {
-  //const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
-  //console.log('Netlify Response Text:', netlifyResponseText);
-  
-  // Jika respons adalah JSON, coba parsing
-  //const netlifyResponseJSON = JSON.parse(netlifyResponseText);
-  //console.log('Netlify Response JSON:', netlifyResponseJSON);
-//} catch (parseError) {
-  //console.error('Error parsing Netlify response:', parseError);
-//}
-
-    
-    if (!netlifyResponse.ok) {
-      throw new Error('Failed to submit form to Netlify');
-    }
-
-    //alert('Post submitted successfully to Netlify!');
-    //console.log('Post submitted to Netlify Form successfully!');
-
-    
-    //DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
-    //window.location.reload(); // Refresh halaman setelah berhasil submit
-
-if (netlifyResponse.ok) {
-    console.log('Form successfully submitted to Netlify');
-    //alert('Form successfully submitted!');
-    
-    // Refresh halaman hanya setelah sukses
-    //window.location.reload();
-  setTimeout(aksiSukses, 2000); // Aksi berhasil setelah 2 detik
-
-  } else {
-    console.error('Failed to submit form to Netlify');
-    alert('Failed to submit form. Please try again.');
-  }
-
-
-
-
-    
-
-    
-  } catch (error) {
-    console.error('Error:', error);
-    alert(`Error: ${error.message}`);
-  } finally {
-    submitButton.disabled = false; // Aktifkan kembali tombol
-  }
-});
-
-const uploadToCloudinary = async (file, fileName) => {
-  const cloudinaryData = new FormData();
-  cloudinaryData.append('file', file);
-  cloudinaryData.append('upload_preset', cloudinaryPreset);
-  cloudinaryData.append('public_id', fileName);
-
-  const response = await fetch(cloudinaryUrl, {
-    method: 'POST',
-    body: cloudinaryData,
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to upload image ' + fileName);
-  }
-
-  return await response.json();
-};
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-  </script>
-
-
-
-
-   <div class="uk-text-center">
-    
-    <br><button id="logoutButton" onclick="logout()">Logout</button><br>
-  
-
-  <script>
-    // Cek jika pengguna sudah login
-    document.addEventListener('DOMContentLoaded', function() {
-      const user = netlifyIdentity.currentUser();
-
-      // Jika pengguna sudah login, tampilkan tombol logout
-      if (user) {
-        document.querySelector("#logoutButton").style.display = 'block';
-      } else {
-        // Jika pengguna tidak login, redirect ke login page
-        window.location.href = "/login/";
-      }
-    });
-
-    // Fungsi logout
-    function logout() {
-      netlifyIdentity.logout();
-      window.location.href = "/";  // Arahkan ke halaman login setelah logout
-    }
-  </script>
-   </div>
-
-
-
-  
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="noindex, nofollow">
+		<title>CRUD System with Netlify Forms</title>
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<!-- Menambahkan UIkit CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
+		<link rel="stylesheet" href="/toolbar.css">
+		<script src="/toolbar.js"></script>
+		<style>
+			/* Custom Style untuk mempercantik tampilan */
+			.form-container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			#refreshButton {
+				display: none;
+			}
+
+			.uk-form-label {
+				font-weight: bold;
+			}
+
+			.uk-form-controls input,
+			.uk-form-controls textarea,
+			.uk-form-controls button {
+				font-size: 16px;
+			}
+
+			/* CSS untuk tombol logout */
+			#logoutButton {
+				display: none;
+				/* Tombol logout disembunyikan secara default */
+				font-size: 18px;
+				/* Ukuran teks tombol */
+				padding: 15px 30px;
+				/* Jarak dalam tombol */
+				background-color: #007bff;
+				/* Warna latar belakang tombol */
+				color: white;
+				/* Warna teks tombol */
+				border: none;
+				/* Menghapus border default */
+				border-radius: 8px;
+				/* Sudut tombol melengkung */
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+			}
+
+			or: pointer;
+			transition: background-color 0.3s ease;
+			}
+
+			#logoutButton:hover {
+				background-color: #0056b3;
+				/* Warna latar belakang saat hover */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="uk-container uk-container-small">
+			<div class="form-container">
+				<h1 class="uk-heading-medium uk-text-center">Post Editor</h1>
+				<form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data" class="uk-form-stacked">
+					<input type="hidden" name="form-name" value="postForm" />
+					<!-- Title -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="title">Title</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="text" name="title" id="title" value="Ini Title Nya" required />
+						</div>
+					</div>
+					<!-- Slug -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="slug">Slug</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="text" name="slug" id="slug" value="ini-slug-nya" required />
+						</div>
+					</div>
+					<!-- Tags -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="tags">Tags</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="text" name="tags" id="tags" value="ini tagnya" placeholder="tag1, tag2" />
+						</div>
+					</div>
+					<!-- Category -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="category">Category</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="text" name="category" id="category" value="ini category" />
+						</div>
+					</div>
+					<!-- Body -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="bodypost">Body</label>
+						<div class="uk-form-controls">
+							<div id="toolbar">
+								<button type="button" onclick="applyFormat('bold')">B</button>
+								<button type="button" onclick="applyFormat('italic')">
+									<i>I</i>
+								</button>
+								<button type="button" onclick="applyFormat('p')">P</button>
+								<button type="button" onclick="applyFormat('h2')">H2</button>
+								<button type="button" onclick="applyFormat('h3')">H3</button>
+								<button type="button" onclick="applyFormat('h4')">H4</button>
+								<button type="button" onclick="applyFormat('ul')">UL</button>
+								<button type="button" onclick="applyFormat('ol')">OL</button>
+								<button type="button" onclick="applyFormat('li')">LI</button>
+								<button type="button" onclick="insertImage()">IMG</button>
+								<button type="button" onclick="insertLink()">Link</button>
+								<button type="button" onclick="applyFormat('left')">Left</button>
+								<button type="button" onclick="applyFormat('center')">Center</button>
+								<button type="button" onclick="applyFormat('right')">Right</button>
+							</div>
+							<textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
+						</div>
+					</div>
+					<!-- Author -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="author">Author</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="text" name="author" id="author" value="Authornya" required />
+						</div>
+					</div>
+					<!-- Image -->
+					<div class="uk-margin">
+						<label class="uk-form-label" for="imageFile">Image</label>
+						<div class="uk-form-controls">
+							<input class="uk-input" type="file" id="imageFile" name="imagefile" accept="image/*" />
+						</div>
+					</div>
+					<div class="uk-margin">
+						<div data-netlify-recaptcha="true"></div>
+					</div>
+					<!-- Submit Button -->
+					<div class="uk-margin">
+						<button class="uk-button uk-button-primary" type="submit" id="submitButton" name="submitButton">Submit</button>
+					</div>
+				</form>
+				<!-- Tombol Refresh -->
+				<div class="uk-margin">
+					<button class="uk-button uk-button-default" id="refreshButton" onclick="refreshPage()">Segarkan Halaman</button>
+				</div>
+				<div class="uk-text-center">
+					<a href="/index.html?ref=ed.html" target="_blank">Lihat Posts</a>
+				</div>
+			</div>
+		</div>
+		<!-- Menambahkan UIkit JS -->
+		<!-- script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit.min.js"></script><script src="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/js/uikit-icons.min.js"></script -->
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// Mengambil elemen title dan slug
+				const titleInput = document.querySelector('[name="title"]');
+				const slugInput = document.querySelector('[name="slug"]');
+				// Fungsi untuk membuat slug
+				function generateSlugFromTitle() {
+					// Ambil nilai title
+					let title = titleInput.value;
+					// Mengubah title menjadi huruf kecil
+					title = title.toLowerCase();
+					// Ganti semua karakter non-alphanumerik (termasuk spasi) dengan tanda dash
+					title = title.replace(/[^a-z0-9]+/g, '-');
+					// Menghapus dash di awal atau akhir
+					title = title.replace(/^-+|-+$/g, '');
+					// Menambahkan 3 angka acak di akhir slug
+					const randomSuffix = Math.floor(100 + Math.random() * 900); // Membuat 3 angka acak
+					title += '-' + randomSuffix;
+					// Masukkan slug yang sudah dibuat ke input slug
+					slugInput.value = title;
+				}
+				// Setiap kali ada perubahan pada input title, update slug
+				titleInput.addEventListener('input', generateSlugFromTitle);
+				// Inisialisasi slug saat halaman pertama kali dimuat (jika title sudah terisi)
+				generateSlugFromTitle();
+			});
+		</script>
+		<script>
+			// Fungsi untuk menampilkan tombol refresh setelah aksi sukses
+			function aksiSukses() {
+				// Menampilkan tombol refresh setelah aksi berhasil
+				document.getElementById('refreshButton').style.display = 'block';
+				document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
+			}
+			// Fungsi untuk menyegarkan halaman
+			function refreshPage() {
+				// Menggunakan window.location.reload() untuk me-refresh halaman
+				window.location.reload();
+			}
+			console.log('JavaScript file loaded successfully');
+			const form = document.getElementById('postForm');
+			if (!form) {
+				console.log('Form not found');
+			} else {
+				console.log('Form found and ready to attach event listener');
+			}
+			const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/harga-promo-diskon/upload';
+			const cloudinaryPreset = 'w5ksa5bs'; // Preset harus diatur di dashboard Cloudinary
+			document.getElementById('postForm').addEventListener('submit', async (event) => {
+				event.preventDefault();
+				const form = document.getElementById('postForm');
+				const formData = new FormData(form);
+				const file = formData.get('imagefile');
+				const slug = formData.get('slug') || formData.get('title'); // Gunakan slug jika ada, atau fallback ke title
+				const submitButton = document.getElementById('submitButton');
+				if (submitButton.disabled) return; // Hindari pengiriman ulang
+				if (file) {
+					submitButton.disabled = true;
+				}
+				if (!file) {
+					alert('Need an image file. Please select an image');
+					console.log('No image. Please select an image');
+					return;
+				}
+				const validateFileName = (name) => name.toLowerCase().replace(/[^a-z0-9-_]/g, '').substring(0, 150);
+				const slugifiedName = validateFileName(slug?.trim().replace(/\s+/g, '-') || 'untitled');
+				//const slugifiedName = validateFileName(  slug?.trim().replace(/\s+/g, '-').replace(/\.(jpg|jpeg|png|gif|webp|avif)$/i, '') || 'untitled');
+				const fileExtension = file ? file.name.split('.').pop().toLowerCase() : 'jpg';
+				let finalFileName = slugifiedName;
+				if (!/\.(jpg|jpeg|png|gif|webp|avif)$/i.test(slugifiedName)) {
+					finalFileName = `${slugifiedName}.${fileExtension}`;
+				}
+				console.log('finalFileName:', finalFileName); // Output: photo.png
+				if (!['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(fileExtension)) {
+					alert('Invalid file format. Please upload an image file (jpg, png, etc.).');
+					console.log('Invalid file format. Please upload an image file (jpg, png, etc.).');
+					return;
+				}
+				if (file.size > 1 * 1024 * 1024) { // Batas 1 MB
+					alert('File is too large. Maximum allowed size is 1MB.');
+					console.log('File is too large. Maximum allowed size is 1MB.');
+					return;
+				}
+				try {
+					//alert('Uploading image to Cloudinary...' + finalFileName);
+					console.log('Uploading image to Cloudinary...', finalFileName);
+					const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
+					console.log('Cloudinary Response:', cloudinaryResult);
+					//const imageUrl = cloudinaryResult.secure_url;
+					//console.log('Image URL:', imageUrl);
+					const imageUrl = cloudinaryResult.secure_url;
+					console.log('Image URL before f_auto:', imageUrl);
+					// Menambahkan 'f_auto' pada URL gambar untuk mendapatkan format terbaik secara otomatis
+					const imageUrlWithAutoFormat = imageUrl.replace('/upload/', '/upload/f_auto/');
+					console.log('Image URL with f_auto:', imageUrlWithAutoFormat);
+					// Ganti file asli dengan URL yang sudah ditambahkan f_auto
+					formData.set('imagefile', imageUrlWithAutoFormat);
+					//alert('Image uploaded to Cloudinary successfully!');
+					//formData.set('imagefile', imageUrl); // Ganti file asli dengan URL Cloudinary
+					formData.set('form-name', 'postForm'); // Pastikan form-name tetap ada
+					//alert('Submitting post data...');
+					console.log('Submitting post data...', formData);
+					for (let pair of formData.entries()) {
+						console.log(pair[0] + ': ' + pair[1]);
+					}
+					// Kirim data ke Netlify
+					const netlifyResponse = await fetch('/', {
+						method: 'POST',
+						body: formData,
+					});
+					console.log('Netlify Response Status:', netlifyResponse.status);
+					console.log('Netlify Response OK:', netlifyResponse.ok);
+					// Coba parsing JSON respons jika tersedia
+					//try {
+					//const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
+					//console.log('Netlify Response Text:', netlifyResponseText);
+					// Jika respons adalah JSON, coba parsing
+					//const netlifyResponseJSON = JSON.parse(netlifyResponseText);
+					//console.log('Netlify Response JSON:', netlifyResponseJSON);
+					//} catch (parseError) {
+					//console.error('Error parsing Netlify response:', parseError);
+					//}
+					if (!netlifyResponse.ok) {
+						throw new Error('Failed to submit form to Netlify');
+					}
+					//alert('Post submitted successfully to Netlify!');
+					//console.log('Post submitted to Netlify Form successfully!');
+					//DISABLE RELOAD JIKA INGIN MELIHAT DEBUG DI DEVELOPER TOOLS CONSOLE
+					//window.location.reload(); // Refresh halaman setelah berhasil submit
+					if (netlifyResponse.ok) {
+						console.log('Form successfully submitted to Netlify');
+						//alert('Form successfully submitted!');
+						// Refresh halaman hanya setelah sukses
+						//window.location.reload();
+						setTimeout(aksiSukses, 2000); // Aksi berhasil setelah 2 detik
+					} else {
+						console.error('Failed to submit form to Netlify');
+						alert('Failed to submit form. Please try again.');
+					}
+				} catch (error) {
+					console.error('Error:', error);
+					alert(`Error: ${error.message}`);
+				} finally {
+					submitButton.disabled = false; // Aktifkan kembali tombol
+				}
+			});
+			const uploadToCloudinary = async (file, fileName) => {
+				const cloudinaryData = new FormData();
+				cloudinaryData.append('file', file);
+				cloudinaryData.append('upload_preset', cloudinaryPreset);
+				cloudinaryData.append('public_id', fileName);
+				const response = await fetch(cloudinaryUrl, {
+					method: 'POST',
+					body: cloudinaryData,
+				});
+				if (!response.ok) {
+					throw new Error('Failed to upload image ' + fileName);
+				}
+				return await response.json();
+			};
+		</script>
+		<div class="uk-text-center">
+			<br>
+			<button id="logoutButton" onclick="logout()">Logout</button>
+			<br>
+			<script>
+				// Cek jika pengguna sudah login
+				document.addEventListener('DOMContentLoaded', function() {
+					const user = netlifyIdentity.currentUser();
+					// Jika pengguna sudah login, tampilkan tombol logout
+					if (user) {
+						document.querySelector("#logoutButton").style.display = 'block';
+					} else {
+						// Jika pengguna tidak login, redirect ke login page
+						window.location.href = "/login/";
+					}
+				});
+				// Fungsi logout
+				function logout() {
+					netlifyIdentity.logout();
+					window.location.href = "/"; // Arahkan ke halaman login setelah logout
+				}
+			</script>
+		</div>
+	</body>
 </html>
