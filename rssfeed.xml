@@ -4,117 +4,118 @@
 <title>Your Blog Name</title>
 <link>https://postnetlify.netlify.app</link>
 <description>Latest posts from Your Blog Name</description>
+<atom:link href="https://postnetlify.netlify.app/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />
 
-            <item>
-              <title>Sebuah AI Akan Dapat Belajar dari AI lainnya, Jika AI Saling Terhubung</title>
-              <link>https://postnetlify.netlify.app/post/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899</link>
-              <description>Menghubungkan 2000 program AI dari berbagai perusahaan ke dalam satu sistem besar bisa memiliki dampak yang sangat luas dan kompleks....</description>
-              <pubDate>Wed, 04 Dec 2024 17:50:12 GMT</pubDate>
-            </item>
+    <item>
+      <title>Sebuah AI Akan Dapat Belajar dari AI lainnya, Jika AI Saling Terhubung</title>
+      <link>https://postnetlify.netlify.app/post/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899</link>
+      <description>Menghubungkan 2000 program AI dari berbagai perusahaan ke dalam satu sistem besar bisa memiliki dampak yang sangat luas dan kompleks....</description>
+      <pubDate>Wed, 04 Dec 2024 17:50:12 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899</guid>
+    </item>
 
-          
-            <item>
-              <title>13 Ini Title Nya asjd awdb</title>
-              <link>https://postnetlify.netlify.app/post/13-ini-title-nya-asjd-awdb-459</link>
-              <description>Ini Textarea bodyn/* Laptop and larger screens */@media (min-width: 1367px) { h1 { font-size: 4rem; } .post-body { font-size: 2rem;...</description>
-              <pubDate>Tue, 03 Dec 2024 06:50:09 GMT</pubDate>
-            </item>
+    <item>
+      <title>13 Ini Title Nya asjd awdb</title>
+      <link>https://postnetlify.netlify.app/post/13-ini-title-nya-asjd-awdb-459</link>
+      <description>Ini Textarea bodyn/* Laptop and larger screens */@media (min-width: 1367px) { h1 { font-size: 4rem; } .post-body { font-size: 2rem;...</description>
+      <pubDate>Tue, 03 Dec 2024 06:50:09 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/13-ini-title-nya-asjd-awdb-459</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya AD Sd sd asd</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-ad-sd-sd-asd-908</link>
-              <description>Ini Textarea bodPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
-              <pubDate>Tue, 03 Dec 2024 06:17:36 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya AD Sd sd asd</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-ad-sd-sd-asd-908</link>
+      <description>Ini Textarea bodPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
+      <pubDate>Tue, 03 Dec 2024 06:17:36 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-ad-sd-sd-asd-908</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya asf asd ad </title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-asf-asd-ad-818</link>
-              <description>Ini Textarea bodynya Pytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the...</description>
-              <pubDate>Tue, 03 Dec 2024 06:16:41 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya asf asd ad </title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-asf-asd-ad-818</link>
+      <description>Ini Textarea bodynya Pytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the...</description>
+      <pubDate>Tue, 03 Dec 2024 06:16:41 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-asf-asd-ad-818</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya f asf af as </title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-f-asf-af-as-823</link>
-              <description>Ini Textarea bodynyaPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
-              <pubDate>Tue, 03 Dec 2024 06:16:13 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya f asf af as </title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-f-asf-af-as-823</link>
+      <description>Ini Textarea bodynyaPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
+      <pubDate>Tue, 03 Dec 2024 06:16:13 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-f-asf-af-as-823</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya juga viva</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-juga-viva-932</link>
-              <description>Ini Textarea bodynyPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
-              <pubDate>Tue, 03 Dec 2024 06:14:51 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya juga viva</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-juga-viva-932</link>
+      <description>Ini Textarea bodynyPytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR...</description>
+      <pubDate>Tue, 03 Dec 2024 06:14:51 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-juga-viva-932</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya nambah grid </title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-nambah-grid-632</link>
-              <description>Pytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR Engine. It...</description>
-              <pubDate>Tue, 03 Dec 2024 06:08:07 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya nambah grid </title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-nambah-grid-632</link>
+      <description>Pytesseract or Python-tesseract is an OCR tool for python that also serves as a wrapper for the Tesseract-OCR Engine. It...</description>
+      <pubDate>Tue, 03 Dec 2024 06:08:07 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-nambah-grid-632</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-245</link>
-              <description>Ini Textarea bodynya</description>
-              <pubDate>Mon, 02 Dec 2024 19:02:41 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-245</link>
+      <description>Ini Textarea bodynya</description>
+      <pubDate>Mon, 02 Dec 2024 19:02:41 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-245</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya coba f_auto</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-coba-f-auto-632</link>
-              <description>Ini Textarea bodynya nyoba f_auto</description>
-              <pubDate>Mon, 02 Dec 2024 17:09:46 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya coba f_auto</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-coba-f-auto-632</link>
+      <description>Ini Textarea bodynya nyoba f_auto</description>
+      <pubDate>Mon, 02 Dec 2024 17:09:46 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-coba-f-auto-632</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya right</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-right-878</link>
-              <description>Ini Textarea right bodynya</description>
-              <pubDate>Mon, 02 Dec 2024 12:25:31 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya right</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-right-878</link>
+      <description>Ini Textarea right bodynya</description>
+      <pubDate>Mon, 02 Dec 2024 12:25:31 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-right-878</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya ASA </title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-asa-256</link>
-              <description>Ini Textarea bodynya</description>
-              <pubDate>Mon, 02 Dec 2024 12:24:16 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya ASA </title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-asa-256</link>
+      <description>Ini Textarea bodynya</description>
+      <pubDate>Mon, 02 Dec 2024 12:24:16 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-asa-256</guid>
+    </item>
 
-          
-            <item>
-              <title>Ini Title Nya</title>
-              <link>https://postnetlify.netlify.app/post/ini-title-nya-362-TOOLBAR</link>
-              <description>Ini Textarea bodynyazcZS s asfafsfsffasf</description>
-              <pubDate>Mon, 02 Dec 2024 12:01:25 GMT</pubDate>
-            </item>
+    <item>
+      <title>Ini Title Nya</title>
+      <link>https://postnetlify.netlify.app/post/ini-title-nya-362-TOOLBAR</link>
+      <description>Ini Textarea bodynyazcZS s asfafsfsffasf</description>
+      <pubDate>Mon, 02 Dec 2024 12:01:25 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/ini-title-nya-362-TOOLBAR</guid>
+    </item>
 
-          
-            <item>
-              <title>Inilah Keberhasilan Digital Transformation dari Netflix</title>
-              <link>https://postnetlify.netlify.app/post/inilah-keberhasilan-digital-transformation-dari-netflix-538</link>
-              <description>Siapa sih yang tidak tahu Netflix? Salah satu perusahaan penyedia layanan hiburan terkemuka didunia dengan 183 juta pelanggan di lebih...</description>
-              <pubDate>Mon, 02 Dec 2024 06:57:07 GMT</pubDate>
-            </item>
+    <item>
+      <title>Inilah Keberhasilan Digital Transformation dari Netflix</title>
+      <link>https://postnetlify.netlify.app/post/inilah-keberhasilan-digital-transformation-dari-netflix-538</link>
+      <description>Siapa sih yang tidak tahu Netflix? Salah satu perusahaan penyedia layanan hiburan terkemuka didunia dengan 183 juta pelanggan di lebih...</description>
+      <pubDate>Mon, 02 Dec 2024 06:57:07 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/inilah-keberhasilan-digital-transformation-dari-netflix-538</guid>
+    </item>
 
-          
-            <item>
-              <title>Lampu LED Sudah Dipasang Lek Min</title>
-              <link>https://postnetlify.netlify.app/post/lampu-led-sudah-dipasang-lek-min-247</link>
-              <description>Lampu LED yang dibeli di mirota kampus sudah dipasang pada depan rumah Lek Min. Itu semua atas biaya RT.</description>
-              <pubDate>Sun, 01 Dec 2024 12:56:33 GMT</pubDate>
-            </item>
-
-          </channel>
+    <item>
+      <title>Lampu LED Sudah Dipasang Lek Min</title>
+      <link>https://postnetlify.netlify.app/post/lampu-led-sudah-dipasang-lek-min-247</link>
+      <description>Lampu LED yang dibeli di mirota kampus sudah dipasang pada depan rumah Lek Min. Itu semua atas biaya RT.</description>
+      <pubDate>Sun, 01 Dec 2024 12:56:33 GMT</pubDate>
+      <guid>https://postnetlify.netlify.app/post/lampu-led-sudah-dipasang-lek-min-247</guid>
+    </item>
+</channel>
 </rss>
