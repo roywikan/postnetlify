@@ -1,0 +1,178 @@
+/* css untuk gaya ala post.html */
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-display: swap; /* Fallback cepat untuk font */
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+/* Container for page content */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Link styles */
+p a, div a, table a, span a {
+  color: dodgerblue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+p a:hover, div a:hover, table a:hover, span a:hover {
+  color: navyblue;
+}
+
+/* Header title */
+h1 {
+  font-size: 4rem; /* Diatur sesuai aturan terbesar */
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Post meta information */
+.post-meta {
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-meta span {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Post image */
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Post content */
+.post-body {
+  font-size: 2rem;
+  margin-bottom: 200px; /* Diatur sesuai aturan terbesar */
+  line-height: 2.2; /* Diatur sesuai aturan terbesar */
+}
+
+/* Footer */
+footer {
+  position: relative;
+  width: 100%;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  transition: bottom 0.3s ease;
+}
+
+footer a {
+  color: dodgerblue;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Footer menu */
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.footer-menu a:hover {
+  color: navyblue;
+}
+
+/* Responsive adjustments for footer menu */
+@media (max-width: 768px) {
+  .footer-menu {
+    gap: 10px;
+  }
+
+  .footer-menu a {
+    font-size: 12px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .post-body {
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .post-body {
+    font-size: 1.7rem;
+    line-height: 2;
+  }
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .post-body {
+    font-size: 1.8rem;
+    line-height: 1.9;
+  }
+}
+
+@media (max-width: 1366px) {
+  h1 {
+    font-size: 3.8rem;
+  }
+}
+
+@media (min-width: 1367px) {
+  h1 {
+    font-size: 4rem;
+  }
+}
+
+/* Cusdis thread */
+#cusdis_thread {
+  min-height: 500px;
+  visibility: hidden;
+}
