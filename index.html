@@ -603,22 +603,7 @@ function toggleFooterOnScroll() {
 
 
 
-// Deteksi perubahan posisi scroll pada halaman
-window.addEventListener('scroll', toggleFooterOnScroll);
 
-function setLazyLoading() {
-  const gridItems = document.querySelectorAll('.grid-item img');
-  gridItems.forEach((img, index) => {
-    if (index >= 2) { // Indeks mulai dari 0, jadi grid ke-3 adalah indeks 2
-      img.setAttribute('loading', 'lazy');
-    }
-  });
-}
-
-// Panggil fungsi setelah post selesai dirender
-fetchPosts().then(() => {
-  setLazyLoading();
-});
 
   
 </script>
