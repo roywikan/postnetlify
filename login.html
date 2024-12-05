@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Metadata dan pengaturan -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
+      <meta name="robots" content="noindex, nofollow">
   <title>Login Page</title>
   <link rel="stylesheet" href="post-html.css">
 
@@ -45,26 +46,32 @@
 </head>
 <body>
 
-  <h1>Login : </h1><br>
+  <!-- Kontainer utama -->
+  <div class="container" style="min-height: 1300px;">
+    
+    <!-- Judul posting -->
+    <h1 class="post-title" style="display: none;"><span id="post-title">Login :</span></h1>
 
-  <!-- Tombol Login -->
+    <!-- Meta informasi posting -->
+    <div id="post-meta" class="post-meta" style="display: none;">
+
+
+    </div>
+
+    <!-- Kontainer konten posting -->
+    <div id="post-container" class="post-container">
+
+              <!-- Tombol Login -->
   <div id="identity-widget">
     <button onclick="openIdentity()">Login</button>
   </div>
+      <!-- Konten teks posting -->
+      <div id="post-body" class="post-body" style="display: none;"></div>
+    </div>
 
-  <script>
-    // Fungsi untuk membuka widget login
-    function openIdentity() {
-      netlifyIdentity.open();
-    }
-
-    // Menangani login dan redirect setelah login berhasil
-    netlifyIdentity.on("login", user => {
-      console.log("User logged in:", user);
-      // Redirect ke halaman edit.html setelah login berhasil
-      window.location.href = "/ed/";  // Sesuaikan dengan path yang sesuai
-    });
-  </script>
+    <!-- Seksi komentar -->
+    <div id="comment_thread"></div>
+  </div>
 
   <!-- Placeholder untuk Footer -->
 <div id="footer-placeholder" class="footer-placeholder"></div>
@@ -84,6 +91,21 @@
     </nav>
     <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
   </footer>
+
+    <script>
+    // Fungsi untuk membuka widget login
+    function openIdentity() {
+      netlifyIdentity.open();
+    }
+
+    // Menangani login dan redirect setelah login berhasil
+    netlifyIdentity.on("login", user => {
+      console.log("User logged in:", user);
+      // Redirect ke halaman edit.html setelah login berhasil
+      window.location.href = "/ed/";  // Sesuaikan dengan path yang sesuai
+    });
+  </script>
   
 </body>
 </html>
+
