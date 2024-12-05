@@ -133,30 +133,15 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 		<div id="toolbar">
 			<div id="userInfo"></div><br>
 			
-    			<!-- button id="logoutButton1" onclick="logout()">Logout1</button><br -->
-			<button id="logoutButton" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out" onclick="logout()">Logout2</button><br>
-			<!-- button id="logoutButton3" onclick="logout()">Logout3</button -->
+    			
+			
+			<button id="logoutButton" onclick="logout()" style="display: block;">Logout</button><br>
+			
 			<br><br>
 			<div id="user-info" class="user-info-container"></div><br>
 			<div id="user-info-detail" class="user-info-container"></div><br>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const user = netlifyIdentity.currentUser();
-    const userInfoDiv = document.getElementById('user-info');
 
-    if (user) {
-      // Contoh data dengan properti tertentu
-      userInfoDiv.innerHTML = `
-        <p><strong>Email:</strong> ${user.email}</p>
-        <p><strong>Full Name:</strong> ${user.user_metadata.full_name}</p>
-        <p><strong>Created At:</strong> ${new Date(user.created_at).toLocaleString()}</p>
-      `;
-    } else {
-      userInfoDiv.textContent = 'No user is logged in.';
-    }
-  });
-</script>
 			
 		</div>
 
@@ -429,6 +414,12 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 					const logoutButton = document.querySelector("#logoutButton");
         				const userInfoDisplay = document.querySelector("#userInfo");
 
+
+    					const userInfoDiv = document.getElementById('user-info');
+    					const userInfoDetailDiv = document.getElementById('user-info-detail');
+
+					
+
 					// Ambil elemen input Author
     					const authorInput = document.querySelector("#author");
 					
@@ -441,8 +432,33 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 
 						// Jika ada pengguna login, isi dengan nama pengguna
         					authorInput.value = user.user_metadata?.full_name || user.email || "TheAuthor";
+
+
+						// Contoh data dengan properti tertentu
+      						userInfoDiv.innerHTML = `
+        						<p><strong>Email:</strong> ${user.email}</p>
+        						<p><strong>Full Name:</strong> ${user.user_metadata.full_name}</p>
+        						<p><strong>Created At:</strong> ${new Date(user.created_at).toLocaleString()}</p>
+      						`;
+
+      						// Buat list dari properti objek
+      						let html = '<ul>';
+      						for (let key in user) {
+        						html += `<li><strong>${key}:</strong> ${JSON.stringify(user[key])}</li>`;
+      						}
+						
+      						html += '</ul>';
+      						userInfoDetailDiv.innerHTML = html;
+
+
+
+						
 						
 					} else {
+
+						userInfoDiv.textContent = 'No user is logged in.';
+	     					userInfoDetailDiv.textContent = 'No user is logged in.';
+						
 						// Jika tidak ada pengguna login, tetap gunakan default "TheAuthor"
         					authorInput.value = "TheAuthor";
 						
@@ -461,23 +477,10 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 
 				
 
+  
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const user = netlifyIdentity.currentUser();
-    const userInfoDiv = document.getElementById('user-info-detail');
 
-    if (user) {
-      // Buat list dari properti objek
-      let html = '<ul>';
-      for (let key in user) {
-        html += `<li><strong>${key}:</strong> ${JSON.stringify(user[key])}</li>`;
-      }
-      html += '</ul>';
-      userInfoDiv.innerHTML = html;
-    } else {
-      userInfoDiv.textContent = 'No user is logged in.';
-    }
-  });
+
 
 
 			
