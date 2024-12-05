@@ -43,7 +43,7 @@
 
         posts.forEach(post => {
           const title = post.data.title;
-          const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+          const slug = post.data.slug;
           const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
           const createdAt = new Date(post.created_at); // Create date object
           const pubDate = createdAt.toUTCString(); // Get UTC format of date
