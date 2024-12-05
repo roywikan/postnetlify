@@ -111,9 +111,9 @@ h6 {
 
 /* Lists */
 ul {
-  margin-left: 2rem; /* Menggeser UL 1 tab ke dalam */
+  margin-left: 4rem; /* Menggeser UL 1 tab ke dalam */
   list-style-type: disc;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 /* Footer */
