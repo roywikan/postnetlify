@@ -12,7 +12,7 @@
   <!-- Prefetch DNS untuk Cloudinary -->
 <!-- link rel="dns-prefetch" href="https://via.placeholder.com" -->
 <link rel="dns-prefetch" href="https://res.cloudinary.com">
-<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 
 
 <style>  
@@ -323,7 +323,6 @@ footer a:hover {
 
   
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
     
 </head>
 <body>
@@ -501,11 +500,13 @@ function loadGoogleCSE() {
 
           postElement.innerHTML = `
             <a href="/post/${post.data.slug}" style="text-decoration: none; color: inherit;">
-              ${post.data.imagefile ? `<img data-src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
+              ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
               <h2>${post.data.title}</h2>
               <p>${snippet}</p>
             </a>
           `;
+
+          
 
           
 
@@ -605,7 +606,21 @@ function toggleFooterOnScroll() {
 // Deteksi perubahan posisi scroll pada halaman
 window.addEventListener('scroll', toggleFooterOnScroll);
 
+function setLazyLoading() {
+  const gridItems = document.querySelectorAll('.grid-item img');
+  gridItems.forEach((img, index) => {
+    if (index >= 2) { // Indeks mulai dari 0, jadi grid ke-3 adalah indeks 2
+      img.setAttribute('loading', 'lazy');
+    }
+  });
+}
 
+// Panggil fungsi setelah post selesai dirender
+fetchPosts().then(() => {
+  setLazyLoading();
+});
+
+  
 </script>
 
  
