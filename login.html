@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Metadata dan pengaturan -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="robots" content="noindex, nofollow">
-  <title>Login Page</title>
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+<link rel="dns-prefetch" href="https://via.placeholder.com">
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+ <title>Login Page</title>
   <link rel="stylesheet" href="post-html.css">
 
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
     /* CSS untuk memperbesar tombol login dan memusatkannya di tengah halaman */
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
+
 
     #identity-widget {
       text-align: center; /* Menyelaraskan tombol ke tengah */
@@ -43,54 +50,120 @@
     }
 
   </style>
+
+ 
+
+
+
+
+  
 </head>
 <body>
 
-  <!-- Kontainer utama -->
   <div class="container" style="min-height: 1300px;">
+  
+<!-- Post Title -->
+<h1 class="post-title" style="display: none;"><span id="post-title"></span></h1>
+
+<!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+
+<div id="post-meta" class="post-meta" style="display: none;">
+  <span id="post-author"></span>
+  <span id="post-category"></span>
+  <span id="post-tags"></span>
+  <span id="post-date"></span>
+</div>
+
     
+    <!-- Container for post content -->
+    
+    <div id="post-container" class="post-container">
+      
+
+
+
+      
     <!-- Judul posting -->
     <h1 class="post-title" style="display: none;"><span id="post-title">Login :</span></h1>
 
-    <!-- Meta informasi posting -->
-    <div id="post-meta" class="post-meta" style="display: none;">
 
 
-    </div>
 
-    <!-- Kontainer konten posting -->
-    <div id="post-container" class="post-container">
+
+
+
+<div id="post-body" class="post-body" style="">
+
 
               <!-- Tombol Login -->
   <div id="identity-widget">
     <button onclick="openIdentity()">Login</button>
   </div>
-      <!-- Konten teks posting -->
-      <div id="post-body" class="post-body" style="display: none;"></div>
+  
+  
+</div>
+
+
+<!-- start of  Comment Section --><br><br><div id="comment_thread"></div><!-- end of  Comment Section -->
+
+
+
+
+
+
+
+      
     </div>
 
-    <!-- Seksi komentar -->
-    <div id="comment_thread"></div>
+      <br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
   </div>
 
-  <!-- Placeholder untuk Footer -->
+<!-- Placeholder untuk Footer -->
 <div id="footer-placeholder" class="footer-placeholder"></div>
-  <!-- Footer -->
-  <footer>
-    <nav class="footer-menu">
-      <a href="/">Home</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/about">About</a>
-      <a href="/tos">ToS</a>
-      <a href="/login/">Login</a>
-      <a href="/rssfeed.html">RSS Feed Generator</a>
-      <a href="/rssfeed.xml">RSS Feed</a>
-      <a href="/sitemap.html">HTML Sitemap</a>
-      <a href="/sitemap-xml.html">XML Sitemap Generator</a>
-      <a href="/sitemap.xml">XML Sitemap</a>
-    </nav>
-    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
-  </footer>
+
+<footer>
+  <nav class="footer-menu">
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/about">About</a>
+    <a href="/tos">ToS</a>
+    <a href="/login/">Login</a>
+    <a href="/rssfeed.html">RSS Feed Generator</a>
+    <a href="/rssfeed.xml">RSS Feed</a>
+    <a href="/sitemap.html">HTML Sitemap</a>
+    <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+    <a href="/sitemap.xml">XML Sitemap</a>
+  </nav>
+  <br>
+  <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+</footer>
+
+
+  
+
+
+
+
+
+
+
+
 
     <script>
     // Fungsi untuk membuka widget login
@@ -105,7 +178,7 @@
       window.location.href = "/ed/";  // Sesuaikan dengan path yang sesuai
     });
   </script>
-  
+
+
 </body>
 </html>
-
