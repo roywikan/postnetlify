@@ -84,9 +84,10 @@
 		
 		<div id="toolbar">
 			<div id="userInfo"></div><br>
-    			<button id="logoutButton1" onclick="logout()">Logout1</button><br>
-			<button id="logoutButton2" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out" onclick="logout()">Logout2</button><br>
-			<button id="logoutButton3" onclick="logout()">Logout3</button>
+			<div id="user-info"></div><br>
+    			<!-- button id="logoutButton1" onclick="logout()">Logout1</button><br -->
+			<button id="logoutButton" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out" onclick="logout()">Logout2</button><br>
+			<!-- button id="logoutButton3" onclick="logout()">Logout3</button -->
 			<br>
 		</div>
 
@@ -388,6 +389,29 @@
 
 					
 				});
+
+				
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const user = netlifyIdentity.currentUser();
+    const userInfoDiv = document.getElementById('user-info');
+
+    if (user) {
+      // Buat list dari properti objek
+      let html = '<ul>';
+      for (let key in user) {
+        html += `<li><strong>${key}:</strong> ${JSON.stringify(user[key])}</li>`;
+      }
+      html += '</ul>';
+      userInfoDiv.innerHTML = html;
+    } else {
+      userInfoDiv.textContent = 'No user is logged in.';
+    }
+  });
+
+
+			
 				// Fungsi logout
 				function logout() {
 					netlifyIdentity.logout();
