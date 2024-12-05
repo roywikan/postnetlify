@@ -71,12 +71,12 @@
 
         posts.forEach(post => {
           const title = post.data.title;
-          const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''); // Generate slug from title
+          const slug = post.data.slug;
           const url = `/post/${slug}`; // Create URL using slug
           const createdAt = new Date(post.created_at); // Create date object
 
           // Format the date into a human-readable format
-          const humanReadableDate = createdAt.toLocaleString('id-ID', { 
+          const humanReadableDate = createdAt.toLocaleString('en-US', { 
             weekday: 'long', 
             year: 'numeric', 
             month: 'long', 
