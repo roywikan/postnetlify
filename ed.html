@@ -135,6 +135,7 @@
 			<!-- button id="logoutButton3" onclick="logout()">Logout3</button -->
 			<br><br>
 			<div id="user-info" class="user-info-container"></div><br>
+			<div id="user-info-detail" class="user-info-container"></div><br>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -460,7 +461,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     const user = netlifyIdentity.currentUser();
-    const userInfoDiv = document.getElementById('user-info');
+    const userInfoDiv = document.getElementById('user-info-detail');
 
     if (user) {
       // Buat list dari properti objek
