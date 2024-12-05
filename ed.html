@@ -60,10 +60,36 @@
 				background-color: #0056b3;
 				/* Warna latar belakang saat hover */
 			}
+
+			#logoutButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+@media (max-width: 600px) {
+    #logoutButton {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+
+			
 		</style>
 	</head>
 	<body>
 		<div class="uk-container uk-container-small">
+		
+		<div id="toolbar">
+    			<button id="logoutButton" onclick="netlifyIdentity.logout()">Logout</button><br>
+			<button id="logoutButton" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out"> Logout</button><br>
+			<button id="logoutButton" onclick="logout()">Logout</button>
+			<br>
+		</div>
+
+
 			<div class="form-container">
 				<h1 class="uk-heading-medium uk-text-center">Post Editor</h1>
 				<form action="/" name="postForm" id="postForm" method="POST" data-netlify="true" data-netlify-recaptcha="true" enctype="multipart/form-data" class="uk-form-stacked">
@@ -316,9 +342,10 @@
 			};
 		</script>
 		<div class="uk-text-center">
-			<br>
+			<!-- br>
 			<button id="logoutButton" onclick="logout()">Logout</button>
-			<br>
+			<br -->
+			
 			<script>
 				// Cek jika pengguna sudah login
 				document.addEventListener('DOMContentLoaded', function() {
