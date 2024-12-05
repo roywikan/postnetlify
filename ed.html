@@ -83,8 +83,9 @@
 		<div class="uk-container uk-container-small">
 		
 		<div id="toolbar">
-    			<button id="logoutButton1" onclick="netlifyIdentity.logout()">Logout1</button><br>
-			<button id="logoutButton2" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out">Logout2</button><br>
+			<div id="userInfo"></div><br>
+    			<button id="logoutButton1" onclick="logout()">Logout1</button><br>
+			<button id="logoutButton2" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out" onclick="logout()">Logout2</button><br>
 			<button id="logoutButton3" onclick="logout()">Logout3</button>
 			<br>
 		</div>
@@ -151,9 +152,14 @@
 					<div class="uk-margin">
 						<label class="uk-form-label" for="author">Author</label>
 						<div class="uk-form-controls">
-							<input class="uk-input" type="text" name="author" id="author" value="Authornya" required />
+							<input class="uk-input" type="text" name="author" id="author" value="TheAuthor" required />
 						</div>
 					</div>
+					<!-- Author -->
+
+
+
+
 					<!-- Image -->
 					<div class="uk-margin">
 						<label class="uk-form-label" for="imageFile">Image</label>
@@ -350,13 +356,37 @@
 				// Cek jika pengguna sudah login
 				document.addEventListener('DOMContentLoaded', function() {
 					const user = netlifyIdentity.currentUser();
+					const logoutButton = document.querySelector("#logoutButton");
+        				const userInfoDisplay = document.querySelector("#userInfo");
+
+					// Ambil elemen input Author
+    					const authorInput = document.querySelector("#author");
+					
 					// Jika pengguna sudah login, tampilkan tombol logout
 					if (user) {
 						document.querySelector("#logoutButton").style.display = 'block';
+						logoutButton.style.display = 'block';
+            					// Tampilkan nama pengguna di elemen dengan ID 'userInfo'
+            					userInfoDisplay.textContent = `Welcome, ${user.user_metadata.full_name}!`;
+
+						// Jika ada pengguna login, isi dengan nama pengguna
+        					authorInput.value = user.user_metadata?.full_name || user.email || "TheAuthor";
+						
 					} else {
+						// Jika tidak ada pengguna login, tetap gunakan default "TheAuthor"
+        					authorInput.value = "TheAuthor";
+						
 						// Jika pengguna tidak login, redirect ke login page
 						window.location.href = "/login/";
 					}
+
+
+
+
+
+
+
+					
 				});
 				// Fungsi logout
 				function logout() {
