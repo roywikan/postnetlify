@@ -15,11 +15,33 @@
 
   <script>
     // Function to generate a snippet from the post body
-    function generateSnippet(body) {
+    function generateSnippetSIMPLE(body) {
       const words = body.split(' ');
       return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
     }
 
+
+    function generateSnippet(body) {
+  // Remove all HTML tags
+  const sanitizedBody = body.replace(/<[^>]*>/g, ''); 
+
+  // Decode HTML entities like &amp; &lt; etc.
+  const text = sanitizedBody.replace(/&[a-zA-Z0-9#]+;/g, match => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = match;
+    return textarea.value;
+  });
+
+  // Ensure only valid ASCII characters are included (optional step for stricter validation)
+  const validText = text.replace(/[^\x20-\x7E]/g, '');
+
+  // Generate a snippet with the first 20 words
+  const words = validText.split(/\s+/); // Use \s+ to avoid extra spaces or line breaks
+  return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+}
+
+
+    
     // Function to fetch posts and generate RSS Feed
     async function fetchPosts() {
       try {
