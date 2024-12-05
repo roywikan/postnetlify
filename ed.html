@@ -75,7 +75,52 @@
     }
 }
 
+  /* Responsif Styling untuk User Info */
 
+  /* General styling */
+  .user-info-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* Text styling */
+  .user-info-container p {
+    margin: 8px 0;
+    color: #333;
+  }
+
+  .user-info-container strong {
+    color: #007acc;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .user-info-container {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .user-info-container p {
+      margin: 6px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .user-info-container {
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    .user-info-container p {
+      margin: 4px 0;
+    }
+  }
 			
 		</style>
 	</head>
@@ -84,11 +129,31 @@
 		
 		<div id="toolbar">
 			<div id="userInfo"></div><br>
-			<div id="user-info"></div><br>
+			
     			<!-- button id="logoutButton1" onclick="logout()">Logout1</button><br -->
 			<button id="logoutButton" class="uk-button uk-button-danger uk-icon-button" uk-icon="sign-out" onclick="logout()">Logout2</button><br>
 			<!-- button id="logoutButton3" onclick="logout()">Logout3</button -->
-			<br>
+			<br><br>
+			<div id="user-info" class="user-info-container"></div><br>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const user = netlifyIdentity.currentUser();
+    const userInfoDiv = document.getElementById('user-info');
+
+    if (user) {
+      // Contoh data dengan properti tertentu
+      userInfoDiv.innerHTML = `
+        <p><strong>Email:</strong> ${user.email}</p>
+        <p><strong>Full Name:</strong> ${user.user_metadata.full_name}</p>
+        <p><strong>Created At:</strong> ${new Date(user.created_at).toLocaleString()}</p>
+      `;
+    } else {
+      userInfoDiv.textContent = 'No user is logged in.';
+    }
+  });
+</script>
+			
 		</div>
 
 
