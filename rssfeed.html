@@ -56,40 +56,37 @@
         // Detect the base URL automatically based on the current location
         const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
 
-        let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-        rss += `<rss version="2.0">\n`;
-        rss += `<channel>\n`;
-        rss += `<title>Your Blog Name</title>\n`;
-        rss += `<link>${baseUrl}</link>\n`;
-        rss += `<description>Latest posts from Your Blog Name</description>\n`;
+
+
+let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+rss += `<rss version="2.0">\n`;
+rss += `<channel>\n`;
+rss += `<title>Your Blog Name</title>\n`;
+rss += `<link>${baseUrl}</link>\n`;
+rss += `<description>Latest posts from Your Blog Name</description>\n`;
+rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
 
 posts.forEach(post => {
   const title = post.data.title;
   const slug = post.data.slug;
-  const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
-  const createdAt = new Date(post.created_at); // Create date object
-  const pubDate = createdAt.toUTCString(); // Get UTC format of date
-  const snippet = generateSnippet(post.data.bodypost); // Generate a snippet from the post body
+  const url = `${baseUrl}/post/${slug}`;
+  const createdAt = new Date(post.created_at);
+  const pubDate = createdAt.toUTCString();
+  const snippet = generateSnippet(post.data.bodypost);
 
-  // Generate a unique GUID (can use the URL as GUID)
-  const guid = url;
-
-  // Add RSS item entry
   rss += `
     <item>
       <title>${title}</title>
       <link>${url}</link>
       <description>${snippet}</description>
       <pubDate>${pubDate}</pubDate>
-      <guid>${guid}</guid>
-    </item>\n
-  `;
+      <guid>${url}</guid>
+    </item>\n`;
 });
 
-// Add atom:link in <channel>
-rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
 rss += `</channel>\n`;
 rss += `</rss>\n`;
+
 
 
         // Show the RSS feed in the <pre> tag
