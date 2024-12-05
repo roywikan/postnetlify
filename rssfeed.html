@@ -63,27 +63,34 @@
         rss += `<link>${baseUrl}</link>\n`;
         rss += `<description>Latest posts from Your Blog Name</description>\n`;
 
-        posts.forEach(post => {
-          const title = post.data.title;
-          const slug = post.data.slug;
-          const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
-          const createdAt = new Date(post.created_at); // Create date object
-          const pubDate = createdAt.toUTCString(); // Get UTC format of date
-          const snippet = generateSnippet(post.data.bodypost); // Generate a snippet from the post body
+posts.forEach(post => {
+  const title = post.data.title;
+  const slug = post.data.slug;
+  const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+  const createdAt = new Date(post.created_at); // Create date object
+  const pubDate = createdAt.toUTCString(); // Get UTC format of date
+  const snippet = generateSnippet(post.data.bodypost); // Generate a snippet from the post body
 
-          // Add RSS item entry
-          rss += `
-            <item>
-              <title>${title}</title>
-              <link>${url}</link>
-              <description>${snippet}</description>
-              <pubDate>${pubDate}</pubDate>
-            </item>\n
-          `;
-        });
+  // Generate a unique GUID (can use the URL as GUID)
+  const guid = url;
 
-        rss += `</channel>\n`;
-        rss += `</rss>\n`;
+  // Add RSS item entry
+  rss += `
+    <item>
+      <title>${title}</title>
+      <link>${url}</link>
+      <description>${snippet}</description>
+      <pubDate>${pubDate}</pubDate>
+      <guid>${guid}</guid>
+    </item>\n
+  `;
+});
+
+// Add atom:link in <channel>
+rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
+rss += `</channel>\n`;
+rss += `</rss>\n`;
+
 
         // Show the RSS feed in the <pre> tag
         document.getElementById('rssfeed').textContent = rss;
