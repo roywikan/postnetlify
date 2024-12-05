@@ -1,5 +1,3 @@
-/* css untuk gaya ala post.html */
-
 /* Global styles */
 * {
   margin: 0;
@@ -26,23 +24,57 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Link styles */
+/* Gaya default untuk semua link di dalam elemen seperti p, div, table, span */
 p a, div a, table a, span a {
-  color: dodgerblue;
-  text-decoration: none;
-  transition: color 0.3s ease;
+  color: dodgerblue;  /* Warna link default */
+  text-decoration: none;  /* Menghilangkan garis bawah */
+  transition: color 0.3s ease;  /* Animasi transisi saat hover */
 }
 
+/* Gaya saat link di-hover */
 p a:hover, div a:hover, table a:hover, span a:hover {
-  color: navyblue;
+  color: navyblue;  /* Warna saat hover */
 }
 
 /* Header title */
 h1 {
-  font-size: 4rem; /* Diatur sesuai aturan terbesar */
+  font-size: 3.6rem;
   font-weight: 700;
   margin-bottom: 10px;
   text-align: center;
+  word-wrap: break-word; /* membungkus kata yang panjang */
+  word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
+  white-space: normal; /* pastikan konten dapat membungkus */
+}
+
+/* Header for h2 */
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Heading h3, h4, h5, h6 adjustments */
+h3, h4, h5, h6 {
+  margin-top: 2rem; /* Spasi 2 baris sebelum h3, h4, h5, h6 */
+  margin-bottom: 1rem; /* Spasi 1 baris setelah h3, h4, h5, h6 */
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+h5 {
+  font-size: 1.6rem;
+}
+
+h6 {
+  font-size: 1.4rem;
 }
 
 /* Post meta information */
@@ -50,7 +82,7 @@ h1 {
   font-size: 0.9rem;
   color: #999;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 150px;
 }
 
 .post-meta span {
@@ -68,9 +100,19 @@ h1 {
 
 /* Post content */
 .post-body {
-  font-size: 2rem;
-  margin-bottom: 200px; /* Diatur sesuai aturan terbesar */
-  line-height: 2.2; /* Diatur sesuai aturan terbesar */
+  font-size: 1.85rem;
+  margin-bottom: 100px;
+  line-height: 2.6;
+  word-wrap: break-word; /* membungkus kata yang panjang */
+  word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
+  white-space: normal; /* pastikan konten dapat membungkus */
+}
+
+/* Lists */
+ul {
+  margin-left: 2rem; /* Menggeser UL 1 tab ke dalam */
+  list-style-type: disc;
+  margin-bottom: 1.5rem;
 }
 
 /* Footer */
@@ -117,6 +159,7 @@ footer a:hover {
 /* Responsive adjustments for footer menu */
 @media (max-width: 768px) {
   .footer-menu {
+    flex-wrap: wrap;
     gap: 10px;
   }
 
@@ -125,7 +168,17 @@ footer a:hover {
   }
 }
 
-/* Responsive adjustments */
+/* Mobile and tablet responsive adjustments */
+h1 {
+  font-size: 4rem;
+}
+
+.post-body {
+  font-size: 2rem;
+  line-height: 1.8;
+}
+
+/* Smartphone (Portrait) - up to 480px width */
 @media (max-width: 480px) {
   h1 {
     font-size: 2.5rem;
@@ -134,9 +187,11 @@ footer a:hover {
   .post-body {
     font-size: 1.5rem;
     line-height: 1.6;
+    margin-bottom: 100px;
   }
 }
 
+/* Smartphone (Landscape) - up to 768px width */
 @media (max-width: 768px) {
   h1 {
     font-size: 3rem;
@@ -145,9 +200,11 @@ footer a:hover {
   .post-body {
     font-size: 1.7rem;
     line-height: 2;
+    margin-bottom: 120px;
   }
 }
 
+/* iPad (Portrait) - up to 1024px width */
 @media (max-width: 1024px) {
   h1 {
     font-size: 3.5rem;
@@ -156,23 +213,78 @@ footer a:hover {
   .post-body {
     font-size: 1.8rem;
     line-height: 1.9;
+    margin-bottom: 150px;
   }
 }
 
+/* iPad Air / Tablet (Landscape) - up to 1366px width */
 @media (max-width: 1366px) {
   h1 {
-    font-size: 3.8rem;
+    font-size: 3rem;
+  }
+
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+    margin-bottom: 200px;
   }
 }
 
+/* Laptop and larger screens */
 @media (min-width: 1367px) {
   h1 {
     font-size: 4rem;
   }
+
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.2;
+    margin-bottom: 200px;
+  }
 }
 
-/* Cusdis thread */
 #cusdis_thread {
-  min-height: 500px;
-  visibility: hidden;
+  min-height: 500px; /* Tentukan tinggi minimum */
+  visibility: hidden; /* Menyembunyikan elemen tapi tetap mengambil ruang di layout */
 }
+
+/* Blockquote styling */
+blockquote {
+  padding: 20px;
+  font-style: italic;
+  background-color: seashell;
+  border-left: 5px solid #ccc;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+
+/* Input fields */
+input[type="text"], input[type="email"], textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem; /* Ganti baris setelah input */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Button */
+button {
+  display: block;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  background-color: dodgerblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem; /* Ganti baris sebelum button */
+  margin-bottom: 1rem; /* Ganti baris setelah button */
+}
+
+button:hover {
+  background-color: navy;
+}
+
