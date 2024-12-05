@@ -103,9 +103,13 @@ h1 {
 
 /* Post content */
 .post-body {
-  font-size: 2rem;
+  font-size: 1.85rem;
   margin-bottom: 100px;
   line-height: 2.6;
+  
+  word-wrap: break-word; /* membungkus kata yang panjang */
+  word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
+  white-space: normal; /* pastikan konten dapat membungkus */
 }
 
 /* Footer */
