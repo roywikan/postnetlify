@@ -15,7 +15,7 @@
   <main>
     <section>
       <h2>Introduction</h2>
-      <p id="intro-text">These Terms of Service govern your use of the website {{ URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
+      <p id="intro-text">These Terms of Service govern your use of the website {{ SITE_URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
     </section>
 
     <section>
@@ -54,14 +54,30 @@
   </footer>
 
   <script>
-    // Ganti placeholder dengan informasi dinamis menggunakan JavaScript
+    // Menambahkan variabel dinamis untuk SITE_URL, PAGE_URL, DOMAIN_NAME, SUB_DOMAIN_NAME, SITE_NAME
+    const siteUrl = window.location.href;
+    const pageUrl = window.location.pathname;
+    const domainName = window.location.hostname;
+    const subDomainName = window.location.hostname.split('.')[0];
+    const siteName = window.location.hostname.split('.')[0];
+
+    // Ganti placeholder dengan nilai dinamis
     document.getElementById('intro-text').innerHTML = document.getElementById('intro-text').innerHTML
-      .replace('{{ URL }}', window.location.href)  // Ganti {{ URL }} dengan URL saat ini
-      .replace('{{ SITE_NAME }}', window.location.hostname); // Ganti {{ SITE_NAME }} dengan hostname
+      .replace('{{ SITE_URL }}', siteUrl)
+      .replace('{{ SITE_NAME }}', siteName);
+
+    document.querySelectorAll('p').forEach(p => {
+      p.innerHTML = p.innerHTML
+        .replace('{{ SITE_URL }}', siteUrl)
+        .replace('{{ SITE_NAME }}', siteName)
+        .replace('{{ DOMAIN_NAME }}', domainName)
+        .replace('{{ SUB_DOMAIN_NAME }}', subDomainName)
+        .replace('{{ PAGE_URL }}', pageUrl);
+    });
 
     // Menambahkan tahun dinamis
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    document.getElementById('site-name').textContent = window.location.hostname; // Tampilkan nama domain (hostname)
+    document.getElementById('site-name').textContent = siteName;
   </script>
 </body>
 </html>
