@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <meta name="description" content="Privacy Policy for {{ site.domain }}">
-  <title>Privacy Policy | {{ site.domain }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const url = new URL(window.location.href);
+            const subdomain = url.hostname.split('.')[0].toUpperCase();
+            const domain = url.hostname.split('.').slice(1).join('.');
+            const fullUrl = url.href;
+            const path = url.pathname === "/" ? "Home" : url.pathname;
+            const baseUrl = `${url.protocol}//${url.hostname}`;
+            const supportEmail = `support@${domain}`;
+
+            document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
+            document.querySelector('#domain').textContent = domain;
+            document.querySelector('#subdomain').textContent = subdomain;
+            document.querySelector('#baseUrl').textContent = baseUrl;
+            document.querySelector('#fullUrl').textContent = fullUrl;
+            document.querySelector('#path').textContent = path;
+            document.querySelector('#supportEmail').textContent = supportEmail;
+            document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
+
+            document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
+            document.title = `Terms of Service | ${subdomain}`;
+            document.querySelector('#current-year').textContent = new Date().getFullYear();
+            document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
+        });
+    </script>
+    
+    <meta name="description" content="Privacy Policy for our site.">
+      <title id="page-title">Privacy Policy</title>
+    
+
+
+  <meta name="author" id="meta-author" content="">
+
+
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+<!-- link rel="dns-prefetch" href="https://via.placeholder.com">
+<link rel="dns-prefetch" href="https://res.cloudinary.com" -->
+
+
+  
+  <link rel="stylesheet" href="/post-html.css">
+
+
+
+
+
+
+  
 </head>
 <body>
   <header>
@@ -15,7 +63,7 @@
   <main>
     <section>
       <h2>Introduction</h2>
-      <p>Welcome to {{ site.domain }}! This Privacy Policy explains how we collect, use, and protect your personal data when you visit and interact with our website at {{ site.url }}.</p>
+      <p>Welcome to  <span id="siteName"></span>! This Privacy Policy explains how we collect, use, and protect your personal data when you visit and interact with our website at <a id="baseUrl" href="#"></a>.</p>
     </section>
 
     <section>
@@ -56,12 +104,29 @@
 
     <section>
       <h2>Contact Us</h2>
-      <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@{{ site.domain }}">support@{{ site.domain }}</a>.</p>
+      <p>If you have any questions about this Privacy Policy, please contact us at <a id="supportEmail" href="#"></a>.</p>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; {{ site.year }} {{ site.domain }}. All Rights Reserved.</p>
-  </footer>
+
+<!-- Placeholder untuk Footer -->
+<div id="footer-placeholder" class="footer-placeholder"></div>
+
+<footer>
+  <nav class="footer-menu">
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/about">About</a>
+    <a href="/tos">ToS</a>
+    <a href="/login/">Login</a>
+    <a href="/rssfeed.html">RSS Feed Generator</a>
+    <a href="/rssfeed.xml">RSS Feed</a>
+    <a href="/sitemap.html">HTML Sitemap</a>
+    <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+    <a href="/sitemap.xml">XML Sitemap</a>
+  </nav>
+  <br>
+   <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
+</footer>
 </body>
 </html>
