@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const url = new URL(window.location.href);
+            const subdomain = url.hostname.split('.')[0].toUpperCase();
+            const domain = url.hostname.split('.').slice(1).join('.');
+            const fullUrl = url.href;
+            const path = url.pathname === "/" ? "Home" : url.pathname;
+            const baseUrl = `${url.protocol}//${url.hostname}`;
+            const supportEmail = `support@${domain}`;
+
+            document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
+            document.querySelector('#domain').textContent = domain;
+            document.querySelector('#subdomain').textContent = subdomain;
+            document.querySelector('#baseUrl').textContent = baseUrl;
+            document.querySelector('#fullUrl').textContent = fullUrl;
+            document.querySelector('#path').textContent = path;
+            document.querySelector('#supportEmail').textContent = supportEmail;
+            document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
+
+            document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
+            document.title = `Terms of Service | ${subdomain}`;
+            document.querySelector('#current-year').textContent = new Date().getFullYear();
+            document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
+        });
+    </script>
+    
     <meta name="description" content="Terms of Service for our site.">
     <title id="page-title">Terms of Service</title>
     
@@ -23,42 +50,6 @@
 
 
 
- 
-
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Current URL information
-            const url = new URL(window.location.href);
-
-            // Extract components
-            const subdomain = url.hostname.split('.')[0].toUpperCase(); // Subdomain in caps
-            const domain = url.hostname.split('.').slice(1).join('.'); // Domain name
-            const fullUrl = url.href; // Full URL
-            const path = url.pathname === "/" ? "Home" : url.pathname; // Path or 'Home'
-            const baseUrl = `${url.protocol}//${url.hostname}`; // Base URL
-            const supportEmail = `support@${domain}`; // Generate support email dynamically
-
-            // Insert values into HTML
-            document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
-            document.querySelector('#domain').textContent = domain;
-            document.querySelector('#subdomain').textContent = subdomain;
-            document.querySelector('#baseUrl').textContent = baseUrl;
-            document.querySelector('#fullUrl').textContent = fullUrl;
-            document.querySelector('#path').textContent = path;
-            document.querySelector('#supportEmail').textContent = supportEmail;
-            document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
-
-            // Update meta and title dynamically
-            document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
-            document.title = `Terms of Service | ${subdomain}`;
-
-            // Footer Year and Site Name
-            document.querySelector('#current-year').textContent = new Date().getFullYear();
-            document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
-        });
-    </script>
   
 </head>
 <body>
@@ -68,7 +59,7 @@
 <!-- Post Title -->
 <h1 class="post-title" style="display: none;"><span id="post-title">STANDARD HTML TEMPLATE</span></h1>
 
-<!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+
 
 
 
