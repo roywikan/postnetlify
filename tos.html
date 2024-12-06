@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Terms of Service for <span id="subdomain"></span>">
-
-
-  
-    
-    <title>Terms of Service | <span id="subdomain"></span></title>
+    <meta name="description" content="Terms of Service for our site.">
+    <title>Terms of Service</title>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -33,6 +29,14 @@
             document.querySelector('#path').textContent = path;
             document.querySelector('#supportEmail').textContent = supportEmail;
             document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
+
+            // Update meta and title dynamically
+            document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
+            document.title = `Terms of Service | ${subdomain}`;
+
+            // Footer Year and Site Name
+            document.querySelector('#current-year').textContent = new Date().getFullYear();
+            document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
         });
     </script>
 </head>
@@ -42,32 +46,27 @@
     
     <h2>About This Site</h2>
     <p>This site is operated by <span id="subdomain"></span>, part of the <span id="domain"></span> network. 
-      You can access our main site at <a id="baseUrl" href="#"></a>.</p>
+        You can access our main site at <a id="baseUrl" href="#"></a>.</p>
 
-    <p>All content available on this Site, including text, images, and videos, is the property of <span id="subdomain"> unless otherwise stated. 
-          You may not use this content without permission.</p>
+    <p>All content available on this Site, including text, images, and videos, is the property of <span id="subdomain"></span> unless otherwise stated. 
+        You may not use this content without permission.</p>
 
-
-  
     <h2>Usage Guidelines</h2>
     <p>By accessing this site, you agree to abide by the rules set forth on this page. 
-      Your current page path is <span id="path"></span>, and the full URL you are visiting is <span id="fullUrl"></span>.</p>
-    <p><span id="subdomain"> is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
+        Your current page path is <span id="path"></span>, and the full URL you are visiting is <span id="fullUrl"></span>.</p>
+    <p><span id="subdomain"></span> is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
 
-    
     <h2>Contact Us</h2>
     <p>If you have any questions, feel free to contact our support team at <a id="supportEmail" href="#"></a>.</p>
 
     <h2>Legal Disclaimer</h2>
     <p>We reserve the right to update these terms at any time without prior notice. 
-      Please check back regularly to stay informed about our terms of service.</p>
+        Please check back regularly to stay informed about our terms of service.</p>
     <p>You agree to use this Site only for lawful purposes. 
-      You are prohibited from using the Site to engage in any activity that may violate local, national, or international laws.</p>
+        You are prohibited from using the Site to engage in any activity that may violate local, national, or international laws.</p>
 
-  
-  <footer>
-    <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
-  </footer>
-   
+    <footer>
+        <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
