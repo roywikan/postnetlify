@@ -45,7 +45,7 @@
 
     <section>
       <h2>Contact Us</h2>
-      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@@{{ DOMAIN_NAME }}"> support @ {{ DOMAIN_NAME }}</a>.</p>
+      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ SITE_NAME }}">support@{{ SITE_NAME }}</a>.</p>
     </section>
   </main>
 
@@ -61,7 +61,7 @@
     const subDomainName = window.location.hostname.split('.')[0];
     const siteName = window.location.hostname.split('.')[0];
 
-    // Ganti placeholder dengan nilai dinamis
+    // Ganti placeholder dalam teks biasa
     document.getElementById('intro-text').innerHTML = document.getElementById('intro-text').innerHTML
       .replace('{{ SITE_URL }}', siteUrl)
       .replace('{{ SITE_NAME }}', siteName);
@@ -73,6 +73,11 @@
         .replace('{{ DOMAIN_NAME }}', domainName)
         .replace('{{ SUB_DOMAIN_NAME }}', subDomainName)
         .replace('{{ PAGE_URL }}', pageUrl);
+    });
+
+    // Ganti placeholder dalam atribut href pada tag <a>
+    document.querySelectorAll('a[href]').forEach(anchor => {
+      anchor.href = anchor.href.replace('{{ SITE_NAME }}', siteName);
     });
 
     // Menambahkan tahun dinamis
