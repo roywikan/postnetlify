@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Breakdown</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const url = new URL('https://sub.domain.com/tos');
+            
+            const sub = url.hostname.split('.')[0].toUpperCase(); // "SUB"
+            const domain = url.hostname.split('.').slice(1).join('.'); // "domain.com"
+            const path = url.pathname.slice(1); // "tos"
+            const fullPath = url.pathname; // "/tos"
+            const baseUrl = `${url.protocol}//${url.hostname}`; // "https://sub.domain.com"
+            const fullUrl = url.href; // "https://sub.domain.com/tos"
+
+            // Display results in HTML
+            document.getElementById('results').innerHTML = `
+                <p>Subdomain (All Caps): ${sub}</p>
+                <p>Domain: ${domain}</p>
+                <p>Path: ${path}</p>
+                <p>Full Path: ${fullPath}</p>
+                <p>Base URL: ${baseUrl}</p>
+                <p>Full URL: ${fullUrl}</p>
+            `;
+        });
+    </script>
+</head>
+<body>
+    <h1>URL Breakdown</h1>
+    <div id="results">
+        <!-- Data will be displayed here -->
+    </div>
+</body>
+</html>
