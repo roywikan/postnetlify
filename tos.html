@@ -45,7 +45,7 @@
 
     <section>
       <h2>Contact Us</h2>
-      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ DOMAIN_NAME }}">support@ {{ DOMAIN_NAME }}</a> {{ DOMAIN_NAME }}.</p>
+      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ SITE_NAME }}">support@{{ SITE_NAME }}</a>.</p>
     </section>
   </main>
 
@@ -54,17 +54,16 @@
   </footer>
 
   <script>
-    // Menambahkan variabel dinamis untuk SITE_URL, PAGE_URL, DOMAIN_NAME, SUB_DOMAIN_NAME, SITE_NAME
-    const siteUrl = window.location.href;
-    const pageUrl = window.location.pathname;
-    const domainName = window.location.hostname;
-    const subDomainName = window.location.hostname.split('.')[0];
-    const siteName = window.location.hostname.split('.')[0];
+    // Mendapatkan variabel dinamis dari URL dan informasi situs
+    const siteUrl = window.location.href;           // URL lengkap situs
+    const pageUrl = window.location.pathname;      // URL halaman saat ini
+    const domainName = window.location.hostname;   // Nama domain (misalnya: example.com)
+    const subDomainName = window.location.hostname.split('.')[0];  // Nama subdomain (misalnya: www atau 'example' pada 'example.netlify.app')
+    const siteName = subDomainName.toUpperCase();  // Nama situs dalam huruf kapital
 
-    // Ganti placeholder dalam teks biasa
-    document.getElementById('intro-text').innerHTML = document.getElementById('intro-text').innerHTML
-      .replace('{{ SITE_URL }}', siteUrl)
-      .replace('{{ SITE_NAME }}', siteName);
+    // Menyisipkan nilai ke dalam elemen HTML
+    document.getElementById('intro-text').innerHTML = 
+      `These Terms of Service govern your use of the website ${siteUrl} (the "Site"), which is owned and operated by ${siteName}.`;
 
     document.querySelectorAll('p').forEach(p => {
       p.innerHTML = p.innerHTML
@@ -75,14 +74,16 @@
         .replace('{{ PAGE_URL }}', pageUrl);
     });
 
-    // Ganti placeholder dalam atribut href pada tag <a>
-    document.querySelectorAll('a[href]').forEach(anchor => {
-      anchor.href = anchor.href.replace('{{ SITE_NAME }}', siteName);
-    });
-
-    // Menambahkan tahun dinamis
+    // Menyisipkan nilai tahun dinamis dan nama situs
     document.getElementById('current-year').textContent = new Date().getFullYear();
     document.getElementById('site-name').textContent = siteName;
+    
+    // Menyisipkan nilai pada link mailto
+    const mailtoLink = document.querySelector('a[href^="mailto:support@"]');
+    if (mailtoLink) {
+      mailtoLink.href = `mailto:support@${siteName.toLowerCase()}.com`;
+      mailtoLink.textContent = `support@${siteName.toLowerCase()}.com`;
+    }
   </script>
 </body>
 </html>
