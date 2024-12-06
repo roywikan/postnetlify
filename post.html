@@ -286,7 +286,11 @@ window.addEventListener('load', loadCusdis);
 
 
   <script>
-
+function stripHtmlTags(input) {
+  var doc = new DOMParser().parseFromString(input, 'text/html');
+  return doc.body.textContent || "";
+}
+    
     document.addEventListener('DOMContentLoaded', async () => {
   await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
   updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
@@ -306,6 +310,10 @@ function updateJsonLdSchema() {
     return;
   }
 
+    // Strip HTML tags from articleBody for JSON-LD
+  const cleanBody = stripHtmlTags(postData.bodypost);
+
+  
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -318,7 +326,8 @@ function updateJsonLdSchema() {
     "datePublished": postData.datePublished,
     "dateModified": postData.dateModified || postData.datePublished,
     "image": postData.imageUrl,
-    "articleBody": postData.body,
+    //"articleBody": postData.body,
+        "articleBody": cleanBody,  // Use cleaned body text
     "url": window.location.href,
     "publisher": {
       "@type": "Organization",
