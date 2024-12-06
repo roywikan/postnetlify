@@ -15,7 +15,7 @@
             const baseUrl = `${url.protocol}//${url.hostname}`; // "https://sub.domain.com"
             const fullUrl = url.href; // "https://sub.domain.com/tos"
 
-            // Display results in HTML
+            // Display results in HTML Metode 1
             document.getElementById('results').innerHTML = `
                 <p>Subdomain (All Caps): ${sub}</p>
                 <p>Domain: ${domain}</p>
@@ -24,13 +24,35 @@
                 <p>Base URL: ${baseUrl}</p>
                 <p>Full URL: ${fullUrl}</p>
             `;
+
+
+            // Assign values directly to paragraph elements, Metode 2
+            document.querySelector('#sub').textContent = sub;
+            document.querySelector('#domain').textContent = domain;
+            document.querySelector('#path').textContent = path;
+            document.querySelector('#fullPath').textContent = fullPath;
+            document.querySelector('#baseUrl').textContent = baseUrl;
+            document.querySelector('#fullUrl').textContent = fullUrl;
+        
         });
     </script>
 </head>
 <body>
-    <h1>URL Breakdown</h1>
+    <h1>METODE 1</h1>
     <div id="results">
         <!-- Data will be displayed here -->
     </div>
+<hr>
+
+    <h1>METODE 2</h1>
+    <p>Subdomain (All Caps): <span id="sub"></span></p>
+    <p>Domain: <span id="domain"></span></p>
+    <p>Path: <span id="path"></span></p>
+    <p>Full Path: <span id="fullPath"></span></p>
+    <p>Base URL: <span id="baseUrl"></span></p>
+    <p>Full URL: <span id="fullUrl"></span></p>
+
+    
 </body>
 </html>
+
