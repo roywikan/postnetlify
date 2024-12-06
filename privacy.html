@@ -162,6 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     </script>
 
-    
+    <script>
+        const url = new URL(window.location.href);
+        const domain = url.hostname.split('.').slice(1).join('.');
+        document.querySelector('#domain').textContent = domain;
+    </script>
 </body>
 </html>
