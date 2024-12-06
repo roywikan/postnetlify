@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="Terms of Service for {{ site.domain }}">
-  <title>Terms of Service | {{ site.domain }}</title>
+  <meta name="description" content="Terms of Service for {{ SITE_NAME }}">
+  <title>Terms of Service | {{ SITE_NAME }}</title>
 </head>
 <body>
   <header>
@@ -15,7 +15,7 @@
   <main>
     <section>
       <h2>Introduction</h2>
-      <p>These Terms of Service govern your use of the website {{ site.url }} (the "Site"), which is owned and operated by {{ site.domain }}.</p>
+      <p>These Terms of Service govern your use of the website {{ URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
     </section>
 
     <section>
@@ -25,7 +25,7 @@
 
     <section>
       <h2>Changes to Terms</h2>
-      <p>{{ site.domain }} reserves the right to modify these Terms of Service at any time. You are encouraged to review these terms regularly. Continued use of the Site constitutes acceptance of any changes.</p>
+      <p>{{ SITE_NAME }} reserves the right to modify these Terms of Service at any time. You are encouraged to review these terms regularly. Continued use of the Site constitutes acceptance of any changes.</p>
     </section>
 
     <section>
@@ -35,22 +35,28 @@
 
     <section>
       <h2>Content Ownership</h2>
-      <p>All content available on this Site, including text, images, and videos, is the property of {{ site.domain }} unless otherwise stated. You may not use this content without permission.</p>
+      <p>All content available on this Site, including text, images, and videos, is the property of {{ SITE_NAME }} unless otherwise stated. You may not use this content without permission.</p>
     </section>
 
     <section>
       <h2>Limitation of Liability</h2>
-      <p>{{ site.domain }} is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
+      <p>{{ SITE_NAME }} is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
     </section>
 
     <section>
       <h2>Contact Us</h2>
-      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ site.domain }}">support@{{ site.domain }}</a>.</p>
+      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ SITE_NAME }}">support@{{ SITE_NAME }}</a>.</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; {{ site.year }} {{ site.domain }}. All Rights Reserved.</p>
+    <p>&copy; <span id="current-year"></span> {{ SITE_NAME }}. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Menambahkan tahun dinamis ke elemen dengan ID "current-year"
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
+
