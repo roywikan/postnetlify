@@ -5,38 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
 
-        <script>
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        const url = new URL(window.location.href);
-        const subdomain = url.hostname.split('.')[0].toUpperCase();
-        const domain = url.hostname.split('.').slice(1).join('.');
-        const fullUrl = url.href;
-        const path = url.pathname === "/" ? "Home" : url.pathname;
-        const baseUrl = `${url.protocol}//${url.hostname}`;
-        const supportEmail = `support@${domain}`;
 
-        document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
-        document.querySelector('#domain').textContent = domain;
-        document.querySelector('#subdomain').textContent = subdomain;
-        document.querySelector('#baseUrl').textContent = baseUrl;
-        document.querySelector('#baseUrl').href = baseUrl;
-        document.querySelector('#fullUrl').textContent = fullUrl;
-        document.querySelector('#path').textContent = path;
-        document.querySelector('#supportEmail').textContent = supportEmail;
-        document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
-
-        document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
-        document.title = `Terms of Service | ${subdomain}`;
-        document.querySelector('#current-year').textContent = new Date().getFullYear();
-        document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
-    } catch (error) {
-        console.error("Error updating dynamic content:", error);
-    }
-});
-
-    </script>
-    
     <meta name="description" content="Privacy Policy for our site.">
       <title id="page-title">Privacy Policy</title>
     
@@ -70,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<span id="domain"></span>
 
 
     
@@ -158,5 +128,40 @@ document.addEventListener('DOMContentLoaded', () => {
   <br>
    <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
 </footer>
+
+
+            <script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const url = new URL(window.location.href);
+        const subdomain = url.hostname.split('.')[0].toUpperCase();
+        const domain = url.hostname.split('.').slice(1).join('.');
+        const fullUrl = url.href;
+        const path = url.pathname === "/" ? "Home" : url.pathname;
+        const baseUrl = `${url.protocol}//${url.hostname}`;
+        const supportEmail = `support@${domain}`;
+
+        document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
+        document.querySelector('#domain').textContent = domain;
+        document.querySelector('#subdomain').textContent = subdomain;
+        document.querySelector('#baseUrl').textContent = baseUrl;
+        document.querySelector('#baseUrl').href = baseUrl;
+        document.querySelector('#fullUrl').textContent = fullUrl;
+        document.querySelector('#path').textContent = path;
+        document.querySelector('#supportEmail').textContent = supportEmail;
+        document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
+
+        document.querySelector('meta[name="description"]').setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
+        document.title = `Terms of Service | ${subdomain}`;
+        document.querySelector('#current-year').textContent = new Date().getFullYear();
+        document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
+    } catch (error) {
+        console.error("Error updating dynamic content:", error);
+    }
+});
+
+    </script>
+
+    
 </body>
 </html>
