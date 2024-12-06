@@ -1,89 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <meta name="description" content="Terms of Service for {{ SITE_NAME }}">
-  <title>Terms of Service | {{ SITE_NAME }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Terms of Service for <span id="subdomain"></span>">
+
+
+  
+    
+    <title>Terms of Service | <span id="subdomain"></span></title>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Current URL information
+            const url = new URL(window.location.href);
+
+            // Extract components
+            const subdomain = url.hostname.split('.')[0].toUpperCase(); // Subdomain in caps
+            const domain = url.hostname.split('.').slice(1).join('.'); // Domain name
+            const fullUrl = url.href; // Full URL
+            const path = url.pathname === "/" ? "Home" : url.pathname; // Path or 'Home'
+            const baseUrl = `${url.protocol}//${url.hostname}`; // Base URL
+            const supportEmail = `support@${domain}`; // Generate support email dynamically
+
+            // Insert values into HTML
+            document.querySelector('#siteName').textContent = `${subdomain}.${domain}`;
+            document.querySelector('#domain').textContent = domain;
+            document.querySelector('#subdomain').textContent = subdomain;
+            document.querySelector('#baseUrl').textContent = baseUrl;
+            document.querySelector('#fullUrl').textContent = fullUrl;
+            document.querySelector('#path').textContent = path;
+            document.querySelector('#supportEmail').textContent = supportEmail;
+            document.querySelector('#supportEmail').href = `mailto:${supportEmail}`;
+        });
+    </script>
 </head>
 <body>
-  <header>
     <h1>Terms of Service</h1>
-  </header>
+    <p>Welcome to <span id="siteName"></span>! These terms and conditions outline the rules and regulations for the use of our website.</p>
+    
+    <h2>About This Site</h2>
+    <p>This site is operated by <span id="subdomain"></span>, part of the <span id="domain"></span> network. 
+      You can access our main site at <a id="baseUrl" href="#"></a>.</p>
 
-  <main>
-    <section>
-      <h2>Introduction</h2>
-      <p id="intro-text">These Terms of Service govern your use of the website {{ SITE_URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
-    </section>
+    <p>All content available on this Site, including text, images, and videos, is the property of <span id="subdomain"> unless otherwise stated. 
+          You may not use this content without permission.</p>
 
-    <section>
-      <h2>Acceptance of Terms</h2>
-      <p>By accessing or using this Site, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, you must not use the Site.</p>
-    </section>
 
-    <section>
-      <h2>Changes to Terms</h2>
-      <p>{{ SITE_NAME }} reserves the right to modify these Terms of Service at any time. You are encouraged to review these terms regularly. Continued use of the Site constitutes acceptance of any changes.</p>
-    </section>
+  
+    <h2>Usage Guidelines</h2>
+    <p>By accessing this site, you agree to abide by the rules set forth on this page. 
+      Your current page path is <span id="path"></span>, and the full URL you are visiting is <span id="fullUrl"></span>.</p>
+    <p><span id="subdomain"> is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
 
-    <section>
-      <h2>Use of the Site</h2>
-      <p>You agree to use this Site only for lawful purposes. You are prohibited from using the Site to engage in any activity that may violate local, national, or international laws.</p>
-    </section>
+    
+    <h2>Contact Us</h2>
+    <p>If you have any questions, feel free to contact our support team at <a id="supportEmail" href="#"></a>.</p>
 
-    <section>
-      <h2>Content Ownership</h2>
-      <p>All content available on this Site, including text, images, and videos, is the property of {{ SITE_NAME }} unless otherwise stated. You may not use this content without permission.</p>
-    </section>
+    <h2>Legal Disclaimer</h2>
+    <p>We reserve the right to update these terms at any time without prior notice. 
+      Please check back regularly to stay informed about our terms of service.</p>
+    <p>You agree to use this Site only for lawful purposes. 
+      You are prohibited from using the Site to engage in any activity that may violate local, national, or international laws.</p>
 
-    <section>
-      <h2>Limitation of Liability</h2>
-      <p>{{ SITE_NAME }} is not liable for any indirect, incidental, or consequential damages that arise from your use of the Site.</p>
-    </section>
-
-    <section>
-      <h2>Contact Us</h2>
-      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@{{ SITE_NAME }}">support@{{ SITE_NAME }}</a>.</p>
-    </section>
-  </main>
-
+  
   <footer>
     <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
   </footer>
-
-  <script>
-    // Mendapatkan variabel dinamis dari URL dan informasi situs
-    const siteUrl = window.location.href;           // URL lengkap situs
-    const pageUrl = window.location.pathname;      // URL halaman saat ini
-    const domainName = window.location.hostname;   // Nama domain (misalnya: example.com)
-    const subDomainName = window.location.hostname.split('.')[0];  // Nama subdomain (misalnya: www atau 'example' pada 'example.netlify.app')
-    const siteName = subDomainName.toUpperCase();  // Nama situs dalam huruf kapital
-
-    // Menyisipkan nilai ke dalam elemen HTML
-    document.getElementById('intro-text').innerHTML = 
-      `These Terms of Service govern your use of the website ${siteUrl} (the "Site"), which is owned and operated by ${siteName}.`;
-
-    document.querySelectorAll('p').forEach(p => {
-      p.innerHTML = p.innerHTML
-        .replace('{{ SITE_URL }}', siteUrl)
-        .replace('{{ SITE_NAME }}', siteName)
-        .replace('{{ DOMAIN_NAME }}', domainName)
-        .replace('{{ SUB_DOMAIN_NAME }}', subDomainName)
-        .replace('{{ PAGE_URL }}', pageUrl);
-    });
-
-    // Menyisipkan nilai tahun dinamis dan nama situs
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    document.getElementById('site-name').textContent = siteName;
-    
-    // Menyisipkan nilai pada link mailto
-    const mailtoLink = document.querySelector('a[href^="mailto:support@"]');
-    if (mailtoLink) {
-      mailtoLink.href = `mailto:support@${siteName.toLowerCase()}.com`;
-      mailtoLink.textContent = `support@${siteName.toLowerCase()}.com`;
-    }
-  </script>
+   
 </body>
 </html>
