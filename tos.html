@@ -15,7 +15,7 @@
   <main>
     <section>
       <h2>Introduction</h2>
-      <p>These Terms of Service govern your use of the website {{ URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
+      <p id="intro-text">These Terms of Service govern your use of the website {{ URL }} (the "Site"), which is owned and operated by {{ SITE_NAME }}.</p>
     </section>
 
     <section>
@@ -50,13 +50,18 @@
   </main>
 
   <footer>
-    <p>&copy; <span id="current-year"></span> {{ SITE_NAME }}. All Rights Reserved.</p>
+    <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
   </footer>
 
   <script>
-    // Menambahkan tahun dinamis ke elemen dengan ID "current-year"
+    // Ganti placeholder dengan informasi dinamis menggunakan JavaScript
+    document.getElementById('intro-text').innerHTML = document.getElementById('intro-text').innerHTML
+      .replace('{{ URL }}', window.location.href)  // Ganti {{ URL }} dengan URL saat ini
+      .replace('{{ SITE_NAME }}', window.location.hostname); // Ganti {{ SITE_NAME }} dengan hostname
+
+    // Menambahkan tahun dinamis
     document.getElementById('current-year').textContent = new Date().getFullYear();
+    document.getElementById('site-name').textContent = window.location.hostname; // Tampilkan nama domain (hostname)
   </script>
 </body>
 </html>
-
