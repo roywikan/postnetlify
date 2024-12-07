@@ -24,7 +24,7 @@
         <main>
             <section>
                 <h2>Introduction</h2>
-                <p>Welcome to  <span id="siteName"></span>! This Privacy Policy explains how we collect, use, and protect your personal data when you visit and interact with our website at <a id="baseUrl" href="#"></a>.</p>
+                <p>Welcome to <span id="siteName"></span>! This Privacy Policy explains how we collect, use, and protect your personal data when you visit and interact with our website at <a id="baseUrl" href="#"></a>.</p>
             </section>
 
             <section>
@@ -93,18 +93,19 @@
   </div>
 
     <div>
-<p>
-siteName :<span id="siteName"></span>
-domain :<span id="domain"></span>
-subdomain :<span id="subdomain"></span>
-baseUrl :<a id="baseUrl" href="#"></a>
-fullUrl :<span id="fullUrl"></span>
-path :<span id="path"></span>
-supportEmail :<a id="supportEmail" href="#"></a>
-current-year :<span id="current-year"></span>
-site-name :<span id="site-name"></span>
-</p>
+        <p>
+        siteName : <span id="siteNameFooter"></span><br>
+        domain : <span id="domainFooter"></span><br>
+        subdomain : <span id="subdomainFooter"></span><br>
+        baseUrl : <a id="baseUrlFooter" href="#"></a><br>
+        fullUrl : <span id="fullUrlFooter"></span><br>
+        path : <span id="pathFooter"></span><br>
+        supportEmail : <a id="supportEmailFooter" href="#"></a><br>
+        current-year : <span id="current-yearFooter"></span><br>
+        site-name : <span id="site-nameFooter"></span><br>
+        </p>
     </div>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseUrl = `${url.protocol}//${url.hostname}`;
         const supportEmail = `support@${domain}`;
 
-        // Update dynamic content with error handling
+        // Update dynamic content for main section
         const siteNameElement = document.querySelector('#siteName');
         if (siteNameElement) siteNameElement.textContent = `${subdomain}.${domain}`;
         
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set meta description
         const descriptionMetaTag = document.querySelector('meta[name="description"]');
         if (descriptionMetaTag) {
-            descriptionMetaTag.setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
+            descriptionMetaTag.setAttribute('content', `Privacy Policy for ${subdomain}.${domain}.`);
         }
 
         // Update page title
@@ -158,6 +159,40 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const siteNameFooterElement = document.querySelector('#site-name');
         if (siteNameFooterElement) siteNameFooterElement.textContent = `${subdomain}.${domain}`;
+
+        // Update dynamic content for footer section
+        const siteNameFooter = document.querySelector('#siteNameFooter');
+        if (siteNameFooter) siteNameFooter.textContent = `${subdomain}.${domain}`;
+        
+        const domainFooter = document.querySelector('#domainFooter');
+        if (domainFooter) domainFooter.textContent = domain;
+        
+        const subdomainFooter = document.querySelector('#subdomainFooter');
+        if (subdomainFooter) subdomainFooter.textContent = subdomain;
+        
+        const baseUrlFooter = document.querySelector('#baseUrlFooter');
+        if (baseUrlFooter) {
+            baseUrlFooter.textContent = baseUrl;
+            baseUrlFooter.href = baseUrl;
+        }
+        
+        const fullUrlFooter = document.querySelector('#fullUrlFooter');
+        if (fullUrlFooter) fullUrlFooter.textContent = fullUrl;
+        
+        const pathFooter = document.querySelector('#pathFooter');
+        if (pathFooter) pathFooter.textContent = path;
+        
+        const supportEmailFooter = document.querySelector('#supportEmailFooter');
+        if (supportEmailFooter) {
+            supportEmailFooter.textContent = supportEmail;
+            supportEmailFooter.href = `mailto:${supportEmail}`;
+        }
+
+        const currentYearFooter = document.querySelector('#current-yearFooter');
+        if (currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
+        
+        const siteNameFooterFinal = document.querySelector('#site-nameFooter');
+        if (siteNameFooterFinal) siteNameFooterFinal.textContent = `${subdomain}.${domain}`;
 
     } catch (error) {
         console.error("Error updating dynamic content:", error);
