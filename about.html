@@ -1,61 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <meta name="description" content="About Us | {{ site.domain }}">
-  <title>About Us | {{ site.domain }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="About Us page for our site.">
+    <title id="page-title">About Us</title>
+    <meta name="author" id="meta-author" content="">
+    <link rel="stylesheet" href="/post-html.css">
 </head>
 <body>
-  <header>
-    <h1>About Us</h1>
-  </header>
 
-  <main>
-    <section>
-      <h2>Welcome to {{ site.domain }}</h2>
-      <p>Thank you for visiting {{ site.domain }}! We are dedicated to providing high-quality content on topics related to [your niche]. Our goal is to offer valuable insights, useful resources, and engaging posts to our readers.</p>
-    </section>
+  <div class="container" style="min-height: 1300px;">
+    <!-- Post Title -->
+    <h1 class="post-title"><span id="post-title">About Us</span></h1>
 
-    <section>
-      <h2>Our Mission</h2>
-      <p>At {{ site.domain }}, our mission is to [state your mission, e.g., "to educate our readers on the latest trends in technology, share helpful guides, and provide actionable tips to improve their daily lives"]. We are passionate about delivering content that our readers can trust and rely on.</p>
-    </section>
+    <span id="domain"></span>
 
-    <section>
-      <h2>What We Do</h2>
-      <p>We publish articles on a variety of topics including [your topics, e.g., "tech news, reviews, how-to guides, product comparisons, and industry trends"]. Our team is composed of experienced writers and editors who are experts in their fields.</p>
-    </section>
+    <!-- Container for post content -->    
+    <div id="post-container" class="post-container">
+        <img id="post-image" class="post-image" alt="About Us Image" src="https://docs.netlify.com/images/get-started-connect-github.png" async />
+        <div id="post-body" class="post-body" style=""></div>
+        <main>
+            <section>
+                <h2>Our Mission</h2>
+                <p>At <span id="siteName"></span>, our mission is to provide innovative solutions that make life easier. We aim to lead the industry with cutting-edge technologies and services that empower users and businesses alike.</p>
+            </section>
 
-    <section>
-      <h2>Why Choose Us?</h2>
-      <p>Our readers choose us because we offer [mention the benefits of your site, e.g., "in-depth reviews, reliable information, up-to-date news, and expert advice"]. We take pride in our work and aim to provide content that is both informative and enjoyable to read.</p>
-    </section>
+            <section>
+                <h2>Our Story</h2>
+                <p>Founded in 2020, <span id="siteName"></span> was born out of a passion for technology and a desire to make an impact in the digital space. Over the years, we've grown from a small team of developers to a leading provider of online services.</p>
+            </section>
 
-    <section>
-      <h2>Meet Our Team</h2>
-      <p>Our team consists of passionate individuals who are dedicated to bringing you the best content. Here's a brief introduction to our key members:</p>
-      <ul>
-        <li><strong>John Doe</strong> - Founder & Editor-in-Chief: John is an expert in [field], with over [number] years of experience in [industry].</li>
-        <li><strong>Jane Smith</strong> - Senior Writer: Jane specializes in [topic] and has contributed extensively to [platforms/publications].</li>
-        <li><strong>Mark Taylor</strong> - Contributor: Mark writes about [topic], offering his unique perspective on [specific industry].</li>
-      </ul>
-    </section>
+            <section>
+                <h2>Our Values</h2>
+                <ul>
+                    <li><strong>Innovation:</strong> We constantly strive for creative solutions and improvements.</li>
+                    <li><strong>Integrity:</strong> We believe in transparency and honesty in all our dealings.</li>
+                    <li><strong>Customer Focus:</strong> Our customers' needs are always our top priority.</li>
+                    <li><strong>Collaboration:</strong> We believe in the power of teamwork and partnerships.</li>
+                </ul>
+            </section>
 
-    <section>
-      <h2>Contact Us</h2>
-      <p>If you have any questions, comments, or suggestions, we would love to hear from you! You can reach us by email at <a href="mailto:support@{{ site.domain }}">support@{{ site.domain }}</a>.</p>
-    </section>
+            <section>
+                <h2>Meet the Team</h2>
+                <p>Our dedicated team is composed of industry experts passionate about technology, innovation, and solving real-world problems. We work hard every day to bring you the best solutions available.</p>
+                <ul>
+                    <li><strong>John Doe</strong> - CEO</li>
+                    <li><strong>Jane Smith</strong> - CTO</li>
+                    <li><strong>Michael Johnson</strong> - Lead Developer</li>
+                    <li><strong>Emily White</strong> - Marketing Director</li>
+                </ul>
+            </section>
 
-    <section>
-      <h2>Our Commitment to Transparency</h2>
-      <p>At {{ site.domain }}, we are committed to maintaining transparency with our audience. We disclose any sponsored content, affiliate links, or advertisements on our site to ensure that our readers are fully informed about the content they are viewing. We believe in being open and honest with our audience at all times.</p>
-    </section>
-  </main>
+        </main>
 
-  <footer>
-    <p>&copy; {{ site.year }} {{ site.domain }}. All Rights Reserved.</p>
-  </footer>
+        <!-- Placeholder untuk Footer -->
+        <div id="footer-placeholder" class="footer-placeholder"></div>
+
+        <footer>
+          <nav class="footer-menu">
+            <a href="/">Home</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/about">About</a>
+            <a href="/tos">ToS</a>
+            <a href="/login/">Login</a>
+            <a href="/rssfeed.html">RSS Feed Generator</a>
+            <a href="/rssfeed.xml">RSS Feed</a>
+            <a href="/sitemap.html">HTML Sitemap</a>
+            <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+            <a href="/sitemap.xml">XML Sitemap</a>
+          </nav>
+          <br>
+           <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+  </div>
+
+    <div>
+<p>
+siteName :<span id="siteNameFooter"></span><br>
+domain :<span id="domainFooter"></span><br>
+subdomain :<span id="subdomainFooter"></span><br>
+baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+fullUrl :<span id="fullUrlFooter"></span><br>
+path :<span id="pathFooter"></span><br>
+supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+current-year :<span id="current-yearFooter"></span><br>
+site-name :<span id="site-nameFooter"></span><br>
+</p>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const url = new URL(window.location.href);
+        const subdomain = url.hostname.split('.')[0].toUpperCase();
+        const domain = url.hostname.split('.').slice(1).join('.');
+        const fullUrl = url.href;
+        const path = url.pathname === "/" ? "Home" : url.pathname;
+        const baseUrl = `${url.protocol}//${url.hostname}`;
+        const supportEmail = `support@${domain}`;
+
+        // Update dynamic content with error handling
+        const siteNameElement = document.querySelector('#siteName');
+        if (siteNameElement) siteNameElement.textContent = `${subdomain}.${domain}`;
+        
+        const domainElement = document.querySelector('#domain');
+        if (domainElement) domainElement.textContent = domain;
+        
+        const subdomainElement = document.querySelector('#subdomain');
+        if (subdomainElement) subdomainElement.textContent = subdomain;
+        
+        const baseUrlElement = document.querySelector('#baseUrl');
+        if (baseUrlElement) {
+            baseUrlElement.textContent = baseUrl;
+            baseUrlElement.href = baseUrl;
+        }
+        
+        const fullUrlElement = document.querySelector('#fullUrl');
+        if (fullUrlElement) fullUrlElement.textContent = fullUrl;
+        
+        const pathElement = document.querySelector('#path');
+        if (pathElement) pathElement.textContent = path;
+        
+        const supportEmailElement = document.querySelector('#supportEmail');
+        if (supportEmailElement) {
+            supportEmailElement.textContent = supportEmail;
+            supportEmailElement.href = `mailto:${supportEmail}`;
+        }
+
+        // Set meta description
+        const descriptionMetaTag = document.querySelector('meta[name="description"]');
+        if (descriptionMetaTag) {
+            descriptionMetaTag.setAttribute('content', `About Us page for ${subdomain}.${domain}.`);
+        }
+
+        // Update page title
+        document.title = `About Us | ${subdomain}`;
+        
+        const currentYearElement = document.querySelector('#current-year');
+        if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
+        
+        const siteNameFooterElement = document.querySelector('#site-name');
+        if (siteNameFooterElement) siteNameFooterElement.textContent = `${subdomain}.${domain}`;
+
+    } catch (error) {
+        console.error("Error updating dynamic content:", error);
+    }
+});
+</script>
+
 </body>
 </html>
