@@ -171,11 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set meta description
         const descriptionMetaTag = document.querySelector('meta[name="description"]');
         if (descriptionMetaTag) {
-            descriptionMetaTag.setAttribute('content', `Privacy Policy for ${subdomain}.${domain}.`);
+            descriptionMetaTag.setAttribute('content', `Terms of Service for ${subdomain}.${domain}.`);
         }
 
         // Update page title
-        document.title = `Privacy Policy | ${subdomain}`;
+        document.title = `Terms of Service | ${subdomain}`;
         
         const currentYearElement = document.querySelector('#current-year');
         if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
