@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.debug-hidden {
+    display: none;
+}
+
 body {
   font-family: 'Roboto', Arial, sans-serif;
   font-display: swap; /* Fallback cepat untuk font */
