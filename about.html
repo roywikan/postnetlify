@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
+
+<meta property="og:title" content="About | POSTNETLIFY">
+<meta property="og:description" content="About POSTNETLIFY.">
+<meta property="og:image" content="https://docs.netlify.com/images/get-started-connect-github.png">
+<meta property="og:url" content="https://postnetlify.netlify.app/about">
+<meta property="og:type" content="website">
+
+    
     <meta name="description" content="About Us page for our site.">
     <title id="page-title">About Us</title>
     <meta name="author" id="meta-author" content="">
@@ -103,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseUrl = `${url.protocol}//${url.hostname}`;
         const supportEmail = `support@${domain}`;
 
-        // Update dynamic content with error handling
+        // Update dynamic content for main section
         const siteNameElement = document.querySelector('#siteName');
         if (siteNameElement) siteNameElement.textContent = `${subdomain}.${domain}`;
         
@@ -134,17 +142,51 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set meta description
         const descriptionMetaTag = document.querySelector('meta[name="description"]');
         if (descriptionMetaTag) {
-            descriptionMetaTag.setAttribute('content', `About Us page for ${subdomain}.${domain}.`);
+            descriptionMetaTag.setAttribute('content', `About ${subdomain}.${domain}.`);
         }
 
         // Update page title
-        document.title = `About Us | ${subdomain}`;
+        document.title = `About | ${subdomain}`;
         
         const currentYearElement = document.querySelector('#current-year');
         if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
         
         const siteNameFooterElement = document.querySelector('#site-name');
         if (siteNameFooterElement) siteNameFooterElement.textContent = `${subdomain}.${domain}`;
+
+        // Update dynamic content for footer section
+        const siteNameFooter = document.querySelector('#siteNameFooter');
+        if (siteNameFooter) siteNameFooter.textContent = `${subdomain}.${domain}`;
+        
+        const domainFooter = document.querySelector('#domainFooter');
+        if (domainFooter) domainFooter.textContent = domain;
+        
+        const subdomainFooter = document.querySelector('#subdomainFooter');
+        if (subdomainFooter) subdomainFooter.textContent = subdomain;
+        
+        const baseUrlFooter = document.querySelector('#baseUrlFooter');
+        if (baseUrlFooter) {
+            baseUrlFooter.textContent = baseUrl;
+            baseUrlFooter.href = baseUrl;
+        }
+        
+        const fullUrlFooter = document.querySelector('#fullUrlFooter');
+        if (fullUrlFooter) fullUrlFooter.textContent = fullUrl;
+        
+        const pathFooter = document.querySelector('#pathFooter');
+        if (pathFooter) pathFooter.textContent = path;
+        
+        const supportEmailFooter = document.querySelector('#supportEmailFooter');
+        if (supportEmailFooter) {
+            supportEmailFooter.textContent = supportEmail;
+            supportEmailFooter.href = `mailto:${supportEmail}`;
+        }
+
+        const currentYearFooter = document.querySelector('#current-yearFooter');
+        if (currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
+        
+        const siteNameFooterFinal = document.querySelector('#site-nameFooter');
+        if (siteNameFooterFinal) siteNameFooterFinal.textContent = `${subdomain}.${domain}`;
 
     } catch (error) {
         console.error("Error updating dynamic content:", error);
