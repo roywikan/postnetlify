@@ -92,19 +92,20 @@
     </div>
   </div>
 
-    <div>
-        <p>
-        siteName : <span id="siteNameFooter"></span><br>
-        domain : <span id="domainFooter"></span><br>
-        subdomain : <span id="subdomainFooter"></span><br>
-        baseUrl : <a id="baseUrlFooter" href="#"></a><br>
-        fullUrl : <span id="fullUrlFooter"></span><br>
-        path : <span id="pathFooter"></span><br>
-        supportEmail : <a id="supportEmailFooter" href="#"></a><br>
-        current-year : <span id="current-yearFooter"></span><br>
-        site-name : <span id="site-nameFooter"></span><br>
-        </p>
-    </div>
+<!-- debug -->
+<div id="debug-info" class="debug-hidden">
+<p>
+    siteName :<span id="siteNameFooter"></span><br>
+    domain :<span id="domainFooter"></span><br>
+    subdomain :<span id="subdomainFooter"></span><br>
+    baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+    fullUrl :<span id="fullUrlFooter"></span><br>
+    path :<span id="pathFooter"></span><br>
+    supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+    current-year :<span id="current-yearFooter"></span><br>
+    site-name :<span id="site-nameFooter"></span><br>
+</p>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -198,6 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Error updating dynamic content:", error);
     }
 });
+
+//Debugging akan muncul hanya jika Anda menambahkan ?debug=true ke URL, misalnya:
+//https://example.com/about.html?debug=true.
+if (window.location.search.includes('debug=true')) {
+    document.getElementById('debug-info').classList.remove('debug-hidden');
+}
 </script>
 
 </body>
