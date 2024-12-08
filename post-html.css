@@ -540,3 +540,14 @@ button:hover {
     font-size: 16px;
   }
 }
+
+/* cusdis */
+.border-gray-200 {
+    --tw-border-opacity: 1;
+    border-color: cornflowerblue;
+    border-radius: 10px;
+}
+
+label.mb-2.block.dark\:text-gray-200 {
+    font-size: larger;
+}
