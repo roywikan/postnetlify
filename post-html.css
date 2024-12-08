@@ -190,9 +190,14 @@ h1 {
   }
 
   .post-body {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1.6;
     margin-bottom: 100px;
+    
+        margin-bottom: 10rem;
+        margin-left: 0.4rem;
+        margin-right: 0.3rem;
+        margin-top: 2rem;
   }
 }
 
