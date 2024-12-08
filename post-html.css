@@ -305,3 +305,244 @@ button {
 button:hover {
   background-color: navy;
 }
+
+
+
+
+/* Layar terkecil (smartphone portrait) */
+@media (max-width: 320px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+  }
+  h4 {
+    font-size: 1.4rem;
+  }
+  h5 {
+    font-size: 1.2rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+  .post-body {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .post-meta {
+    font-size: 0.8rem;
+  }
+  .footer-menu a {
+    font-size: 10px;
+  }
+}
+
+/* Layar smartphone kecil (smartphone portrait) */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.9rem;
+  }
+  h3 {
+    font-size: 1.7rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+  h5 {
+    font-size: 1.3rem;
+  }
+  h6 {
+    font-size: 1.1rem;
+  }
+  .post-body {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .post-meta {
+    font-size: 0.9rem;
+  }
+  .footer-menu a {
+    font-size: 11px;
+  }
+}
+
+/* Layar smartphone sedang (smartphone landscape) */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2.1rem;
+  }
+  h3 {
+    font-size: 1.9rem;
+  }
+  h4 {
+    font-size: 1.7rem;
+  }
+  h5 {
+    font-size: 1.5rem;
+  }
+  h6 {
+    font-size: 1.3rem;
+  }
+  .post-body {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .post-meta {
+    font-size: 1rem;
+  }
+  .footer-menu a {
+    font-size: 12px;
+  }
+}
+
+/* Layar tablet kecil (tablet portrait) */
+@media (max-width: 800px) {
+  h1 {
+    font-size: 2.8rem;
+  }
+  h2 {
+    font-size: 2.3rem;
+  }
+  h3 {
+    font-size: 2.1rem;
+  }
+  h4 {
+    font-size: 1.9rem;
+  }
+  h5 {
+    font-size: 1.7rem;
+  }
+  h6 {
+    font-size: 1.5rem;
+  }
+  .post-body {
+    font-size: 1.6rem;
+    line-height: 2;
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+  .post-meta {
+    font-size: 1.1rem;
+  }
+  .footer-menu a {
+    font-size: 13px;
+  }
+}
+
+/* Layar tablet besar (tablet landscape) */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+  }
+  h3 {
+    font-size: 2.3rem;
+  }
+  h4 {
+    font-size: 2.1rem;
+  }
+  h5 {
+    font-size: 1.9rem;
+  }
+  h6 {
+    font-size: 1.7rem;
+  }
+  .post-body {
+    font-size: 1.8rem;
+    line-height: 2.2;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  .post-meta {
+    font-size: 1.2rem;
+  }
+  .footer-menu a {
+    font-size: 14px;
+  }
+}
+
+/* Layar desktop kecil */
+@media (max-width: 1280px) {
+  h1 {
+    font-size: 3.2rem;
+  }
+  h2 {
+    font-size: 2.7rem;
+  }
+  h3 {
+    font-size: 2.5rem;
+  }
+  h4 {
+    font-size: 2.3rem;
+  }
+  h5 {
+    font-size: 2.1rem;
+  }
+  h6 {
+    font-size: 1.9rem;
+  }
+  .post-body {
+    font-size: 2rem;
+    line-height: 2.4;
+    margin-right: 35px;
+    margin-left: 35px;
+  }
+  .post-meta {
+    font-size: 1.3rem;
+  }
+  .footer-menu a {
+    font-size: 15px;
+  }
+}
+
+/* Layar desktop besar */
+@media (min-width: 1281px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+  h3 {
+    font-size: 2.8rem;
+  }
+  h4 {
+    font-size: 2.6rem;
+  }
+  h5 {
+    font-size: 2.4rem;
+  }
+  h6 {
+    font-size: 2.2rem;
+  }
+  .post-body {
+    font-size: 2.2rem;
+    line-height: 2.6;
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+  .post-meta {
+    font-size: 1.4rem;
+  }
+  .footer-menu a {
+    font-size: 16px;
+  }
+}
