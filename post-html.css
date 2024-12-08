@@ -97,6 +97,7 @@ h6 {
 
 /* Post image */
 .post-image {
+  top: 60%;
   width: 100%;
   height: auto;
   border-radius: 8px;
