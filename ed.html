@@ -9,123 +9,9 @@
 		<!-- Menambahkan UIkit CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
 		<link rel="stylesheet" href="/toolbar.css">
+		<link rel="stylesheet" href="/ed-html.css">
 		<script src="/toolbar.js"></script>
-		<style>
-			/* Custom Style untuk mempercantik tampilan */
-			.form-container {
-				max-width: 800px;
-				margin: 0 auto;
-				padding: 20px;
-			}
 
-			#refreshButton {
-				display: none;
-			}
-
-			.uk-form-label {
-				font-weight: bold;
-			}
-
-			.uk-form-controls input,
-			.uk-form-controls textarea,
-			.uk-form-controls button {
-				font-size: 16px;
-			}
-
-			/* CSS untuk tombol logout */
-			#logoutButton {
-				display: none;
-				/* Tombol logout disembunyikan secara default */
-				font-size: 18px;
-				/* Ukuran teks tombol */
-				padding: 15px 30px;
-				/* Jarak dalam tombol */
-				background-color: #007bff;
-				/* Warna latar belakang tombol */
-				color: white;
-				/* Warna teks tombol */
-				border: none;
-				/* Menghapus border default */
-				border-radius: 8px;
-				/* Sudut tombol melengkung */
-				cursor: pointer;
-				transition: background-color 0.3s ease;
-			}
-
-			
-			transition: background-color 0.3s ease;
-			}
-
-			#logoutButton:hover {
-				background-color: #0056b3;
-				/* Warna latar belakang saat hover */
-			}
-
-			#logoutButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 16px;
-    padding: 10px 20px;
-}
-@media (max-width: 600px) {
-    #logoutButton {
-        font-size: 14px;
-        padding: 8px 16px;
-    }
-}
-
-  /* Responsif Styling untuk User Info */
-
-  /* General styling */
-  .user-info-container {
-    max-width: 96%;
-    margin: 20px auto;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-word-wrap: break-word; /* membungkus kata yang panjang */
-  word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
-  white-space: normal; /* pastikan konten dapat membungkus */
-  }
-
-  /* Text styling */
-  .user-info-container p {
-    margin: 8px 0;
-    color: #333;
-  }
-
-  .user-info-container strong {
-    color: #007acc;
-  }
-
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .user-info-container {
-      padding: 10px;
-      font-size: 14px;
-    }
-
-    .user-info-container p {
-      margin: 6px 0;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .user-info-container {
-      padding: 8px;
-      font-size: 12px;
-    }
-
-    .user-info-container p {
-      margin: 4px 0;
-    }
-  }
-			
-		</style>
 	</head>
 	<body>
 		<div class="uk-container uk-container-small">
@@ -269,6 +155,27 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 			});
 		</script>
 		<script>
+			function alertNotification(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`; // Tambahkan class sesuai styling Anda
+    alertDiv.style.position = 'fixed';
+    alertDiv.style.top = '20px';
+    alertDiv.style.right = '20px';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.padding = '10px';
+    alertDiv.style.backgroundColor = type === 'success' ? '#4CAF50' : '#f44336'; // Hijau untuk sukses, merah untuk error
+    alertDiv.style.color = '#fff';
+    alertDiv.style.borderRadius = '5px';
+    alertDiv.textContent = message;
+
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000); // Notifikasi hilang setelah 3 detik
+}
+
+			
 			// Fungsi untuk menampilkan tombol refresh setelah aksi sukses
 			function aksiSukses() {
 				// Menampilkan tombol refresh setelah aksi berhasil
@@ -351,7 +258,7 @@ word-wrap: break-word; /* membungkus kata yang panjang */
 
 					
 /////start alert for netlify form submission/////
-try {
+
 
 					
 					// Kirim data ke Netlify
@@ -373,29 +280,34 @@ try {
 
 					
 					// Coba parsing JSON respons jika tersedia
-					try {
-						const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
-						console.log('Netlify Response Text:', netlifyResponseText);
+					//try {
+					//	const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
+					//	console.log('Netlify Response Text:', netlifyResponseText);
 					// Jika respons adalah JSON, coba parsing
-						const netlifyResponseJSON = JSON.parse(netlifyResponseText);
-						console.log('Netlify Response JSON:', netlifyResponseJSON);
-					} catch (parseError) {
-						console.error('Error parsing Netlify response:', parseError);
-					}
+					//	const netlifyResponseJSON = JSON.parse(netlifyResponseText);
+					//	console.log('Netlify Response JSON:', netlifyResponseJSON);
+					//} catch (parseError) {
+					//	console.error('Error parsing Netlify response:', parseError);
+					//}
 	
 					if (!netlifyResponse.ok) {
 						throw new Error('Failed to submit form to Netlify');
 						alertNotification(`Error: ${error.message}`, 'error');
-					}
+					}else{
+						alertNotification('Form submitted successfully!', 'success');
+					     }
 
 
 	
 
-} catch (error) {
 
-	alertNotification('Form submitted successfully!', 'success');
-}
 
+
+
+
+
+
+					
 /////start alert for netlify form submission/////
 
 
@@ -418,12 +330,14 @@ try {
 						alert('Failed to submit form. Please try again.');
 					}
 				} catch (error) {
-					console.error('Error:', error);
-					alert(`Error: ${error.message}`);
+					console.error('Netlify Error:', error);// CHECK THIS LINE, IS IT ERROR?
+					alert(`Metlify Error: ${error.message}`);
 				} finally {
 					submitButton.disabled = false; // Aktifkan kembali tombol
 				}
 			});
+
+			
 			const uploadToCloudinary = async (file, fileName) => {
 				const cloudinaryData = new FormData();
 				cloudinaryData.append('file', file);
@@ -432,38 +346,25 @@ try {
 
 
 
-
-
-				
-/////start alert about image upload////////////////
-try {
 				
 				const response = await fetch(cloudinaryUrl, {
 					method: 'POST',
 					body: cloudinaryData,
 				});
+				
 				if (!response.ok) {
 					throw new Error('Failed to upload image ' + fileName);
+					alertNotification(`Image Upload Error: ${error.message}`, 'error');
 				}
 
 
-    const jsonResponse = await response.json();
-    if (jsonResponse.error) {
-        throw new Error(jsonResponse.error.message);
-    }
-
-    alertNotification('Image uploaded to Cloudinary successfully!', 'success');
-} catch (error) {
-    alertNotification(`Image Upload Error: ${error.message}`, 'error');
-}
-/////end of alert about image upload////////////////
-
-
-
-
-
-
-
+    				const jsonResponse = await response.json();
+    					if (jsonResponse.error) {
+        				throw new Error(jsonResponse.error.message);
+					alertNotification(`Image Upload Error: ${jsonResponse.error.message}`, 'error');
+    				}else{
+	    				alertNotification('Image uploaded to Cloudinary successfully!', 'success');
+				}
 
 
 
@@ -565,25 +466,7 @@ try {
 				}
 
 
-function alertNotification(message, type) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type}`; // Tambahkan class sesuai styling Anda
-    alertDiv.style.position = 'fixed';
-    alertDiv.style.top = '20px';
-    alertDiv.style.right = '20px';
-    alertDiv.style.zIndex = '9999';
-    alertDiv.style.padding = '10px';
-    alertDiv.style.backgroundColor = type === 'success' ? '#4CAF50' : '#f44336'; // Hijau untuk sukses, merah untuk error
-    alertDiv.style.color = '#fff';
-    alertDiv.style.borderRadius = '5px';
-    alertDiv.textContent = message;
 
-    document.body.appendChild(alertDiv);
-
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000); // Notifikasi hilang setelah 3 detik
-}
 
 
 				
