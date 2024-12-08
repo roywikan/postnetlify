@@ -180,7 +180,8 @@ function alertNotification(message, type) {
 			function aksiSukses() {
 				// Menampilkan tombol refresh setelah aksi berhasil
 				document.getElementById('refreshButton').style.display = 'block';
-				document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
+				//document.getElementById('statusMessage').innerText = 'Aksi berhasil! Klik tombol untuk menyegarkan halaman.';
+				alertNotification('Form submitted successfully! Klik tombol untuk menyegarkan halaman.', 'success');
 			}
 			// Fungsi untuk menyegarkan halaman
 			function refreshPage() {
@@ -350,6 +351,10 @@ const uploadToCloudinary = async (file, fileName) => {
 
   if (!response.ok) {
     throw new Error('Failed to upload image ' + fileName);
+	alertNotification('Failed to upload image ' + fileName, 'error');
+
+  }else{
+	  alertNotification('Success to upload image ' + fileName, 'success');
   }
 
   	//return await response.json();
