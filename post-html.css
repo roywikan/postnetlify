@@ -105,7 +105,7 @@ h6 {
 
 /* Post content */
 .post-body {
-  font-size: 2rem;
+  font-size: 1.2rem;
   margin-bottom: 100px;
   line-height: 2.6;
   word-wrap: break-word; /* membungkus kata yang panjang */
@@ -366,8 +366,7 @@ button:hover {
   .post-body {
     font-size: 1.2rem;
     line-height: 1.6;
-    margin-right: 15px;
-    margin-left: 15px;
+
   }
   .post-meta {
     font-size: 0.9rem;
@@ -400,8 +399,7 @@ button:hover {
   .post-body {
     font-size: 1.4rem;
     line-height: 1.8;
-    margin-right: 20px;
-    margin-left: 20px;
+
   }
   .post-meta {
     font-size: 1rem;
@@ -434,8 +432,7 @@ button:hover {
   .post-body {
     font-size: 1.6rem;
     line-height: 2;
-    margin-right: 25px;
-    margin-left: 25px;
+
   }
   .post-meta {
     font-size: 1.1rem;
@@ -468,8 +465,7 @@ button:hover {
   .post-body {
     font-size: 1.8rem;
     line-height: 2.2;
-    margin-right: 30px;
-    margin-left: 30px;
+
   }
   .post-meta {
     font-size: 1.2rem;
@@ -502,8 +498,7 @@ button:hover {
   .post-body {
     font-size: 2rem;
     line-height: 2.4;
-    margin-right: 35px;
-    margin-left: 35px;
+
   }
   .post-meta {
     font-size: 1.3rem;
@@ -536,8 +531,7 @@ button:hover {
   .post-body {
     font-size: 2.2rem;
     line-height: 2.6;
-    margin-right: 40px;
-    margin-left: 40px;
+
   }
   .post-meta {
     font-size: 1.4rem;
