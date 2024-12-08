@@ -343,9 +343,6 @@ function alertNotification(message, type) {
 				cloudinaryData.append('file', file);
 				cloudinaryData.append('upload_preset', cloudinaryPreset);
 				cloudinaryData.append('public_id', fileName);
-
-
-
 				
 				const response = await fetch(cloudinaryUrl, {
 					method: 'POST',
@@ -353,23 +350,25 @@ function alertNotification(message, type) {
 				});
 				
 				if (!response.ok) {
-					throw new Error('Failed to upload image ' + fileName);
-					alertNotification(`Image Upload Error: ${error.message}`, 'error');
+					const error = await response.json();
+        				alertNotification(`Image Upload Error: ${error.message}`, 'error');
+        				throw new Error(error.message || 'Failed to upload image' + fileName);
 				}
 
 
     				const jsonResponse = await response.json();
-    					if (jsonResponse.error) {
-        				throw new Error(jsonResponse.error.message);
-					alertNotification(`Image Upload Error: ${jsonResponse.error.message}`, 'error');
+    				if (jsonResponse.error) {
+        					throw new Error(jsonResponse.error.message);
+						alertNotification(`Image Upload Error: ${jsonResponse.error.message}`, 'error');
     				}else{
-	    				alertNotification('Image uploaded to Cloudinary successfully!', 'success');
+	    					alertNotification('Image uploaded to Cloudinary successfully!', 'success');
 				}
 
 
 
 				
-				return await response.json();
+				return response.json();
+				//return await response.json();
 			};
 
 
