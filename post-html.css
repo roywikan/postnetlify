@@ -173,6 +173,24 @@ footer a:hover {
   }
 }
 
+/* Samsung Galaxy S8 Portrait Mode */
+@media (max-width: 360px) {
+  .post-body {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+}
+
+/* Samsung Galaxy S8 Landscape Mode */
+@media (max-width: 740px) {
+  .post-body {
+    font-size: 1.7rem;
+    line-height: 2;
+  }
+}
+
+
+
 /* Smartphone (Portrait) - up to 480px width */
 @media (max-width: 480px) {
   h1 {
