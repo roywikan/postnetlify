@@ -154,7 +154,7 @@
 				generateSlugFromTitle();
 			});
 		</script>
-		<script>
+<script>
 function alertNotification(message, type) {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type}`; // Tambahkan class sesuai styling Anda
@@ -236,9 +236,9 @@ function alertNotification(message, type) {
 					console.log('Uploading image to Cloudinary...', finalFileName);
 					const cloudinaryResult = await uploadToCloudinary(file, finalFileName);
 					console.log('Cloudinary Response:', cloudinaryResult);
-					//const imageUrl = cloudinaryResult.secure_url;
+					
 					//console.log('Image URL:', imageUrl);
-					const imageUrl = cloudinaryResult.secure_url;
+					const imageUrl = cloudinaryResult.secure_url;//INI ERROR ed:351 Netlify Error: TypeError: Cannot read properties of undefined (reading 'secure_url')
 					console.log('Image URL before f_auto:', imageUrl);
 					// Menambahkan 'f_auto' pada URL gambar untuk mendapatkan format terbaik secara otomatis
 					const imageUrlWithAutoFormat = imageUrl.replace('/upload/', '/upload/f_auto/');
@@ -257,7 +257,7 @@ function alertNotification(message, type) {
 
 
 					
-/////start alert for netlify form submission/////
+
 
 
 					
@@ -308,7 +308,7 @@ function alertNotification(message, type) {
 
 
 					
-/////start alert for netlify form submission/////
+
 
 
 
@@ -337,41 +337,24 @@ function alertNotification(message, type) {
 				}
 			});
 
-			
-			const uploadToCloudinary = async (file, fileName) => {
-				const cloudinaryData = new FormData();
-				cloudinaryData.append('file', file);
-				cloudinaryData.append('upload_preset', cloudinaryPreset);
-				cloudinaryData.append('public_id', fileName);
-				
-				const response = await fetch(cloudinaryUrl, {
-					method: 'POST',
-					body: cloudinaryData,
-				});
-				
-				if (!response.ok) {
-					const error = await response.json();
-        				alertNotification(`Image Upload Error: ${error.message}`, 'error');
-        				throw new Error(error.message || 'Failed to upload image' + fileName);
-				}
+const uploadToCloudinary = async (file, fileName) => {
+  const cloudinaryData = new FormData();
+  cloudinaryData.append('file', file);
+  cloudinaryData.append('upload_preset', cloudinaryPreset);
+  cloudinaryData.append('public_id', fileName);
 
+  const response = await fetch(cloudinaryUrl, {
+    method: 'POST',
+    body: cloudinaryData,
+  });
 
-    				const jsonResponse = await response.json();
-    				if (jsonResponse.error) {
-        					throw new Error(jsonResponse.error.message);
-						alertNotification(`Image Upload Error: ${jsonResponse.error.message}`, 'error');
-    				}else{
-	    					alertNotification('Image uploaded to Cloudinary successfully!', 'success');
-				}
+  if (!response.ok) {
+    throw new Error('Failed to upload image ' + fileName);
+  }
 
-
-
-				
-				//return response.json();
-				//return await response.json();
-			};
-
-
+  	//return await response.json();
+	return  response.json();
+};
 
 
 			
