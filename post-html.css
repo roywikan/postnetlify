@@ -42,7 +42,7 @@ p a:hover, div a:hover, table a:hover, span a:hover {
 
 /* Header title */
 h1 {
-  font-size: 3.6rem;
+  font-size: 4rem;
   font-weight: 700;
   margin-bottom: 10px;
   text-align: center;
@@ -105,7 +105,7 @@ h6 {
 
 /* Post content */
 .post-body {
-  font-size: 1.85rem;
+  font-size: 2rem;
   margin-bottom: 100px;
   line-height: 2.6;
   word-wrap: break-word; /* membungkus kata yang panjang */
@@ -173,16 +173,6 @@ footer a:hover {
   }
 }
 
-/* Mobile and tablet responsive adjustments */
-h1 {
-  font-size: 4rem;
-}
-
-.post-body {
-  font-size: 2rem;
-  line-height: 1.8;
-}
-
 /* Smartphone (Portrait) - up to 480px width */
 @media (max-width: 480px) {
   h1 {
@@ -192,12 +182,10 @@ h1 {
   .post-body {
     font-size: 1.2rem;
     line-height: 1.6;
-    margin-bottom: 100px;
-    
-        margin-bottom: 10rem;
-        margin-left: 0.4rem;
-        margin-right: 0.3rem;
-        margin-top: 2rem;
+    margin-bottom: 10rem;
+    margin-left: 0.4rem;
+    margin-right: 0.3rem;
+    margin-top: 2rem;
   }
 }
 
@@ -236,7 +224,6 @@ h1 {
   .post-body {
     font-size: 2rem;
     line-height: 2.2;
-
   }
 }
 
@@ -250,11 +237,9 @@ h1 {
     font-size: 2rem;
     line-height: 2.2;
     margin-bottom: 200px;
-    
-        margin-bottom: 10rem;
-        margin-left: 1.5rem;
-        margin-right: 1.2rem;
-        margin-top: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.2rem;
+    margin-top: 2rem;
   }
 }
 
@@ -302,4 +287,3 @@ button {
 button:hover {
   background-color: navy;
 }
-
