@@ -1,0 +1,116 @@
+	
+			/* Custom Style untuk mempercantik tampilan */
+			.form-container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			#refreshButton {
+				display: none;
+			}
+
+			.uk-form-label {
+				font-weight: bold;
+			}
+
+			.uk-form-controls input,
+			.uk-form-controls textarea,
+			.uk-form-controls button {
+				font-size: 16px;
+			}
+
+			/* CSS untuk tombol logout */
+			#logoutButton {
+				display: none;
+				/* Tombol logout disembunyikan secara default */
+				font-size: 18px;
+				/* Ukuran teks tombol */
+				padding: 15px 30px;
+				/* Jarak dalam tombol */
+				background-color: #007bff;
+				/* Warna latar belakang tombol */
+				color: white;
+				/* Warna teks tombol */
+				border: none;
+				/* Menghapus border default */
+				border-radius: 8px;
+				/* Sudut tombol melengkung */
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+			}
+
+			
+			
+			}
+
+			#logoutButton:hover {
+				background-color: #0056b3;
+				/* Warna latar belakang saat hover */
+			}
+
+			#logoutButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+@media (max-width: 600px) {
+    #logoutButton {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+  /* Responsif Styling untuk User Info */
+
+  /* General styling */
+  .user-info-container {
+    max-width: 96%;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+word-wrap: break-word; /* membungkus kata yang panjang */
+  word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
+  white-space: normal; /* pastikan konten dapat membungkus */
+  }
+
+  /* Text styling */
+  .user-info-container p {
+    margin: 8px 0;
+    color: #333;
+  }
+
+  .user-info-container strong {
+    color: #007acc;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .user-info-container {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .user-info-container p {
+      margin: 6px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .user-info-container {
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    .user-info-container p {
+      margin: 4px 0;
+    }
+  }
+			
+		
