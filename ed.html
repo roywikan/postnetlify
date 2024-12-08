@@ -52,7 +52,7 @@
 				transition: background-color 0.3s ease;
 			}
 
-			or: pointer;
+			
 			transition: background-color 0.3s ease;
 			}
 
@@ -361,6 +361,8 @@ try {
 						//headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					});
 					console.log('Netlify Response Status:', netlifyResponse.status);
+					alertNotification(`Netlify Response Status: ${netlifyResponse.status}`, 'error');
+	
 					console.log('Netlify Response OK:', netlifyResponse.ok);
 
 
@@ -371,21 +373,23 @@ try {
 
 					
 					// Coba parsing JSON respons jika tersedia
-					//try {
-					//const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
-					//console.log('Netlify Response Text:', netlifyResponseText);
+					try {
+						const netlifyResponseText = await netlifyResponse.text(); // Ambil teks respons
+						console.log('Netlify Response Text:', netlifyResponseText);
 					// Jika respons adalah JSON, coba parsing
-					//const netlifyResponseJSON = JSON.parse(netlifyResponseText);
-					//console.log('Netlify Response JSON:', netlifyResponseJSON);
-					//} catch (parseError) {
-					//console.error('Error parsing Netlify response:', parseError);
-					//}
+						const netlifyResponseJSON = JSON.parse(netlifyResponseText);
+						console.log('Netlify Response JSON:', netlifyResponseJSON);
+					} catch (parseError) {
+						console.error('Error parsing Netlify response:', parseError);
+					}
+	
 					if (!netlifyResponse.ok) {
 						throw new Error('Failed to submit form to Netlify');
+						alertNotification(`Error: ${error.message}`, 'error');
 					}
 
 
-	alertNotification(`Error: ${error.message}`, 'error');
+	
 
 } catch (error) {
 
