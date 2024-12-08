@@ -231,7 +231,7 @@ h1 {
   .post-body {
     font-size: 2rem;
     line-height: 2.2;
-    margin-bottom: 200px;
+
   }
 }
 
@@ -245,6 +245,11 @@ h1 {
     font-size: 2rem;
     line-height: 2.2;
     margin-bottom: 200px;
+    
+        margin-bottom: 10rem;
+        margin-left: 1.5rem;
+        margin-right: 1.2rem;
+        margin-top: 2rem;
   }
 }
 
