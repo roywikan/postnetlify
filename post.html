@@ -95,6 +95,10 @@
 let googleCSELoaded = false;
 
 img.onload = () => {
+  
+  // Optionally adjust the image position again after loading the real image if needed
+  img.style.top = '0'; // Ensure it remains at 60% from the top, or adjust as per your design
+  
   // Setelah gambar selesai dimuat, tampilkan post-body
   postBody.style.display = 'block';
   
@@ -121,6 +125,25 @@ img.onerror = () => {
   
 };
 
+
+  //////////////////////
+const img = document.getElementById('post-image');
+const postBody = document.getElementById('post-body');
+
+// When the placeholder image has loaded, replace with the real image
+img.onload = () => {
+  // Set the real image source and alt text
+  img.src = window.postData.imagefile.url; // This replaces the placeholder with the real image URL
+  img.alt = window.postData.title; // Set the real image alt text
+
+  // Hide the placeholder once the real image is loaded (Optional)
+  img.style.opacity = '1'; // Make it fully visible
+  postBody.style.display = 'block'; // Show post-body once the image has loaded
+
+  // Optionally adjust the image position again after loading the real image if needed
+  img.style.top = '60%'; // Ensure it remains at 60% from the top, or adjust as per your design
+};
+  ////////////////////
 
 // Fungsi untuk memuat Google Custom Search Engine (CSE)
 function loadGoogleCSE() {
