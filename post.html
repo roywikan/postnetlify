@@ -101,6 +101,7 @@ img.onload = () => {
   img.style.marginTop = '0'; // Ensure it remains at 60% from the top, or adjust as per your design
   
   // Setelah gambar selesai dimuat, tampilkan post-body
+    const postBody = document.getElementById('post-body');
   postBody.style.display = 'block';
   
   // Muat Google CSE hanya jika belum dimuat
@@ -114,6 +115,7 @@ img.onload = () => {
 };
 
 img.onerror = () => {
+    const postBody = document.getElementById('post-body');
   postBody.style.display = 'block';
 
   // Muat Google CSE hanya jika belum dimuat
@@ -152,6 +154,12 @@ function loadGoogleCSE() {
      // After Google CSE is loaded, load COMMENT
           //loadDiscus();
           //loadCusdis();
+    // Setelah skrip dimuat, CSE akan tampil
+  script.onload = () => {
+    gcseDiv.style.visibility = 'visible'; // Menampilkan div setelah Google CSE dimuat
+  };
+
+  
 }
 
 
