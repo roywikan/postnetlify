@@ -69,9 +69,9 @@
       <!-- Gambar yang dimuat pertama kali, akan diganti setelah gambar asli selesai dimuat -->
       <!-- Featured Image -->
       <figure>
-          <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="top: 60%;" src="https://via.placeholder.com/350x600" async / -->
+          <img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="margin-top: 400px" src="https://via.placeholder.com/350x600" async />
           <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="top: 60%;" src="/350x600.webp" async / -->
-         <img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" src="" async />
+          <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" src="" async / -->
       </figure>
 
 
@@ -98,7 +98,7 @@ let googleCSELoaded = false;
 img.onload = () => {
   
   // Optionally adjust the image position again after loading the real image if needed
-  img.style.top = '0'; // Ensure it remains at 60% from the top, or adjust as per your design
+  img.style.marginTop = '0'; // Ensure it remains at 60% from the top, or adjust as per your design
   
   // Setelah gambar selesai dimuat, tampilkan post-body
   postBody.style.display = 'block';
