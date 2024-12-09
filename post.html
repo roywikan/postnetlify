@@ -179,8 +179,12 @@ function loadGoogleCSE() {
 
 
 
+
+
+
+
 // Fungsi untuk menyesuaikan tinggi iframe Cusdis secara otomatis
-function adjustCusdisIframeHeight() {
+/*function adjustCusdisIframeHeight() {
   const iframe = document.querySelector('iframe');
   if (iframe) {
     // Set interval untuk memeriksa tinggi iframe setiap 100ms
@@ -193,7 +197,50 @@ function adjustCusdisIframeHeight() {
     }, 100);
   }
 }
+*/
 
+// Fungsi untuk menyesuaikan tinggi iframe Cusdis secara otomatis setelah iframe dimuat
+function adjustCusdisIframeHeight() {
+  const iframe = document.querySelector('iframe');
+  
+  if (iframe) {
+    // Pastikan iframe sudah dimuat sepenuhnya
+    iframe.onload = function () {
+      const updateIframeHeight = () => {
+        try {
+          // Mengukur tinggi konten di dalam iframe
+          const newHeight = iframe.contentWindow.document.body.scrollHeight;
+          
+          // Memastikan ukuran iframe diperbarui jika berbeda
+          if (newHeight && iframe.style.height !== `${newHeight}px`) {
+            iframe.style.height = `${newHeight}px`;
+          }
+        } catch (error) {
+          console.error("Tidak dapat mengakses konten iframe:", error);
+        }
+      };
+      
+      // Menyesuaikan tinggi langsung setelah iframe dimuat
+      updateIframeHeight();
+      
+      // Set interval untuk memeriksa tinggi iframe jika konten berubah
+      const interval = setInterval(updateIframeHeight, 500); // Cek setiap 500ms
+      
+      // Berhenti memeriksa setelah 5 detik untuk menghindari loop tak terbatas
+      setTimeout(() => clearInterval(interval), 5000);
+    };
+  }
+}
+
+// Memanggil fungsi untuk mengatur tinggi iframe
+adjustCusdisIframeHeight();
+
+
+
+
+
+
+  
 // Fungsi untuk memuat Cusdis
 function loadCusdis() {
   const pageUrl = window.location.href;
