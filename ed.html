@@ -14,8 +14,8 @@
 
 
 		<!-- dengan adanya tinymce, toolbar tidak berfungsi lagi: -->
-		<link rel="stylesheet" href="/toolbar.css">
-		<script src="/toolbar.js"></script>
+		<!-- link rel="stylesheet" href="/toolbar.css">
+		<script src="/toolbar.js"></script -->
 
 	</head>
 	<body>
@@ -86,7 +86,7 @@
 					<div class="uk-margin">
 						<label class="uk-form-label" for="bodypost">Body</label>
 						<div class="uk-form-controls">
-							<div id="toolbar">
+							<!-- DIGANTIKAN TINY.CLOUD div id="toolbar">
 								<button type="button" onclick="applyFormat('bold')">B</button>
 								<button type="button" onclick="applyFormat('italic')">
 									<i>I</i>
@@ -103,7 +103,7 @@
 								<button type="button" onclick="applyFormat('left')">Left</button>
 								<button type="button" onclick="applyFormat('center')">Center</button>
 								<button type="button" onclick="applyFormat('right')">Right</button>
-							</div>
+						</div -->
 
 
 
@@ -166,6 +166,7 @@
 					height: 600,
 					mobile: {
     						menubar: true,
+						height: 700,
 						toolbar_mode: 'wrap',
 						toolbar: 'undo redo  | removeformat | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent'
                 			
