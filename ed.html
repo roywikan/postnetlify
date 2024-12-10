@@ -161,12 +161,11 @@
             			tinymce.init({
                 			selector: '#bodypost',
                 			plugins: ['code', 'anchor', 'autolink', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount'],
-                			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                			toolbar: 'undo redo | removeformat | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap',
                 			height: 600,
 					mobile: {
     						menubar: true,
-						toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags ',
-						toolbar2: 'spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | removeformat'
+						toolbar: 'undo redo  | removeformat | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent'
                 			
   					},
                 			setup: function (editor) {
