@@ -8,13 +8,21 @@
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 		<!-- Menambahkan UIkit CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.1/dist/css/uikit.min.css" />
-		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+		<script src="https://cdn.tiny.cloud/1/rmh8xudskv6rn880y4w7adlikhhr8rx2g3sbc71o7l0abk2j/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+
 		<link rel="stylesheet" href="/toolbar.css">
 		<link rel="stylesheet" href="/ed-html.css">
 		<script src="/toolbar.js"></script>
 
 	</head>
 	<body>
+
+
+
+
+
+		
 		<div class="uk-container uk-container-small">
 		
 		<div id="toolbar">
@@ -94,6 +102,10 @@
 								<button type="button" onclick="applyFormat('center')">Center</button>
 								<button type="button" onclick="applyFormat('right')">Right</button>
 							</div>
+
+
+
+							
 							<textarea class="uk-textarea" name="bodypost" id="bodypost" rows="5" required>Ini Textarea bodynya</textarea>
 						</div>
 					</div>
@@ -146,8 +158,8 @@
         		document.addEventListener('DOMContentLoaded', function () {
             			tinymce.init({
                 			selector: '#bodypost',
-                			plugins: 'lists link image code',
-                			toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | code',
+                			plugins: ['code', 'anchor', 'autolink', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount'],
+                			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
                 			height: 300,
                 			setup: function (editor) {
                     				editor.on('change', function () {
