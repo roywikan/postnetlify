@@ -13,87 +13,77 @@
   <pre id="xml-sitemap"></pre> <!-- Tempat untuk menampilkan XML -->
 
   <script>
-// Variabel URL API GitHub yang menggunakan variabel lingkungan
-const GITHUB_API_URL = `https://api.github.com/repos/${process.env.REPO}/contents/${process.env.FILE_PATH}`;
-const TOKEN = process.env.GITHUB_TOKEN; // Gunakan variabel lingkungan GITHUB_TOKEN
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-async function saveSitemapToGitHub(xml) {
-  try {
-    const response = await fetch(GITHUB_API_URL, {
-      method: 'PUT', // Gunakan metode PUT untuk memperbarui file di GitHub
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `token ${TOKEN}` // Otorisasi dengan token GitHub
-      },
-      body: JSON.stringify({
-        message: "Update sitemap",
-        content: btoa(xml) // Encode XML sebagai base64 untuk dimasukkan ke GitHub
-      })
-    });
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
 
-    if (!response.ok) {
-      throw new Error(`Error saving sitemap: ${response.statusText}`);
+        const escapeXML = str => str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+
+        const baseUrl = window.location.origin;
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+        posts.forEach(post => {
+          const url = `${baseUrl}/post/${escapeXML(post.data.slug)}`;
+          const lastmod = new Date(post.created_at).toISOString();
+
+          xml += `
+            <url>
+              <loc>${url}</loc>
+              <lastmod>${lastmod}</lastmod>
+              <priority>0.5</priority>
+            </url>\n
+          `;
+        });
+
+        xml += `</urlset>`;
+
+        // Tampilkan XML di elemen <pre>
+        document.getElementById('xml-sitemap').textContent = xml;
+
+        // Kirim sitemap ke GitHub melalui Netlify Function
+        await saveSitemapToGitHub(xml);
+
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('xml-sitemap').textContent = `Error fetching posts: ${error.message}`;
+      }
     }
 
-    const result = await response.json();
-    console.log('Sitemap saved to GitHub:', result.message);
-  } catch (error) {
-    console.error('Error saving to GitHub:', error);
-  }
-}
+    async function saveSitemapToGitHub(xml) {
+      try {
+        const response = await fetch('/.netlify/functions/saveSitemap', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ sitemap: xml }),
+        });
 
-// Function to generate XML sitemap from posts data
-async function fetchPosts() {
-  try {
-    const response = await fetch('/.netlify/functions/readPosts');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`Error saving sitemap: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Sitemap saved to GitHub:', result.message);
+      } catch (error) {
+        console.error('Error saving to GitHub:', error);
+      }
     }
 
-    const posts = await response.json();
-    console.log('Posts fetched:', posts);
-
-    const escapeXML = str => str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;');
-
-    const baseUrl = window.location.origin;
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-    xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
-    posts.forEach(post => {
-      const url = `${baseUrl}/post/${escapeXML(post.data.slug)}`;
-      const lastmod = new Date(post.created_at).toISOString();
-
-      xml += `
-        <url>
-          <loc>${url}</loc>
-          <lastmod>${lastmod}</lastmod>
-          <priority>0.5</priority>
-        </url>\n
-      `;
-    });
-
-    xml += `</urlset>`;
-
-    // Tampilkan XML di elemen <pre>
-    document.getElementById('xml-sitemap').textContent = xml;
-
-    // Kirim sitemap ke GitHub
-    await saveSitemapToGitHub(xml);
-
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    document.getElementById('xml-sitemap').textContent = `Error fetching posts: ${error.message}`;
-  }
-}
-
-// Fetch posts saat DOM selesai dimuat
-document.addEventListener('DOMContentLoaded', fetchPosts);
-
+    // Fetch posts saat DOM selesai dimuat
+    document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
 </body>
 </html>
