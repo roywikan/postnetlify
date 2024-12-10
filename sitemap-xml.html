@@ -14,6 +14,33 @@
   <pre id="xml-sitemap"></pre> <!-- Tempat untuk menampilkan XML -->
 
   <script>
+//tanbahan savetogithub mulai:
+    async function saveSitemapToGitHub(xml) {
+  try {
+    const response = await fetch('/.netlify/functions/saveToGitHub', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sitemap: xml }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error saving sitemap: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('Sitemap saved to GitHub:', result.message);
+  } catch (error) {
+    console.error('Error saving to GitHub:', error);
+  }
+}
+
+// Panggil fungsi setelah sitemap selesai dibuat
+fetchPosts().then(() => saveSitemapToGitHub(xml));
+//tanbahan savetogithub berakhir!
+    
+    
     // Function to generate XML sitemap from posts data
     async function fetchPosts() {
       try {
