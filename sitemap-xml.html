@@ -25,6 +25,14 @@
         const posts = await response.json();
         console.log('Posts fetched:', posts);
 
+        const escapeXML = str => str
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&apos;');
+
+
         // Detect the base URL automatically based on the current location
         const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
 
@@ -34,7 +42,10 @@
         posts.forEach(post => {
           const title = post.data.title;
           const slug = post.data.slug;
-          const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+          //const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+
+          const url = `${baseUrl}/post/${escapeXML(slug)}`; // Create dynamic URL using baseUrl and escape special char
+
           const createdAt = new Date(post.created_at); // Create date object
           const lastmod = createdAt.toISOString(); // Get ISO format of date
 
