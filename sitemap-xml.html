@@ -6,7 +6,6 @@
   <meta name="description" id="meta-description" content="">
   <meta name="author" id="meta-author" content="">
   <meta name="robots" content="index, follow">
-
   <title id="page-title">XML Sitemap</title>
 </head>
 <body>
@@ -14,34 +13,27 @@
   <pre id="xml-sitemap"></pre> <!-- Tempat untuk menampilkan XML -->
 
   <script>
-//tanbahan savetogithub mulai:
     async function saveSitemapToGitHub(xml) {
-  try {
-    const response = await fetch('/.netlify/functions/saveToGitHub', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ sitemap: xml }),
-    });
+      try {
+        const response = await fetch('/.netlify/functions/saveToGitHub', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ sitemap: xml }),
+        });
 
-    if (!response.ok) {
-      throw new Error(`Error saving sitemap: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`Error saving sitemap: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Sitemap saved to GitHub:', result.message);
+      } catch (error) {
+        console.error('Error saving to GitHub:', error);
+      }
     }
 
-    const result = await response.json();
-    console.log('Sitemap saved to GitHub:', result.message);
-  } catch (error) {
-    console.error('Error saving to GitHub:', error);
-  }
-}
-
-// Panggil fungsi setelah sitemap selesai dibuat
-fetchPosts().then(() => saveSitemapToGitHub(xml));
-//tanbahan savetogithub berakhir!
-    
-    
-    // Function to generate XML sitemap from posts data
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
@@ -53,30 +45,20 @@ fetchPosts().then(() => saveSitemapToGitHub(xml));
         console.log('Posts fetched:', posts);
 
         const escapeXML = str => str
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&apos;');
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
 
-
-        // Detect the base URL automatically based on the current location
-        const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
-
+        const baseUrl = window.location.origin;
         let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
         posts.forEach(post => {
-          const title = post.data.title;
-          const slug = post.data.slug;
-          //const url = `${baseUrl}/post/${slug}`; // Create dynamic URL using baseUrl
+          const url = `${baseUrl}/post/${escapeXML(post.data.slug)}`;
+          const lastmod = new Date(post.created_at).toISOString();
 
-          const url = `${baseUrl}/post/${escapeXML(slug)}`; // Create dynamic URL using baseUrl and escape special char
-
-          const createdAt = new Date(post.created_at); // Create date object
-          const lastmod = createdAt.toISOString(); // Get ISO format of date
-
-          // Add URL entry in XML
           xml += `
             <url>
               <loc>${url}</loc>
@@ -88,16 +70,11 @@ fetchPosts().then(() => saveSitemapToGitHub(xml));
 
         xml += `</urlset>`;
 
-        // Show the XML sitemap in the <pre> tag
+        // Tampilkan XML di elemen <pre>
         document.getElementById('xml-sitemap').textContent = xml;
 
-        // Optionally, you can download the XML as a file by prompting the user to save it
-        const blob = new Blob([xml], { type: 'application/xml' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'sitemap.xml';
-        link.innerText = 'Download XML Sitemap';
-        document.body.appendChild(link);
+        // Kirim sitemap ke GitHub
+        await saveSitemapToGitHub(xml);
 
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -105,7 +82,7 @@ fetchPosts().then(() => saveSitemapToGitHub(xml));
       }
     }
 
-    // Fetch posts when the DOM is fully loaded
+    // Fetch posts saat DOM selesai dimuat
     document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
 </body>
