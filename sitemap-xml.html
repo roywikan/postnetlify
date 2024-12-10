@@ -58,7 +58,7 @@
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = 'sitemap.xml';
-        link.innerText = 'Download XML Sitemap';
+        link.innerText = 'Download XML Sitemap file';
         document.body.appendChild(link);
 
 
@@ -98,23 +98,23 @@
     // Fetch posts saat DOM selesai dimuat
     document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
-  <br>Klik link tersebut untuk mendownload file sitemap.xml.<br>Di belakang layar, sitemap-xml.html ini akan membuat data sitemap.xml dan akan mengirim file sitemap.xml tersebut ke github repo ini untuk disimpan/replace melalui fungsi netlify saveSitemap.js , process deploy akan membutuhkan waktu 2-5 menit.
+  <br>Di bagian terbawah halaman ini ada link <b>Download XML Sitemap file</b>. 
+  <br>Klik link tersebut untuk mendownload file sitemap.xml.
+  <br>Di belakang layar, sitemap-xml.html ini akan membuat data sitemap.xml,
+  <br>dan akan mengirim file sitemap.xml tersebut ke github repo ini untuk disimpan/replace 
+  <br>melalui fungsi netlify saveSitemap.js , 
+  <br>process deploy netlify ke github akan membutuhkan waktu 2-5 menit.
+  <br><br><br>
 <footer>
   <nav class="footer-menu">
     <a href="/">Home</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/about">About</a>
-    <a href="/contact-us">Contact Us</a>
-    <a href="/tos">ToS</a>
-    <a href="/login/">Login</a>
-    <a href="/rssfeed">RSS Feed Generator</a>
-    <a href="/rssfeed.xml">RSS Feed</a>
     <a href="/sitemap">HTML Sitemap</a>
-    <a href="/sitemap-xml">XML Sitemap Generator</a>
-    <a href="/sitemap.xml">XML Sitemap</a>
+    <a href="/sitemap-xml">XML Sitemap Generator ini</a>
+    <a href="/sitemap.xml">Lihat XML Sitemap</a>
   </nav>
-  <br>
-  <p>© 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+
+ 
 </footer>
+<br><br><br>
 </body>
 </html>
