@@ -108,6 +108,7 @@ h6 {
 .post-body {
   font-size: 1.2rem;
   margin-bottom: 100px;
+  margin-left: 1rem;
   line-height: 2.6;
   word-wrap: break-word; /* membungkus kata yang panjang */
   word-break: break-word; /* memecah kata yang terlalu panjang agar tidak meluap */
