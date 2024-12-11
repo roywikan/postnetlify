@@ -102,7 +102,7 @@ function createSearchForm() {
 
 
 
-const commentThread = document.getElementById('gcse-search');
+const commentThread = document.getElementById('comment_thread');
 if (commentThread && commentThread.parentNode) {
   commentThread.parentNode.insertBefore(focusLink, commentThread);
 }
@@ -117,10 +117,11 @@ if (commentThread && commentThread.parentNode) {
   </script>
 
       <div>
+        <!-- start of  Comment Section --><br><br><div id="comment_thread"></div><br><br><!-- end of  Comment Section -->
 <!-- start of google PSE/CSE -->
       <!-- script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
       </script -->
-      <div id="gcse-search" class="gcse-search"></div>
+      <div class="gcse-search"></div>
 <!-- end of google PSE/CSE -->      
     </div>
 
