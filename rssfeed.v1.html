@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="RSS Feed Generator">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">RSS Feed for Blog Posts</title>
+</head>
+<body>
+  <h1>RSS Feed Generator</h1>
+  <pre id="rssfeed"></pre> <!-- Tempat untuk menampilkan RSS Feed -->
+
+  <script>
+    // Function to generate a snippet from the post body
+    function generateSnippetSIMPLE(body) {
+      const words = body.split(' ');
+      return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+    }
+
+
+    function generateSnippet(body) {
+  // Remove all HTML tags
+  const sanitizedBody = body.replace(/<[^>]*>/g, ''); 
+
+  // Decode HTML entities like &amp; &lt; etc.
+  const text = sanitizedBody.replace(/&[a-zA-Z0-9#]+;/g, match => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = match;
+    return textarea.value;
+  });
+
+  // Ensure only valid ASCII characters are included (optional step for stricter validation)
+  const validText = text.replace(/[^\x20-\x7E]/g, '');
+
+  // Generate a snippet with the first 20 words
+  const words = validText.split(/\s+/); // Use \s+ to avoid extra spaces or line breaks
+  return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+}
+
+
+    
+    // Function to fetch posts and generate RSS Feed
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        // Detect the base URL automatically based on the current location
+        const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
+
+
+
+let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+rss += `<rss version="2.0">\n`;
+rss += `<channel>\n`;
+rss += `<title>Your Blog Name</title>\n`;
+rss += `<link>${baseUrl}</link>\n`;
+rss += `<description>Latest posts from Your Blog Name</description>\n`;
+rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
+
+posts.forEach(post => {
+  const title = post.data.title;
+  const slug = post.data.slug;
+  const url = `${baseUrl}/post/${slug}`;
+  const createdAt = new Date(post.created_at);
+  const pubDate = createdAt.toUTCString();
+  const snippet = generateSnippet(post.data.bodypost);
+
+  rss += `
+    <item>
+      <title>${title}</title>
+      <link>${url}</link>
+      <description>${snippet}</description>
+      <pubDate>${pubDate}</pubDate>
+      <guid>${url}</guid>
+    </item>\n`;
+});
+
+rss += `</channel>\n`;
+rss += `</rss>\n`;
+
+
+
+        // Show the RSS feed in the <pre> tag
+        document.getElementById('rssfeed').textContent = rss;
+
+        // Optionally, you can download the RSS feed as a file by prompting the user to save it
+        const blob = new Blob([rss], { type: 'application/xml' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'rssfeed.xml';
+        link.innerText = 'Download RSS Feed';
+        document.body.appendChild(link);
+
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('rssfeed').textContent = `Error fetching posts: ${error.message}`;
+      }
+    }
+
+    // Fetch posts when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+  <hr>
+  <a target="_blank" href="http://www.rssboard.org/rss-validator/check.cgi?url=https%3A//postnetlify.netlify.app/rssfeed.xml">
+    <img src="https://www.rssboard.org/rss-validator/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" />
+  </a>
+  <hr>
+  Download and then upload this .xml file to github repository root (reference it as : /rssfeed.xml)
+  <br>
+  <br>
+</body>
+</html>
