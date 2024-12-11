@@ -421,7 +421,7 @@ function waitForImages() {
 
   // Jika tidak ada gambar, langsung panggil CSE
   if (images.length === 0) {
-    loadGoogleCSE();
+    //loadGoogleCSE();
     return;
   }
 
@@ -430,7 +430,7 @@ function waitForImages() {
       loadedImages++;
       if (loadedImages === images.length) {
         // Semua gambar sudah dimuat, sekarang bisa memuat CSE
-        loadGoogleCSE();
+        /////loadGoogleCSE();
       }
     };
 
