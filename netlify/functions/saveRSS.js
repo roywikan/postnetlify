@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     // Variabel lingkungan dari proses Netlify
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO = process.env.REPO;
-    const FILE_PATH = process.env.FILE_PATH_RSS; // Pastikan Anda mendefinisikan FILE_PATH_RSS di variabel lingkungan
+    const FILE_PATH = process.env.RSS_FILE_PATH; // Pastikan Anda mendefinisikan FILE_PATH_RSS di variabel lingkungan
 
     if (!GITHUB_TOKEN || !REPO || !FILE_PATH) {
       return {
