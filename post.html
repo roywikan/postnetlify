@@ -165,35 +165,39 @@ function loadGoogleCSE() {
 
 // Fungsi untuk mengganti pencarian Google CSE dengan form sederhana
 function createSearchForm() {
-  // Buat elemen form
   const form = document.createElement('form');
-  form.action = "https://www.google.com/search"; // URL Google Search
-  form.method = "get"; // Metode pencarian
-  form.target = "_blank"; // Membuka hasil di tab baru
+  form.method = 'get';
+  form.action = 'search.html';
 
-  // Tambahkan input teks untuk query pencarian
-  const input = document.createElement('input');
-  input.type = "text";
-  input.name = "q"; // Parameter query Google
-  input.placeholder = "Search here...";
-  input.required = true; // Field wajib diisi
+  const cxInput = document.createElement('input');
+  cxInput.type = 'hidden';
+  cxInput.name = 'cx';
+  cxInput.value = 'c2e34c8ead538447e'; // ID mesin pencari Anda
+  form.appendChild(cxInput);
 
-  // Tambahkan tombol submit
-  const button = document.createElement('button');
-  button.type = "submit";
-  button.textContent = "Search";
+  const ieInput = document.createElement('input');
+  ieInput.type = 'hidden';
+  ieInput.name = 'ie';
+  ieInput.value = 'UTF-8';
+  form.appendChild(ieInput);
 
-  // Tambahkan input dan tombol ke form
-  form.appendChild(input);
-  form.appendChild(button);
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.name = 'q';
+  searchInput.placeholder = 'Search...';
+  form.appendChild(searchInput);
 
-  // Temukan elemen sebelum komentar
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Search';
+  form.appendChild(submitButton);
+
   const commentThread = document.getElementById('comment_thread');
   if (commentThread && commentThread.parentNode) {
-    // Sisipkan form sebelum elemen komentar
     commentThread.parentNode.insertBefore(form, commentThread);
   }
 }
+
 
 
   
