@@ -46,6 +46,38 @@ p a:hover, div a:hover, table a:hover, span a:hover {
 }
 
 
+
+
+/* Input fields */
+input[type="text"], input[type="email"], textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem; /* Ganti baris setelah input */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Button */
+button {
+  display: block;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  background-color: dodgerblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem; /* Ganti baris sebelum button */
+  margin-bottom: 1rem; /* Ganti baris setelah button */
+}
+
+button:hover {
+  background-color: navy;
+}
+
+
   
 /* Header title */
 h1 {
