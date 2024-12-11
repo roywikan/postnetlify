@@ -38,27 +38,19 @@
   <div class="container" style="min-height: 1300px;"  itemscope itemtype="http://schema.org/Article" >
 
 
-    <header>
-            <nav class="menu">
-                
-                    <a href="/">Home</a></li> | <a href="#search_input" onclick="focusSearchInput()">Search A</a> | <script>
-const focusLink = document.createElement('a');
-focusLink.href = '#';
-focusLink.textContent = 'Search';
-focusLink.onclick = focusSearchInput;</script>
-
-                
-            </nav>
-            <!-- Post Title -->
-            <h1 class="post-title" style="display: none;"  itemprop="headline" ><span id="post-title"></span></h1>
-
-
-     
-    </header>
-
 
     
-
+<header>
+  <nav class="menu">
+    <a href="/">Home</a> | 
+    <a href="#search_input" onclick="focusSearchInput()">Search</a>
+  </nav>
+  
+  <!-- Post Title -->
+  <h1 class="post-title" style="display: none;" itemprop="headline">
+    <span id="post-title"></span>
+  </h1>
+</header>
     
 
 
@@ -226,12 +218,14 @@ function createSearchForm() {
 }
 
 
-function focusSearchInput() {
-  const searchInput = document.getElementById('search_input');
-  if (searchInput) {
-    searchInput.focus();
+
+  // Fungsi untuk memindahkan fokus ke input teks pencarian
+  function focusSearchInput() {
+    const searchInput = document.getElementById('search_input');
+    if (searchInput) {
+      searchInput.focus();
+    }
   }
-}
 
 
 
