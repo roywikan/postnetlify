@@ -13,6 +13,27 @@
   <pre id="rss-feed"></pre> <!-- Tempat untuk menampilkan RSS Feed -->
 
   <script>
+function generateSnippet(body) {
+  // Remove all HTML tags
+  const sanitizedBody = body.replace(/<[^>]*>/g, ''); 
+
+  // Decode HTML entities like &amp; &lt; etc.
+  const text = sanitizedBody.replace(/&[a-zA-Z0-9#]+;/g, match => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = match;
+    return textarea.value;
+  });
+
+  // Ensure only valid ASCII characters are included (optional step for stricter validation)
+  const validText = text.replace(/[^\x20-\x7E]/g, '');
+
+  // Generate a snippet with the first 20 words
+  const words = validText.split(/\s+/); // Use \s+ to avoid extra spaces or line breaks
+  return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+}
+
+
+    
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
@@ -44,7 +65,8 @@
           const slug = escapeXML(post.data.slug);
           const url = `${baseUrl}/post/${slug}`;
           const createdAt = new Date(post.created_at).toUTCString();
-          const snippet = escapeXML(post.data.bodypost.split(' ').slice(0, 20).join(' ') + '...');
+          //const snippet = escapeXML(post.data.bodypost.split(' ').slice(0, 20).join(' ') + '...');
+          const snippet = escapeXML(generateSnippet(post.data.bodypost));
 
           rss += `
             <item>
