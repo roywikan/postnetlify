@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Prefetch DNS untuk Cloudinary -->
-<link rel="dns-prefetch" href="https://via.placeholder.com">
+<!-- link rel="dns-prefetch" href="https://via.placeholder.com" -->
 <link rel="dns-prefetch" href="https://res.cloudinary.com">
 
   <title id="page-title"></title>
@@ -69,9 +69,9 @@
       <!-- Gambar yang dimuat pertama kali, akan diganti setelah gambar asli selesai dimuat -->
       <!-- Featured Image -->
       <figure>
-          <img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="margin-top: 600px" src="https://via.placeholder.com/350x600" async />
+          <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="margin-top: 600px" src="https://via.placeholder.com/350x600" async / -->
           <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" style="top: 60%;" src="/350x600.webp" async / -->
-          <!-- img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" src="" async / -->
+          <img itemprop="image" id="post-image" class="post-image" alt="Alt Text Post Image" src="" async />
       </figure>
 
 
@@ -167,7 +167,7 @@ function loadGoogleCSE() {
 function createSearchForm() {
   const form = document.createElement('form');
   form.method = 'get';
-  form.action = 'search.html';
+  form.action = '/search.html';
 
   const cxInput = document.createElement('input');
   cxInput.type = 'hidden';
