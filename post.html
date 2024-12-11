@@ -41,7 +41,8 @@
     <header>
             <nav class="menu">
                 
-                    <a href="/">Home</a></li> | <a href="/search">Search</a>
+                    <a href="/">Home</a></li> | <a href="#" onclick="focusSearchInput()">Search</a>
+
                 
             </nav>
             <!-- Post Title -->
@@ -203,6 +204,7 @@ function createSearchForm() {
   searchInput.type = 'text';
   searchInput.name = 'q';
   searchInput.placeholder = 'Search...';
+  searchInput.id = 'search_input'; // Tambahkan ID
   form.appendChild(searchInput);
 
   const submitButton = document.createElement('button');
@@ -214,10 +216,29 @@ function createSearchForm() {
   if (commentThread && commentThread.parentNode) {
     commentThread.parentNode.insertBefore(form, commentThread);
   }
+
+
+  
 }
 
 
+function focusSearchInput() {
+  const searchInput = document.getElementById('search_input');
+  if (searchInput) {
+    searchInput.focus();
+  }
+}
 
+// Contoh Link untuk memindahkan fokus
+const focusLink = document.createElement('a');
+focusLink.href = '#';
+focusLink.textContent = 'Search';
+focusLink.onclick = focusSearchInput;
+
+const commentThread = document.getElementById('comment_thread');
+if (commentThread && commentThread.parentNode) {
+  commentThread.parentNode.insertBefore(focusLink, commentThread);
+}
   
 
         // Fungsi untuk memuat Disqus
