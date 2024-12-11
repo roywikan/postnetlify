@@ -167,7 +167,8 @@ function loadGoogleCSE() {
 function createSearchForm() {
   const form = document.createElement('form');
   form.method = 'get';
-  form.action = '/search.html';
+  form.target = '_blank'; // Membuka di tab baru
+  form.action = '/search/';
 
   const cxInput = document.createElement('input');
   cxInput.type = 'hidden';
