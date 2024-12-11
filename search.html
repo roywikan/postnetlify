@@ -4,50 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Results</title>
+  <link rel="stylesheet" href="/post-html.css">
 </head>
 <body>
   <h1>Search Results</h1>
+ 
+
+    
+
+
+
+  
   <div class="gcse-search"></div>
 
   <script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e"></script>
 
 
-  <!-- Placeholder untuk Footer -->
-<div id="footer-placeholder" class="footer-placeholder"></div>
 
-<footer>
-  <nav class="footer-menu">
-    <a href="/">Home</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/about">About</a>
-    <a href="/contact-us">Contact</a>  
-    <a href="/tos">ToS</a>
-    <a href="/login/">Login</a>
-    <a href="/rssfeed.html">RSS Feed Generator</a>
-    <a href="/rssfeed.xml">RSS Feed</a>
-    <a href="/sitemap.html">HTML Sitemap</a>
-    <a href="/sitemap-xml.html">XML Sitemap Generator</a>
-    <a href="/sitemap.xml">XML Sitemap</a>
-  </nav>
-  <br>
-  <p>
-    &copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.<br>
-  </p>
-</footer>
 
-<!-- Debug Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<br><br>
+        <!-- Placeholder untuk Footer -->
+        <div id="footer-placeholder" class="footer-placeholder"></div>
+
+        <footer>
+          <nav class="footer-menu">
+            <a href="/">Home</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/about">About</a>
+            <a href="/contact-us">Contact</a>  
+            <a href="/tos">ToS</a>
+            <a href="/login/">Login</a>
+            <a href="/rssfeed.html">RSS Feed Generator</a>
+            <a href="/rssfeed.xml">RSS Feed</a>
+            <a href="/sitemap.html">HTML Sitemap</a>
+            <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+            <a href="/sitemap.xml">XML Sitemap</a>
+          </nav>
+          <br>
+           <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
+        </footer>
+
+
+
+<!-- debug -->
 <div id="debug-info" class="debug-hidden">
-  <p>
-    siteName : <span id="siteNameFooter"></span><br>
-    domain : <span id="domainFooter"></span><br>
-    subdomain : <span id="subdomainFooter"></span><br>
-    baseUrl : <a id="baseUrlFooter" href="#"></a><br>
-    fullUrl : <span id="fullUrlFooter"></span><br>
-    path : <span id="pathFooter"></span><br>
-    supportEmail : <a id="supportEmailFooter" href="#"></a><br>
-    current-year : <span id="current-yearFooter"></span><br>
-    site-name : <span id="site-nameFooter"></span><br>
-  </p>
+<p>
+    siteName :<span id="siteNameFooter"></span><br>
+    domain :<span id="domainFooter"></span><br>
+    subdomain :<span id="subdomainFooter"></span><br>
+    baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+    fullUrl :<span id="fullUrlFooter"></span><br>
+    path :<span id="pathFooter"></span><br>
+    supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+    current-year :<span id="current-yearFooter"></span><br>
+    site-name :<span id="site-nameFooter"></span><br>
+</p>
 </div>
 
 <script>
@@ -61,31 +88,90 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseUrl = `${url.protocol}//${url.hostname}`;
         const supportEmail = `support@${domain}`;
 
-        // Update dynamic footer content
-        document.querySelector('#current-year').textContent = new Date().getFullYear();
-        document.querySelector('#site-name').textContent = `${subdomain}.${domain}`;
-        document.querySelector('#support-email').textContent = supportEmail;
-        document.querySelector('#support-email').href = `mailto:${supportEmail}`;
+        // Update dynamic content for main section
+        const siteNameElement = document.querySelector('#siteName');
+        if (siteNameElement) siteNameElement.textContent = `${subdomain}.${domain}`;
+        
+        const domainElement = document.querySelector('#domain');
+        if (domainElement) domainElement.textContent = domain;
+        
+        const subdomainElement = document.querySelector('#subdomain');
+        if (subdomainElement) subdomainElement.textContent = subdomain;
+        
+        const baseUrlElement = document.querySelector('#baseUrl');
+        if (baseUrlElement) {
+            baseUrlElement.textContent = baseUrl;
+            baseUrlElement.href = baseUrl;
+        }
+        
+        const fullUrlElement = document.querySelector('#fullUrl');
+        if (fullUrlElement) fullUrlElement.textContent = fullUrl;
+        
+        const pathElement = document.querySelector('#path');
+        if (pathElement) pathElement.textContent = path;
+        
+        const supportEmailElement = document.querySelector('#supportEmail');
+        if (supportEmailElement) {
+            supportEmailElement.textContent = supportEmail;
+            supportEmailElement.href = `mailto:${supportEmail}`;
+        }
 
-        // Populate debug info
-        document.querySelector('#siteNameFooter').textContent = `${subdomain}.${domain}`;
-        document.querySelector('#domainFooter').textContent = domain;
-        document.querySelector('#subdomainFooter').textContent = subdomain;
-        document.querySelector('#baseUrlFooter').textContent = baseUrl;
-        document.querySelector('#baseUrlFooter').href = baseUrl;
-        document.querySelector('#fullUrlFooter').textContent = fullUrl;
-        document.querySelector('#pathFooter').textContent = path;
-        document.querySelector('#supportEmailFooter').textContent = supportEmail;
-        document.querySelector('#supportEmailFooter').href = `mailto:${supportEmail}`;
-        document.querySelector('#current-yearFooter').textContent = new Date().getFullYear();
-        document.querySelector('#site-nameFooter').textContent = `${subdomain}.${domain}`;
+        // Set meta description
+        const descriptionMetaTag = document.querySelector('meta[name="description"]');
+        if (descriptionMetaTag) {
+            descriptionMetaTag.setAttribute('content', `About ${subdomain}.${domain}.`);
+        }
+
+        // Update page title
+        document.title = `About | ${subdomain}`;
+        
+        const currentYearElement = document.querySelector('#current-year');
+        if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
+        
+        const siteNameFooterElement = document.querySelector('#site-name');
+        if (siteNameFooterElement) siteNameFooterElement.textContent = `${subdomain}.${domain}`;
+
+        // Update dynamic content for footer section
+        const siteNameFooter = document.querySelector('#siteNameFooter');
+        if (siteNameFooter) siteNameFooter.textContent = `${subdomain}.${domain}`;
+        
+        const domainFooter = document.querySelector('#domainFooter');
+        if (domainFooter) domainFooter.textContent = domain;
+        
+        const subdomainFooter = document.querySelector('#subdomainFooter');
+        if (subdomainFooter) subdomainFooter.textContent = subdomain;
+        
+        const baseUrlFooter = document.querySelector('#baseUrlFooter');
+        if (baseUrlFooter) {
+            baseUrlFooter.textContent = baseUrl;
+            baseUrlFooter.href = baseUrl;
+        }
+        
+        const fullUrlFooter = document.querySelector('#fullUrlFooter');
+        if (fullUrlFooter) fullUrlFooter.textContent = fullUrl;
+        
+        const pathFooter = document.querySelector('#pathFooter');
+        if (pathFooter) pathFooter.textContent = path;
+        
+        const supportEmailFooter = document.querySelector('#supportEmailFooter');
+        if (supportEmailFooter) {
+            supportEmailFooter.textContent = supportEmail;
+            supportEmailFooter.href = `mailto:${supportEmail}`;
+        }
+
+        const currentYearFooter = document.querySelector('#current-yearFooter');
+        if (currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
+        
+        const siteNameFooterFinal = document.querySelector('#site-nameFooter');
+        if (siteNameFooterFinal) siteNameFooterFinal.textContent = `${subdomain}.${domain}`;
 
     } catch (error) {
-        console.error("Error updating footer content:", error);
+        console.error("Error updating dynamic content:", error);
     }
 });
 
-// Debug visibility toggle based on query string
+//Debugging akan muncul hanya jika Anda menambahkan ?debug=true ke URL, misalnya:
+//https://example.com/about.html?debug=true.
 if (window.location.search.includes('debug=true')) {
     document.getElementById('debug-info').classList.remove('debug-hidden');
 }
