@@ -334,11 +334,35 @@ footer a:hover {
 
   
 <div class="container">
-    <h1>Posts</h1>
+
+
+<header>
+  <nav class="menu">
+    <a href="/">Home</a> | 
+    <a href="#search_input" onclick="focusSearchInput()">Search</a>
+  </nav>
+  
+  <!-- Post Title -->
+  <h1>Posts</h1>
+    <span id="post-title"></span>
+  
+</header>
+    
+
+
+  
+    
     <div id="post-list" class="grid"></div>
     <div id="pagination" class="pagination"></div>
 
-<br><br>
+<br><br><script>
+    // Muat Google CSE hanya jika belum dimuat
+  if (!googleCSELoaded) {
+    createSearchForm();
+    //loadCusdis();
+    googleCSELoaded = true;
+  }</script>
+
       <div>
 <!-- start of google PSE/CSE -->
       <!-- script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
@@ -605,7 +629,62 @@ function toggleFooterOnScroll() {
 
 
 
+  // Fungsi untuk mengganti pencarian Google CSE dengan form sederhana
+function createSearchForm() {
+  const form = document.createElement('form');
+  form.method = 'get';
+  form.target = '_blank'; // Membuka di tab baru
+  form.action = '/search/';
+
+  const cxInput = document.createElement('input');
+  cxInput.type = 'hidden';
+  cxInput.name = 'cx';
+  cxInput.value = 'c2e34c8ead538447e'; // ID mesin pencari Anda
+  form.appendChild(cxInput);
+
+  const ieInput = document.createElement('input');
+  ieInput.type = 'hidden';
+  ieInput.name = 'ie';
+  ieInput.value = 'UTF-8';
+  form.appendChild(ieInput);
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.name = 'q';
+  searchInput.placeholder = 'Search...';
+  searchInput.id = 'search_input'; // Tambahkan ID
+  form.appendChild(searchInput);
+
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Search';
+  form.appendChild(submitButton);
+
+  const commentThread = document.getElementById('comment_thread');
+  if (commentThread && commentThread.parentNode) {
+    commentThread.parentNode.insertBefore(form, commentThread);
+  }
+
+
   
+}
+
+
+
+  // Fungsi untuk memindahkan fokus ke input teks pencarian
+  function focusSearchInput() {
+    const searchInput = document.getElementById('search_input');
+    if (searchInput) {
+      searchInput.focus();
+    }
+  }
+
+
+
+const commentThread = document.getElementById('comment_thread');
+if (commentThread && commentThread.parentNode) {
+  commentThread.parentNode.insertBefore(focusLink, commentThread);
+}
 </script>
 
  
