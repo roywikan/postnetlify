@@ -41,7 +41,11 @@
     <header>
             <nav class="menu">
                 
-                    <a href="/">Home</a></li> | <a href="#" onclick="focusSearchInput()">Search</a>
+                    <a href="/">Home</a></li> | <a href="#search_input" onclick="focusSearchInput()">Search A</a> | <script>
+const focusLink = document.createElement('a');
+focusLink.href = '#';
+focusLink.textContent = 'Search';
+focusLink.onclick = focusSearchInput;</script>
 
                 
             </nav>
@@ -229,11 +233,7 @@ function focusSearchInput() {
   }
 }
 
-// Contoh Link untuk memindahkan fokus
-const focusLink = document.createElement('a');
-focusLink.href = '#';
-focusLink.textContent = 'Search';
-focusLink.onclick = focusSearchInput;
+
 
 const commentThread = document.getElementById('comment_thread');
 if (commentThread && commentThread.parentNode) {
