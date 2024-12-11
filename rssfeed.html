@@ -3,46 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" id="meta-description" content="RSS Feed Generator">
-  <meta name="author" id="meta-author" content="">
+  <meta name="description" id="meta-description" content="Automatically Generated RSS Feed">
+  <meta name="author" id="meta-author" content="Your Name">
   <meta name="robots" content="index, follow">
-
-  <title id="page-title">RSS Feed for Blog Posts</title>
+  <title id="page-title">RSS Feed Generator</title>
 </head>
 <body>
   <h1>RSS Feed Generator</h1>
-  <pre id="rssfeed"></pre> <!-- Tempat untuk menampilkan RSS Feed -->
+  <pre id="rss-feed"></pre> <!-- Tempat untuk menampilkan RSS Feed -->
 
   <script>
-    // Function to generate a snippet from the post body
-    function generateSnippetSIMPLE(body) {
-      const words = body.split(' ');
-      return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
-    }
-
-
-    function generateSnippet(body) {
-  // Remove all HTML tags
-  const sanitizedBody = body.replace(/<[^>]*>/g, ''); 
-
-  // Decode HTML entities like &amp; &lt; etc.
-  const text = sanitizedBody.replace(/&[a-zA-Z0-9#]+;/g, match => {
-    const textarea = document.createElement('textarea');
-    textarea.innerHTML = match;
-    return textarea.value;
-  });
-
-  // Ensure only valid ASCII characters are included (optional step for stricter validation)
-  const validText = text.replace(/[^\x20-\x7E]/g, '');
-
-  // Generate a snippet with the first 20 words
-  const words = validText.split(/\s+/); // Use \s+ to avoid extra spaces or line breaks
-  return words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
-}
-
-
-    
-    // Function to fetch posts and generate RSS Feed
     async function fetchPosts() {
       try {
         const response = await fetch('/.netlify/functions/readPosts');
@@ -53,69 +23,100 @@
         const posts = await response.json();
         console.log('Posts fetched:', posts);
 
-        // Detect the base URL automatically based on the current location
-        const baseUrl = window.location.origin; // This will detect the domain dynamically (e.g., https://yourdomain.com)
+        const escapeXML = str => str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
 
+        const baseUrl = window.location.origin;
+        let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        rss += `<rss version="2.0">\n`;
+        rss += `<channel>\n`;
+        rss += `<title>Your Blog Name</title>\n`;
+        rss += `<link>${baseUrl}</link>\n`;
+        rss += `<description>Latest posts from Your Blog</description>\n`;
+        rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
 
+        posts.forEach(post => {
+          const title = escapeXML(post.data.title);
+          const slug = escapeXML(post.data.slug);
+          const url = `${baseUrl}/post/${slug}`;
+          const createdAt = new Date(post.created_at).toUTCString();
+          const snippet = escapeXML(post.data.bodypost.split(' ').slice(0, 20).join(' ') + '...');
 
-let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-rss += `<rss version="2.0">\n`;
-rss += `<channel>\n`;
-rss += `<title>Your Blog Name</title>\n`;
-rss += `<link>${baseUrl}</link>\n`;
-rss += `<description>Latest posts from Your Blog Name</description>\n`;
-rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
+          rss += `
+            <item>
+              <title>${title}</title>
+              <link>${url}</link>
+              <description>${snippet}</description>
+              <pubDate>${createdAt}</pubDate>
+              <guid>${url}</guid>
+            </item>\n`;
+        });
 
-posts.forEach(post => {
-  const title = post.data.title;
-  const slug = post.data.slug;
-  const url = `${baseUrl}/post/${slug}`;
-  const createdAt = new Date(post.created_at);
-  const pubDate = createdAt.toUTCString();
-  const snippet = generateSnippet(post.data.bodypost);
+        rss += `</channel>\n`;
+        rss += `</rss>`;
 
-  rss += `
-    <item>
-      <title>${title}</title>
-      <link>${url}</link>
-      <description>${snippet}</description>
-      <pubDate>${pubDate}</pubDate>
-      <guid>${url}</guid>
-    </item>\n`;
-});
+        // Tampilkan RSS feed di elemen <pre>
+        document.getElementById('rss-feed').textContent = rss;
 
-rss += `</channel>\n`;
-rss += `</rss>\n`;
-
-
-
-        // Show the RSS feed in the <pre> tag
-        document.getElementById('rssfeed').textContent = rss;
-
-        // Optionally, you can download the RSS feed as a file by prompting the user to save it
-        const blob = new Blob([rss], { type: 'application/xml' });
+        // Unduh file RSS
+        const blob = new Blob([rss], { type: 'application/rss+xml' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = 'rssfeed.xml';
-        link.innerText = 'Download RSS Feed';
+        link.innerText = 'Download RSS Feed file';
         document.body.appendChild(link);
 
+        // Kirim RSS feed ke GitHub melalui Netlify Function
+        await saveRSSToGitHub(rss);
       } catch (error) {
         console.error('Error fetching posts:', error);
-        document.getElementById('rssfeed').textContent = `Error fetching posts: ${error.message}`;
+        document.getElementById('rss-feed').textContent = `Error fetching posts: ${error.message}`;
       }
     }
 
-    // Fetch posts when the DOM is fully loaded
+    async function saveRSSToGitHub(rss) {
+      try {
+        const response = await fetch('/.netlify/functions/saveRSSFeed', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rss }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error saving RSS feed: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('RSS feed saved to GitHub:', result.message);
+      } catch (error) {
+        console.error('Error saving to GitHub:', error);
+      }
+    }
+
+    // Fetch posts saat DOM selesai dimuat
     document.addEventListener('DOMContentLoaded', fetchPosts);
   </script>
-  <hr>
-  <a target="_blank" href="http://www.rssboard.org/rss-validator/check.cgi?url=https%3A//postnetlify.netlify.app/rssfeed.xml">
-    <img src="https://www.rssboard.org/rss-validator/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" />
-  </a>
-  <hr>
-  Download and then upload this .xml file to github repository root (reference it as : /rssfeed.xml)
-  <br>
-  <br>
+  <br>Di bagian terbawah halaman ini ada link <b>Download RSS Feed file</b>.
+  <br>Klik link tersebut untuk mendownload file rssfeed.xml.
+  <br>Di belakang layar, rssfeed.html ini akan membuat data rssfeed.xml,
+  <br>dan akan mengirim file rssfeed.xml tersebut ke GitHub repo ini untuk disimpan/replace
+  <br>melalui fungsi Netlify saveRSSFeed.js,
+  <br>process deploy Netlify ke GitHub akan membutuhkan waktu 2-5 menit.
+  <br><br><br>
+<footer>
+  <nav class="footer-menu">
+    <a href="/">Home</a>
+    <a href="/rssfeed">HTML RSS Feed</a>
+    <a href="/rssfeed-xml">RSS Feed Generator</a>
+    <a href="/rssfeed.xml">Lihat RSS Feed</a>
+  </nav>
+</footer>
+<br><br><br>
 </body>
 </html>
