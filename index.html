@@ -102,13 +102,16 @@ function createSearchForm() {
 
 
 
-const commentThread = document.getElementById('comment_thread');
+const commentThread = document.getElementById('gcse-search');
 if (commentThread && commentThread.parentNode) {
   commentThread.parentNode.insertBefore(focusLink, commentThread);
 }
     // Muat Google CSE hanya jika belum dimuat
  
-    createSearchForm();
+    document.addEventListener('DOMContentLoaded', () => {
+  createSearchForm();
+});
+
     //loadCusdis();
    
   </script>
