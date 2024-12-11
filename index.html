@@ -81,9 +81,9 @@ function createSearchForm() {
   submitButton.textContent = 'Search';
   form.appendChild(submitButton);
 
-  const commentThread = document.getElementById('comment_thread');
-  if (commentThread && commentThread.parentNode) {
-    commentThread.parentNode.insertBefore(form, commentThread);
+  const searchFormLocation = document.getElementById('search_Form_Location');
+  if (searchFormLocation && searchFormLocation.parentNode) {
+    searchFormLocation.parentNode.insertBefore(form, searchFormLocation);
   }
 
 
@@ -102,9 +102,9 @@ function createSearchForm() {
 
 
 
-const commentThread = document.getElementById('comment_thread');
-if (commentThread && commentThread.parentNode) {
-  commentThread.parentNode.insertBefore(focusLink, commentThread);
+const searchFormLocation = document.getElementById('search_Form_Location');
+if (searchFormLocation && searchFormLocation.parentNode) {
+  searchFormLocation.parentNode.insertBefore(focusLink, searchFormLocation);
 }
     // Muat Google CSE hanya jika belum dimuat
  
@@ -117,7 +117,7 @@ if (commentThread && commentThread.parentNode) {
   </script>
 
       <div>
-        <!-- start of  Comment Section --><br><br><div id="comment_thread"></div><br><br><!-- end of  Comment Section -->
+        <!-- start of  Comment Section --><br><br><div id="search_Form_Location"></div><br><br><!-- end of  Comment Section -->
 <!-- start of google PSE/CSE -->
       <!-- script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
       </script -->
