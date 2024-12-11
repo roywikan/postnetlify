@@ -25,87 +25,7 @@
     <!-- Placeholder untuk JSON-LD yang akan ditambahkan secara dinamis -->
   <script type="application/ld+json" id="json-ld-schema"></script>
     <link rel="stylesheet" href="/post-html.css">
-   <!-- CSS untuk styling menu  -->
-    <style>
-
-        .menu-toggle {
-            display: none;
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-        .hamburger {
-            width: 30px;
-            height: 2px;
-            background-color: #333;
-            position: relative;
-        }
-        .hamburger::before,
-        .hamburger::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: #333;
-            left: 0;
-        }
-        .hamburger::before {
-            top: -8px;
-        }
-        .hamburger::after {
-            top: 8px;
-        }
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #333;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1;
-        }
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .menu li {
-            margin: 0;
-        }
-        .menu a {
-            color: white;
-            text-decoration: none;
-            padding: 1rem;
-            display: block;
-        }
-        .menu a:hover {
-            background-color: #555;
-        }
-        .menu-toggle.active + .menu {
-            transform: translateY(0);
-        }
-
-        @media (min-width: 768px) {
-            .menu {
-                flex-direction: row;
-                position: static;
-                transform: none;
-            }
-            .menu-toggle {
-                display: none;
-            }
-            .menu a {
-                padding: 0.5rem 1rem;
-            }
-        }
-    </style>
- 
-
+   
 
 
 
@@ -119,7 +39,12 @@
 
 
     <header>
-  
+            <nav class="menu">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                </ul>
+            </nav>
             <!-- Post Title -->
             <h1 class="post-title" style="display: none;"  itemprop="headline" ><span id="post-title"></span></h1>
 
@@ -775,17 +700,7 @@ if (window.location.search.includes('debug=true')) {
 }
 </script>
 
- <!-- JavaScript untuk mengaktifkan toggle menu -->
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const menu = document.querySelector('.menu');
 
-            menuToggle.addEventListener('click', function() {
-                menu.classList.toggle('active');
-            });
-        });
-</script>
 
   
   
