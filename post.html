@@ -106,7 +106,7 @@ img.onload = () => {
   
   // Muat Google CSE hanya jika belum dimuat
   if (!googleCSELoaded) {
-    loadGoogleCSE();
+    createSearchForm();
     //loadCusdis();
     googleCSELoaded = true;
   }
@@ -120,7 +120,7 @@ img.onerror = () => {
 
   // Muat Google CSE hanya jika belum dimuat
   if (!googleCSELoaded) {
-    loadGoogleCSE();
+    createSearchForm();
     //loadCusdis();
     googleCSELoaded = true;
   }
@@ -160,6 +160,39 @@ function loadGoogleCSE() {
   };
 
   
+}
+
+
+// Fungsi untuk mengganti pencarian Google CSE dengan form sederhana
+function createSearchForm() {
+  // Buat elemen form
+  const form = document.createElement('form');
+  form.action = "https://www.google.com/search"; // URL Google Search
+  form.method = "get"; // Metode pencarian
+  form.target = "_blank"; // Membuka hasil di tab baru
+
+  // Tambahkan input teks untuk query pencarian
+  const input = document.createElement('input');
+  input.type = "text";
+  input.name = "q"; // Parameter query Google
+  input.placeholder = "Search here...";
+  input.required = true; // Field wajib diisi
+
+  // Tambahkan tombol submit
+  const button = document.createElement('button');
+  button.type = "submit";
+  button.textContent = "Search";
+
+  // Tambahkan input dan tombol ke form
+  form.appendChild(input);
+  form.appendChild(button);
+
+  // Temukan elemen sebelum komentar
+  const commentThread = document.getElementById('comment_thread');
+  if (commentThread && commentThread.parentNode) {
+    // Sisipkan form sebelum elemen komentar
+    commentThread.parentNode.insertBefore(form, commentThread);
+  }
 }
 
 
