@@ -80,7 +80,7 @@
 
     async function saveRSSToGitHub(rss) {
       try {
-        const response = await fetch('/.netlify/functions/saveRSSFeed', {
+        const response = await fetch('/.netlify/functions/saveRSS', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
