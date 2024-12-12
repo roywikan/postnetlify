@@ -45,7 +45,9 @@ p a:hover, div a:hover, table a:hover, span a:hover {
   color: navyblue;  /* Warna saat hover */
 }
 
-
+.debug-hidden {
+    display: none;
+}
 
 
 /* Input fields */
