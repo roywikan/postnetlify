@@ -1,22 +1,6 @@
-# Robots.txt for SEO Optimization
-
-# Izinkan semua mesin pencari untuk mengakses seluruh situs
 User-agent: *
-Disallow:
-
-
-# Jangan izinkan pengindeksan halaman hasil pencarian internal
-Disallow: /search/
-
-# Halaman atau URL yang memuat parameter yang dapat mengarah ke duplikasi konten
+Disallow: 
+Disallow: /login/
 Disallow: /*?*
 Disallow: /?*
-
-# Jangan izinkan pengindeksan file atau folder dengan data sensitif
-Disallow: /login/
-
-# Izinkan mesin pencari mengakses gambar dan media
-Allow: /post/
-Allow: /tos/
-Allow: /privacy/
-Allow: /about/
+Sitemap: https://postnetlify.netlify.app/sitemap.xml
