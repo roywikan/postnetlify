@@ -20,7 +20,18 @@ exports.handler = async (event) => {
 
     // Tentukan path file di direktori statis
     //const filePath = path.join(__dirname, `../static/${slug}.html`);
-    const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
+    //const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
+
+    const staticDir = path.join(process.env.LAMBDA_TASK_ROOT, "../public/static");
+
+    // Pastikan direktori ada
+    if (!fs.existsSync(staticDir)) {
+      fs.mkdirSync(staticDir, { recursive: true });
+    }
+
+    // Path file untuk menulis
+    const filePath = path.join(staticDir, `${slug}.html`);
+
 
 
     // Simpan HTML ke file
