@@ -19,8 +19,8 @@ exports.handler = async (event) => {
     const htmlContent = response.data;
 
     // Tentukan path file di direktori statis
-    //const filePath = path.join(__dirname, `../static/${slug}.html`);
-    const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
+    const filePath = path.join(__dirname, `../static/${slug}.html`);
+    //const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
 
        // Tentukan path direktori dan file di root deploy
     //const staticDir = path.join(process.cwd(), "public/static");
