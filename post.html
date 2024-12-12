@@ -156,7 +156,9 @@ img.onerror = () => {
 
 const commentThread = document.getElementById('comment_thread');
 if (commentThread && commentThread.parentNode) {
-  commentThread.parentNode.insertBefore(focusLink, commentThread);
+  commentThread.parentNode.insertBefore(form, commentThread);
+      // Pindahkan fokus ke input pencarian setelah form dibuat
+    focusSearchInput();
 }
   
 
