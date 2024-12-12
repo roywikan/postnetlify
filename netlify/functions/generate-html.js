@@ -20,17 +20,17 @@ exports.handler = async (event) => {
 
     // Tentukan path file di direktori statis
     //const filePath = path.join(__dirname, `../static/${slug}.html`);
-    //const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
+    const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
 
        // Tentukan path direktori dan file di root deploy
-    const staticDir = path.join(process.cwd(), "public/static");
+    //const staticDir = path.join(process.cwd(), "public/static");
 
     // Pastikan direktori target ada
-    if (!fs.existsSync(staticDir)) {
-      fs.mkdirSync(staticDir, { recursive: true });
-    }
+    //if (!fs.existsSync(staticDir)) {
+      //fs.mkdirSync(staticDir, { recursive: true });
+    //}
 
-    const filePath = path.join(staticDir, `${slug}.html`);
+    //const filePath = path.join(staticDir, `${slug}.html`);
 
     // Simpan HTML ke file
     fs.writeFileSync(filePath, htmlContent);
