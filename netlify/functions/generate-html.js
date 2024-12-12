@@ -26,12 +26,12 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `File saved as /static/${slug}.html` }),
+      body: JSON.stringify({ message: ` generate-html.js melaporkan File saved as /static/${slug}.html` }),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to fetch or save HTML", details: error.message }),
+      body: JSON.stringify({ error: " generate-html.js melaporkan Failed to fetch or save HTML", details: error.message }),
     };
   }
 };
