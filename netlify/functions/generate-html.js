@@ -10,16 +10,21 @@ exports.handler = async (event) => {
     };
   }
 
+  
   try {
     // Ambil HTML dari URL
     const url = `https://postnetlify.netlify.app/post/${slug}.html`;
     const response = await axios.get(url);
     const htmlContent = response.data;
 
+
+
+
+    
     // Variabel lingkungan diambil dari proses Netlify
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO = process.env.REPO;
-    const FILE_PATH = `static/${slug}.html`; // File path relatif dalam repo
+    const FILE_PATH = `/static/${slug}.html`; // File path relatif dalam repo
 
     if (!GITHUB_TOKEN || !REPO) {
       return {
@@ -29,6 +34,10 @@ exports.handler = async (event) => {
     }
 
     const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+
+    console.log("GitHub API URL:", GITHUB_API_URL);
+    console.log("REPO:", process.env.REPO);
+    console.log("FILE_PATH:", `static/${slug}.html`);
 
     // Encode konten HTML ke Base64
     const encodedContent = Buffer.from(htmlContent).toString("base64");
