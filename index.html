@@ -119,9 +119,9 @@ if (searchFormLocation && searchFormLocation.parentNode) {
       <div>
         <!-- start of  Comment Section --><br><br><div id="search_Form_Location"></div><br><br><!-- end of  Comment Section -->
         <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        createSearchForm();
-    });
+    //document.addEventListener('DOMContentLoaded', () => {
+        //createSearchForm();
+    //});
         </script>
 <!-- start of google PSE/CSE -->
       <!-- script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
@@ -190,6 +190,7 @@ function waitForImages() {
       if (loadedImages === images.length) {
         // Semua gambar sudah dimuat, sekarang bisa memuat CSE
         /////loadGoogleCSE();
+        createSearchForm();
       }
     };
 
