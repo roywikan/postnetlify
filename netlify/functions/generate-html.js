@@ -35,3 +35,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
+//JIKA {"error":" generate-html.js melaporkan Failed to fetch or save HTML","details":"ENOENT: no such file or directory, open '/var/task/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html'"} maka itu berarti masalah relative path ke static directory
