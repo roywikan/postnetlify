@@ -1,1 +1,1 @@
-# post netlify form
+# exercise : trying to post to netlify
