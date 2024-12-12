@@ -10,7 +10,12 @@
   status = 200
   force = true
 
-  
+[[redirects]]
+  from = "/generate/*"
+  to = "/.netlify/functions/generate-html"
+  status = 200
+
 [build]
   functions = "netlify/functions"
+  publish = "dist"
 
