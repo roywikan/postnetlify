@@ -1,21 +1,21 @@
 [[redirects]]
+  from = "/post/:slug.html"
+  to = "/.netlify/functions/redirect-post-to-static-if-exists?slug=:slug"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/post/:slug"
+  to = "/.netlify/functions/redirect-post-to-static-if-exists?slug=:slug"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/post/:slug"
   to = "/.netlify/functions/readSinglePost?slug=:slug"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/post/:slug.html"
-  to = "/.netlify/functions/redirect-post-to-static-if-exists.js?slug=:slug"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/post/:slug"
-  to = "/.netlify/functions/redirect-post-to-static-if-exists.js?slug=:slug"
-  status = 301
-  force = true
-
+  
 [[redirects]]
   from = "/postdetail/:slug"
   to = "/.netlify/functions/readSinglePost?slug=:slug"
