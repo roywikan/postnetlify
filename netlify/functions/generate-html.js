@@ -1,5 +1,3 @@
-const fs = require("fs");
-const path = require("path");
 const axios = require("axios");
 
 exports.handler = async (event) => {
@@ -18,33 +16,64 @@ exports.handler = async (event) => {
     const response = await axios.get(url);
     const htmlContent = response.data;
 
-    // Tentukan path file di direktori statis
-    const filePath = path.join(__dirname, `../static/${slug}.html`);
-    //const filePath = path.join(process.env.LAMBDA_TASK_ROOT, `../public/static/${slug}.html`);
+    // Variabel lingkungan diambil dari proses Netlify
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const REPO = process.env.REPO;
+    const FILE_PATH = `static/${slug}.html`; // File path relatif dalam repo
 
-       // Tentukan path direktori dan file di root deploy
-    //const staticDir = path.join(process.cwd(), "public/static");
+    if (!GITHUB_TOKEN || !REPO) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Missing environment variables" }),
+      };
+    }
 
-    // Pastikan direktori target ada
-    //if (!fs.existsSync(staticDir)) {
-      //fs.mkdirSync(staticDir, { recursive: true });
-    //}
+    const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
-    //const filePath = path.join(staticDir, `${slug}.html`);
+    // Encode konten HTML ke Base64
+    const encodedContent = Buffer.from(htmlContent).toString("base64");
 
-    // Simpan HTML ke file
-    fs.writeFileSync(filePath, htmlContent);
+    // Fetch current file data untuk mendapatkan SHA (jika file ada)
+    const fileResponse = await axios.get(GITHUB_API_URL, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    });
+
+    let sha = null;
+    if (fileResponse.status === 200) {
+      sha = fileResponse.data.sha; // Ambil SHA jika file ada
+    }
+
+    // Simpan atau perbarui file di GitHub
+    const saveResponse = await axios.put(
+      GITHUB_API_URL,
+      {
+        message: `Update ${slug}.html via Netlify Function`,
+        content: encodedContent,
+        sha: sha || undefined, // Tambahkan SHA jika file ada
+      },
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
+      }
+    );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: ` generate-html.js melaporkan File saved as /static/${slug}.html` }),
+      body: JSON.stringify({
+        message: `File ${slug}.html saved successfully to GitHub`,
+        url: saveResponse.data.content.html_url,
+      }),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: " generate-html.js melaporkan Failed to fetch or save HTML", details: error.message }),
+      body: JSON.stringify({
+        error: "Failed to save HTML to GitHub",
+        details: error.message,
+      }),
     };
   }
 };
-
-//JIKA {"error":" generate-html.js melaporkan Failed to fetch or save HTML","details":"ENOENT: no such file or directory, open '/var/task/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html'"} maka itu berarti masalah relative path ke static directory
