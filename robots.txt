@@ -1,6 +1,1 @@
-User-agent: *
-Disallow: 
-Disallow: /login/
-Disallow: /*?*
-Disallow: /?*
 Sitemap: https://postnetlify.netlify.app/sitemap.xml
