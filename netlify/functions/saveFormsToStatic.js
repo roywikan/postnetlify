@@ -5,6 +5,7 @@ const axios = require("axios");
 
 exports.handler = async () => {
   try {
+    // Ambil environment variables
     const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO = process.env.REPO;
@@ -66,7 +67,7 @@ exports.handler = async () => {
 
       const githubApiUrl = `https://api.github.com/repos/${REPO}/contents/${STATIC_DIR}/${fileName}`;
 
-      // Check if file already exists to get the SHA
+      // Cek apakah file sudah ada untuk mendapatkan SHA
       let sha = null;
       try {
         const fileCheckResponse = await axios.get(githubApiUrl, {
@@ -74,7 +75,7 @@ exports.handler = async () => {
             Authorization: `token ${GITHUB_TOKEN}`,
           },
         });
-        sha = fileCheckResponse.data.sha;
+        sha = fileCheckResponse.data.sha; // Dapatkan SHA jika file sudah ada
       } catch (error) {
         if (error.response?.status === 404) {
           console.log(`${fileName} does not exist, creating a new file.`);
@@ -83,22 +84,30 @@ exports.handler = async () => {
         }
       }
 
-      // Upload the file
-      return axios.put(
-        githubApiUrl,
-        {
-          message: `Create/Update ${fileName}`,
-          content: encodedContent,
-          sha: sha || undefined,
-        },
-        {
-          headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
+      // Upload file ke GitHub
+      try {
+        const uploadResponse = await axios.put(
+          githubApiUrl,
+          {
+            message: `Create/Update ${fileName}`,
+            content: encodedContent,
+            sha: sha || undefined, // Sertakan SHA jika file ada
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `token ${GITHUB_TOKEN}`,
+            },
+          }
+        );
+        console.log(`File ${fileName} uploaded successfully!`);
+        return uploadResponse.data;
+      } catch (uploadError) {
+        console.error(`Failed to upload ${fileName}: ${uploadError.message}`);
+        throw uploadError;
+      }
     });
 
+    // Tunggu semua file selesai diupload
     await Promise.all(uploadPromises);
 
     return {
