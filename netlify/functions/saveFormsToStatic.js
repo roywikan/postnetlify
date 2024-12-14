@@ -8,6 +8,7 @@ exports.handler = async () => {
     const formId = "673faec750f0a700080c6bac"; // Pastikan formId benar
     const endpoint = `https://api.netlify.com/api/v1/forms/${formId}/submissions`;
 
+    // Fetch submissions dari Netlify
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${NETLIFY_ACCESS_TOKEN}`,
@@ -23,8 +24,11 @@ exports.handler = async () => {
 
     const submissions = await response.json();
 
-    // Path ke folder /static
+    // Pastikan folder /static ada
     const staticPath = path.join(__dirname, "../../static");
+    if (!fs.existsSync(staticPath)) {
+      fs.mkdirSync(staticPath, { recursive: true }); // Buat folder jika belum ada
+    }
 
     // Tulis tiap submission ke file HTML
     submissions.forEach((submission, index) => {
@@ -39,7 +43,7 @@ exports.handler = async () => {
         </html>
       `;
 
-      // Buat file HTML
+      // Simpan file ke folder /static
       fs.writeFileSync(
         path.join(staticPath, `submission-${index + 1}.html`),
         htmlContent,
