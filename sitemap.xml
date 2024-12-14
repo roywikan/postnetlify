@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
             <url>
+              <loc>https://postnetlify.netlify.app/post/write-static-html-generator-using-netlify-function-into-github-122</loc>
+              <lastmod>2024-12-14T22:20:57.475Z</lastmod>
+              <priority>0.5</priority>
+            </url>
+
+          
+            <url>
+              <loc>https://postnetlify.netlify.app/post/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549</loc>
+              <lastmod>2024-12-12T03:12:32.769Z</lastmod>
+              <priority>0.5</priority>
+            </url>
+
+          
+            <url>
+              <loc>https://postnetlify.netlify.app/post/blogging-using-netlify-function-to-write-to-github-593</loc>
+              <lastmod>2024-12-12T02:50:24.974Z</lastmod>
+              <priority>0.5</priority>
+            </url>
+
+          
+            <url>
+              <loc>https://postnetlify.netlify.app/post/write-to-github-repo-using-a-netlify-function-744</loc>
+              <lastmod>2024-12-12T02:44:27.179Z</lastmod>
+              <priority>0.5</priority>
+            </url>
+
+          
+            <url>
               <loc>https://postnetlify.netlify.app/post/roi-website-measurement-550</loc>
               <lastmod>2024-12-10T21:48:31.548Z</lastmod>
               <priority>0.5</priority>
