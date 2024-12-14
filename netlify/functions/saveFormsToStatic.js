@@ -5,10 +5,10 @@ const path = require("path");
 exports.handler = async () => {
   try {
     const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
-    const formId = "673faec750f0a700080c6bac"; // Pastikan formId benar
+    const formId = "673faec750f0a700080c6bac";
     const endpoint = `https://api.netlify.com/api/v1/forms/${formId}/submissions`;
 
-    // Fetch submissions dari Netlify
+    // Fetch submissions dari Netlify API
     const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${NETLIFY_ACCESS_TOKEN}`,
@@ -24,13 +24,13 @@ exports.handler = async () => {
 
     const submissions = await response.json();
 
-    // Pastikan folder /static ada
-    const staticPath = path.join(__dirname, "../../static");
-    if (!fs.existsSync(staticPath)) {
-      fs.mkdirSync(staticPath, { recursive: true }); // Buat folder jika belum ada
+    // Pastikan direktori /tmp/static ada
+    const tmpPath = path.join("/tmp", "static");
+    if (!fs.existsSync(tmpPath)) {
+      fs.mkdirSync(tmpPath, { recursive: true }); // Buat folder jika belum ada
     }
 
-    // Tulis tiap submission ke file HTML
+    // Tulis setiap submission ke file HTML di /tmp/static
     submissions.forEach((submission, index) => {
       const htmlContent = `
         <html>
@@ -43,17 +43,17 @@ exports.handler = async () => {
         </html>
       `;
 
-      // Simpan file ke folder /static
-      fs.writeFileSync(
-        path.join(staticPath, `submission-${index + 1}.html`),
-        htmlContent,
-        "utf8"
-      );
+      // Simpan file
+      const filePath = path.join(tmpPath, `submission-${index + 1}.html`);
+      fs.writeFileSync(filePath, htmlContent, "utf8");
     });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Files created successfully!" }),
+      body: JSON.stringify({
+        message: "Files created successfully!",
+        files: fs.readdirSync(tmpPath), // Kirim daftar file yang dibuat
+      }),
     };
   } catch (error) {
     console.error("Error:", error);
