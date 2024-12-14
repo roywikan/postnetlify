@@ -1,0 +1,51 @@
+
+        <html>
+        <head><title>Write Static HTML Generator Using Netlify Function into Github</title></head>
+        <body>
+          <h1>Write Static HTML Generator Using Netlify Function into Github</h1>
+          <p>Author: Master</p>
+          <p>Body: <p>Tidak secara otomatis. <strong>Form Netlify</strong> akan mengirimkan data ke endpoint default Netlify atau endpoint lain yang Anda tentukan. Agar form submission dapat memicu fungsi <code>saveForm.js</code>, Anda perlu mengkonfigurasinya agar form tersebut diarahkan ke endpoint dari fungsi tersebut.</p>
+<p>Berikut langkah-langkah memastikan bahwa <strong>submit form Netlify memicu fungsi <code>saveForm.js</code></strong>:</p>
+<h3 id="1-konfigurasi-form-netlify-untuk-trigger-fungsi"><strong>1. Konfigurasi Form Netlify untuk Trigger Fungsi</strong></h3>
+<p>Form Netlify secara default mengirim data ke <strong>backend Netlify</strong> untuk diproses. Untuk mengarahkan form submission ke fungsi <code>saveForm.js</code>:</p>
+<ul>
+<li>Pastikan file <code>saveForm.js</code> terletak di folder <code>/netlify/functions</code>.</li>
+<li>Tambahkan atribut <code>action</code> dan <code>method</code> ke form:</li>
+</ul>
+<pre><code class="language-html">&lt;form name="postForm" action="/.netlify/functions/saveForm" method="POST" netlify netlify-honeypot="bot-field"&gt;
+  &lt;input type="text" name="title" placeholder="Title" required /&gt;
+  &lt;input type="text" name="slug" placeholder="Slug" required /&gt;
+  &lt;input type="text" name="tags" placeholder="Tags" /&gt;
+  &lt;input type="text" name="category" placeholder="Category" /&gt;
+  &lt;textarea name="bodypost" placeholder="Post Content"&gt;&lt;/textarea&gt;
+  &lt;input type="text" name="author" placeholder="Author" /&gt;
+  &lt;input type="file" name="imagefile" /&gt;
+
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p><strong>Penjelasan:</strong></p>
+<ul>
+<li><code>action="/.netlify/functions/saveForm"</code>: Mengarahkan submission ke fungsi <code>saveForm.js</code>.</li>
+<li><code>method="POST"</code>: Menggunakan metode HTTP POST untuk mengirim data.</li>
+</ul>
+<h3 id="2-deploy-fungsi-ke-netlify"><strong>2. Deploy Fungsi ke Netlify</strong></h3>
+<p>Netlify akan secara otomatis mem-build dan men-deploy file di <code>/netlify/functions</code>. Pastikan:</p>
+<ol>
+<li>Anda sudah mengaktifkan fungsi serverless Netlify.</li>
+<li>Setelah deploy, pastikan fungsi dapat diakses di:
+<pre><code>https://&lt;your-site&gt;.netlify.app/.netlify/functions/saveForm
+</code></pre>
+</li>
+</ol>
+<h3 id="3-testing"><strong>3. Testing</strong></h3>
+<p>Setelah deployment:</p>
+<ol>
+<li><strong>Submit form</strong> di halaman Anda.</li>
+<li>Data dari form akan dikirim ke endpoint <code>/saveForm</code>.</li>
+<li>Fungsi <code>saveForm.js</code> akan dijalankan dan memproses data form untuk disimpan ke GitHub.</li>
+</ol>
+<p>Jika semuanya benar, setiap kali form disubmit, fungsi <code>saveForm.js</code> akan otomatis dipicu.</p></p>
+        </body>
+        </html>
+      
