@@ -5,9 +5,16 @@ Script ini membaca seluruh isi form di netlify form, lalu menghasilkan file stat
 ---
 
 #### 1. **Tanpa Parameter `RECREATE`**
-**URL yang digunakan:**
+**URL fungsi yang digunakan:**
 ```plaintext
 https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic
+```
+
+atau
+
+**URL html yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/saveFormsToStatic
 ```
 
 **Penjelasan:**
