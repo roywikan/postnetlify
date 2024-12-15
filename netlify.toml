@@ -27,6 +27,8 @@
   to = "/.netlify/functions/saveFormsToStatic"
   status = 200
 
+[functions]
+included_files = ["netlify/functions/static-post-template.html"]
 
 [build]
   functions = "netlify/functions"
