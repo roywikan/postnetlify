@@ -1,6 +1,6 @@
 ### A. Penjelasan Cara Penggunaan Script Static file (re)creator di URL `https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic`
 
-Script yang Anda gunakan memungkinkan parameter opsional `RECREATE` di URL untuk mengatur apakah file statis di direktori `/static` harus dibuat ulang atau tidak. Berikut adalah cara penggunaan dan pengaruh parameter tersebut:
+Script ini membaca seluruh isi form di netlify form, lalu menghasilkan file static.html di github directory /static secara massal bersamaan sekaligus. Script ini memungkinkan parameter opsional `RECREATE` di URL untuk mengatur apakah file statis di direktori `/static` harus dibuat ulang atau tidak. Berikut adalah cara penggunaan dan pengaruh parameter tersebut:
 
 ---
 
