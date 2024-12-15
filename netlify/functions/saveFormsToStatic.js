@@ -1,13 +1,7 @@
-const fetch = require("node-fetch");
+ini code saya terakhir : const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
-
-
-
-
-
-
 
 exports.handler = async (event) => {
   try {
@@ -47,12 +41,6 @@ exports.handler = async (event) => {
     }
 
     const submissions = await response.json();
-    console.log("Raw API Response:", submissions);
-
-
-
-
-    
 
     // Step 2: Buat direktori sementara di /tmp
     const tmpPath = path.join("/tmp", "static");
@@ -60,31 +48,22 @@ exports.handler = async (event) => {
       fs.mkdirSync(tmpPath, { recursive: true });
     }
 
-
-    //template file diletakkan di : https://github.com/roywikan/postnetlify/blob/main/netlify/functions/static-post-template.html
-    // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
     // Step 3: Tulis file sementara
-
 submissions.forEach((submission, index) => {
-  const slug = submission.data.slug || submission-${index + 1}; // Gunakan slug jika ada, fallback ke nama default
-
-
-const htmlContent = `
-  <html>
-  <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
-  <body>
-    <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
-    <p>Author: ${submission.data.author || "Unknown"}</p>
-    <p>Body: ${submission.data.bodypost || "No content"}</p>
-  </body>
-  </html>
-`;
-
-
-  const filePath = path.join(tmpPath, ${slug}.html); // Nama file berdasarkan slug
+  const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
+  const htmlContent = `
+    <html>
+    <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
+    <body>
+      <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
+      <p>Author: ${submission.data.author || "Unknown"}</p>
+      <p>Body: ${submission.data.bodypost || "No content"}</p>
+    </body>
+    </html>
+  `;
+  const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
   fs.writeFileSync(filePath, htmlContent, "utf8");
 });
-
 
 
     // Step 4: Upload file ke GitHub
