@@ -40,11 +40,15 @@ exports.handler = async (event) => {
 
     const submissions = await response.json();
 
-//print properties dari submission
+// Print properti di dalam submission.data
 submissions.forEach((submission, index) => {
   console.log(`Submission ${index + 1} keys:`, Object.keys(submission.data));
 });
 
+// Print seluruh objek submission
+submissions.forEach((submission, index) => {
+  console.log(`Submission ${index + 1} full object:`, JSON.stringify(submission, null, 2));
+});
 
 
 
