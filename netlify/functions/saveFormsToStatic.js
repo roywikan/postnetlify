@@ -55,7 +55,20 @@ submissions.forEach((submission, index) => {
       fs.mkdirSync(tmpPath, { recursive: true });
     }
 
+
+
+
+
+
+
+
+
+
+
+
+    
     // Step 3: Tulis file sementara
+    /*
     submissions.forEach((submission, index) => {
       const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
       const htmlContent = `
@@ -70,8 +83,68 @@ submissions.forEach((submission, index) => {
       `;
       const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
       fs.writeFileSync(filePath, htmlContent, "utf8");
-    });
+    }); */
 
+
+    submissions.forEach((submission, index) => {
+  const { 
+    title, 
+    slug, 
+    tags, 
+    category, 
+    bodypost, 
+    author, 
+    imagefile, 
+    ip, 
+    user_agent, 
+    referrer 
+  } = submission.data;
+
+  const htmlContent = `
+    <html>
+    <head>
+      <title>${title || `Submission ${index + 1}`}</title>
+    </head>
+    <body>
+      <h1>${title || `Submission ${index + 1}`}</h1>
+      <p>Author: ${author || "Unknown"}</p>
+      <p>Body: ${bodypost || "No content"}</p>
+      <p>Category: ${category || "Uncategorized"}</p>
+      <p>Tags: ${tags || "No tags"}</p>
+      <p>Image File: ${imagefile || "No image"}</p>
+      <hr>
+      <p>IP: ${ip || "Unknown"}</p>
+      <p>User Agent: ${user_agent || "Unknown"}</p>
+      <p>Referrer: ${referrer || "Unknown"}</p>
+    </body>
+    </html>
+  `;
+
+  const filePath = path.join(tmpPath, `${slug || `submission-${index + 1}`}.html`);
+  fs.writeFileSync(filePath, htmlContent, "utf8");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     // Step 4: Upload file ke GitHub
     const fileList = fs.readdirSync(tmpPath);
     const report = []; // Array untuk menyimpan laporan status file
