@@ -73,6 +73,8 @@ const templateURL = "https://raw.githubusercontent.com/roywikan/postnetlify/main
 
 exports.handler = async (event) => {
   try {
+    console.log("Fetching template from:", templateURL);
+    
     // Fetch the template from the external URL
     const getTemplateFromURL = async () => {
       const response = await axios.get(templateURL);
@@ -80,10 +82,14 @@ exports.handler = async (event) => {
     };
 
     const template = await getTemplateFromURL();
+    console.log("Template fetched successfully.");
 
 
+
+    console.log("Submissions loaded:", submissions);
 
     if (!submissions || submissions.length === 0) {
+      console.log("No submissions found!");
       return {
         statusCode: 200,
         body: JSON.stringify({ message: "No submissions found!" }),
@@ -92,7 +98,10 @@ exports.handler = async (event) => {
 
     // Temporary directory for writing files
     const tmpPath = path.join("/tmp", "static");
+    console.log("Temporary directory:", tmpPath);
+
     if (!fs.existsSync(tmpPath)) {
+      console.log("Creating temporary directory...");
       fs.mkdirSync(tmpPath, { recursive: true });
     }
 
@@ -108,6 +117,8 @@ exports.handler = async (event) => {
         .replace("{{body}}", submission.data.bodypost || "No content");
 
       const filePath = path.join(tmpPath, `${slug}.html`);
+      console.log(`Creating file at: ${filePath}`);
+      
       fs.writeFileSync(filePath, htmlContent, "utf8");
 
       // Add log entry
@@ -120,6 +131,8 @@ exports.handler = async (event) => {
       });
     });
 
+    console.log("All files created successfully:", logData);
+
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -128,6 +141,7 @@ exports.handler = async (event) => {
       }),
     };
   } catch (error) {
+    console.error("Error occurred:", error.message);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message }),
