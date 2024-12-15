@@ -1,4 +1,4 @@
-ini code saya terakhir : const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
