@@ -66,7 +66,7 @@ submissions.forEach((submission, index) => {
     //</html>
   //`;
 
-  const templatePath = path.join(__dirname, "template.html");
+  const templatePath = path.join(__dirname, "static-post-template.html");
   const template = fs.readFileSync(templatePath, "utf8");
 
   const htmlContent = template
