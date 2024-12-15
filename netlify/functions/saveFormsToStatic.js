@@ -57,8 +57,7 @@ exports.handler = async (event) => {
     // Step 3: Tulis file sementara
     //template file diletakkan di : https://github.com/roywikan/postnetlify/blob/main/netlify/functions/static-post-template.html
     // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
-const fs = require("fs");
-const path = require("path");
+
 
 exports.handler = async (event) => {
   try {
