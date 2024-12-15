@@ -1,9 +1,15 @@
-
-
 const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+
+
+
+const templatePath = path.join(__dirname, "static-post-template.html");
+const template = fs.readFileSync(templatePath, "utf8");
+
+
+
 
 exports.handler = async (event) => {
   try {
@@ -53,39 +59,37 @@ exports.handler = async (event) => {
     // Step 3: Tulis file sementara
     //template file diletakkan di : https://github.com/roywikan/postnetlify/blob/main/netlify/functions/static-post-template.html
     // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
-submissions.forEach((submission, index) => {
-  const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
-  //const htmlContent = `
-    //<html>
-    //<head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
-    //<body>
-      //<h1>${submission.data.title || `Submission ${index + 1}`}</h1>
-      //<p>Author: ${submission.data.author || "Unknown"}</p>
-      //<p>Body: ${submission.data.bodypost || "No content"}</p>
-    //</body>
-    //</html>
-  //`;
+const fs = require("fs");
+const path = require("path");
 
-  const templatePath = path.join(__dirname, "static-post-template.html");
-  const template = fs.readFileSync(templatePath, "utf8");
+exports.handler = async (event) => {
+  try {
+    const templatePath = path.join(__dirname, "static-post-template.html");
+    const template = fs.readFileSync(templatePath, "utf8");
 
-  const htmlContent = template
-  .replace("{{title}}", submission.data.title || `Submission ${index + 1}`)
-  .replace("{{author}}", submission.data.author || "Unknown")
-  .replace("{{body}}", submission.data.bodypost || "No content");
-  
+    submissions.forEach((submission, index) => {
+      const slug = submission.data.slug || `submission-${index + 1}`; // Nama file dari slug
+      const htmlContent = template
+        .replace("{{title}}", submission.data.title || `Submission ${index + 1}`)
+        .replace("{{author}}", submission.data.author || "Unknown")
+        .replace("{{body}}", submission.data.bodypost || "No content");
 
+      const filePath = path.join(tmpPath, `${slug}.html`);
+      fs.writeFileSync(filePath, htmlContent, "utf8");
+    });
 
-  
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Files created successfully!" }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
+};
 
-
-
-  
-  const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
-
-  
-  fs.writeFileSync(filePath, htmlContent, "utf8");
-});
 
 
     // Step 4: Upload file ke GitHub
