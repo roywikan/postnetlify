@@ -11,11 +11,9 @@ exports.handler = async (event) => {
     const REPO = process.env.REPO;
     const STATIC_DIR = "static"; // Direktori target di GitHub
 
-
-
     // Ambil nilai RECREATE dari query parameter
     const params = new URLSearchParams(event.queryStringParameters);
-    const RECREATE = params.get('RECREATE') === 'true' ? true : false;
+    const RECREATE = params.get('RECREATE') === 'true';
 
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO) {
       throw new Error(
@@ -49,25 +47,25 @@ exports.handler = async (event) => {
     }
 
     // Step 3: Tulis file sementara
-submissions.forEach((submission, index) => {
-  const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
-  const htmlContent = `
-    <html>
-    <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
-    <body>
-      <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
-      <p>Author: ${submission.data.author || "Unknown"}</p>
-      <p>Body: ${submission.data.bodypost || "No content"}</p>
-    </body>
-    </html>
-  `;
-  const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
-  fs.writeFileSync(filePath, htmlContent, "utf8");
-});
-
+    submissions.forEach((submission, index) => {
+      const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
+      const htmlContent = `
+        <html>
+        <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
+        <body>
+          <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
+          <p>Author: ${submission.data.author || "Unknown"}</p>
+          <p>Body: ${submission.data.bodypost || "No content"}</p>
+        </body>
+        </html>
+      `;
+      const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
+      fs.writeFileSync(filePath, htmlContent, "utf8");
+    });
 
     // Step 4: Upload file ke GitHub
     const fileList = fs.readdirSync(tmpPath);
+    const report = []; // Array untuk menyimpan laporan status file
 
     for (const fileName of fileList) {
       const filePath = path.join(tmpPath, fileName);
@@ -93,10 +91,9 @@ submissions.forEach((submission, index) => {
           const decodedContent = Buffer.from(existingContent, "base64").toString("utf8");
           if (decodedContent === fileContent) {
             console.log(`${fileName} is already up-to-date. Skipping upload.`);
+            report.push({ file: fileName, status: "skipped" });
             continue;
           }
-        } else {
-          console.log(`${fileName} does not exist or RECREATE is set to true, creating/updating file.`);
         }
       } catch (error) {
         if (error.response?.status === 404) {
@@ -122,13 +119,14 @@ submissions.forEach((submission, index) => {
       );
 
       console.log(`${fileName} uploaded successfully.`);
+      report.push({ file: fileName, status: sha ? "updated" : "created" });
     }
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         message: "Files uploaded successfully to GitHub!",
-        files: fileList,
+        report: report,
       }),
     };
   } catch (error) {
