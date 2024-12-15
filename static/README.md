@@ -59,10 +59,18 @@ const RECREATE = params.has('RECREATE') ? params.get('RECREATE') === 'true' : fa
 ---
 
 #### 3. **Dengan Parameter `RECREATE=false`**
-**URL yang digunakan:**
+**URL fungsi yang digunakan:**
 ```plaintext
 https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic?RECREATE=false
 ```
+
+atau
+
+**URL html yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/saveFormsToStatic?RECREATE=false
+```
+
 
 **Penjelasan:**
 - Dengan menambahkan `RECREATE=false` di URL, variabel `RECREATE` dalam script akan bernilai `false`.
@@ -91,7 +99,7 @@ Dengan dokumentasi ini, pengguna dapat memahami cara menggunakan endpoint terseb
 
 
 
-
+---
 
 
 ### B. Penjelasan Cara Penggunaan Script single Static file generator berbasis slug, di URL `https://postnetlify.netlify.app/generate?slugnya-blah-123`
