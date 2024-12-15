@@ -134,8 +134,14 @@ const orderedHumanFields = submission.ordered_human_fields || [];
       fs.writeFileSync(filePath, htmlContent, "utf8");
     }); */
 
+
+
+///////////////////////////////
+
+
+
+
 submissions.forEach((submission, index) => {
-  // Destructuring dari submission.data
   const { 
     title, 
     slug, 
@@ -149,50 +155,89 @@ submissions.forEach((submission, index) => {
     referrer 
   } = submission.data;
 
-  // Properti tambahan dari submission di luar data
-  const createdAt = submission.created_at || null;
-  const imageFileName = imagefile?.filename || "No filename";
-  const imageFileUrl = imagefile?.url || "No URL";
 
-  // HTML content generation
+
+    // Properti tambahan dari submission di luar data
+
+  const createdAt = submission.created_at || new Date().toISOString();
+  const imageFileName = imagefile?.filename || "No filename";
+  const imageFileUrl = imagefile?.url || "No image URL";
+
   const htmlContent = `
-    <html>
-    <head>
-      <title>${title || `Submission ${index + 1}`}</title>
-    </head>
-    <body>
-      <h1>${title || `Submission ${index + 1}`}</h1>
-      <p><strong>Author:</strong> ${author || "Unknown"}</p>
-      <p><strong>Body:</strong> ${bodypost || "No content"}</p>
-      <p><strong>Category:</strong> ${category || "Uncategorized"}</p>
-      <p><strong>Tags:</strong> ${tags || "No tags"}</p>
-      <p><strong>Created At:</strong> ${new Date(createdAt).toLocaleString() || "Unknown Date"}</p>
-      <hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="${bodypost || "No description"}">
+  <meta name="author" id="meta-author" content="${author || "Unknown"}">
+
+  <meta property="og:title" content="${title || "Untitled"}">
+  <meta property="og:description" content="${bodypost || "No description"}">
+  <meta property="og:image" content="${imageFileUrl}">
+  <meta property="og:url" content="${referrer || "Unknown"}">
+
+  <meta name="twitter:title" content="${title || "Untitled"}">
+  <meta name="twitter:description" content="${bodypost || "No description"}">
+  <meta name="twitter:image" content="${imageFileUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <title id="page-title">${title || `Submission ${index + 1}`}</title>
+
+  <!-- JSON-LD schema -->
+  <script type="application/ld+json" id="json-ld-schema">
+  ${JSON.stringify({
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": title || "Untitled",
+    "author": {
+      "@type": "Person",
+      "name": author || "Unknown"
+    },
+    "datePublished": createdAt,
+    "articleBody": bodypost || "",
+    "keywords": tags || "",
+    "image": imageFileUrl
+  }, null, 2)}
+  </script>
+  <link rel="stylesheet" href="/post-html.css">
+  <script src="/post-html-main.js"></script>
+</head>
+<body>
+  <h1>${title || `Submission ${index + 1}`}</h1>
+  <p><strong>Author:</strong> ${author || "Unknown"}</p>
+  <p><strong>Body:</strong> ${bodypost || "No content"}</p>
+  <p><strong>Category:</strong> ${category || "Uncategorized"}</p>
+  <p><strong>Tags:</strong> ${tags || "No tags"}</p>
+        <hr>
       <p><strong>Image File:</strong></p>
       <ul>
         <li>Filename: ${imageFileName}</li>
         <li>URL: <a href="${imageFileUrl}" target="_blank">${imageFileUrl}</a></li>
       </ul>
-      <hr>
-      <p><strong>IP:</strong> ${ip || "Unknown"}</p>
-      <p><strong>User Agent:</strong> ${user_agent || "Unknown"}</p>
-      <p><strong>Referrer:</strong> <a href="${referrer}" target="_blank">${referrer || "Unknown"}</a></p>
-    </body>
-    </html>
-  `;
+  <hr>
+  <p><strong>IP:</strong> ${ip || "Unknown"}</p>
+  <p><strong>User Agent:</strong> ${user_agent || "Unknown"}</p>
+  <p><strong>Referrer:</strong> ${referrer || "Unknown"}</p>
+  <p><strong>Created At:</strong> ${new Date(createdAt).toLocaleString() || "Unknown Date"}</p>
 
-  // Penulisan file HTML
-  const filePath = path.join(
-    tmpPath, 
-    `${slug || `submission-${index + 1}`}.html`
-  );
+
+      
+</body>
+</html>
+`;
+
+  const fileName = `${submission.data.slug || `submission-${index + 1}`}.html`;
+  const filePath = path.join(tmpPath, fileName);
+
   fs.writeFileSync(filePath, htmlContent, "utf8");
+  console.log(`File saved: ${filePath}`);
 });
 
 
-
-
-
+    
+//////////////////////////////
 
 
 
