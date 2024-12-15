@@ -65,67 +65,21 @@ exports.handler = async (event) => {
     // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
     // Step 3: Tulis file sementara
 
-//const axios = require("axios");
-//const fs = require("fs");
-//const path = require("path");
-
-//const templateURL = "https://raw.githubusercontent.com/roywikan/postnetlify/main/netlify/functions/static-post-template.html";
-//const fs = require("fs");
-//const path = require("path");
-const template = require("./static-post-template.js"); // Mengimpor template
-
-exports.handler = async (event) => {
-  try {
-
-
-    if (!submissions || submissions.length === 0) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "No submissions found!" }),
-      };
-    }
-
-    const tmpPath = path.join("/tmp", "static");
-    if (!fs.existsSync(tmpPath)) {
-      fs.mkdirSync(tmpPath, { recursive: true });
-    }
-
-    const logData = [];
-
-    submissions.forEach((submission, index) => {
-      const slug = submission.data.slug || `submission-${index + 1}`;
-      const htmlContent = template
-        .replace("{{title}}", submission.data.title || `Submission ${index + 1}`)
-        .replace("{{author}}", submission.data.author || "Unknown")
-        .replace("{{body}}", submission.data.bodypost || "No content");
-
-      const filePath = path.join(tmpPath, `${slug}.html`);
-      fs.writeFileSync(filePath, htmlContent, "utf8");
-
-      logData.push({
-        index,
-        slug,
-        filePath,
-        title: submission.data.title || `Submission ${index + 1}`,
-        status: "Created",
-      });
-    });
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "Files created successfully!",
-        files: logData,
-      }),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
-    };
-  }
-};
-
+submissions.forEach((submission, index) => {
+  const slug = submission.data.slug || submission-${index + 1}; // Gunakan slug jika ada, fallback ke nama default
+  const htmlContent = 
+    <html>
+    <head><title>${submission.data.title || Submission ${index + 1}}</title></head>
+    <body>
+      <h1>${submission.data.title || Submission ${index + 1}}</h1>
+      <p>Author: ${submission.data.author || "Unknown"}</p>
+      <p>Body: ${submission.data.bodypost || "No content"}</p>
+    </body>
+    </html>
+  ;
+  const filePath = path.join(tmpPath, ${slug}.html); // Nama file berdasarkan slug
+  fs.writeFileSync(filePath, htmlContent, "utf8");
+});
 
 
 
