@@ -273,13 +273,23 @@ submissions.forEach((submission, index) => {
       body: JSON.stringify({
         message: "Files uploaded successfully to GitHub!",
         report: report,
-      }),
+      }, null, 2),
     };
   } catch (error) {
     console.error("Error:", error.message);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ error: error.message }, null, 2),
+
+
+
+
+
+
+
+
+
+      
     };
   }
 };
