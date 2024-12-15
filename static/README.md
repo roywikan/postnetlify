@@ -32,9 +32,16 @@ const RECREATE = params.has('RECREATE') ? params.get('RECREATE') === 'true' : fa
 ---
 
 #### 2. **Dengan Parameter `RECREATE=true`**
-**URL yang digunakan:**
+**URL fungsi yang digunakan:**
 ```plaintext
 https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic?RECREATE=true
+```
+
+atau
+
+**URL html yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/saveFormsToStatic?RECREATE=true
 ```
 
 **Penjelasan:**
