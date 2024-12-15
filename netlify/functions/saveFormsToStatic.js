@@ -1,3 +1,5 @@
+
+
 const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
@@ -49,19 +51,39 @@ exports.handler = async (event) => {
     }
 
     // Step 3: Tulis file sementara
+    //template file diletakkan di : https://github.com/roywikan/postnetlify/blob/main/netlify/functions/static-post-template.html
+    // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
 submissions.forEach((submission, index) => {
   const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
-  const htmlContent = `
-    <html>
-    <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
-    <body>
-      <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
-      <p>Author: ${submission.data.author || "Unknown"}</p>
-      <p>Body: ${submission.data.bodypost || "No content"}</p>
-    </body>
-    </html>
-  `;
+  //const htmlContent = `
+    //<html>
+    //<head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
+    //<body>
+      //<h1>${submission.data.title || `Submission ${index + 1}`}</h1>
+      //<p>Author: ${submission.data.author || "Unknown"}</p>
+      //<p>Body: ${submission.data.bodypost || "No content"}</p>
+    //</body>
+    //</html>
+  //`;
+
+  const templatePath = path.join(__dirname, "template.html");
+  const template = fs.readFileSync(templatePath, "utf8");
+
+  const htmlContent = template
+  .replace("{{title}}", submission.data.title || `Submission ${index + 1}`)
+  .replace("{{author}}", submission.data.author || "Unknown")
+  .replace("{{body}}", submission.data.bodypost || "No content");
+  
+
+
+  
+
+
+
+  
   const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
+
+  
   fs.writeFileSync(filePath, htmlContent, "utf8");
 });
 
