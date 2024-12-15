@@ -1,12 +1,474 @@
 
-    <html>
-    <head>
-      <title>Hosting HTML Static Secara Gratis di Google Cloud</title>
-    </head>
-    <body>
-      <h1>Hosting HTML Static Secara Gratis di Google Cloud</h1>
-      <p><strong>Author:</strong> Master</p>
-      <p><strong>Body:</strong> <p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="<p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>
+<hr>
+<h3 id="1-setup-google-cloud-free-tier">1. <strong>Setup Google Cloud Free Tier</strong></h3>
+<ol>
+<li><p><strong>Daftar Akun Google Cloud</strong>:</p>
+<ul>
+<li>Jika belum punya akun, daftar di <a href="https://cloud.google.com/">Google Cloud</a>.</li>
+<li>Google Cloud menawarkan <strong>$300 kredit gratis</strong> selama 12 bulan, serta layanan tertentu gratis selamanya (termasuk hosting di Firebase).</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Firebase Hosting</strong>:</p>
+<ul>
+<li>Firebase adalah layanan Google Cloud untuk hosting web statis secara gratis dalam batas wajar.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="2-buat-project-firebase">2. <strong>Buat Project Firebase</strong></h3>
+<ol>
+<li><p><strong>Buka Firebase Console</strong>: <a href="https://console.firebase.google.com/">Firebase Console</a>.</p>
+</li>
+<li><p><strong>Buat Project Baru</strong>:</p>
+<ul>
+<li>Klik <strong>Add Project</strong>.</li>
+<li>Beri nama proyek, misalnya <code>guestbook-static</code>.</li>
+<li>Ikuti langkah hingga proyek selesai dibuat.</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Hosting</strong>:</p>
+<ul>
+<li>Di dashboard proyek, pilih <strong>Build</strong> &gt; <strong>Hosting</strong>.</li>
+<li>Klik <strong>Get Started</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="3-persiapkan-html-static">3. <strong>Persiapkan HTML Static</strong></h3>
+<ol>
+<li><p><strong>Buat File HTML Static</strong>:</p>
+<ul>
+<li>Buat file bernama <code>index.html</code> di komputer Anda. Berikut contoh HTML sederhana dengan form untuk mencatat guestbook:</li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Guestbook&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Guestbook&lt;/h1&gt;
+    &lt;form id=&quot;guestbook-form&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; placeholder=&quot;Your Name&quot; required&gt;
+        &lt;textarea id=&quot;message&quot; placeholder=&quot;Your Message&quot; required&gt;&lt;/textarea&gt;
+        &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;ul id=&quot;guestbook-list&quot;&gt;&lt;/ul&gt;
+    &lt;script&gt;
+        const form = document.getElementById(&#39;guestbook-form&#39;);
+        const list = document.getElementById(&#39;guestbook-list&#39;);
+
+        form.addEventListener(&#39;submit&#39;, async (e) =&gt; {
+            e.preventDefault();
+            const name = document.getElementById(&#39;name&#39;).value;
+            const message = document.getElementById(&#39;message&#39;).value;
+
+            await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+                method: &#39;POST&#39;,
+                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+                body: JSON.stringify({ name, message, date: new Date().toISOString() })
+            });
+
+            const listItem = document.createElement(&#39;li&#39;);
+            listItem.textContent = `${name}: ${message}`;
+            list.appendChild(listItem);
+
+            form.reset();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li>
+</ol>
+<hr>
+<h3 id="4-host-di-firebase">4. <strong>Host di Firebase</strong></h3>
+<ol>
+<li><p><strong>Install Firebase CLI</strong>:</p>
+<ul>
+<li>Instal <a href="https://firebase.google.com/docs/cli">Firebase CLI</a> di komputer Anda.</li>
+<li>Jalankan:<pre><code class="language-bash">npm install -g firebase-tools
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Login ke Firebase</strong>:</p>
+<pre><code class="language-bash">firebase login
+</code></pre>
+</li>
+<li><p><strong>Inisialisasi Proyek</strong>:</p>
+<ul>
+<li>Di direktori tempat <code>index.html</code> berada, jalankan:<pre><code class="language-bash">firebase init
+</code></pre>
+</li>
+<li>Pilih <strong>Hosting</strong> &gt; Proyek yang telah dibuat &gt; <strong>Public Directory</strong> isikan <code>.</code> &gt; Yes untuk SPA.</li>
+</ul>
+</li>
+<li><p><strong>Deploy</strong>:</p>
+<ul>
+<li>Jalankan:<pre><code class="language-bash">firebase deploy
+</code></pre>
+</li>
+<li>URL hosting akan diberikan, misalnya: <code>https://guestbook-static.web.app</code>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="5-catat-data-di-firebase-realtime-database">5. <strong>Catat Data di Firebase Realtime Database</strong></h3>
+<ol>
+<li><p><strong>Aktifkan Realtime Database</strong>:</p>
+<ul>
+<li>Di Firebase Console, pilih <strong>Build</strong> &gt; <strong>Realtime Database</strong>.</li>
+<li>Klik <strong>Create Database</strong> &gt; Pilih lokasi &gt; Set mode ke <strong>test mode</strong> (untuk testing).</li>
+</ul>
+</li>
+<li><p><strong>Ganti Endpoint di JavaScript</strong>:</p>
+<ul>
+<li>Update URL di script:<pre><code class="language-javascript">await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="6-domain-name-custom-opsional">6. <strong>Domain Name Custom (Opsional)</strong></h3>
+<p>Jika punya domain, Anda bisa menghubungkannya ke Firebase Hosting:</p>
+<ol>
+<li>Buka <strong>Hosting</strong> di Firebase Console.</li>
+<li>Tambahkan domain custom dan verifikasi melalui DNS.</li>
+</ol>
+<hr>
+<p>Hasilnya, Anda akan memiliki website HTML static gratis dengan fitur guestbook yang mencatat data di Firebase Realtime Database.</p>
+">
+  <meta name="author" id="meta-author" content="Master">
+
+  <meta property="og:title" content="Hosting HTML Static Secara Gratis di Google Cloud">
+  <meta property="og:description" content="<p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>
+<hr>
+<h3 id="1-setup-google-cloud-free-tier">1. <strong>Setup Google Cloud Free Tier</strong></h3>
+<ol>
+<li><p><strong>Daftar Akun Google Cloud</strong>:</p>
+<ul>
+<li>Jika belum punya akun, daftar di <a href="https://cloud.google.com/">Google Cloud</a>.</li>
+<li>Google Cloud menawarkan <strong>$300 kredit gratis</strong> selama 12 bulan, serta layanan tertentu gratis selamanya (termasuk hosting di Firebase).</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Firebase Hosting</strong>:</p>
+<ul>
+<li>Firebase adalah layanan Google Cloud untuk hosting web statis secara gratis dalam batas wajar.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="2-buat-project-firebase">2. <strong>Buat Project Firebase</strong></h3>
+<ol>
+<li><p><strong>Buka Firebase Console</strong>: <a href="https://console.firebase.google.com/">Firebase Console</a>.</p>
+</li>
+<li><p><strong>Buat Project Baru</strong>:</p>
+<ul>
+<li>Klik <strong>Add Project</strong>.</li>
+<li>Beri nama proyek, misalnya <code>guestbook-static</code>.</li>
+<li>Ikuti langkah hingga proyek selesai dibuat.</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Hosting</strong>:</p>
+<ul>
+<li>Di dashboard proyek, pilih <strong>Build</strong> &gt; <strong>Hosting</strong>.</li>
+<li>Klik <strong>Get Started</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="3-persiapkan-html-static">3. <strong>Persiapkan HTML Static</strong></h3>
+<ol>
+<li><p><strong>Buat File HTML Static</strong>:</p>
+<ul>
+<li>Buat file bernama <code>index.html</code> di komputer Anda. Berikut contoh HTML sederhana dengan form untuk mencatat guestbook:</li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Guestbook&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Guestbook&lt;/h1&gt;
+    &lt;form id=&quot;guestbook-form&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; placeholder=&quot;Your Name&quot; required&gt;
+        &lt;textarea id=&quot;message&quot; placeholder=&quot;Your Message&quot; required&gt;&lt;/textarea&gt;
+        &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;ul id=&quot;guestbook-list&quot;&gt;&lt;/ul&gt;
+    &lt;script&gt;
+        const form = document.getElementById(&#39;guestbook-form&#39;);
+        const list = document.getElementById(&#39;guestbook-list&#39;);
+
+        form.addEventListener(&#39;submit&#39;, async (e) =&gt; {
+            e.preventDefault();
+            const name = document.getElementById(&#39;name&#39;).value;
+            const message = document.getElementById(&#39;message&#39;).value;
+
+            await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+                method: &#39;POST&#39;,
+                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+                body: JSON.stringify({ name, message, date: new Date().toISOString() })
+            });
+
+            const listItem = document.createElement(&#39;li&#39;);
+            listItem.textContent = `${name}: ${message}`;
+            list.appendChild(listItem);
+
+            form.reset();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li>
+</ol>
+<hr>
+<h3 id="4-host-di-firebase">4. <strong>Host di Firebase</strong></h3>
+<ol>
+<li><p><strong>Install Firebase CLI</strong>:</p>
+<ul>
+<li>Instal <a href="https://firebase.google.com/docs/cli">Firebase CLI</a> di komputer Anda.</li>
+<li>Jalankan:<pre><code class="language-bash">npm install -g firebase-tools
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Login ke Firebase</strong>:</p>
+<pre><code class="language-bash">firebase login
+</code></pre>
+</li>
+<li><p><strong>Inisialisasi Proyek</strong>:</p>
+<ul>
+<li>Di direktori tempat <code>index.html</code> berada, jalankan:<pre><code class="language-bash">firebase init
+</code></pre>
+</li>
+<li>Pilih <strong>Hosting</strong> &gt; Proyek yang telah dibuat &gt; <strong>Public Directory</strong> isikan <code>.</code> &gt; Yes untuk SPA.</li>
+</ul>
+</li>
+<li><p><strong>Deploy</strong>:</p>
+<ul>
+<li>Jalankan:<pre><code class="language-bash">firebase deploy
+</code></pre>
+</li>
+<li>URL hosting akan diberikan, misalnya: <code>https://guestbook-static.web.app</code>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="5-catat-data-di-firebase-realtime-database">5. <strong>Catat Data di Firebase Realtime Database</strong></h3>
+<ol>
+<li><p><strong>Aktifkan Realtime Database</strong>:</p>
+<ul>
+<li>Di Firebase Console, pilih <strong>Build</strong> &gt; <strong>Realtime Database</strong>.</li>
+<li>Klik <strong>Create Database</strong> &gt; Pilih lokasi &gt; Set mode ke <strong>test mode</strong> (untuk testing).</li>
+</ul>
+</li>
+<li><p><strong>Ganti Endpoint di JavaScript</strong>:</p>
+<ul>
+<li>Update URL di script:<pre><code class="language-javascript">await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="6-domain-name-custom-opsional">6. <strong>Domain Name Custom (Opsional)</strong></h3>
+<p>Jika punya domain, Anda bisa menghubungkannya ke Firebase Hosting:</p>
+<ol>
+<li>Buka <strong>Hosting</strong> di Firebase Console.</li>
+<li>Tambahkan domain custom dan verifikasi melalui DNS.</li>
+</ol>
+<hr>
+<p>Hasilnya, Anda akan memiliki website HTML static gratis dengan fitur guestbook yang mencatat data di Firebase Realtime Database.</p>
+">
+  <meta property="og:image" content="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg">
+  <meta property="og:url" content="https://postnetlify.netlify.app/ed">
+
+  <meta name="twitter:title" content="Hosting HTML Static Secara Gratis di Google Cloud">
+  <meta name="twitter:description" content="<p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>
+<hr>
+<h3 id="1-setup-google-cloud-free-tier">1. <strong>Setup Google Cloud Free Tier</strong></h3>
+<ol>
+<li><p><strong>Daftar Akun Google Cloud</strong>:</p>
+<ul>
+<li>Jika belum punya akun, daftar di <a href="https://cloud.google.com/">Google Cloud</a>.</li>
+<li>Google Cloud menawarkan <strong>$300 kredit gratis</strong> selama 12 bulan, serta layanan tertentu gratis selamanya (termasuk hosting di Firebase).</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Firebase Hosting</strong>:</p>
+<ul>
+<li>Firebase adalah layanan Google Cloud untuk hosting web statis secara gratis dalam batas wajar.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="2-buat-project-firebase">2. <strong>Buat Project Firebase</strong></h3>
+<ol>
+<li><p><strong>Buka Firebase Console</strong>: <a href="https://console.firebase.google.com/">Firebase Console</a>.</p>
+</li>
+<li><p><strong>Buat Project Baru</strong>:</p>
+<ul>
+<li>Klik <strong>Add Project</strong>.</li>
+<li>Beri nama proyek, misalnya <code>guestbook-static</code>.</li>
+<li>Ikuti langkah hingga proyek selesai dibuat.</li>
+</ul>
+</li>
+<li><p><strong>Aktifkan Hosting</strong>:</p>
+<ul>
+<li>Di dashboard proyek, pilih <strong>Build</strong> &gt; <strong>Hosting</strong>.</li>
+<li>Klik <strong>Get Started</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="3-persiapkan-html-static">3. <strong>Persiapkan HTML Static</strong></h3>
+<ol>
+<li><p><strong>Buat File HTML Static</strong>:</p>
+<ul>
+<li>Buat file bernama <code>index.html</code> di komputer Anda. Berikut contoh HTML sederhana dengan form untuk mencatat guestbook:</li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Guestbook&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Guestbook&lt;/h1&gt;
+    &lt;form id=&quot;guestbook-form&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; placeholder=&quot;Your Name&quot; required&gt;
+        &lt;textarea id=&quot;message&quot; placeholder=&quot;Your Message&quot; required&gt;&lt;/textarea&gt;
+        &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;ul id=&quot;guestbook-list&quot;&gt;&lt;/ul&gt;
+    &lt;script&gt;
+        const form = document.getElementById(&#39;guestbook-form&#39;);
+        const list = document.getElementById(&#39;guestbook-list&#39;);
+
+        form.addEventListener(&#39;submit&#39;, async (e) =&gt; {
+            e.preventDefault();
+            const name = document.getElementById(&#39;name&#39;).value;
+            const message = document.getElementById(&#39;message&#39;).value;
+
+            await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+                method: &#39;POST&#39;,
+                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+                body: JSON.stringify({ name, message, date: new Date().toISOString() })
+            });
+
+            const listItem = document.createElement(&#39;li&#39;);
+            listItem.textContent = `${name}: ${message}`;
+            list.appendChild(listItem);
+
+            form.reset();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li>
+</ol>
+<hr>
+<h3 id="4-host-di-firebase">4. <strong>Host di Firebase</strong></h3>
+<ol>
+<li><p><strong>Install Firebase CLI</strong>:</p>
+<ul>
+<li>Instal <a href="https://firebase.google.com/docs/cli">Firebase CLI</a> di komputer Anda.</li>
+<li>Jalankan:<pre><code class="language-bash">npm install -g firebase-tools
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Login ke Firebase</strong>:</p>
+<pre><code class="language-bash">firebase login
+</code></pre>
+</li>
+<li><p><strong>Inisialisasi Proyek</strong>:</p>
+<ul>
+<li>Di direktori tempat <code>index.html</code> berada, jalankan:<pre><code class="language-bash">firebase init
+</code></pre>
+</li>
+<li>Pilih <strong>Hosting</strong> &gt; Proyek yang telah dibuat &gt; <strong>Public Directory</strong> isikan <code>.</code> &gt; Yes untuk SPA.</li>
+</ul>
+</li>
+<li><p><strong>Deploy</strong>:</p>
+<ul>
+<li>Jalankan:<pre><code class="language-bash">firebase deploy
+</code></pre>
+</li>
+<li>URL hosting akan diberikan, misalnya: <code>https://guestbook-static.web.app</code>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="5-catat-data-di-firebase-realtime-database">5. <strong>Catat Data di Firebase Realtime Database</strong></h3>
+<ol>
+<li><p><strong>Aktifkan Realtime Database</strong>:</p>
+<ul>
+<li>Di Firebase Console, pilih <strong>Build</strong> &gt; <strong>Realtime Database</strong>.</li>
+<li>Klik <strong>Create Database</strong> &gt; Pilih lokasi &gt; Set mode ke <strong>test mode</strong> (untuk testing).</li>
+</ul>
+</li>
+<li><p><strong>Ganti Endpoint di JavaScript</strong>:</p>
+<ul>
+<li>Update URL di script:<pre><code class="language-javascript">await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="6-domain-name-custom-opsional">6. <strong>Domain Name Custom (Opsional)</strong></h3>
+<p>Jika punya domain, Anda bisa menghubungkannya ke Firebase Hosting:</p>
+<ol>
+<li>Buka <strong>Hosting</strong> di Firebase Console.</li>
+<li>Tambahkan domain custom dan verifikasi melalui DNS.</li>
+</ol>
+<hr>
+<p>Hasilnya, Anda akan memiliki website HTML static gratis dengan fitur guestbook yang mencatat data di Firebase Realtime Database.</p>
+">
+  <meta name="twitter:image" content="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <title id="page-title">Hosting HTML Static Secara Gratis di Google Cloud</title>
+
+  <!-- JSON-LD schema -->
+  <script type="application/ld+json" id="json-ld-schema">
+  {
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "headline": "Hosting HTML Static Secara Gratis di Google Cloud",
+  "author": {
+    "@type": "Person",
+    "name": "Master"
+  },
+  "datePublished": "2024-12-08T06:31:30.078Z",
+  "articleBody": "<p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>\r\n<hr>\r\n<h3 id=\"1-setup-google-cloud-free-tier\">1. <strong>Setup Google Cloud Free Tier</strong></h3>\r\n<ol>\r\n<li><p><strong>Daftar Akun Google Cloud</strong>:</p>\r\n<ul>\r\n<li>Jika belum punya akun, daftar di <a href=\"https://cloud.google.com/\">Google Cloud</a>.</li>\r\n<li>Google Cloud menawarkan <strong>$300 kredit gratis</strong> selama 12 bulan, serta layanan tertentu gratis selamanya (termasuk hosting di Firebase).</li>\r\n</ul>\r\n</li>\r\n<li><p><strong>Aktifkan Firebase Hosting</strong>:</p>\r\n<ul>\r\n<li>Firebase adalah layanan Google Cloud untuk hosting web statis secara gratis dalam batas wajar.</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<hr>\r\n<h3 id=\"2-buat-project-firebase\">2. <strong>Buat Project Firebase</strong></h3>\r\n<ol>\r\n<li><p><strong>Buka Firebase Console</strong>: <a href=\"https://console.firebase.google.com/\">Firebase Console</a>.</p>\r\n</li>\r\n<li><p><strong>Buat Project Baru</strong>:</p>\r\n<ul>\r\n<li>Klik <strong>Add Project</strong>.</li>\r\n<li>Beri nama proyek, misalnya <code>guestbook-static</code>.</li>\r\n<li>Ikuti langkah hingga proyek selesai dibuat.</li>\r\n</ul>\r\n</li>\r\n<li><p><strong>Aktifkan Hosting</strong>:</p>\r\n<ul>\r\n<li>Di dashboard proyek, pilih <strong>Build</strong> &gt; <strong>Hosting</strong>.</li>\r\n<li>Klik <strong>Get Started</strong>.</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<hr>\r\n<h3 id=\"3-persiapkan-html-static\">3. <strong>Persiapkan HTML Static</strong></h3>\r\n<ol>\r\n<li><p><strong>Buat File HTML Static</strong>:</p>\r\n<ul>\r\n<li>Buat file bernama <code>index.html</code> di komputer Anda. Berikut contoh HTML sederhana dengan form untuk mencatat guestbook:</li>\r\n</ul>\r\n<pre><code class=\"language-html\">&lt;!DOCTYPE html&gt;\r\n&lt;html lang=&quot;en&quot;&gt;\r\n&lt;head&gt;\r\n    &lt;meta charset=&quot;UTF-8&quot;&gt;\r\n    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;\r\n    &lt;title&gt;Guestbook&lt;/title&gt;\r\n&lt;/head&gt;\r\n&lt;body&gt;\r\n    &lt;h1&gt;Welcome to My Guestbook&lt;/h1&gt;\r\n    &lt;form id=&quot;guestbook-form&quot;&gt;\r\n        &lt;input type=&quot;text&quot; id=&quot;name&quot; placeholder=&quot;Your Name&quot; required&gt;\r\n        &lt;textarea id=&quot;message&quot; placeholder=&quot;Your Message&quot; required&gt;&lt;/textarea&gt;\r\n        &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;\r\n    &lt;/form&gt;\r\n    &lt;ul id=&quot;guestbook-list&quot;&gt;&lt;/ul&gt;\r\n    &lt;script&gt;\r\n        const form = document.getElementById(&#39;guestbook-form&#39;);\r\n        const list = document.getElementById(&#39;guestbook-list&#39;);\r\n\r\n        form.addEventListener(&#39;submit&#39;, async (e) =&gt; {\r\n            e.preventDefault();\r\n            const name = document.getElementById(&#39;name&#39;).value;\r\n            const message = document.getElementById(&#39;message&#39;).value;\r\n\r\n            await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {\r\n                method: &#39;POST&#39;,\r\n                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },\r\n                body: JSON.stringify({ name, message, date: new Date().toISOString() })\r\n            });\r\n\r\n            const listItem = document.createElement(&#39;li&#39;);\r\n            listItem.textContent = `${name}: ${message}`;\r\n            list.appendChild(listItem);\r\n\r\n            form.reset();\r\n        });\r\n    &lt;/script&gt;\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n</code></pre>\r\n</li>\r\n</ol>\r\n<hr>\r\n<h3 id=\"4-host-di-firebase\">4. <strong>Host di Firebase</strong></h3>\r\n<ol>\r\n<li><p><strong>Install Firebase CLI</strong>:</p>\r\n<ul>\r\n<li>Instal <a href=\"https://firebase.google.com/docs/cli\">Firebase CLI</a> di komputer Anda.</li>\r\n<li>Jalankan:<pre><code class=\"language-bash\">npm install -g firebase-tools\r\n</code></pre>\r\n</li>\r\n</ul>\r\n</li>\r\n<li><p><strong>Login ke Firebase</strong>:</p>\r\n<pre><code class=\"language-bash\">firebase login\r\n</code></pre>\r\n</li>\r\n<li><p><strong>Inisialisasi Proyek</strong>:</p>\r\n<ul>\r\n<li>Di direktori tempat <code>index.html</code> berada, jalankan:<pre><code class=\"language-bash\">firebase init\r\n</code></pre>\r\n</li>\r\n<li>Pilih <strong>Hosting</strong> &gt; Proyek yang telah dibuat &gt; <strong>Public Directory</strong> isikan <code>.</code> &gt; Yes untuk SPA.</li>\r\n</ul>\r\n</li>\r\n<li><p><strong>Deploy</strong>:</p>\r\n<ul>\r\n<li>Jalankan:<pre><code class=\"language-bash\">firebase deploy\r\n</code></pre>\r\n</li>\r\n<li>URL hosting akan diberikan, misalnya: <code>https://guestbook-static.web.app</code>.</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<hr>\r\n<h3 id=\"5-catat-data-di-firebase-realtime-database\">5. <strong>Catat Data di Firebase Realtime Database</strong></h3>\r\n<ol>\r\n<li><p><strong>Aktifkan Realtime Database</strong>:</p>\r\n<ul>\r\n<li>Di Firebase Console, pilih <strong>Build</strong> &gt; <strong>Realtime Database</strong>.</li>\r\n<li>Klik <strong>Create Database</strong> &gt; Pilih lokasi &gt; Set mode ke <strong>test mode</strong> (untuk testing).</li>\r\n</ul>\r\n</li>\r\n<li><p><strong>Ganti Endpoint di JavaScript</strong>:</p>\r\n<ul>\r\n<li>Update URL di script:<pre><code class=\"language-javascript\">await fetch(&#39;https://your-project-id.firebaseio.com/guestbook.json&#39;, {\r\n</code></pre>\r\n</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<hr>\r\n<h3 id=\"6-domain-name-custom-opsional\">6. <strong>Domain Name Custom (Opsional)</strong></h3>\r\n<p>Jika punya domain, Anda bisa menghubungkannya ke Firebase Hosting:</p>\r\n<ol>\r\n<li>Buka <strong>Hosting</strong> di Firebase Console.</li>\r\n<li>Tambahkan domain custom dan verifikasi melalui DNS.</li>\r\n</ol>\r\n<hr>\r\n<p>Hasilnya, Anda akan memiliki website HTML static gratis dengan fitur guestbook yang mencatat data di Firebase Realtime Database.</p>\r\n",
+  "keywords": "hosting, cloud, static,",
+  "image": "https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg"
+}
+  </script>
+  <link rel="stylesheet" href="/post-html.css">
+  <script src="/post-html-main.js"></script>
+</head>
+<body>
+  <h1>Hosting HTML Static Secara Gratis di Google Cloud</h1>
+  <p><strong>Author:</strong> Master</p>
+  <p><strong>Body:</strong> <p>Berikut adalah langkah-langkah membuat dan menghosting <strong>HTML static</strong> di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat guestbook:</p>
 <hr>
 <h3 id="1-setup-google-cloud-free-tier">1. <strong>Setup Google Cloud Free Tier</strong></h3>
 <ol>
@@ -149,19 +611,21 @@
 <hr>
 <p>Hasilnya, Anda akan memiliki website HTML static gratis dengan fitur guestbook yang mencatat data di Firebase Realtime Database.</p>
 </p>
-      <p><strong>Category:</strong> hosting</p>
-      <p><strong>Tags:</strong> hosting, cloud, static,</p>
-      <p><strong>Created At:</strong> 12/8/2024, 6:31:30 AM</p>
-      <hr>
+  <p><strong>Category:</strong> hosting</p>
+  <p><strong>Tags:</strong> hosting, cloud, static,</p>
+        <hr>
       <p><strong>Image File:</strong></p>
       <ul>
         <li>Filename: harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg</li>
         <li>URL: <a href="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg" target="_blank">https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg</a></li>
       </ul>
-      <hr>
-      <p><strong>IP:</strong> 2400:9800:6032:120f:9009:9179:75e1:4e56</p>
-      <p><strong>User Agent:</strong> Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</p>
-      <p><strong>Referrer:</strong> <a href="https://postnetlify.netlify.app/ed" target="_blank">https://postnetlify.netlify.app/ed</a></p>
-    </body>
-    </html>
-  
+  <hr>
+  <p><strong>IP:</strong> 2400:9800:6032:120f:9009:9179:75e1:4e56</p>
+  <p><strong>User Agent:</strong> Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</p>
+  <p><strong>Referrer:</strong> https://postnetlify.netlify.app/ed</p>
+  <p><strong>Created At:</strong> 12/8/2024, 6:31:30 AM</p>
+
+
+      
+</body>
+</html>
