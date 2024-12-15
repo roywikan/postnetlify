@@ -1,3 +1,87 @@
+### A. Penjelasan Cara Penggunaan Script Static file (re)creator di URL `https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic`
+
+Script yang Anda gunakan memungkinkan parameter opsional `RECREATE` di URL untuk mengatur apakah file statis di direktori `/static` harus dibuat ulang atau tidak. Berikut adalah cara penggunaan dan pengaruh parameter tersebut:
+
+---
+
+#### 1. **Tanpa Parameter `RECREATE`**
+**URL yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic
+```
+
+**Penjelasan:**
+- Jika Anda tidak menambahkan parameter `RECREATE` di URL, nilai default dari `RECREATE` dalam script akan menjadi `false`.
+- Artinya, file statis yang sudah ada di direktori `/static` tidak akan dibuat ulang atau ditimpa.
+- Hanya file baru yang belum ada yang akan dibuat.
+
+**Kondisi dalam script:**
+```javascript
+const params = new URLSearchParams(event.queryStringParameters);
+const RECREATE = params.has('RECREATE') ? params.get('RECREATE') === 'true' : false;
+// RECREATE akan menjadi `false` secara default.
+```
+
+---
+
+#### 2. **Dengan Parameter `RECREATE=true`**
+**URL yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic?RECREATE=true
+```
+
+**Penjelasan:**
+- Dengan menambahkan `RECREATE=true` di URL, variabel `RECREATE` dalam script akan bernilai `true`.
+- Semua file statis di direktori `/static` akan dibuat ulang, bahkan jika file dengan nama yang sama sudah ada.
+- File lama akan ditimpa oleh versi baru.
+
+**Kondisi dalam script:**
+```javascript
+const params = new URLSearchParams(event.queryStringParameters);
+const RECREATE = params.has('RECREATE') ? params.get('RECREATE') === 'true' : false;
+// RECREATE akan menjadi `true` jika parameter ada dan bernilai "true".
+```
+
+---
+
+#### 3. **Dengan Parameter `RECREATE=false`**
+**URL yang digunakan:**
+```plaintext
+https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic?RECREATE=false
+```
+
+**Penjelasan:**
+- Dengan menambahkan `RECREATE=false` di URL, variabel `RECREATE` dalam script akan bernilai `false`.
+- Ini sama dengan kondisi default tanpa parameter, yaitu file yang sudah ada tidak akan dibuat ulang atau ditimpa.
+- Hanya file baru yang belum ada yang akan dibuat.
+
+**Kondisi dalam script:**
+```javascript
+const params = new URLSearchParams(event.queryStringParameters);
+const RECREATE = params.has('RECREATE') ? params.get('RECREATE') === 'true' : false;
+// RECREATE akan menjadi `false` jika parameter ada tetapi bernilai "false".
+```
+
+---
+
+### Ringkasan Tabel Perilaku
+| URL Parameter       | Nilai `RECREATE` | Perilaku                                   |
+|---------------------|------------------|--------------------------------------------|
+| Tidak ada parameter | `false`          | File yang sudah ada tidak ditimpa.         |
+| `RECREATE=true`     | `true`           | Semua file, termasuk yang sudah ada, ditimpa. |
+| `RECREATE=false`    | `false`          | Sama seperti default, file lama tidak ditimpa.|
+
+---
+
+Dengan dokumentasi ini, pengguna dapat memahami cara menggunakan endpoint tersebut sesuai kebutuhan untuk membuat ulang file statis atau menjaga file yang sudah ada.
+
+
+
+
+
+
+### B. Penjelasan Cara Penggunaan Script single Static file generator berbasis slug, di URL `https://postnetlify.netlify.app/generate?slugnya-blah-123`
+
 Hasil pengujian https://postnetlify.netlify.app/generate?slug=saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549 
 mendapatkan hasil : 
 {"message":"File saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html saved successfully to GitHub","url":"https://github.com/roywikan/postnetlify/blob/main/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html"}
