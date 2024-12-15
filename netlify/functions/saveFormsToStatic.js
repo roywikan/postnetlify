@@ -47,6 +47,12 @@ exports.handler = async (event) => {
     }
 
     const submissions = await response.json();
+    console.log("Raw API Response:", submissions);
+
+
+
+
+    
 
     // Step 2: Buat direktori sementara di /tmp
     const tmpPath = path.join("/tmp", "static");
@@ -61,6 +67,7 @@ exports.handler = async (event) => {
 
 exports.handler = async (event) => {
   try {
+    
     const templatePath = path.join(__dirname, "static-post-template.html");
     const template = fs.readFileSync(templatePath, "utf8");
 
@@ -75,8 +82,26 @@ exports.handler = async (event) => {
         .replace("{{body}}", submission.data.bodypost || "No content");
 
       const filePath = path.join(tmpPath, `${slug}.html`);
+      console.log(`File will be created: ${filePath}`);
+
       fs.writeFileSync(filePath, htmlContent, "utf8");
     });
+
+
+    submissions.forEach((submission, index) => {
+  console.log("Submission Data:", submission);
+});
+
+    
+
+    if (!submissions || submissions.length === 0) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "No submissions found!" }),
+  };
+}
+
+    
 
     return {
       statusCode: 200,
