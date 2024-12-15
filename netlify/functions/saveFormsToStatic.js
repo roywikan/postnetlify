@@ -40,6 +40,15 @@ exports.handler = async (event) => {
 
     const submissions = await response.json();
 
+//print properties dari submission
+submissions.forEach((submission, index) => {
+  console.log(`Submission ${index + 1} keys:`, Object.keys(submission.data));
+});
+
+
+
+
+    
     // Step 2: Buat direktori sementara di /tmp
     const tmpPath = path.join("/tmp", "static");
     if (!fs.existsSync(tmpPath)) {
