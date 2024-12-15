@@ -60,52 +60,72 @@ exports.handler = async (event) => {
       fs.mkdirSync(tmpPath, { recursive: true });
     }
 
-    // Step 3: Tulis file sementara
+
     //template file diletakkan di : https://github.com/roywikan/postnetlify/blob/main/netlify/functions/static-post-template.html
     // atau di https://postnetlify.netlify.app/.netlify/functions/static-post-template.html
+    // Step 3: Tulis file sementara
 
+//const axios = require("axios");
+//const fs = require("fs");
+//const path = require("path");
+
+const templateURL = "https://raw.githubusercontent.com/roywikan/postnetlify/main/netlify/functions/static-post-template.html";
 
 exports.handler = async (event) => {
   try {
-    
-    const templatePath = path.join(__dirname, "static-post-template.html");
-    const template = fs.readFileSync(templatePath, "utf8");
+    // Fetch the template from the external URL
+    const getTemplateFromURL = async () => {
+      const response = await axios.get(templateURL);
+      return response.data;
+    };
+
+    const template = await getTemplateFromURL();
 
 
 
+    if (!submissions || submissions.length === 0) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "No submissions found!" }),
+      };
+    }
 
+    // Temporary directory for writing files
+    const tmpPath = path.join("/tmp", "static");
+    if (!fs.existsSync(tmpPath)) {
+      fs.mkdirSync(tmpPath, { recursive: true });
+    }
+
+    // Initialize log object
+    const logData = [];
+
+    // Step 3: Process and write files
     submissions.forEach((submission, index) => {
-      const slug = submission.data.slug || `submission-${index + 1}`; // Nama file dari slug
+      const slug = submission.data.slug || `submission-${index + 1}`;
       const htmlContent = template
         .replace("{{title}}", submission.data.title || `Submission ${index + 1}`)
         .replace("{{author}}", submission.data.author || "Unknown")
         .replace("{{body}}", submission.data.bodypost || "No content");
 
       const filePath = path.join(tmpPath, `${slug}.html`);
-      console.log(`File will be created: ${filePath}`);
-
       fs.writeFileSync(filePath, htmlContent, "utf8");
+
+      // Add log entry
+      logData.push({
+        index,
+        slug,
+        filePath,
+        title: submission.data.title || `Submission ${index + 1}`,
+        status: "Created",
+      });
     });
-
-
-    submissions.forEach((submission, index) => {
-  console.log("Submission Data:", submission);
-});
-
-    
-
-    if (!submissions || submissions.length === 0) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "No submissions found!" }),
-  };
-}
-
-    
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Files created successfully!" }),
+      body: JSON.stringify({
+        message: "Files created successfully!",
+        files: logData,
+      }),
     };
   } catch (error) {
     return {
