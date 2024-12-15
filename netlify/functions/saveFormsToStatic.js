@@ -72,6 +72,51 @@ submissions.forEach((submission, index) => {
 
     
     // Step 3: Tulis file sementara
+/*
+    // Data level tertinggi
+const number = submission.number || null;
+const title = submission.title || null;
+const email = submission.email || null;
+const name = submission.name || null;
+const firstName = submission.first_name || null;
+const lastName = submission.last_name || null;
+const company = submission.company || null;
+const summary = submission.summary || null;
+const body = submission.body || null;
+const createdAt = submission.created_at || null;
+const id = submission.id || null;
+const formId = submission.form_id || null;
+const siteUrl = submission.site_url || null;
+const siteName = submission.site_name || null;
+const formName = submission.form_name || null;
+
+// Data di dalam submission.data
+const dataTitle = submission.data?.title || null;
+const slug = submission.data?.slug || null;
+const tags = submission.data?.tags || null;
+const category = submission.data?.category || null;
+const bodyPost = submission.data?.bodypost || null;
+const author = submission.data?.author || null;
+const imageFile = submission.data?.imagefile || null; // Bisa berupa objek
+const imageFileName = submission.data?.imagefile?.filename || null;
+const imageFileUrl = submission.data?.imagefile?.url || null;
+const ip = submission.data?.ip || null;
+const userAgent = submission.data?.user_agent || null;
+const referrer = submission.data?.referrer || null;
+
+// Data di dalam submission.human_fields
+const humanTitle = submission.human_fields?.Title || null;
+const humanSlug = submission.human_fields?.Slug || null;
+const humanTags = submission.human_fields?.Tags || null;
+const humanCategory = submission.human_fields?.Category || null;
+const humanBodyPost = submission.human_fields?.Bodypost || null;
+const humanAuthor = submission.human_fields?.Author || null;
+const humanImageFile = submission.human_fields?.Imagefile || null;
+
+// Data di dalam submission.ordered_human_fields (array)
+const orderedHumanFields = submission.ordered_human_fields || [];
+*/
+    
     /*
     submissions.forEach((submission, index) => {
       const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
@@ -89,8 +134,8 @@ submissions.forEach((submission, index) => {
       fs.writeFileSync(filePath, htmlContent, "utf8");
     }); */
 
-
-    submissions.forEach((submission, index) => {
+submissions.forEach((submission, index) => {
+  // Destructuring dari submission.data
   const { 
     title, 
     slug, 
@@ -104,6 +149,12 @@ submissions.forEach((submission, index) => {
     referrer 
   } = submission.data;
 
+  // Properti tambahan dari submission di luar data
+  const createdAt = submission.created_at || null;
+  const imageFileName = imagefile?.filename || "No filename";
+  const imageFileUrl = imagefile?.url || "No URL";
+
+  // HTML content generation
   const htmlContent = `
     <html>
     <head>
@@ -111,23 +162,32 @@ submissions.forEach((submission, index) => {
     </head>
     <body>
       <h1>${title || `Submission ${index + 1}`}</h1>
-      <p>Author: ${author || "Unknown"}</p>
-      <p>Body: ${bodypost || "No content"}</p>
-      <p>Category: ${category || "Uncategorized"}</p>
-      <p>Tags: ${tags || "No tags"}</p>
-      <p>Image File: ${imagefile || "No image"}</p>
+      <p><strong>Author:</strong> ${author || "Unknown"}</p>
+      <p><strong>Body:</strong> ${bodypost || "No content"}</p>
+      <p><strong>Category:</strong> ${category || "Uncategorized"}</p>
+      <p><strong>Tags:</strong> ${tags || "No tags"}</p>
+      <p><strong>Created At:</strong> ${new Date(createdAt).toLocaleString() || "Unknown Date"}</p>
       <hr>
-      <p>IP: ${ip || "Unknown"}</p>
-      <p>User Agent: ${user_agent || "Unknown"}</p>
-      <p>Referrer: ${referrer || "Unknown"}</p>
+      <p><strong>Image File:</strong></p>
+      <ul>
+        <li>Filename: ${imageFileName}</li>
+        <li>URL: <a href="${imageFileUrl}" target="_blank">${imageFileUrl}</a></li>
+      </ul>
+      <hr>
+      <p><strong>IP:</strong> ${ip || "Unknown"}</p>
+      <p><strong>User Agent:</strong> ${user_agent || "Unknown"}</p>
+      <p><strong>Referrer:</strong> <a href="${referrer}" target="_blank">${referrer || "Unknown"}</a></p>
     </body>
     </html>
   `;
 
-  const filePath = path.join(tmpPath, `${slug || `submission-${index + 1}`}.html`);
+  // Penulisan file HTML
+  const filePath = path.join(
+    tmpPath, 
+    `${slug || `submission-${index + 1}`}.html`
+  );
   fs.writeFileSync(filePath, htmlContent, "utf8");
 });
-
 
 
 
