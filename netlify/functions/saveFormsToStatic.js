@@ -67,16 +67,20 @@ exports.handler = async (event) => {
 
 submissions.forEach((submission, index) => {
   const slug = submission.data.slug || submission-${index + 1}; // Gunakan slug jika ada, fallback ke nama default
-  const htmlContent = 
-    <html>
-    <head><title>${submission.data.title || Submission ${index + 1}}</title></head>
-    <body>
-      <h1>${submission.data.title || Submission ${index + 1}}</h1>
-      <p>Author: ${submission.data.author || "Unknown"}</p>
-      <p>Body: ${submission.data.bodypost || "No content"}</p>
-    </body>
-    </html>
-  ;
+
+
+const htmlContent = `
+  <html>
+  <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
+  <body>
+    <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
+    <p>Author: ${submission.data.author || "Unknown"}</p>
+    <p>Body: ${submission.data.bodypost || "No content"}</p>
+  </body>
+  </html>
+`;
+
+
   const filePath = path.join(tmpPath, ${slug}.html); // Nama file berdasarkan slug
   fs.writeFileSync(filePath, htmlContent, "utf8");
 });
