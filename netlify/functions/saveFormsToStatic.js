@@ -280,7 +280,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
     <!-- Container for post content -->
     <div id="post-container" class="post-container">
         <figure>
-            <img itemprop="image" id="post-image" class="post-image" alt="${imageFileName}" style="top: 40%;" src="/350x600xBW.webp"  />
+            <img itemprop="image" id="post-image" class="post-image" alt="${imageFileName}" style="top: 40%;" src="${imageFileUrl}"  />
             <!-- URL: <a href="${imageFileUrl}" target="_blank">${imageFileUrl}</a -->
         </figure>
 
@@ -305,7 +305,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
           </script>
         </div><!-- class post-body ditutup -->
       <br><br><br><br>
-            <p>IP: ${ip || "Unknown IP"} | UA: ${user_agent || "Unknown UA"} | Ref: ${referrer || "Unknown Ref"}</p>   
+            <!-- p>IP: ${ip || "Unknown IP"} | UA: ${user_agent || "Unknown UA"} | Ref: ${referrer || "Unknown Ref"}</p -->   
       <br>
     </div><!-- class post-container ditutup -->
     
@@ -332,7 +332,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
   
 
     <script>
-      document.addEventListener('DOMContentLoaded', async () => {
+      /* document.addEventListener('DOMContentLoaded', async () => {
         await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
         updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
       });
@@ -340,6 +340,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 
       // Panggil fungsi saat halaman dimuat
       document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+      */
 
     </script>
 
