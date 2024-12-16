@@ -167,7 +167,7 @@ submissions.forEach((submission, index) => {
   //adaptasi dari post-simplified.html dan post-html-main.js
   //
    const metaDescription = bodypost ? bodypost.slice(0, 155) : "No content available"; // First 155 chars
-   const url             = window.location.href;
+   //const url             = window.location.href;
 
    // Properti tambahan lainnya
 
