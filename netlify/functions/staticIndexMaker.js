@@ -73,7 +73,7 @@ exports.handler = async () => {
     const finalHTML = templateHTML.replace("{{POSTS}}", postListHTML);
 
     // Save to file
-    const outputPath = path.join(__dirname, "../index-static.html");
+    const outputPath = path.resolve("./index-static.html");
     fs.writeFileSync(outputPath, finalHTML, "utf8");
 
     console.log(`File generated: ${outputPath}`);
