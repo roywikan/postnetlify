@@ -144,7 +144,6 @@ const orderedHumanFields = submission.ordered_human_fields || [];
 submissions.forEach((submission, index) => {
   const { 
     title,
-    
     slug, 
     tags, 
     category, 
@@ -167,7 +166,7 @@ submissions.forEach((submission, index) => {
 
   //adaptasi dari post-simplified.html dan post-html-main.js
   //
-    // Fungsi untuk membersihkan bodypost
+  // Fungsi untuk membersihkan bodypost
   const cleanText = (text) => {
     if (!text) return "";
     return text
@@ -175,9 +174,11 @@ submissions.forEach((submission, index) => {
       .replace(/[^\x20-\x7E]/g, ""); // Hapus semua simbol non-ASCII
   };
 
+  const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
+  const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No bodypost content available"; // First 155 chars
 
-   const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
-   const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No content available"; // First 155 chars
+
+
    //const url             = window.location.href;
 
    // Properti tambahan lainnya
@@ -195,16 +196,16 @@ submissions.forEach((submission, index) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" id="meta-description" content="${metaDescription || "No description"}">
+  <meta name="description" id="meta-description" content="${metaDescription || "No meta description"}">
   <meta name="author" id="meta-author" content="${author || "Unknown"}">
 
   <meta property="og:title" content="${safeTitle}">
-  <meta property="og:description" content="${metaDescription || "No description"}">
+  <meta property="og:description" content="${metaDescription || "No og description"}">
   <meta property="og:image" content="${imageFileUrl}">
   <meta property="og:url" content="${referrer || "Unknown"}">
 
   <meta name="twitter:title" content="${safeTitle}">
-  <meta name="twitter:description" content="${metaDescription || "No description"}">
+  <meta name="twitter:description" content="${metaDescription || "No twitter description"}">
   <meta name="twitter:image" content="${imageFileUrl}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="dns-prefetch" href="https://res.cloudinary.com">
@@ -222,7 +223,7 @@ submissions.forEach((submission, index) => {
       "name": author || "Unknown"
     },
     "datePublished": createdAt,
-    "articleBody": metaDescription || "no article text ",
+    "articleBody": metaDescription || "no article body text ",
     "keywords": tags || "",
     "image": imageFileUrl
   }, null, 2)}
