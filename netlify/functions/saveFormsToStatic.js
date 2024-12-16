@@ -259,7 +259,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
       </nav>
   
       <!-- Post Title -->
-        <h1 class="post-title" style="display: none;" itemprop="headline">
+        <h1 class="post-title" style="" itemprop="headline">
           <span id="post-title">${safeTitle}</span>
         </h1>
     </header>
@@ -267,7 +267,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 
 
     <!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
-    <div id="post-meta" class="post-meta" style="display: none;">
+    <div id="post-meta" class="post-meta" style="">
       <div itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span id="post-author" itemprop="name">${author || "Unknown Author"}</span>
       </div>
