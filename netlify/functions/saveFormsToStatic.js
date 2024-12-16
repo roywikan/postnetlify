@@ -144,7 +144,7 @@ const orderedHumanFields = submission.ordered_human_fields || [];
 submissions.forEach((submission, index) => {
   const { 
     title,
-    summary,
+    
     slug, 
     tags, 
     category, 
@@ -167,7 +167,17 @@ submissions.forEach((submission, index) => {
 
   //adaptasi dari post-simplified.html dan post-html-main.js
   //
-   const metaDescription = summary ? summary.slice(0, 155) : "No content available"; // First 155 chars
+    // Fungsi untuk membersihkan bodypost
+  const cleanText = (text) => {
+    if (!text) return "";
+    return text
+      .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
+      .replace(/[^\x20-\x7E]/g, ""); // Hapus semua simbol non-ASCII
+  };
+
+
+   const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
+   const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No content available"; // First 155 chars
    //const url             = window.location.href;
 
    // Properti tambahan lainnya
