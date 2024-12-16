@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
             <url>
+              <loc>https://postnetlify.netlify.app/post/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670</loc>
+              <lastmod>2024-12-15T07:29:31.192Z</lastmod>
+              <priority>0.5</priority>
+            </url>
+
+          
+            <url>
               <loc>https://postnetlify.netlify.app/post/write-static-html-generator-using-netlify-function-into-github-122</loc>
               <lastmod>2024-12-14T22:20:57.475Z</lastmod>
               <priority>0.5</priority>
