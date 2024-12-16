@@ -27,6 +27,11 @@
   to = "/.netlify/functions/saveFormsToStatic"
   status = 200
 
+[[redirects]]
+  from = "/staticIndexMaker/*"
+  to = "/.netlify/functions/staticIndexMaker"
+  status = 200
+
 [functions]
 included_files = ["netlify/functions/static-post-template.html"]
 
