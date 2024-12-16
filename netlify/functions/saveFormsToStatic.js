@@ -175,7 +175,31 @@ submissions.forEach((submission, index) => {
   };
 
   const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
-  const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No bodypost content available"; // First 155 chars
+  //const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No bodypost content available"; // First 155 chars
+
+  const truncateToWords = (text, maxLength) => {
+  if (!text) return "";
+  
+  const words = text.split(/\s+/); // Pecah teks berdasarkan spasi
+  let truncated = "";
+  
+  for (const word of words) {
+    if ((truncated + word).length > maxLength) break;
+    truncated += (truncated ? " " : "") + word;
+  }
+
+  return truncated;
+};
+
+// Menghasilkan metaDescription dengan batas 155 karakter
+const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost content available";
+
+
+
+
+
+
+  
 
 
 
