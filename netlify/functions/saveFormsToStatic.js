@@ -333,7 +333,9 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
           const decodedContent = Buffer.from(existingContent, "base64").toString("utf8");
           if (decodedContent === fileContent) {
             console.log(`${fileName} is already up-to-date. Skipping upload.`);
-            report.push({ file: fileName, status: "skipped" });
+            report.push({ file: fileName, status: "skipped",
+                   time: new Date().toLocaleString()  
+                   });
             continue;
           }
         }
@@ -361,7 +363,10 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
       );
 
       console.log(`${fileName} uploaded successfully.`);
-      report.push({ file: fileName, status: sha ? "updated" : "created" });
+      report.push({ file: fileName, 
+                   status: sha ? "updated" : "created",
+                   time: new Date().toLocaleString()  
+                  });
     }
 
     return {
