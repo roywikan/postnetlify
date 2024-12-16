@@ -285,7 +285,9 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
         </figure>
 
         <!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
-        <div id="post-body" class="post-body" style="display: none;" itemprop="articleBody">${bodypost || "No content"}</div>
+        <div id="post-body" class="post-body" style="" itemprop="articleBody">${bodypost || "No bodypost content"}
+        </div><!-- class post-body ditutup -->
+        
           <!-- start of  Comment Section -->
             <br><br>
               <div id="comment_thread"></div>
@@ -302,7 +304,9 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 
           </script>
         </div><!-- class post-body ditutup -->
-      <br><br>
+      <br><br><br><br>
+            <p>IP: ${ip || "Unknown IP"} | UA: ${user_agent || "Unknown UA"} | Ref: ${referrer || "Unknown Ref"}</p>   
+      <br>
     </div><!-- class post-container ditutup -->
     
     <!-- Placeholder untuk Footer -->
@@ -357,10 +361,8 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 
 
 
-    <hr>
-    <p><strong>IP:</strong> ${ip || "Unknown IP"}</p>
-    <p><strong>User Agent:</strong> ${user_agent || "Unknown UA"}</p>
-    <p><strong>Referrer:</strong> ${referrer || "Unknown Ref"}</p>   
+    
+
   
   </div><!-- class container ditutup -->
 
