@@ -179,7 +179,7 @@ exports.handler = async () => {
 
         return `
 <div class="grid-item">
-  <a href="/post/${slug}" style="text-decoration: none; color: inherit;">
+  <a href="/static/${slug}" style="text-decoration: none; color: inherit;">
     <img src="${imageUrl}" alt="${title}" />
     <h2>${title}</h2>
     <p>${snippet}</p>
