@@ -38,20 +38,122 @@ exports.handler = async () => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Static Posts</title>
+  <meta name="description" id="meta-description" content="desc">
+  <meta name="author" id="meta-author" content="Roy">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">Static Page Title</title>
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+
   <link rel="stylesheet" href="/index-html.css">
+    
 </head>
 <body>
+
+
+
+
+<div class="container">
+
   <header>
-    <h1>Posts</h1>
+    <nav class="menu">
+      <a href="/login/">Login</a> | 
+      <a href="#search_input" onclick="focusSearchInput()">Search</a>
+    </nav>
+  
+    <!-- Post Title -->
+    <h1 style="display: block;">Posts</h1>
+    <span id="post-title"></span>
+  
   </header>
-  <div id="post-list" class="grid">
-    {{POSTS}}
-  </div>
-  <footer>
-    <p>&copy; 2024 Your Blog Name. All Rights Reserved.</p>
+    
+  <div id="post-list" class="grid" style="display: flex;">
+
+
+    
+          {{POSTS}}
+  
+  
+          
+          
+  </div><!-- class grid ditutup -->
+    
+  <div id="pagination" class="pagination" style="display: flex;">
+      <ul class="pagination">
+        <li>
+            <a href="#" class="pagination-button active" onclick="changePage(1)">1</a>
+        </li>
+      </ul>
+  </div><!-- class pagination ditutup , diurus belakangan -->
+
+  <br>
+  
+  <script>
+    // Fungsi untuk memindahkan fokus ke input teks pencarian
+    function focusSearchInput() {
+      const searchInput = document.getElementById('search_input');
+      if (searchInput) {
+        searchInput.focus();
+      }
+    }
+
+    const searchFormLocation = document.getElementById('search_Form_Location');
+    if (searchFormLocation && searchFormLocation.parentNode) {
+      searchFormLocation.parentNode.insertBefore(focusLink, searchFormLocation);
+    }
+    
+  </script>
+
+  <div><!-- start of  Comment Section -->
+        <br><br>
+               
+        <div id="search_Form_Location">
+            <form method="get" target="_blank" action="/search/">
+              <input type="hidden" name="cx" value="c2e34c8ead538447e">
+              <input type="hidden" name="ie" value="UTF-8">
+              <input type="text" name="q" placeholder="Search..." id="search_input">
+              <button type="submit">Search</button>
+            </form>
+        </div><!-- id search_Form_Location ditutup -->
+        
+        <br><br>
+        
+        
+  
+  </div><!-- end of  Comment Section -->
+
+
+
+
+
+  
+</div><!-- class container ditutup -->
+
+
+
+<!-- Placeholder untuk Footer -->
+  <div id="footer-placeholder" class="footer-placeholder"></div>
+  <footer style="display: block;">
+    <nav class="footer-menu">
+      <a href="/login/">Login</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/tos">Terms</a>
+      <a href="/contact-us">Contact</a>
+      <a href="/sitemap.xml/">Map</a>
+      
+    </nav>
+    <br>
+    
+    <p>© <span id="current-year">2024</span> <span id="site-name">POSTNETLIFY.netlify.app</span>. All Rights Reserved.</p>
   </footer>
-</body>
+  
+  
+  
+  </body>
 </html>`;
 
     // Generate post list as HTML
@@ -62,6 +164,18 @@ exports.handler = async () => {
           ? bodypost.split(" ").slice(0, 15).join(" ") + "..."
           : "No description";
         const imageUrl = imagefile?.url || "/default-image.jpg";
+
+
+
+
+
+
+
+
+
+
+
+        
 
         return `
 <div class="grid-item">
