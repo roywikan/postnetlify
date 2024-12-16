@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="">
+  <meta name="author" id="meta-author" content="">
+  <meta name="robots" content="index, follow">
+
+  <title id="page-title">Post to Netlify Forms</title>
+
+  <!-- Prefetch DNS untuk Cloudinary -->
+<!-- link rel="dns-prefetch" href="https://via.placeholder.com" -->
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+
+<link rel="stylesheet" href="/index-html.css">
+    
+</head>
+<body>
+  
+
+
+
+
+
+  
+<div class="container">
+
+
+<header>
+  <nav class="menu">
+    <a href="/login/">Login</a> | 
+    <a href="#search_input" onclick="focusSearchInput()">Search</a>
+  </nav>
+  
+  <!-- Post Title -->
+  <h1>Posts</h1>
+    <span id="post-title"></span>
+  
+</header>
+    
+
+
+  
+    
+    <div id="post-list" class="grid"></div>
+    <div id="pagination" class="pagination"></div>
+
+<br><br><script>
+  
+
+  // Fungsi untuk mengganti pencarian Google CSE dengan form sederhana
+function createSearchForm() {
+  const form = document.createElement('form');
+  form.method = 'get';
+  form.target = '_blank'; // Membuka di tab baru
+  form.action = '/search/';
+
+  const cxInput = document.createElement('input');
+  cxInput.type = 'hidden';
+  cxInput.name = 'cx';
+  cxInput.value = 'c2e34c8ead538447e'; // ID mesin pencari Anda
+  form.appendChild(cxInput);
+
+  const ieInput = document.createElement('input');
+  ieInput.type = 'hidden';
+  ieInput.name = 'ie';
+  ieInput.value = 'UTF-8';
+  form.appendChild(ieInput);
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.name = 'q';
+  searchInput.placeholder = 'Search...';
+  searchInput.id = 'search_input'; // Tambahkan ID
+  form.appendChild(searchInput);
+
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Search';
+  form.appendChild(submitButton);
+
+  const searchFormLocation = document.getElementById('search_Form_Location');
+  if (searchFormLocation && searchFormLocation.parentNode) {
+    searchFormLocation.parentNode.insertBefore(form, searchFormLocation);
+  }
+
+
+  
+}
+
+
+
+  // Fungsi untuk memindahkan fokus ke input teks pencarian
+  function focusSearchInput() {
+    const searchInput = document.getElementById('search_input');
+    if (searchInput) {
+      searchInput.focus();
+    }
+  }
+
+
+
+const searchFormLocation = document.getElementById('search_Form_Location');
+if (searchFormLocation && searchFormLocation.parentNode) {
+  searchFormLocation.parentNode.insertBefore(focusLink, searchFormLocation);
+}
+    // Muat Google CSE hanya jika belum dimuat
+ 
+    //document.addEventListener('DOMContentLoaded', () => {
+        //createSearchForm();
+    //});
+
+    //loadCusdis();
+   
+  </script>
+
+      <div>
+        <!-- start of  Comment Section --><br><br><div id="search_Form_Location"></div><br><br><!-- end of  Comment Section -->
+        <script>
+    //document.addEventListener('DOMContentLoaded', () => {
+        //createSearchForm();
+    //});
+        </script>
+<!-- start of google PSE/CSE -->
+      <!-- script async src="https://cse.google.com/cse.js?cx=c2e34c8ead538447e">
+      </script -->
+      <div class="gcse-search"></div>
+<!-- end of google PSE/CSE -->      
+    </div>
+
+
+
+
+
+  
+  </div>
+
+
+
+
+
+  
+  
+  
+  
+  
+  <!-- Placeholder untuk Footer -->
+  <div id="footer-placeholder" class="footer-placeholder"></div>
+  <footer>
+    <nav class="footer-menu">
+      <a href="/login/">Login</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/tos">Terms</a>
+      <a href="/contact-us">Contact</a>
+      <a href="/sitemap.xml/">Map</a>
+      
+    </nav>
+    <br>
+    
+    <p>&copy; <span id="current-year"></span> <span id="site-name"></span>. All Rights Reserved.</p>
+  </footer>
+
+
+
+
+
+
+
+<!-- debug -->
+<div id="debug-info" class="debug-hidden">
+<p>
+    siteName :<span id="siteNameFooter"></span><br>
+    domain :<span id="domainFooter"></span><br>
+    subdomain :<span id="subdomainFooter"></span><br>
+    baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+    fullUrl :<span id="fullUrlFooter"></span><br>
+    path :<span id="pathFooter"></span><br>
+    supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+    current-year :<span id="current-yearFooter"></span><br>
+    site-name :<span id="site-nameFooter"></span><br>
+</p>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const url = new URL(window.location.href);
+        const subdomain = url.hostname.split('.')[0].toUpperCase();
+        const domain = url.hostname.split('.').slice(1).join('.');
+        const fullUrl = url.href;
+        const path = url.pathname === "/" ? "Home" : url.pathname;
+        const baseUrl = `${url.protocol}//${url.hostname}`;
+        const supportEmail = `support@${domain}`;
+
+        // Update dynamic content for main section
+        const siteNameElement = document.querySelector('#siteName');
+        if (siteNameElement) siteNameElement.textContent = `${subdomain}.${domain}`;
+        
+        const domainElement = document.querySelector('#domain');
+        if (domainElement) domainElement.textContent = domain;
+        
+        const subdomainElement = document.querySelector('#subdomain');
+        if (subdomainElement) subdomainElement.textContent = subdomain;
+        
+        const baseUrlElement = document.querySelector('#baseUrl');
+        if (baseUrlElement) {
+            baseUrlElement.textContent = baseUrl;
+            baseUrlElement.href = baseUrl;
+        }
+        
+        const fullUrlElement = document.querySelector('#fullUrl');
+        if (fullUrlElement) fullUrlElement.textContent = fullUrl;
+        
+        const pathElement = document.querySelector('#path');
+        if (pathElement) pathElement.textContent = path;
+        
+        const supportEmailElement = document.querySelector('#supportEmail');
+        if (supportEmailElement) {
+            supportEmailElement.textContent = supportEmail;
+            supportEmailElement.href = `mailto:${supportEmail}`;
+        }
+
+        // Set meta description
+        const descriptionMetaTag = document.querySelector('meta[name="description"]');
+        if (descriptionMetaTag) {
+            descriptionMetaTag.setAttribute('content', `Contact ${subdomain}.${domain}.`);
+        }
+
+        // Update page title
+        document.title = `Contact | ${subdomain}`;
+        
+        const currentYearElement = document.querySelector('#current-year');
+        if (currentYearElement) currentYearElement.textContent = new Date().getFullYear();
+        
+        const siteNameFooterElement = document.querySelector('#site-name');
+        if (siteNameFooterElement) siteNameFooterElement.textContent = `${subdomain}.${domain}`;
+
+        // Update dynamic content for footer section
+        const siteNameFooter = document.querySelector('#siteNameFooter');
+        if (siteNameFooter) siteNameFooter.textContent = `${subdomain}.${domain}`;
+        
+        const domainFooter = document.querySelector('#domainFooter');
+        if (domainFooter) domainFooter.textContent = domain;
+        
+        const subdomainFooter = document.querySelector('#subdomainFooter');
+        if (subdomainFooter) subdomainFooter.textContent = subdomain;
+        
+        const baseUrlFooter = document.querySelector('#baseUrlFooter');
+        if (baseUrlFooter) {
+            baseUrlFooter.textContent = baseUrl;
+            baseUrlFooter.href = baseUrl;
+        }
+        
+        const fullUrlFooter = document.querySelector('#fullUrlFooter');
+        if (fullUrlFooter) fullUrlFooter.textContent = fullUrl;
+        
+        const pathFooter = document.querySelector('#pathFooter');
+        if (pathFooter) pathFooter.textContent = path;
+        
+        const supportEmailFooter = document.querySelector('#supportEmailFooter');
+        if (supportEmailFooter) {
+            supportEmailFooter.textContent = supportEmail;
+            supportEmailFooter.href = `mailto:${supportEmail}`;
+        }
+
+        const currentYearFooter = document.querySelector('#current-yearFooter');
+        if (currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
+        
+        const siteNameFooterFinal = document.querySelector('#site-nameFooter');
+        if (siteNameFooterFinal) siteNameFooterFinal.textContent = `${subdomain}.${domain}`;
+
+    } catch (error) {
+        console.error("Error updating dynamic content:", error);
+    }
+});
+
+//Debugging akan muncul hanya jika Anda menambahkan ?debug=true ke URL, misalnya:
+//https://example.com/about.html?debug=true.
+if (window.location.search.includes('debug=true')) {
+    document.getElementById('debug-info').classList.remove('debug-hidden');
+}
+</script>
+
+
+  
+  
+  <script>
+
+// Fungsi untuk menunggu semua gambar selesai dimuat
+function waitForImages() {
+  const images = document.querySelectorAll('.grid-item img');
+  let loadedImages = 0;
+
+  // Jika tidak ada gambar, langsung panggil CSE
+  if (images.length === 0) {
+    //loadGoogleCSE();
+    return;
+  }
+
+  images.forEach(img => {
+    img.onload = () => {
+      loadedImages++;
+      if (loadedImages === images.length) {
+        // Semua gambar sudah dimuat, sekarang bisa memuat CSE
+        /////loadGoogleCSE();
+        createSearchForm();
+      }
+    };
+
+    // Jika gambar sudah dalam keadaan terload
+    if (img.complete) {
+      loadedImages++;
+    }
+  });
+}
+
+// Fungsi untuk memuat Google CSE
+function loadGoogleCSE() {
+  // Memastikan bahwa grid-item sudah ter-render
+  const checkPostsRendered = setInterval(() => {
+    const gridItems = document.querySelectorAll('.grid-item');
+    if (gridItems.length > 0) {
+      // Jika sudah ada grid-item yang ter-render, muat CSE
+      clearInterval(checkPostsRendered);
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = "https://cse.google.com/cse.js?cx=c2e34c8ead538447e";
+      script.onload = () => {
+        document.querySelector('.gcse-search').style.display = 'block'; // Menampilkan CSE setelah script dimuat
+      };
+      document.body.appendChild(script);
+    }
+  }, 100); // Cek setiap 100ms
+}
+
+
+
+    
+    
+    let currentPage = 1;
+    const postsPerPage = 12;
+
+    // Function to generate a snippet from the post body
+    function generateSnippet(body) {
+      const words = body.split(' ');
+      return words.slice(0, 15).join(' ') + (words.length > 15 ? '...' : '');
+    }
+
+
+
+
+
+
+
+
+    
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/.netlify/functions/readPosts');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        console.log('Posts fetched:', posts);
+
+        const postList = document.getElementById('post-list');
+        const pagination = document.getElementById('pagination');
+
+
+        const footer = document.querySelector('footer');
+        const footerPlaceholder = document.getElementById('footer-placeholder');
+        const h1 = document.querySelector('h1');
+
+        // Display h1 after container loads
+        h1.style.display = 'block';
+        
+
+        // Calculate the start and end index for the current page
+        const startIndex = (currentPage - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const paginatedPosts = posts.slice(startIndex, endIndex);
+
+        // Clear the post list and render the paginated posts
+        postList.innerHTML = '';
+        paginatedPosts.forEach(post => {
+          const imageUrl = post.data.imagefile?.url || '';
+          const snippet = generateSnippet(post.data.bodypost);
+
+          // Create each post item
+          const postElement = document.createElement('div');
+          // grid classes for responsive layout
+          postElement.classList.add('grid-item');
+
+
+          
+
+          postElement.innerHTML = `
+            <a href="/post/${post.data.slug}" style="text-decoration: none; color: inherit;">
+              ${post.data.imagefile ? `<img src="${post.data.imagefile.url}" alt="${post.data.title}">` : ''}
+              <h2>${post.data.title}</h2>
+              <p>${snippet}</p>
+            </a>
+          `;
+
+          
+
+          
+
+          postList.appendChild(postElement);
+
+          // Update SEO for meta title, description, and author
+          if (currentPage === 1) {
+            document.getElementById('meta-description').content = snippet;
+            document.getElementById('meta-author').content = post.data.author;
+            document.getElementById('page-title').innerText = post.data.title;
+          }
+        });
+
+        // Show grid after posts are rendered
+        postList.style.display = 'flex';
+
+        
+       // Handle pagination
+const totalPages = Math.ceil(posts.length / postsPerPage);
+let paginationHtml = '';
+for (let i = 1; i <= totalPages; i++) {
+  paginationHtml += `
+    <li>
+      <a href="#" 
+         class="pagination-button ${i === currentPage ? 'active' : ''}" 
+         onclick="changePage(${i})">
+        ${i}
+      </a>
+    </li>
+  `;
+}
+pagination.innerHTML = `<ul class="pagination">${paginationHtml}</ul>`;
+
+        // Show pagination after it is generated
+        pagination.style.display = 'flex';
+
+        
+        // Add 'noindex, follow' for pagination
+        if (currentPage > 1) {
+          document.querySelector('meta[name="robots"]').setAttribute('content', 'noindex, follow');
+        }
+
+
+        // Show footer after pagination
+        footer.style.display = 'block';
+      
+
+      // Setelah semua post selesai dimuat, baru load Google CSE
+      //loadGoogleCSE();
+      
+      // Another way, After all posts load, wait for images to be fully loaded
+      waitForImages();
+
+        
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        document.getElementById('post-list').innerHTML = `<p>Error fetching posts: ${error.message}</p>`;
+      }
+    }
+
+    function changePage(pageNumber) {
+      currentPage = pageNumber;
+      fetchPosts();
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchPosts);
+  </script>
+
+
+
+  
+<script>
+// Fungsi untuk menampilkan atau menyembunyikan footer berdasarkan scroll
+function toggleFooterOnScroll() {
+  const footer = document.querySelector('footer');
+  const windowHeight = window.innerHeight;  // Tinggi viewport
+  const bodyHeight = document.body.scrollHeight;  // Tinggi konten halaman
+  const scrollPosition = window.scrollY + windowHeight;  // Posisi scroll saat ini
+
+  // Pastikan footer hanya muncul jika scroll sudah mencapai bagian bawah halaman
+  if (bodyHeight > windowHeight) {
+    // Footer akan muncul jika sudah scroll ke bawah
+    if (scrollPosition >= bodyHeight) {
+      footer.style.bottom = '0';  // Menampilkan footer
+    } else {
+      footer.style.bottom = '-100px';  // Menyembunyikan footer
+    }
+  }
+  // Jika halaman tidak cukup panjang untuk scroll, sembunyikan footer
+  else {
+    footer.style.bottom = '-100px';  // Sembunyikan footer jika tidak ada scroll
+  }
+}
+
+
+
+
+</script>
+
+ 
+</body>
+</html>
