@@ -163,40 +163,55 @@ submissions.forEach((submission, index) => {
   const imageFileName = imagefile?.filename || "No filename";
   const imageFileUrl = imagefile?.url || "No image URL";
 
+
+  //adaptasi dari post-simplified.html dan post-html-main.js
+  //
+   const metaDescription = bodypost ? bodypost.slice(0, 155) : "No content available"; // First 155 chars
+   const url             = window.location.href;
+
+   // Properti tambahan lainnya
+
+  const pageUrl = referrer || "Unknown"; // Menggunakan referrer sebagai fallback untuk URL halaman
+  const safeTitle = title || `Submission ${index + 1}`; 
+  //const ogTitle = safeTitle;
+  //const twitterTitle = safeTitle; // Sama dengan ogTitle
+
+  
+
   const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" id="meta-description" content="${bodypost || "No description"}">
+  <meta name="description" id="meta-description" content="${metaDescription || "No description"}">
   <meta name="author" id="meta-author" content="${author || "Unknown"}">
 
-  <meta property="og:title" content="${title || "Untitled"}">
-  <meta property="og:description" content="${bodypost || "No description"}">
+  <meta property="og:title" content="${safeTitle}">
+  <meta property="og:description" content="${metaDescription || "No description"}">
   <meta property="og:image" content="${imageFileUrl}">
   <meta property="og:url" content="${referrer || "Unknown"}">
 
-  <meta name="twitter:title" content="${title || "Untitled"}">
-  <meta name="twitter:description" content="${bodypost || "No description"}">
+  <meta name="twitter:title" content="${safeTitle}">
+  <meta name="twitter:description" content="${metaDescription || "No description"}">
   <meta name="twitter:image" content="${imageFileUrl}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="dns-prefetch" href="https://res.cloudinary.com">
 
-  <title id="page-title">${title || `Submission ${index + 1}`}</title>
+  <title id="page-title">${safeTitle}</title>
 
   <!-- JSON-LD schema -->
   <script type="application/ld+json" id="json-ld-schema">
   ${JSON.stringify({
     "@context": "http://schema.org",
     "@type": "Article",
-    "headline": title || "Untitled",
+    "headline": safeTitle,
     "author": {
       "@type": "Person",
       "name": author || "Unknown"
     },
     "datePublished": createdAt,
-    "articleBody": bodypost || "",
+    "articleBody": metaDescription || "no article text ",
     "keywords": tags || "",
     "image": imageFileUrl
   }, null, 2)}
