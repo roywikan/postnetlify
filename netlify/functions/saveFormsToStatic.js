@@ -157,10 +157,13 @@ submissions.forEach((submission, index) => {
 
 
 
+
+
+
     // Properti tambahan dari submission di luar data
 
   const createdAt = submission.created_at || new Date().toISOString();
-  const imageFileName = imagefile?.filename || "No filename";
+
   const imageFileUrl = imagefile?.url || "No image URL";
 
 
@@ -194,11 +197,13 @@ submissions.forEach((submission, index) => {
 // Menghasilkan metaDescription dengan batas 155 karakter
 const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost content available";
 
+
    //const url             = window.location.href;
 
    // Properti tambahan lainnya
-  const pageUrl = referrer || "Unknown"; // Menggunakan referrer sebagai fallback untuk URL halaman
+  //const pageUrl = referrer || "Unknown"; // Menggunakan referrer sebagai fallback untuk URL halaman
   const safeTitle = title || `Submission ${index + 1}`; 
+  const imageFileName = safeTitle || metaDescription;
 
 
   
@@ -246,7 +251,7 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 </head>
 <body>
 
-  <div class="container" style="min-height: 1300px;"  itemscope itemtype="http://schema.org/Article" ><!-- belum ditutup -->
+  <div class="container" style="min-height: 1300px;"  itemscope itemtype="http://schema.org/Article" >
     <header>
       <nav class="menu">
         <a href="/">Home</a> | 
@@ -267,7 +272,108 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
         <span id="post-author" itemprop="name">${author || "Unknown Author"}</span>
       </div>
       <span id="post-category">Category :${category || "Uncategorized"}</span> <span id="post-tags">Tags: ${tags || "No tags"}</span> <time itemprop="datePublished" datetime="${new Date(createdAt).toLocaleString() || "Unknown Date"}"><span id="post-date">Date: ${new Date(createdAt).toLocaleString() || "Unknown Date"}</span></time>
+    </div><!-- class post-meta ditutup -->
+
+
+
+    
+    <!-- Container for post content -->
+    <div id="post-container" class="post-container">
+        <figure>
+            <img itemprop="image" id="post-image" class="post-image" alt="${imageFileName}" style="top: 40%;" src="/350x600xBW.webp"  />
+            <!-- URL: <a href="${imageFileUrl}" target="_blank">${imageFileUrl}</a -->
+        </figure>
+
+        <!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
+        <div id="post-body" class="post-body" style="display: none;" itemprop="articleBody">${bodypost || "No content"}</div>
+          <!-- start of  Comment Section -->
+            <br><br>
+              <div id="comment_thread"></div>
+          <!-- end of  Comment Section -->
+
+
+
+          <script>
+            createSearchForm();
+
+            // Memanggil loadCusdis setelah halaman sepenuhnya dimuat
+            window.addEventListener('load', loadCusdis);
+
+
+          </script>
+        </div><!-- class post-body ditutup -->
+      <br><br>
+    </div><!-- class post-container ditutup -->
+    
+    <!-- Placeholder untuk Footer -->
+    <div id="footer-placeholder" class="footer-placeholder"></div>
+
+    <footer>
+    <nav class="footer-menu">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+      <a href="/tos">ToS</a>
+      <a href="/login/">Login</a>
+      <a href="/rssfeed.html">RSS Feed Generator</a>
+      <a href="/rssfeed.xml">RSS Feed</a>
+      <a href="/sitemap.html">HTML Sitemap</a>
+      <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+      <a href="/sitemap.xml">XML Sitemap</a>
+    </nav>
+    <br>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+    </footer>
+
+  
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
+        updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
+      });
+    
+
+      // Panggil fungsi saat halaman dimuat
+      document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+
+    </script>
+
+  
+    <!-- debug -->
+    <div id="debug-info" class="debug-hidden">
+      <p>
+        siteName :<span id="siteNameFooter"></span><br>
+        domain :<span id="domainFooter"></span><br>
+        subdomain :<span id="subdomainFooter"></span><br>
+        baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+        fullUrl :<span id="fullUrlFooter"></span><br>
+        path :<span id="pathFooter"></span><br>
+        supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+        current-year :<span id="current-yearFooter"></span><br>
+        site-name :<span id="site-nameFooter"></span><br>
+      </p>
     </div>
+
+
+
+    <hr>
+    <p><strong>IP:</strong> ${ip || "Unknown IP"}</p>
+    <p><strong>User Agent:</strong> ${user_agent || "Unknown UA"}</p>
+    <p><strong>Referrer:</strong> ${referrer || "Unknown Ref"}</p>   
+  
+  </div><!-- class container ditutup -->
+
+  <script src="/constanta.js" defer></script>
+  <script>
+    //Debugging akan muncul hanya jika Anda menambahkan ?debug=true ke URL, misalnya:
+    //https://example.com/about.html?debug=true.
+    if (window.location.search.includes('debug=true')) {
+      document.getElementById('debug-info').classList.remove('debug-hidden');
+    }
+  </script>
+
+
 
 
 
@@ -280,37 +386,20 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
 
 
 
-
-
-
-
-  
-
-  <p><strong>Body:</strong> ${bodypost || "No content"}</p>
-
-
-        <hr>
-      <p><strong>Image File:</strong></p>
-      <ul>
-        <li>Filename: ${imageFileName}</li>
-        <li>URL: <a href="${imageFileUrl}" target="_blank">${imageFileUrl}</a></li>
-      </ul>
-  <hr>
-  <p><strong>IP:</strong> ${ip || "Unknown"}</p>
-  <p><strong>User Agent:</strong> ${user_agent || "Unknown"}</p>
-  <p><strong>Referrer:</strong> ${referrer || "Unknown"}</p>
-
-
-
-
-
-
-
-
-
-
-
       
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 `;
