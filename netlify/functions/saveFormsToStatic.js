@@ -194,23 +194,12 @@ submissions.forEach((submission, index) => {
 // Menghasilkan metaDescription dengan batas 155 karakter
 const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost content available";
 
-
-
-
-
-
-  
-
-
-
    //const url             = window.location.href;
 
    // Properti tambahan lainnya
-
   const pageUrl = referrer || "Unknown"; // Menggunakan referrer sebagai fallback untuk URL halaman
   const safeTitle = title || `Submission ${index + 1}`; 
-  //const ogTitle = safeTitle;
-  //const twitterTitle = safeTitle; // Sama dengan ogTitle
+
 
   
 
@@ -256,11 +245,50 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
   <script src="/post-html-main.js"></script>
 </head>
 <body>
-  <h1>${title || `Submission ${index + 1}`}</h1>
-  <p><strong>Author:</strong> ${author || "Unknown"}</p>
+
+  <div class="container" style="min-height: 1300px;"  itemscope itemtype="http://schema.org/Article" ><!-- belum ditutup -->
+    <header>
+      <nav class="menu">
+        <a href="/">Home</a> | 
+        <a href="#search_input" onclick="focusSearchInput()">Search</a>
+      </nav>
+  
+      <!-- Post Title -->
+        <h1 class="post-title" style="display: none;" itemprop="headline">
+          <span id="post-title">${safeTitle}</span>
+        </h1>
+    </header>
+
+
+
+    <!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+    <div id="post-meta" class="post-meta" style="display: none;">
+      <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span id="post-author" itemprop="name">${author || "Unknown Author"}</span>
+      </div>
+      <span id="post-category">Category :${category || "Uncategorized"}</span> <span id="post-tags">Tags: ${tags || "No tags"}</span> <time itemprop="datePublished" datetime="${new Date(createdAt).toLocaleString() || "Unknown Date"}"><span id="post-date">Date: ${new Date(createdAt).toLocaleString() || "Unknown Date"}</span></time>
+    </div>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+  
+
   <p><strong>Body:</strong> ${bodypost || "No content"}</p>
-  <p><strong>Category:</strong> ${category || "Uncategorized"}</p>
-  <p><strong>Tags:</strong> ${tags || "No tags"}</p>
+
+
         <hr>
       <p><strong>Image File:</strong></p>
       <ul>
@@ -271,7 +299,15 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
   <p><strong>IP:</strong> ${ip || "Unknown"}</p>
   <p><strong>User Agent:</strong> ${user_agent || "Unknown"}</p>
   <p><strong>Referrer:</strong> ${referrer || "Unknown"}</p>
-  <p><strong>Created At:</strong> ${new Date(createdAt).toLocaleString() || "Unknown Date"}</p>
+
+
+
+
+
+
+
+
+
 
 
       
