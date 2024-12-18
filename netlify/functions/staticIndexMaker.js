@@ -11,9 +11,17 @@ exports.handler = async () => {
     const FORM_ID = "673faec750f0a700080c6bac"; // Ganti dengan ID Form Netlify Anda
     const NETLIFY_ENDPOINT = `https://api.netlify.com/api/v1/forms/${FORM_ID}/submissions`;
 
+
+
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO) {
+      console.error("Missing environment variables:", {
+        NETLIFY_ACCESS_TOKEN: !!NETLIFY_ACCESS_TOKEN,
+        GITHUB_TOKEN: !!GITHUB_TOKEN,
+        REPO: !!REPO,
+      });
       throw new Error("Missing required environment variables");
     }
+    
 
     // Fetch submissions from Netlify Forms
     const netlifyResponse = await fetch(NETLIFY_ENDPOINT, {
@@ -22,14 +30,74 @@ exports.handler = async () => {
       },
     });
 
+
+
+
+
+
     if (!netlifyResponse.ok) {
+      console.error("Netlify API error:", {
+        status: netlifyResponse.status,
+        statusText: netlifyResponse.statusText,
+        url: NETLIFY_ENDPOINT,
+      });
       return {
         statusCode: netlifyResponse.status,
         body: JSON.stringify({ error: "Failed to fetch form submissions" }),
       };
     }
+    
 
-  const submissions = await netlifyResponse.json();
+    
+
+    const submissions = await netlifyResponse.json();
+    
+
+    if (!Array.isArray(submissions) || submissions.length === 0) {
+      console.warn("Submissions are empty or invalid:", submissions);
+      return {
+        statusCode: 204,
+        body: JSON.stringify({ message: "No submissions found." }),
+      };
+    }
+  
+
+  
+    // Fungsi untuk membersihkan bodypost
+    const cleanText = (text) => {
+      if (!text) return "";
+      return text
+      .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
+      .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
+      .trim(); // Menghapus spasi berlebih di awal/akhir
+    };
+    
+    // Generate post list as HTML
+    const postListHTML = submissions
+      .map((submission) => {
+        const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
+        
+        // Bersihkan dan buat snippet
+        const cleanBodyPost = cleanText(bodypost);
+        const snippet = cleanBodyPost
+                        ? cleanBodyPost.split(" ").slice(0, 15).join(" ") + "..."
+                        : "No description snippet";
+
+        // Gambar fallback jika tidak ada imagefile
+        const imageUrl = imagefile?.url || "/350x600xBW.webp";
+
+        return `
+          <div class="grid-item">
+            <a href="/static/${slug}" style="text-decoration: none; color: inherit;">
+              <img src="${imageUrl}" alt="${title}" />
+              <h2>${title}</h2>
+              <p>${snippet}</p>
+            </a>
+          </div>`;
+      })
+      .join("\n");
+
+
 
   // Template HTML
   const templateHTML = `
@@ -38,11 +106,11 @@ exports.handler = async () => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" id="meta-description" content="desc">
-      <meta name="author" id="meta-author" content="Roy">
+      <meta name="description" id="meta-description" content="${snippet}">
+      <meta name="author" id="meta-author" content="${author}">
       <meta name="robots" content="index, follow">
 
-      <title id="page-title">Static Page Title</title>
+      <title id="page-title">${title}</title>
 
       <!-- Prefetch DNS untuk Cloudinary -->
 
@@ -151,39 +219,8 @@ exports.handler = async () => {
     </body>
   </html>`;
 
-    // Fungsi untuk membersihkan bodypost
-    const cleanText = (text) => {
-      if (!text) return "";
-      return text
-      .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
-      .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
-      .trim(); // Menghapus spasi berlebih di awal/akhir
-    };
-    
-    // Generate post list as HTML
-    const postListHTML = submissions
-      .map((submission) => {
-        const { title, slug, bodypost, imagefile } = submission.data;
-        
-        // Bersihkan dan buat snippet
-        const cleanBodyPost = cleanText(bodypost);
-        const snippet = cleanBodyPost
-                        ? cleanBodyPost.split(" ").slice(0, 15).join(" ") + "..."
-                        : "No description snippet";
 
-        // Gambar fallback jika tidak ada imagefile
-        const imageUrl = imagefile?.url || "/350x600xBW.webp";
 
-        return `
-          <div class="grid-item">
-            <a href="/static/${slug}" style="text-decoration: none; color: inherit;">
-              <img src="${imageUrl}" alt="${title}" />
-              <h2>${title}</h2>
-              <p>${snippet}</p>
-            </a>
-          </div>`;
-      })
-      .join("\n");
 
     // Replace placeholder in template
     const finalHTML = templateHTML.replace("{{POSTS}}", postListHTML);
@@ -221,7 +258,9 @@ exports.handler = async () => {
     });
 
     if (!githubResponse.ok) {
+        
         const errorDetails = await githubResponse.text();
+        console.error("GitHub API error:", errorDetails);
         return {
           statusCode: githubResponse.status,
           body: JSON.stringify({ error: errorDetails }),
@@ -229,13 +268,18 @@ exports.handler = async () => {
     }
 
     const result = await githubResponse.json();
+
+
       return {
         statusCode: 200,
         body: JSON.stringify({
-          message: "index-static.html generated and saved in netlify successfully. Please wait a minute to allow netlify build and publish the index-static.html to github repo.",
-          url: result.content.html_url,
+          message: `index-static.html generated and saved successfully. 
+                    Please wait a minute to allow Netlify to build and publish the file.`,
+          url: `<a href="${result.content.html_url}" target="_blank">Click here to view index-static.html</a>`,
+          timestamp: new Date().toISOString(), // Timestamp pembuatan file
         }),
       };
+      
     } catch (error) {
     console.error("Error in combined handler:", error);
     return {
