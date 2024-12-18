@@ -153,17 +153,7 @@ exports.handler = async () => {
         })
         .join("\n");
 
-      /* const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
-        const pageIndex = i + 1;
-        const activeClass = pageIndex === page ? "active" : "";
-        return `
-          
-            <a href="/index-static-page${i + 1}.html" class="pagination-button ${activeClass}">
-              ${i + 1}
-            </a>
-          `;
-      }).join("\n");
-      */
+
 
 
     const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
