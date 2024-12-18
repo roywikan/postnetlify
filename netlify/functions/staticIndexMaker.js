@@ -330,7 +330,7 @@ exports.handler = async () => {
         </nav>
         <br>
       
-        <p>© <span id="current-year">2024</span> <span id="site-name">${siteName}</span>. All Rights Reserved.</p>
+        <p>© <span id="current-year">2024</span> <span id="site-name">${urlDetails.siteName}</span>. All Rights Reserved.</p>
       </footer>
   
   
