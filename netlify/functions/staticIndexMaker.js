@@ -76,7 +76,7 @@ exports.handler = async () => {
       };
     }
 
-    const validSubmissions = submissions.filter(submission => sub && sub.data);
+    const validSubmissions = submissions.filter(submission => submission && submission.data);
     if (validSubmissions.length === 0) {
       console.warn("No valid submissions found");
       return {
@@ -124,8 +124,8 @@ exports.handler = async () => {
     
       // Generate HTML untuk post pada halaman ini
       const postListHTML = currentPosts
-      .map((sub) => {
-        const { title, slug, tags, category, bodypost, author, imagefile } = sub.data;
+      .map((submission) => {
+        const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
 
 
 
