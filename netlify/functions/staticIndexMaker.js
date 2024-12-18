@@ -195,7 +195,7 @@ exports.handler = async () => {
       } = firstPost;
 
     // Bersihkan dan buat snippet untuk meta description
-      const metaDescription = cleanText(bodypost).split(" ").slice(0, 15).join(" ") + "...";
+      const metaDescription = "Default metaDescription";
 
       // Metadata
       const pageTitle = title;
