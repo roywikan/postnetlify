@@ -104,11 +104,11 @@ exports.handler = async () => {
         const pageIndex = i + 1;
         const activeClass = pageIndex === page ? "active" : "";
         return `
-          <li>
+          
             <a href="/index-static-page${i + 1}.html" class="pagination-button ${activeClass}">
               ${i + 1}
             </a>
-          </li>`;
+          `;
       }).join("\n");
 
 
@@ -202,9 +202,8 @@ exports.handler = async () => {
         </div><!-- class grid ditutup -->
       
         <div id="pagination" class="pagination" style="display: flex;">
-          <ul>
             ${paginationHTML}
-          </ul>
+          
         </div><!-- class pagination ditutup -->
 
 
