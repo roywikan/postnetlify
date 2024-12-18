@@ -75,6 +75,9 @@ exports.handler = async () => {
         .trim(); // Menghapus spasi berlebih di awal/akhir
     };
 
+        const fileNames = []; // Array untuk menyimpan nama file yang dibuat
+
+
     const results = []; // barisbaru: array untuk menyimpan response GitHub
 
     for (let page = 1; page <= totalPages; page++) {
@@ -89,6 +92,14 @@ exports.handler = async () => {
             ? cleanBodyPost.split(" ").slice(0, 15).join(" ") + "..."
             : "No description snippet";
           const imageUrl = imagefile?.url || "/350x600xBW.webp";
+
+          
+          // Refill untuk meta tags data
+          let metaDescription = snippet;
+          let pageTitle = title;
+          let metaAuthor = author;
+
+          
           return `
             <div class="grid-item">
               <a href="/static/${slug}" style="text-decoration: none; color: inherit;">
@@ -100,7 +111,7 @@ exports.handler = async () => {
         })
         .join("\n");
 
-      const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
+      /* const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
         const pageIndex = i + 1;
         const activeClass = pageIndex === page ? "active" : "";
         return `
@@ -110,6 +121,19 @@ exports.handler = async () => {
             </a>
           `;
       }).join("\n");
+      */
+
+
+    const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
+        const pageIndex = i + 1;
+        const fileName = pageIndex === 1 ? "index.html" : `index-static-page${pageIndex}.html`;
+        const activeClass = pageIndex === page ? "active" : "";
+        return `<a href="/${fileName}" class="${activeClass}">${pageIndex}</a>`;
+      }).join("\n");
+
+
+
+      
 
 
 
@@ -272,9 +296,23 @@ exports.handler = async () => {
 
       const finalHTML = templateHTML.replace("{{POSTS}}", postListHTML);
       const encodedContent = Buffer.from(finalHTML).toString("base64");
-      const filePath = `index-static-page${page}.html`;
+      //const filePath = `index-static-page${page}.html`;
 
-      const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${filePath}`;
+      //const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${filePath}`;
+
+
+
+
+      const fileName = page === 1 ? "index.html" : `index-static-page${page}.html`;
+      fileNames.push(fileName); // Tambahkan nama file ke array
+
+      const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
+
+
+
+
+
+      
 
       const fileResponse = await fetch(GITHUB_API_URL, {
         method: "GET",
@@ -295,25 +333,34 @@ exports.handler = async () => {
           Authorization: `token ${GITHUB_TOKEN}`,
         },
         body: JSON.stringify({
-          message: `Update ${filePath}`,
+          message: `Update ${fileName}`,
           content: encodedContent,
           sha: sha || undefined,
         }),
       });
 
       results.push(githubResponse); // barisbaru: Tambahkan response ke array results
+
+
+
+
+      
     }
 
     for (const res of results) { // barisbaru: Iterasi dan validasi setiap response
       if (!res.ok) {
         const errorDetails = await res.json();
+        throw new Error(`Failed to upload ${fileName}: ${JSON.stringify(errorDetails)}`);
         throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
+
+
       }
     }
 
     return {
       statusCode: 200,
       body: JSON.stringify({ message: "All pages generated successfully" }),
+      pages: fileNames,
     };
   } catch (error) {
     console.error("Error in combined handler:", error);
