@@ -206,11 +206,7 @@ exports.handler = async () => {
       
 
 
-      console.log({
-        totalSubmissions: submissions.length,
-        validSubmissions: validSubmissions.length,
-        totalPages,
-      });
+
 
 
 
@@ -385,6 +381,13 @@ exports.handler = async () => {
       });
 
       results.push(githubResponse); // barisbaru: Tambahkan response ke array results
+
+      console.log({
+        filename: fileName,
+        totalSubmissions: submissions.length,
+        validSubmissions: validSubmissions.length,
+        totalPages,
+      });
 
 
 
