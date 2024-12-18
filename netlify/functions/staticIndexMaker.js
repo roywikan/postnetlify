@@ -413,7 +413,7 @@ exports.handler = async () => {
     console.log(`Uploading page ${filePath} to GitHub:`, { url: GITHUB_API_URL, sha });
 
 
-
+/*
 
     if (!githubResponse.ok) {
         
@@ -424,7 +424,7 @@ exports.handler = async () => {
           body: JSON.stringify({ error: errorDetails }),
         };
     }
-
+*/
   
 
 /*
@@ -449,13 +449,17 @@ exports.handler = async () => {
 
 
 
+
+
+
     const results = await Promise.all(tasks);
 
-    for (const res of results) {
-      if (!res.ok) {
-        throw new Error(`Failed to upload page: ${res.statusText}`);
-      }
-    }
+for (const res of results) {
+  if (!res.ok) {
+    const errorDetails = await res.json(); // Mendapatkan detail kesalahan
+    throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
+  }
+}
 
     //return { statusCode: 200, body: JSON.stringify({ message: "Pages generated successfully." }) };
 
