@@ -15,6 +15,11 @@ exports.handler = async () => {
     const title = "Default Title"; // Atur nilai default jika tidak ada
     const snippet = "Default Snippet";
 
+
+
+
+
+    
     let sha = null; // Tambahkan sebelum penggunaan
 
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO) {
@@ -189,12 +194,12 @@ exports.handler = async () => {
         bodypost: firstBodyPost = "",
       } = firstPost;
 
-      // Bersihkan dan buat snippet untuk meta description
-      //const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "...";
+    // Bersihkan dan buat snippet untuk meta description
+      const metaDescription = cleanText(bodypost).split(" ").slice(0, 15).join(" ") + "...";
 
       // Metadata
-      //const pageTitle = firstTitle;
-      //const metaAuthor = firstAuthor;
+      const pageTitle = title;
+      const metaAuthor = author;
 
       
 
