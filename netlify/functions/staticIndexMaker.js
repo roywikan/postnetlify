@@ -186,20 +186,17 @@ exports.handler = async () => {
 
         // Ambil data item post pertama
 
-      const firstPost = submissions[0]?.data ?? {}; // Menggunakan nullish coalescing
+      //const firstPost = submissions[0]?.data ?? {}; // Menggunakan nullish coalescing
+      const firstPost = currentPosts[0]?.data ?? {}; // baris ini diubah
 
-      const {
-        title: firstTitle = "POSTNETLIFY HOME TITLE",
-        author: firstAuthor = "POSTNETLIFY HOME AUTHOR",
-        bodypost: firstBodyPost = "",
-      } = firstPost;
-
-    // Bersihkan dan buat snippet untuk meta description
-      const metaDescription = "Default metaDescription";
-
-      // Metadata
-      const pageTitle = title;
-      const metaAuthor = author;
+  const {
+    title: firstTitle = "Default Page Title",
+    author: firstAuthor = "Default Author",
+    bodypost: firstBodyPost = "",
+  } = firstPost;
+  const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "..."; // baris ini diubah
+  const pageTitle = firstTitle; // baris ini diubah
+  const metaAuthor = firstAuthor; // baris ini diubah
 
       
 
@@ -222,11 +219,12 @@ exports.handler = async () => {
       <meta name="description" id="meta-description" content="${metaDescription}">
       <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
-     
-
 
 
       <title id="page-title">${pageTitle}</title>
+
+
+
 
       <!-- Prefetch DNS untuk Cloudinary -->
 
