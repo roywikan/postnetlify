@@ -35,7 +35,9 @@
         xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
         posts.forEach(post => {
-          const url = `${baseUrl}/post/${escapeXML(post.data.slug)}`;
+          //const url = `${baseUrl}/post/${escapeXML(post.data.slug)}`;
+          const url = `${baseUrl}/static/${escapeXML(post.data.slug)}`;
+
           const lastmod = new Date(post.created_at).toISOString();
 
           xml += `
