@@ -156,14 +156,33 @@ exports.handler = async () => {
   </body>
 </html>`;
 
+      // Fungsi untuk membersihkan bodypost
+const cleanText = (text) => {
+  if (!text) return "";
+  return text
+    .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
+    .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
+    .trim(); // Menghapus spasi berlebih di awal/akhir
+};
+
+
+
+
+
+    
     // Generate post list as HTML
     const postListHTML = submissions
       .map((submission) => {
         const { title, slug, bodypost, imagefile } = submission.data;
-        const snippet = bodypost
-          ? bodypost.split(" ").slice(0, 15).join(" ") + "..."
-          : "No description";
-        const imageUrl = imagefile?.url || "/default-image.jpg";
+        
+        // Bersihkan dan buat snippet
+        const cleanBodyPost = cleanText(bodypost);
+        const snippet = cleanBodyPost
+                        ? cleanBodyPost.split(" ").slice(0, 15).join(" ") + "..."
+                        : "No description snippet";
+
+        // Gambar fallback jika tidak ada imagefile
+        const imageUrl = imagefile?.url || "/350x600xBW.webp";
 
 
 
