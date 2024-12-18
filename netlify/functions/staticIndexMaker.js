@@ -136,6 +136,12 @@ const cleanText = (text) => {
           const snippet = cleanBodyPost
             ? cleanBodyPost.split(" ").slice(0, 17).join(" ") + " ..."
             : "No description snippet";
+
+          const teaser = cleanBodyPost
+            ? cleanBodyPost.split(" ").slice(0, 50).join(" ") + " ..."
+            : "No description snippet";
+
+          
           const imageUrl = imagefile?.url || "/350x600xBW.webp";
 
           
@@ -150,7 +156,7 @@ const cleanText = (text) => {
               <a href="/static/${slug}" style="text-decoration: none; color: inherit;">
                 <img src="${imageUrl}" alt="${title}" />
                 <h2>${title}</h2>
-                <p>${snippet}</p>
+                <p>${teaser}</p>
               </a>
             </div>`;
         })
