@@ -111,6 +111,41 @@ exports.handler = async () => {
           </li>`;
       }).join("\n");
 
+
+
+
+
+
+
+
+        // Ambil data item post pertama
+
+      const firstPost = submissions[0]?.data ?? {}; // Menggunakan nullish coalescing
+
+      const {
+        title: firstTitle = "POSTNETLIFY HOME TITLE",
+        author: firstAuthor = "POSTNETLIFY HOME AUTHOR",
+        bodypost: firstBodyPost = "",
+      } = firstPost;
+
+      // Bersihkan dan buat snippet untuk meta description
+      const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "...";
+
+      // Metadata
+      const pageTitle = firstTitle;
+      const metaAuthor = firstAuthor;
+
+
+      console.log({
+        totalSubmissions: submissions.length,
+        validSubmissions: validSubmissions.length,
+        totalPages,
+      });
+
+
+
+
+      
   // Template HTML
   const templateHTML = `
   <!DOCTYPE html>
