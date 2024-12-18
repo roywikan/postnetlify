@@ -114,8 +114,8 @@ const cleanText = (text) => {
   return text
     .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
     .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
-    .replace(/[<>?!.\\/]/g, "") // Hapus simbol tertentu: <, >, ?, !, \, /
-    .replace(/[()]/g, "") // Hapus tanda kurung ()
+    .replace(/[<>?!.\\/]/g, " ") // Hapus simbol tertentu: <, >, ?, !, \, /
+    .replace(/[()]/g, " ") // Hapus tanda kurung ()
     .trim(); // Menghapus spasi berlebih di awal/akhir
 };
 
