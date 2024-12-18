@@ -104,9 +104,27 @@ exports.handler = async () => {
 
 
 
-      const metaDescription = snippet || "Default meta description";
-      const metaAuthor = author || "AUTHOR";
-      const pageTitle = title || "POSTNETLIFY HOME TITLE";
+      const metaDescription = snippet || "Default meta description";//fallback values
+
+
+
+      // Ambil data post pertama
+      const firstPost = submissions[0]?.data || {}; // Default ke objek kosong jika tidak ada post
+      const {
+        title: firstTitle = "POSTNETLIFY HOME TITLE",
+        author: firstAuthor = "POSTNETLIFY HOME AUTHOR",
+        bodypost: firstBodyPost = "",
+      } = firstPost;
+
+      // Bersihkan dan buat snippet untuk meta description
+      const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "...";
+
+      // Metadata
+      const pageTitle = firstTitle;
+      const metaAuthor = firstAuthor;
+
+
+
 
 
   // Template HTML
