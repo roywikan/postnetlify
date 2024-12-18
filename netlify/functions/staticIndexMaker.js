@@ -16,8 +16,8 @@ exports.handler = async () => {
     const title = "Default Title"; // Atur nilai default jika tidak ada
     const snippet = "Default Snippet";
 
-    const postsPerPage = 5; // Atur jumlah post per halaman
-    let totalPages = 1; // Ganti const dengan let
+    //const postsPerPage = 5; // Atur jumlah post per halaman
+    //let totalPages = 1; // Ganti const dengan let
     let sha = null; // Tambahkan sebelum penggunaan
     
 
@@ -76,7 +76,7 @@ exports.handler = async () => {
       };
     }
 
-    const validSubmissions = submissions.filter(submission => submission && submission.data);
+    const validSubmissions = submissions.filter(submission => sub && sub.data);
     if (validSubmissions.length === 0) {
       console.warn("No valid submissions found");
       return {
@@ -88,10 +88,16 @@ exports.handler = async () => {
 
 
 
-    if (validSubmissions.length > 0) {
-      totalPages = Math.ceil(validSubmissions.length / postsPerPage);
-    }
 
+
+
+
+    
+    const postsPerPage = 5;
+    const totalPages = Math.ceil(validSubmissions.length / postsPerPage);
+    const tasks = [];
+
+    
 
   
 
@@ -113,13 +119,13 @@ exports.handler = async () => {
       const startIndex = (page - 1) * postsPerPage;
       const endIndex = startIndex + postsPerPage;
       //const currentPosts = submissions.slice(startIndex, endIndex);
-      const currentPosts = validSubmissions.slice(startIndex, endIndex);
+      const currentPosts = validSubmissions.slice(startIndex, startIndex + postsPerPage);
 
     
       // Generate HTML untuk post pada halaman ini
       const postListHTML = currentPosts
-      .map((submission) => {
-        const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
+      .map((sub) => {
+        const { title, slug, tags, category, bodypost, author, imagefile } = sub.data;
 
 
 
@@ -154,25 +160,13 @@ exports.handler = async () => {
         const activeClass = pageIndex === page ? "active" : "";
         return `
           <li>
-            <a href="/index-static-page${pageIndex}.html" class="pagination-button ${activeClass}">
-              ${pageIndex}
+            <a href="/index-static-page${i + 1}.html" class="pagination-button ${activeClass}">
+              ${i + 1}
             </a>
           </li>`;
       }).join("\n");
 
-////////////////
-/*
 
-const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
-  <li>
-    <a href="/index-static-page${i + 1}.html" class="pagination-button ${i + 1 === page ? "active" : ""}">
-      ${i + 1}
-    </a>
-  </li>`).join("");
-*/
-
-
-////////////////
 
 
 
@@ -354,6 +348,12 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
     //const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
       const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${filePath}`;
 
+
+
+
+
+
+      
     // Fetch current file data (to get SHA for update)
     const fileResponse = await fetch(GITHUB_API_URL, {
       method: "GET",
@@ -374,6 +374,8 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
  
 
     // Save or update file on GitHub
+
+/*      
     const githubResponse = await fetch(GITHUB_API_URL, {
         method: "PUT",
         headers: {
@@ -386,8 +388,29 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
           sha: sha || undefined, // Include SHA if file exists
         }),
     });
+*/
+/////////////////////////////////////
 
-    console.log(`Uploading page ${page} to GitHub:`, { url: GITHUB_API_URL, sha });
+      tasks.push(
+        fetch(GITHUB_API_URL, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `token ${GITHUB_TOKEN}`,
+          },
+          body: JSON.stringify({
+            message: `Update ${filePath}`,
+            content: encodedContent,
+            sha: sha || undefined, // Include SHA if file exists
+          }),
+        })
+      );
+
+/////////////////////////////////////
+
+      
+
+    console.log(`Uploading page ${filePath} to GitHub:`, { url: GITHUB_API_URL, sha });
 
 
 
@@ -404,7 +427,7 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
 
   
 
-
+/*
     const result = await githubResponse.json();
 
 
@@ -417,20 +440,47 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
           timestamp: new Date().toISOString(), // Timestamp pembuatan file
         }),
       };
+*/
 
+      
+    }//end for let page
+
+
+
+
+
+    const results = await Promise.all(tasks);
+
+    for (const res of results) {
+      if (!res.ok) {
+        throw new Error(`Failed to upload page: ${res.statusText}`);
+      }
     }
-        // Kembalikan hasil setelah semua halaman selesai
+
+    //return { statusCode: 200, body: JSON.stringify({ message: "Pages generated successfully." }) };
+
+
+
+
+    
+    // Kembalikan hasil setelah semua halaman selesai
     return {
       statusCode: 200,
       body: JSON.stringify({ message: "All pages generated successfully" }),
     };
 
+
+
+
+
+
+    
       
     } catch (error) {
-    console.error("Error in combined handler:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
-    };
+      console.error("Error in combined handler:", error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: error.message })
+      };
   }
 };
