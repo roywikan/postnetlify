@@ -453,14 +453,64 @@ exports.handler = async () => {
 
 
     const results = await Promise.all(tasks);
-
+/*
 for (const res of results) {
   if (!res.ok) {
     const errorDetails = await res.json(); // Mendapatkan detail kesalahan
     throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
   }
 }
+*/
 
+
+for (const res of results) {
+  if (!res.ok) {
+    if (res.status === 409) { // Error konflik
+      const conflictDetails = await res.json();
+      console.error("Conflict error:", conflictDetails);
+
+      // Ambil SHA terbaru
+      const updatedFileResponse = await fetch(conflictDetails.url, {
+        method: "GET",
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
+      });
+
+      if (updatedFileResponse.ok) {
+        const updatedFileData = await updatedFileResponse.json();
+        const updatedSha = updatedFileData.sha;
+
+        // Coba unggah ulang dengan SHA terbaru
+        const retryResponse = await fetch(conflictDetails.url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `token ${GITHUB_TOKEN}`,
+          },
+          body: JSON.stringify({
+            message: `Retry update ${filePath} with updated SHA`,
+            content: encodedContent,
+            sha: updatedSha,
+          }),
+        });
+
+        if (!retryResponse.ok) {
+          const retryErrorDetails = await retryResponse.json();
+          throw new Error(`Retry failed: ${JSON.stringify(retryErrorDetails)}`);
+        }
+      } else {
+        throw new Error(`Failed to fetch updated SHA: ${await updatedFileResponse.text()}`);
+      }
+    } else {
+      const errorDetails = await res.json();
+      throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
+    }
+  }
+}
+
+
+    
     //return { statusCode: 200, body: JSON.stringify({ message: "Pages generated successfully." }) };
 
 
