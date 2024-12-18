@@ -7,6 +7,14 @@
 <atom:link href="https://postnetlify.netlify.app/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />
 
             <item>
+              <title>Create Triggered After Posting To Automate All Rituals .js</title>
+              <link>https://postnetlify.netlify.app/static/create-triggered-after-posting-to-automate-all-rituals-js-286</link>
+              <description>Kita akan mengotomatisasi serangkain ritual yang harus dilakukan setelah mengirim data posting ke form di netlify.Ritual saya setelah membuat sebuah...</description>
+              <pubDate>Wed, 18 Dec 2024 21:46:11 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/static/create-triggered-after-posting-to-automate-all-rituals-js-286</guid>
+            </item>
+
+            <item>
               <title>Memaksa File di Github Diikutsertakan ke Dalam Deployment Netlify</title>
               <link>https://postnetlify.netlify.app/static/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670</link>
               <description>Kesalahan ini terjadi karena file static-post-template.html tidak ditemukan pada lokasi yang ditentukan (/var/task/netlify/functions/static-post-template.html). Masalah ini dapat disebabkan oleh:File tidak termasuk...</description>
