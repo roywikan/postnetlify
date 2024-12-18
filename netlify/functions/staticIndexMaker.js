@@ -153,11 +153,22 @@ exports.handler = async () => {
       } = firstPost;
 
       // Bersihkan dan buat snippet untuk meta description
-      const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "...";
+      //const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "...";
 
       // Metadata
-      const pageTitle = firstTitle;
-      const metaAuthor = firstAuthor;
+      //const pageTitle = firstTitle;
+      //const metaAuthor = firstAuthor;
+
+        const url = new URL(window.location.href);
+        const subdomain = url.hostname.split('.')[0].toUpperCase();
+        const domain = url.hostname.split('.').slice(1).join('.');
+        const fullUrl = url.href;
+        const path = url.pathname === "/" ? "Home" : url.pathname;
+        const baseUrl = `${url.protocol}//${url.hostname}`;
+        const supportEmail = `support@${domain}`;
+        const siteName = `${subdomain}.${domain}`;
+
+      
 
 
       console.log({
@@ -285,7 +296,7 @@ exports.handler = async () => {
         </nav>
         <br>
       
-        <p>© <span id="current-year">2024</span> <span id="site-name">POSTNETLIFY.netlify.app</span>. All Rights Reserved.</p>
+        <p>© <span id="current-year">2024</span> <span id="site-name">${siteName}</span>. All Rights Reserved.</p>
       </footer>
   
   
