@@ -7,6 +7,46 @@
 <atom:link href="https://postnetlify.netlify.app/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />
 
             <item>
+              <title>Memaksa File di Github Diikutsertakan ke Dalam Deployment Netlify</title>
+              <link>https://postnetlify.netlify.app/post/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670</link>
+              <description>Kesalahan ini terjadi karena file static-post-template.html tidak ditemukan pada lokasi yang ditentukan (/var/task/netlify/functions/static-post-template.html). Masalah ini dapat disebabkan oleh:File tidak termasuk...</description>
+              <pubDate>Sun, 15 Dec 2024 07:29:31 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/post/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670</guid>
+            </item>
+
+            <item>
+              <title>Write Static HTML Generator Using Netlify Function into Github</title>
+              <link>https://postnetlify.netlify.app/post/write-static-html-generator-using-netlify-function-into-github-122</link>
+              <description>Tidak secara otomatis. Form Netlify akan mengirimkan data ke endpoint default Netlify atau endpoint lain yang Anda tentukan. Agar form...</description>
+              <pubDate>Sat, 14 Dec 2024 22:20:57 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/post/write-static-html-generator-using-netlify-function-into-github-122</guid>
+            </item>
+
+            <item>
+              <title> Saving a Payload to a File in a GitHub Repo Using Netlify Function and GitHub API</title>
+              <link>https://postnetlify.netlify.app/post/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549</link>
+              <description>Here is a summary of the logic and workflow of the process of saving a payload to a file in...</description>
+              <pubDate>Thu, 12 Dec 2024 03:12:32 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/post/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549</guid>
+            </item>
+
+            <item>
+              <title>Blogging Using Netlify Function to Write to Github</title>
+              <link>https://postnetlify.netlify.app/post/blogging-using-netlify-function-to-write-to-github-593</link>
+              <description>To blog using a Netlify function to write to GitHub, you cancreate a serverless function within your Netlify project that...</description>
+              <pubDate>Thu, 12 Dec 2024 02:50:24 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/post/blogging-using-netlify-function-to-write-to-github-593</guid>
+            </item>
+
+            <item>
+              <title>Write to GitHub Repo Using a Netlify Function</title>
+              <link>https://postnetlify.netlify.app/post/write-to-github-repo-using-a-netlify-function-744</link>
+              <description>To write to GitHub using a Netlify function, you need tocreate a serverless function in your Netlify project that makes...</description>
+              <pubDate>Thu, 12 Dec 2024 02:44:27 GMT</pubDate>
+              <guid>https://postnetlify.netlify.app/post/write-to-github-repo-using-a-netlify-function-744</guid>
+            </item>
+
+            <item>
               <title>ROI Website Measurement</title>
               <link>https://postnetlify.netlify.app/post/roi-website-measurement-550</link>
               <description>Market segment yang sangat mudah menyetujui untuk membuat website usaha mereka segera, tanpa banyak bertanya atau meragukan pentingnya website, biasanya...</description>
@@ -20,14 +60,6 @@
               <description>Berikut adalah pembagian segmen berdasarkan budget besar dan budget kecil untuk pembuatan website:1. Segmen dengan Budget BesarCiri-ciri: Fokus pada kualitas,...</description>
               <pubDate>Tue, 10 Dec 2024 20:07:13 GMT</pubDate>
               <guid>https://postnetlify.netlify.app/post/segmen-bisnis-yang-membutuhkan-website-457</guid>
-            </item>
-
-            <item>
-              <title>saveSitemapToGitHub</title>
-              <link>https://postnetlify.netlify.app/post/savesitemaptogithub-386</link>
-              <description>Ada kesalahan dalam cara Anda memanggil saveSitemapToGitHub(xml). Pada skrip Anda, variabel xml hanya tersedia di dalam fungsi fetchPosts. Karena itu,...</description>
-              <pubDate>Tue, 10 Dec 2024 13:40:11 GMT</pubDate>
-              <guid>https://postnetlify.netlify.app/post/savesitemaptogithub-386</guid>
             </item>
 
             <item>
@@ -47,27 +79,11 @@
             </item>
 
             <item>
-              <title>Google Cloud Free Hosting and Form</title>
-              <link>https://postnetlify.netlify.app/post/google-cloud-free-hosting-and-form-759</link>
-              <description>Big-AGI ChatA big-AGI conversation, updated on 12/8/2024, 5:08:28 AM. System message*You are a sophisticated, accurate, and modern AI programming assistant.Current...</description>
-              <pubDate>Sat, 07 Dec 2024 22:26:05 GMT</pubDate>
-              <guid>https://postnetlify.netlify.app/post/google-cloud-free-hosting-and-form-759</guid>
-            </item>
-
-            <item>
               <title>Hard way Netlify Alternative, Google Cloud Free Hosting Static HTML, Form and Functions</title>
               <link>https://postnetlify.netlify.app/post/hard-way-netlify-alternative-google-cloud-free-hosting-static-html-form-and-functions-287</link>
               <description>Menggunakan Google Cloud untuk Mendapatkan Fasilitas Free Hosting Static HTML, Form Submission, dan Serverless FunctionBerikut adalah langkah-langkah yang dapat Anda...</description>
               <pubDate>Sat, 07 Dec 2024 22:22:00 GMT</pubDate>
               <guid>https://postnetlify.netlify.app/post/hard-way-netlify-alternative-google-cloud-free-hosting-static-html-form-and-functions-287</guid>
-            </item>
-
-            <item>
-              <title>Test HTML Tags</title>
-              <link>https://postnetlify.netlify.app/post/test-html-tags-353</link>
-              <description> Tentang Kami Website ini dibuat untuk tujuan demonstrasi dan pengujian layout satu kolom dalam HTML dan CSS. Kami berfokus...</description>
-              <pubDate>Thu, 05 Dec 2024 20:08:41 GMT</pubDate>
-              <guid>https://postnetlify.netlify.app/post/test-html-tags-353</guid>
             </item>
 
             <item>
