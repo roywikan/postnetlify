@@ -12,6 +12,11 @@ exports.handler = async () => {
     const NETLIFY_ENDPOINT = `https://api.netlify.com/api/v1/forms/${FORM_ID}/submissions`;
 
 
+    const author = "Default Author"; // Atur nilai default jika tidak ada
+    const title = "Default Title"; // Atur nilai default jika tidak ada
+    const snippet = "Default Snippet";
+
+      
 
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO) {
       console.error("Missing environment variables:", {
@@ -99,6 +104,11 @@ exports.handler = async () => {
 
 
 
+      const metaDescription = snippet || "Default meta description";
+      const metaAuthor = author || "AUTHOR";
+      const pageTitle = title || "POSTNETLIFY HOME TITLE";
+
+
   // Template HTML
   const templateHTML = `
   <!DOCTYPE html>
@@ -106,11 +116,11 @@ exports.handler = async () => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" id="meta-description" content="${snippet}">
-      <meta name="author" id="meta-author" content="${author}">
+      <meta name="description" id="meta-description" content="${metaDescription}">
+      <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
 
-      <title id="page-title">${title}</title>
+      <title id="page-title">${pageTitle}</title>
 
       <!-- Prefetch DNS untuk Cloudinary -->
 
