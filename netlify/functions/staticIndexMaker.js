@@ -104,7 +104,7 @@ exports.handler = async () => {
 
 
 
-      const metaDescription = snippet || "Default meta description";//fallback values
+      //const metaDescription = snippet || "Default meta description";//fallback values
 
 
 
