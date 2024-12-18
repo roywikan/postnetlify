@@ -6,7 +6,7 @@ exports.handler = async () => {
     const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO = process.env.REPO;
-    const FILE_PATH = "index-static.html"; // Path untuk file di GitHub root
+    const FILE_PATH = "index-static.html"; // Path untuk file di GitHub root , tidak berlaku untuk multi page index
 
     const FORM_ID = "673faec750f0a700080c6bac"; // Ganti dengan ID Form Netlify Anda
     const NETLIFY_ENDPOINT = `https://api.netlify.com/api/v1/forms/${FORM_ID}/submissions`;
