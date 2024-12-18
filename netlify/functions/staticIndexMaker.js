@@ -109,13 +109,16 @@ exports.handler = async () => {
 
     
 
-    const cleanText = (text) => {
-      if (!text) return "";
-      return text
-        .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
-        .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
-        .trim(); // Menghapus spasi berlebih di awal/akhir
-    };
+const cleanText = (text) => {
+  if (!text) return "";
+  return text
+    .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
+    .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
+    .replace(/[<>?!.\\/]/g, "") // Hapus simbol tertentu: <, >, ?, !, \, /
+    .replace(/[()]/g, "") // Hapus tanda kurung ()
+    .trim(); // Menghapus spasi berlebih di awal/akhir
+};
+
 
         const fileNames = []; // Array untuk menyimpan nama file yang dibuat
 
@@ -131,7 +134,7 @@ exports.handler = async () => {
           const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
           const cleanBodyPost = cleanText(bodypost);
           const snippet = cleanBodyPost
-            ? cleanBodyPost.split(" ").slice(0, 15).join(" ") + "..."
+            ? cleanBodyPost.split(" ").slice(0, 17).join(" ") + " ..."
             : "No description snippet";
           const imageUrl = imagefile?.url || "/350x600xBW.webp";
 
@@ -184,7 +187,7 @@ exports.handler = async () => {
     author: firstAuthor = "Default Author",
     bodypost: firstBodyPost = "",
   } = firstPost;
-  const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 15).join(" ") + "..."; // baris ini diubah
+  const metaDescription = cleanText(firstBodyPost).split(" ").slice(0, 17).join(" ") + " ..."; // baris ini diubah
   const pageTitle = firstTitle; // baris ini diubah
   const metaAuthor = firstAuthor; // baris ini diubah
 
