@@ -202,6 +202,14 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
       const metaAuthor = firstAuthor;
 
 
+      console.log({
+        totalSubmissions: submissions.length,
+        validSubmissions: validSubmissions.length,
+        totalPages,
+      });
+      
+
+
 
 
 
@@ -215,6 +223,10 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
       <meta name="description" id="meta-description" content="${metaDescription}">
       <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
+      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta http-equiv="Expires" content="0">
+
 
       <title id="page-title">${pageTitle}</title>
 
