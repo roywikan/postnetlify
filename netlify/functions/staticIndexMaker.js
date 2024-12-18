@@ -212,19 +212,27 @@ const cleanText = (text) => {
       <meta name="description" id="meta-description" content="${metaDescription}">
       <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
-
-
       <title id="page-title">${pageTitle}</title>
-
-
-
-
       <!-- Prefetch DNS untuk Cloudinary -->
-
       <link rel="dns-prefetch" href="https://res.cloudinary.com">
-
-
       <link rel="stylesheet" href="/index-html.css">
+
+      <!-- JSON-LD Schema -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "${urlDetails.siteName} ${pageTitle}",
+          "description": "${metaDescription}",
+          "author": {
+            "@type": "Person",
+            "name": "${metaAuthor}"
+          },
+          "url": "${urlDetails.fullUrl}"
+        }
+      </script>
+
+
         
     </head>
     <body>
