@@ -157,6 +157,62 @@ h1 {
 }
 
 
+/* index-static-page pagination CSS mulai :*/
+
+.pagination {
+  display: flex; /* Atur dalam baris horizontal */
+  justify-content: center; /* Pusatkan di layar */
+  gap: 10px; /* Jarak antar link */
+  padding: 10px 0; /* Ruang vertikal */
+  list-style: none; /* Hilangkan bullet pada ul */
+}
+
+.pagination a {
+  display: inline-block; /* Agar tombol tetap sebaris */
+  padding: 8px 12px; /* Spasi dalam tombol */
+  border-radius: 4px; /* Sudut membulat */
+  text-decoration: none; /* Hilangkan garis bawah */
+  color: #007BFF; /* Warna teks */
+  background-color: #F8F9FA; /* Warna latar belakang */
+  border: 1px solid #007BFF; /* Batas tombol */
+  transition: all 0.3s ease; /* Animasi transisi */
+}
+
+.pagination a:hover {
+  background-color: #007BFF; /* Warna latar saat hover */
+  color: #FFF; /* Warna teks saat hover */
+}
+
+.pagination .active {
+  background-color: #007BFF; /* Warna latar tombol aktif */
+  color: #FFF; /* Warna teks tombol aktif */
+  pointer-events: none; /* Nonaktifkan klik pada tombol aktif */
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    flex-wrap: wrap; /* Tampilkan link dalam baris baru jika terlalu panjang */
+    gap: 5px; /* Kurangi jarak antar link */
+  }
+
+  .pagination a {
+    padding: 6px 10px; /* Kurangi ukuran tombol */
+    font-size: 14px; /* Kurangi ukuran teks */
+  }
+}
+
+
+/* index-static-page pagination CSS berakhir :*/
+
+
+
+
+
+
+
+
+
+
 
 /* Footer */
 footer {
