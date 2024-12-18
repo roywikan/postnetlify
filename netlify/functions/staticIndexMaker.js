@@ -16,6 +16,16 @@ exports.handler = async () => {
     const title = "Default Title"; // Atur nilai default jika tidak ada
     const snippet = "Default Snippet";
 
+    const postsPerPage = 5; // Atur jumlah post per halaman
+    let totalPages = 1; // Ganti const dengan let
+    let sha = null; // Tambahkan sebelum penggunaan
+    
+
+
+
+    
+
+
       
 
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO) {
@@ -65,6 +75,23 @@ exports.handler = async () => {
         body: JSON.stringify({ message: "No submissions found." }),
       };
     }
+
+    const validSubmissions = submissions.filter(submission => submission && submission.data);
+    if (validSubmissions.length === 0) {
+      console.warn("No valid submissions found");
+      return {
+        statusCode: 204,
+        body: JSON.stringify({ message: "No valid submissions." }),
+      };
+    }
+
+
+
+
+    if (Array.isArray(submissions) && submissions.length > 0) {
+      totalPages = Math.ceil(submissions.length / postsPerPage);
+    }
+
   
 
   
@@ -76,11 +103,32 @@ exports.handler = async () => {
       .replace(/[^\x20-\x7E]/g, "") // Hapus simbol non-ASCII
       .trim(); // Menghapus spasi berlebih di awal/akhir
     };
+
+
+
+
     
-    // Generate post list as HTML
-    const postListHTML = submissions
+    for (let page = 1; page <= totalPages; page++) {
+      const startIndex = (page - 1) * postsPerPage;
+      const endIndex = startIndex + postsPerPage;
+      const currentPosts = submissions.slice(startIndex, endIndex);
+    
+      // Generate HTML untuk post pada halaman ini
+      const postListHTML = currentPosts
       .map((submission) => {
-        const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
+        //const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
+
+        const {
+          title = "No Title",
+          slug = "no-slug",
+          tags = [],
+          category = "Uncategorized",
+          bodypost = "",
+          author = "Anonymous",
+          imagefile = null,
+        } = submission.data || {};
+
+        
         
         // Bersihkan dan buat snippet
         const cleanBodyPost = cleanText(bodypost);
@@ -104,11 +152,41 @@ exports.handler = async () => {
 
 
 
+      // Generate Pagination
+      const paginationHTML = Array.from({ length: totalPages }, (_, i) => {
+        const pageIndex = i + 1;
+        const activeClass = pageIndex === page ? "active" : "";
+        return `
+          <li>
+            <a href="/index-static-page${pageIndex}.html" class="pagination-button ${activeClass}">
+              ${pageIndex}
+            </a>
+          </li>`;
+      }).join("\n");
+
+////////////////
+/*
+
+const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
+  <li>
+    <a href="/index-static-page${i + 1}.html" class="pagination-button ${i + 1 === page ? "active" : ""}">
+      ${i + 1}
+    </a>
+  </li>`).join("");
+*/
+
+
+////////////////
+
+
+
+
+
       //const metaDescription = snippet || "Default meta description";//fallback values
 
 
 
-      // Ambil data post pertama
+      // Ambil data item post pertama
       const firstPost = submissions[0]?.data || {}; // Default ke objek kosong jika tidak ada post
       const {
         title: firstTitle = "POSTNETLIFY HOME TITLE",
@@ -179,12 +257,12 @@ exports.handler = async () => {
         </div><!-- class grid ditutup -->
       
         <div id="pagination" class="pagination" style="display: flex;">
-            <ul class="pagination">
-              <li>
-                  <a href="#" class="pagination-button active" onclick="changePage(1)">1</a>
-              </li>
-            </ul>
-        </div><!-- class pagination ditutup , diurus belakangan -->
+          <ul>
+            ${paginationHTML}
+          </ul>
+        </div><!-- class pagination ditutup -->
+
+
 
         <br>
     
@@ -249,6 +327,11 @@ exports.handler = async () => {
 
 
 
+    if (!templateHTML.includes("{{POSTS}}")) {
+      console.error("Template does not contain the placeholder '{{POSTS}}'");
+      throw new Error("Template placeholder missing");
+    }
+
 
     // Replace placeholder in template
     const finalHTML = templateHTML.replace("{{POSTS}}", postListHTML);
@@ -256,20 +339,28 @@ exports.handler = async () => {
     // Encode HTML content to Base64 for GitHub API
     const encodedContent = Buffer.from(finalHTML).toString("base64");
 
-    const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+    const filePath = `index-static-page${page}.html`;
+
+    //const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+      const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${filePath}`;
 
     // Fetch current file data (to get SHA for update)
     const fileResponse = await fetch(GITHUB_API_URL, {
-        headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
-        },
+      method: "GET",
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
     });
-
-    let sha = null;
+    
     if (fileResponse.ok) {
-        const fileData = await fileResponse.json();
-        sha = fileData.sha; // Get SHA if file already exists
+      const fileData = await fileResponse.json();
+      const sha = fileData?.sha || null; // Aman jika `fileData` tidak mengandung `sha`.
+
+      sha = fileData.sha; // Get SHA if file already exists
+      
     }
+
+ 
 
     // Save or update file on GitHub
     const githubResponse = await fetch(GITHUB_API_URL, {
@@ -285,15 +376,20 @@ exports.handler = async () => {
         }),
     });
 
+
+
     if (!githubResponse.ok) {
         
         const errorDetails = await githubResponse.text();
-        console.error("GitHub API error:", errorDetails);
+        console.error(`GitHub API error for page ${page}:`, errorDetails);
         return {
           statusCode: githubResponse.status,
           body: JSON.stringify({ error: errorDetails }),
         };
     }
+
+  
+
 
     const result = await githubResponse.json();
 
@@ -307,6 +403,8 @@ exports.handler = async () => {
           timestamp: new Date().toISOString(), // Timestamp pembuatan file
         }),
       };
+
+    }
       
     } catch (error) {
     console.error("Error in combined handler:", error);
