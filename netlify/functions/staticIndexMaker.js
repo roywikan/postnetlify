@@ -88,9 +88,10 @@ exports.handler = async () => {
 
 
 
-    if (Array.isArray(submissions) && submissions.length > 0) {
-      totalPages = Math.ceil(submissions.length / postsPerPage);
+    if (validSubmissions.length > 0) {
+      totalPages = Math.ceil(validSubmissions.length / postsPerPage);
     }
+
 
   
 
@@ -106,27 +107,22 @@ exports.handler = async () => {
 
 
 
-
     
     for (let page = 1; page <= totalPages; page++) {
+       // Proses untuk setiap halaman
       const startIndex = (page - 1) * postsPerPage;
       const endIndex = startIndex + postsPerPage;
-      const currentPosts = submissions.slice(startIndex, endIndex);
+      //const currentPosts = submissions.slice(startIndex, endIndex);
+      const currentPosts = validSubmissions.slice(startIndex, endIndex);
+
     
       // Generate HTML untuk post pada halaman ini
       const postListHTML = currentPosts
       .map((submission) => {
-        //const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
+        const { title, slug, tags, category, bodypost, author, imagefile } = submission.data;
 
-        const {
-          title = "No Title",
-          slug = "no-slug",
-          tags = [],
-          category = "Uncategorized",
-          bodypost = "",
-          author = "Anonymous",
-          imagefile = null,
-        } = submission.data || {};
+
+
 
         
         
@@ -339,10 +335,12 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
 
 
 
+
     if (!templateHTML.includes("{{POSTS}}")) {
-      console.error("Template does not contain the placeholder '{{POSTS}}'");
+      console.error("Template missing placeholder '{{POSTS}}':", templateHTML);
       throw new Error("Template placeholder missing");
     }
+
 
 
     // Replace placeholder in template
@@ -366,10 +364,11 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
     
     if (fileResponse.ok) {
       const fileData = await fileResponse.json();
-      const sha = fileData?.sha || null; // Aman jika `fileData` tidak mengandung `sha`.
+      //const sha = fileData?.sha || null; // Aman jika `fileData` tidak mengandung `sha`.
 
-      sha = fileData.sha; // Get SHA if file already exists
-      
+
+      sha = fileData?.sha || null; // Tetap aman jika file belum ada.
+    
     }
 
  
@@ -387,6 +386,9 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
           sha: sha || undefined, // Include SHA if file exists
         }),
     });
+
+    console.log(`Uploading page ${page} to GitHub:`, { url: GITHUB_API_URL, sha });
+
 
 
 
@@ -417,6 +419,12 @@ const paginationHTML = Array.from({ length: totalPages }, (_, i) => `
       };
 
     }
+        // Kembalikan hasil setelah semua halaman selesai
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "All pages generated successfully" }),
+    };
+
       
     } catch (error) {
     console.error("Error in combined handler:", error);
