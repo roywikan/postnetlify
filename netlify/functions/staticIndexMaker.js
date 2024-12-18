@@ -67,6 +67,43 @@ exports.handler = async () => {
     const postsPerPage = 5;
     const totalPages = Math.ceil(validSubmissions.length / postsPerPage);
 
+    const getUrlDetails = (inputUrl) => {
+      const url = new URL(inputUrl); // Gunakan URL yang diberikan
+      const subdomain = url.hostname.split('.')[0].toUpperCase();
+      const domain = url.hostname.split('.').slice(1).join('.');
+      const fullUrl = url.href;
+      const path = url.pathname === "/" ? "Home" : url.pathname;
+      const baseUrl = `${url.protocol}//${url.hostname}`;
+      const supportEmail = `support@${domain}`;
+      const siteName = `${subdomain}.${domain}`;
+    
+      return {
+        subdomain,
+        domain,
+        fullUrl,
+        path,
+        baseUrl,
+        supportEmail,
+        siteName,
+      };
+    };
+    
+    // Contoh penggunaan
+    //const inputUrl = "https://blog.example.com/some-page";
+    //const urlDetails = getUrlDetails(inputUrl);
+
+    // Tampilkan hasil
+    //console.log(urlDetails);
+
+
+    const urlDetails = getUrlDetails(process.env.SITE_URL || "https://example.com");
+    //console.log(`Support email: ${urlDetails.supportEmail}`);
+
+    
+
+
+    
+
     const cleanText = (text) => {
       if (!text) return "";
       return text
@@ -159,14 +196,7 @@ exports.handler = async () => {
       //const pageTitle = firstTitle;
       //const metaAuthor = firstAuthor;
 
-        const url = new URL(window.location.href);
-        const subdomain = url.hostname.split('.')[0].toUpperCase();
-        const domain = url.hostname.split('.').slice(1).join('.');
-        const fullUrl = url.href;
-        const path = url.pathname === "/" ? "Home" : url.pathname;
-        const baseUrl = `${url.protocol}//${url.hostname}`;
-        const supportEmail = `support@${domain}`;
-        const siteName = `${subdomain}.${domain}`;
+      
 
       
 
@@ -191,9 +221,8 @@ exports.handler = async () => {
       <meta name="description" id="meta-description" content="${metaDescription}">
       <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
-      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-      <meta http-equiv="Pragma" content="no-cache">
-      <meta http-equiv="Expires" content="0">
+     
+
 
 
       <title id="page-title">${pageTitle}</title>
@@ -361,18 +390,22 @@ exports.handler = async () => {
     for (const res of results) { // barisbaru: Iterasi dan validasi setiap response
       if (!res.ok) {
         const errorDetails = await res.json();
-        throw new Error(`Failed to upload ${fileName}: ${JSON.stringify(errorDetails)}`);
-        throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
+        //throw new Error(`Failed to upload ${fileName}: ${JSON.stringify(errorDetails)}`);
+        //throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
+        throw new Error(`Failed to upload ${fileName}. Status: ${res.statusText}, Details: ${JSON.stringify(errorDetails)}`);
+
 
 
       }
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "All pages generated successfully" }),
-      pages: fileNames,
-    };
+return {
+  statusCode: 200,
+  body: JSON.stringify({
+    message: "All pages generated successfully",
+    pages: fileNames, // Tambahkan detail nama halaman yang dibuat
+  }),
+};
   } catch (error) {
     console.error("Error in combined handler:", error);
     return {
