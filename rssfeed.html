@@ -63,7 +63,8 @@ function generateSnippet(body) {
         posts.forEach(post => {
           const title = escapeXML(post.data.title);
           const slug = escapeXML(post.data.slug);
-          const url = `${baseUrl}/post/${slug}`;
+          //const url = `${baseUrl}/post/${slug}`;
+          const url = `${baseUrl}/static/${slug}`;
           const createdAt = new Date(post.created_at).toUTCString();
           //const snippet = escapeXML(post.data.bodypost.split(' ').slice(0, 20).join(' ') + '...');
           const snippet = escapeXML(generateSnippet(post.data.bodypost));
