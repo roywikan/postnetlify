@@ -16,8 +16,7 @@ exports.handler = async () => {
     const title = "Default Title"; // Atur nilai default jika tidak ada
     const snippet = "Default Snippet";
 
-    //const postsPerPage = 5; // Atur jumlah post per halaman
-    //let totalPages = 1; // Ganti const dengan let
+
     let sha = null; // Tambahkan sebelum penggunaan
     
 
@@ -95,7 +94,7 @@ exports.handler = async () => {
     
     const postsPerPage = 5;
     const totalPages = Math.ceil(validSubmissions.length / postsPerPage);
-    const tasks = [];
+    
 
     
 
@@ -177,7 +176,9 @@ exports.handler = async () => {
 
 
       // Ambil data item post pertama
-      const firstPost = submissions[0]?.data || {}; // Default ke objek kosong jika tidak ada post
+
+      const firstPost = submissions[0]?.data ?? {}; // Menggunakan nullish coalescing
+
       const {
         title: firstTitle = "POSTNETLIFY HOME TITLE",
         author: firstAuthor = "POSTNETLIFY HOME AUTHOR",
@@ -364,7 +365,7 @@ exports.handler = async () => {
     
     if (fileResponse.ok) {
       const fileData = await fileResponse.json();
-      //const sha = fileData?.sha || null; // Aman jika `fileData` tidak mengandung `sha`.
+
 
 
       sha = fileData?.sha || null; // Tetap aman jika file belum ada.
@@ -375,7 +376,7 @@ exports.handler = async () => {
 
     // Save or update file on GitHub
 
-/*      
+   
     const githubResponse = await fetch(GITHUB_API_URL, {
         method: "PUT",
         headers: {
@@ -383,37 +384,20 @@ exports.handler = async () => {
           Authorization: `token ${GITHUB_TOKEN}`,
         },
         body: JSON.stringify({
-          message: "Update index-static.html",
+          message: `Update ${filePath}`,
           content: encodedContent,
           sha: sha || undefined, // Include SHA if file exists
         }),
     });
-*/
-/////////////////////////////////////
 
-      tasks.push(
-        fetch(GITHUB_API_URL, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `token ${GITHUB_TOKEN}`,
-          },
-          body: JSON.stringify({
-            message: `Update ${filePath}`,
-            content: encodedContent,
-            sha: sha || undefined, // Include SHA if file exists
-          }),
-        })
-      );
 
-/////////////////////////////////////
 
       
 
     console.log(`Uploading page ${filePath} to GitHub:`, { url: GITHUB_API_URL, sha });
 
 
-/*
+
 
     if (!githubResponse.ok) {
         
@@ -424,7 +408,7 @@ exports.handler = async () => {
           body: JSON.stringify({ error: errorDetails }),
         };
     }
-*/
+
   
 
 /*
@@ -452,62 +436,19 @@ exports.handler = async () => {
 
 
 
-    const results = await Promise.all(tasks);
-/*
+    //const results = await Promise.all(tasks);
+    const result = await githubResponse.json();
+    
 for (const res of results) {
   if (!res.ok) {
     const errorDetails = await res.json(); // Mendapatkan detail kesalahan
     throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
   }
 }
-*/
 
 
-for (const res of results) {
-  if (!res.ok) {
-    if (res.status === 409) { // Error konflik
-      const conflictDetails = await res.json();
-      console.error("Conflict error:", conflictDetails);
 
-      // Ambil SHA terbaru
-      const updatedFileResponse = await fetch(conflictDetails.url, {
-        method: "GET",
-        headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
-        },
-      });
 
-      if (updatedFileResponse.ok) {
-        const updatedFileData = await updatedFileResponse.json();
-        const updatedSha = updatedFileData.sha;
-
-        // Coba unggah ulang dengan SHA terbaru
-        const retryResponse = await fetch(conflictDetails.url, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `token ${GITHUB_TOKEN}`,
-          },
-          body: JSON.stringify({
-            message: `Retry update ${filePath} with updated SHA`,
-            content: encodedContent,
-            sha: updatedSha,
-          }),
-        });
-
-        if (!retryResponse.ok) {
-          const retryErrorDetails = await retryResponse.json();
-          throw new Error(`Retry failed: ${JSON.stringify(retryErrorDetails)}`);
-        }
-      } else {
-        throw new Error(`Failed to fetch updated SHA: ${await updatedFileResponse.text()}`);
-      }
-    } else {
-      const errorDetails = await res.json();
-      throw new Error(`Failed to upload page: ${res.statusText}. Details: ${JSON.stringify(errorDetails)}`);
-    }
-  }
-}
 
 
     
