@@ -131,6 +131,9 @@ const cleanText = (text) => {
 
     const results = []; // barisbaru: array untuk menyimpan response GitHub
 
+    const fileDetails = []; // Array untuk menyimpan detail file (nama + waktu)
+
+
     for (let page = 1; page <= totalPages; page++) {
       const startIndex = (page - 1) * postsPerPage;
       const currentPosts = validSubmissions.slice(startIndex, startIndex + postsPerPage);
