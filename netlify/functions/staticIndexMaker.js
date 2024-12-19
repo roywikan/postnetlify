@@ -428,15 +428,18 @@ const cleanText = (text) => {
 
 
 
+
+
 return {
   statusCode: 200,
   body: JSON.stringify({
     message: "All pages generated successfully",
-    timestamp: getTimestamp(), // Tambahkan timestamp di sini
-    pages: fileNames, // Daftar halaman yang dibuat
-    details: fileDetails, // Output lengkap dengan timestamp
-  }),
+    timestamp: getTimestamp(), // Timestamp utama
+    pages: fileNames,
+    details: fileDetails // Rincian waktu pembuatan setiap file
+  }, null, 2) // Tambahkan null dan 2 di sini untuk format human-readable
 };
+
     
   } catch (error) {
     console.error("Error in combined handler:", error);
