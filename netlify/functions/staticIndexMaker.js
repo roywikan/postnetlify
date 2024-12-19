@@ -105,6 +105,12 @@ exports.handler = async () => {
     //console.log(`Support email: ${urlDetails.supportEmail}`);
 
     
+const getTimestamp = () => {
+  const now = new Date();
+  return new Date(now.getTime() + (7 * 60 * 60 * 1000)).toISOString().replace("Z", "WIB");
+};
+
+
 
 
     
@@ -352,6 +358,11 @@ const cleanText = (text) => {
       const fileName = page === 1 ? "index.html" : `index-static-page${page}.html`;
       fileNames.push(fileName); // Tambahkan nama file ke array
 
+      //const timestamp = new Date().toISOString(); // Tambahkan timestamp
+      const timestamp = getTimestamp();
+      fileDetails.push({ fileName, timestamp }); // Simpan detail file dan timestamp
+
+
       const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
 
 
@@ -412,13 +423,18 @@ const cleanText = (text) => {
       }
     }
 
+
+
 return {
   statusCode: 200,
   body: JSON.stringify({
     message: "All pages generated successfully",
-    pages: fileNames, // Tambahkan detail nama halaman yang dibuat
+    timestamp: getTimestamp(), // Tambahkan timestamp di sini
+    pages: fileNames, // Daftar halaman yang dibuat
+    details: fileDetails, // Output lengkap dengan timestamp
   }),
 };
+    
   } catch (error) {
     console.error("Error in combined handler:", error);
     return {
