@@ -6,7 +6,8 @@
   //'https://postnetlify.netlify.app/staticIndexMaker'
   
   // Fungsi 3: Update RSS feed
-  //'https://postnetlify.netlify.app/rssfeed'
+  //'https://postnetlify.netlify.app/rssfeed' diberi alternatif baru berupa single proses:
+//https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML
   
   // Fungsi 4: Update sitemap
   //'https://postnetlify.netlify.app/sitemap-xml'
@@ -21,7 +22,7 @@ exports.handler = async () => {
   const functionUrls = [
     'https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic',
     'https://postnetlify.netlify.app/.netlify/functions/staticIndexMaker',
-    'https://postnetlify.netlify.app/.netlify/functions/saveRSS',
+    'https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML',
     'https://postnetlify.netlify.app/.netlify/functions/saveSitemap'
   ];
 
