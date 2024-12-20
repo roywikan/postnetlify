@@ -30,17 +30,23 @@ exports.handler = async () => {
       console.log(`Memulai pemanggilan fungsi ${i + 1}: ${functionUrls[i]}`);
 
       const response = await fetch(functionUrls[i]);
-      if (!response.ok) {
-        throw new Error(`Fungsi ${i + 1} gagal dengan status ${response.status}`);
-      }
+      const contentType = response.headers.get('content-type');
 
-      const result = await response.json();
-      console.log(`Fungsi ${i + 1} selesai:`, result);
+      // Periksa apakah respons adalah JSON atau HTML
+      if (contentType.includes('application/json')) {
+        const jsonResult = await response.json();
+        console.log(`Fungsi ${i + 1} selesai dengan JSON:`, jsonResult);
+      } else if (contentType.includes('text/html')) {
+        const htmlResult = await response.text();
+        console.log(`Fungsi ${i + 1} selesai dengan HTML:\n${htmlResult.substring(0, 200)}...`); // Potong untuk log
+      } else {
+        throw new Error(`Fungsi ${i + 1} mengembalikan tipe konten yang tidak dikenali: ${contentType}`);
+      }
     }
 
     return {
       statusCode: 200,
-      body: 'Semua fungsi berhasil dijalankan secara berurutan dalam background!'
+      body: 'Semua fungsi berhasil dijalankan secara berurutan!'
     };
   } catch (error) {
     console.error('Kesalahan saat menjalankan fungsi:', error);
@@ -50,3 +56,4 @@ exports.handler = async () => {
     };
   }
 };
+
