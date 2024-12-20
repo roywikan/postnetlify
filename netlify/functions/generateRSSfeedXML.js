@@ -81,6 +81,8 @@ exports.handler = async (event) => {
     <title>${escapeXML(SITE_NAME_TITLE)}</title>
     <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
     <description>RSS feed for form submissions</description>
+    <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rss.xml" rel="self" type="application/rss+xml" />
+
     ${submissions
       .map((submission, index) => {
         const {
@@ -110,7 +112,7 @@ exports.handler = async (event) => {
           <link>${escapeXML(postUrl)}</link>
           <description>${escapeXML(metaDescription)}</description>
           <category>${escapeXML(category || 'Uncategorized')}</category>
-          <author>${escapeXML(author ? author + `@${SUB_DOMAIN}.${DOMAIN}` : `Master@${SUB_DOMAIN}.${DOMAIN}`)}</author>
+          <author>${escapeXML((author || 'Master') + ` <${author || 'Master'}@${SUB_DOMAIN}.${DOMAIN}>`)}</author>
           <pubDate>${formatRFC822(createdAt)}</pubDate>
           <guid isPermaLink="true">${escapeXML(postUrl)}</guid>
           <media:content url="${escapeXML(imageFileUrl)}" />
