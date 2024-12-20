@@ -81,7 +81,7 @@ exports.handler = async (event) => {
     <title>${escapeXML(SITE_NAME_TITLE)}</title>
     <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
     <description>RSS feed for form submissions</description>
-    <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rssfeed.xml" rel="self" type="application/rss+xml" />
 
     ${submissions
       .map((submission, index) => {
