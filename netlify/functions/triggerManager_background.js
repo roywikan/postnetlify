@@ -21,8 +21,8 @@ exports.handler = async () => {
   const functionUrls = [
     'https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic',
     'https://postnetlify.netlify.app/.netlify/functions/staticIndexMaker',
-    'https://postnetlify.netlify.app/.netlify/functions/rssfeed',
-    'https://postnetlify.netlify.app/.netlify/functions/sitemap-xml'
+    'https://postnetlify.netlify.app/rssfeed',
+    'https://postnetlify.netlify.app/sitemap-xml'
   ];
 
   try {
