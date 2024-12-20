@@ -4,13 +4,15 @@
     <title>POSTS</title>
     <link>https://postnetlify.netlify.app</link>
     <description>RSS feed for form submissions</description>
+    <atom:link href="https://postnetlify.netlify.app/rss.xml" rel="self" type="application/rss+xml" />
+
     
         <item>
           <title>Memaksa File di Github Diikutsertakan ke Dalam Deployment Netlify</title>
           <link>https://postnetlify.netlify.app/static/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670.html</link>
           <description>Kesalahan ini terjadi karena file static-post-template.html tidak ditemukan pada lokasi yang ditentukan</description>
           <category>development</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Sun, 15 Dec 2024 07:29:31 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734247770/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670.avif.avif" />
@@ -21,7 +23,7 @@
           <link>https://postnetlify.netlify.app/static/write-static-html-generator-using-netlify-function-into-github-122.html</link>
           <description>Tidak secara otomatis. Form Netlify akan mengirimkan data ke endpoint default Netlify atau endpoint lain yang Anda tentukan. Agar form submission dapat</description>
           <category>javascript</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Sat, 14 Dec 2024 22:20:57 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/write-static-html-generator-using-netlify-function-into-github-122.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734214855/write-static-html-generator-using-netlify-function-into-github-122.avif.avif" />
@@ -32,7 +34,7 @@
           <link>https://postnetlify.netlify.app/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html</link>
           <description>Here is a summary of the logic and workflow of the process of saving a payload to a file in a GitHub repo using Netlify Function and GitHub API:1. Accept</description>
           <category>js, blogging</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Thu, 12 Dec 2024 03:12:32 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733973151/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.webp.webp" />
@@ -43,7 +45,7 @@
           <link>https://postnetlify.netlify.app/static/blogging-using-netlify-function-to-write-to-github-593.html</link>
           <description>To blog using a Netlify function to write to GitHub, you can&amp;nbsp;create a serverless function within your Netlify project that will handle incoming blog</description>
           <category>js, blogging</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Thu, 12 Dec 2024 02:50:24 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/blogging-using-netlify-function-to-write-to-github-593.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733971823/blogging-using-netlify-function-to-write-to-github-593.webp.webp" />
@@ -54,7 +56,7 @@
           <link>https://postnetlify.netlify.app/static/write-to-github-repo-using-a-netlify-function-744.html</link>
           <description>To write to GitHub using a Netlify function, you need to&amp;nbsp;create a serverless function in your Netlify project that makes an authenticated API request</description>
           <category>javascript</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Thu, 12 Dec 2024 02:44:27 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/write-to-github-repo-using-a-netlify-function-744.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733971465/write-to-github-repo-using-a-netlify-function-744.webp.webp" />
@@ -65,7 +67,7 @@
           <link>https://postnetlify.netlify.app/static/roi-website-measurement-550.html</link>
           <description>Market segment yang sangat mudah menyetujui untuk membuat website usaha mereka segera, tanpa banyak bertanya atau meragukan pentingnya website, biasanya</description>
           <category>development</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Tue, 10 Dec 2024 21:48:31 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/roi-website-measurement-550.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733867310/roi-website-measurement-550.webp.webp" />
@@ -76,7 +78,7 @@
           <link>https://postnetlify.netlify.app/static/segmen-bisnis-yang-membutuhkan-website-457.html</link>
           <description>Berikut adalah pembagian segmen berdasarkan budget besar dan budget kecil untuk pembuatan website:1. Segmen dengan Budget BesarCiri-ciri: Fokus pada</description>
           <category>business</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Tue, 10 Dec 2024 20:07:13 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/segmen-bisnis-yang-membutuhkan-website-457.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733861232/segmen-bisnis-yang-membutuhkan-website-457.webp.webp" />
@@ -87,7 +89,7 @@
           <link>https://postnetlify.netlify.app/static/tips-seo-untuk-artikel-ini-188.html</link>
           <description>Gunakan Kata Kunci yang Tepat&quot;Hosting gratis di Google Cloud&quot;&quot;Membuat guestbook HTML&quot;&quot;Firebase hosting tutorial&quot;Optimalkan Judul dan Meta DescriptionJudul:</description>
           <category>tips</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Sun, 08 Dec 2024 07:01:42 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/tips-seo-untuk-artikel-ini-188.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733641301/tips-seo-untuk-artikel-ini-188.jpg.jpg" />
@@ -98,7 +100,7 @@
           <link>https://postnetlify.netlify.app/static/hosting-html-static-secara-gratis-di-google-cloud-841.html</link>
           <description>Berikut adalah langkah-langkah membuat dan menghosting HTML static di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat</description>
           <category>hosting</category>
-          <author>Master@postnetlify.netlify.app</author>
+          <author>Master &lt;Master@postnetlify.netlify.app&gt;</author>
           <pubDate>Sun, 08 Dec 2024 06:31:30 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/hosting-html-static-secara-gratis-di-google-cloud-841.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg" />
@@ -109,7 +111,7 @@
           <link>https://postnetlify.netlify.app/static/hard-way-netlify-alternative-google-cloud-free-hosting-static-html-form-and-functions-287.html</link>
           <description>Menggunakan Google Cloud untuk Mendapatkan Fasilitas Free Hosting Static HTML, Form Submission, dan Serverless FunctionBerikut adalah langkah-langkah yang</description>
           <category>hosting, tutorial</category>
-          <author>Faster@postnetlify.netlify.app</author>
+          <author>Faster &lt;Faster@postnetlify.netlify.app&gt;</author>
           <pubDate>Sat, 07 Dec 2024 22:22:00 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/hard-way-netlify-alternative-google-cloud-free-hosting-static-html-form-and-functions-287.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733610119/hard-way-netlify-alternative-google-cloud-free-hosting-static-html-form-and-functions-287.png.png" />
@@ -120,7 +122,7 @@
           <link>https://postnetlify.netlify.app/static/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899.html</link>
           <description>Menghubungkan 2000 program AI dari berbagai perusahaan ke dalam satu sistem besar bisa memiliki dampak yang sangat luas dan kompleks. Konsekuensi dari</description>
           <category>Future</category>
-          <author>Roy@postnetlify.netlify.app</author>
+          <author>Roy &lt;Roy@postnetlify.netlify.app&gt;</author>
           <pubDate>Wed, 04 Dec 2024 17:50:12 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733334611/sebuah-ai-akan-dapat-belajar-dari-ai-lainnya-jika-ai-saling-terhubung-899.jpg.jpg" />
@@ -131,7 +133,7 @@
           <link>https://postnetlify.netlify.app/static/inilah-keberhasilan-digital-transformation-dari-netflix-538.html</link>
           <description>Siapa sih yang tidak tahu Netflix? Salah satu perusahaan penyedia layanan hiburan terkemuka didunia dengan 183 juta pelanggan di lebih dari 190 negara ini</description>
           <category>article</category>
-          <author>Roy@postnetlify.netlify.app</author>
+          <author>Roy &lt;Roy@postnetlify.netlify.app&gt;</author>
           <pubDate>Mon, 02 Dec 2024 06:57:07 GMT</pubDate>
           <guid isPermaLink="true">https://postnetlify.netlify.app/static/inilah-keberhasilan-digital-transformation-dari-netflix-538.html</guid>
           <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/v1733122625/inilah-keberhasilan-digital-transformation-dari-netflix-538.jpg.jpg" />
