@@ -25,6 +25,8 @@ exports.handler = async () => {
     'https://postnetlify.netlify.app/sitemap-xml'
   ];
 
+
+
   try {
     for (let i = 0; i < functionUrls.length; i++) {
       console.log(`Memulai pemanggilan fungsi ${i + 1}: ${functionUrls[i]}`);
@@ -32,13 +34,16 @@ exports.handler = async () => {
       const response = await fetch(functionUrls[i]);
       const contentType = response.headers.get('content-type');
 
-      // Periksa apakah respons adalah JSON atau HTML
+      // Periksa tipe konten respons
       if (contentType.includes('application/json')) {
         const jsonResult = await response.json();
         console.log(`Fungsi ${i + 1} selesai dengan JSON:`, jsonResult);
       } else if (contentType.includes('text/html')) {
         const htmlResult = await response.text();
         console.log(`Fungsi ${i + 1} selesai dengan HTML:\n${htmlResult.substring(0, 200)}...`); // Potong untuk log
+      } else if (contentType.includes('text/plain')) {
+        const textResult = await response.text();
+        console.log(`Fungsi ${i + 1} selesai dengan Text:\n${textResult.substring(0, 200)}...`); // Potong untuk log
       } else {
         throw new Error(`Fungsi ${i + 1} mengembalikan tipe konten yang tidak dikenali: ${contentType}`);
       }
@@ -56,4 +61,3 @@ exports.handler = async () => {
     };
   }
 };
-
