@@ -17,12 +17,12 @@ const POST_DIR = 'static';
 
 exports.handler = async (event) => {
   try {
-    if (event.httpMethod !== 'POST') {
-      return {
-        statusCode: 405,
-        body: JSON.stringify({ error: 'Method Not Allowed' }),
-      };
-    }
+    //if (event.httpMethod !== 'POST') {
+      //return {
+        //statusCode: 405,
+        //body: JSON.stringify({ error: 'Method Not Allowed' }),
+      //};
+    //}
 
     // Validasi Variabel Lingkungan
     if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO || !FILE_PATH) {
