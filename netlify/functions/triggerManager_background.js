@@ -8,6 +8,7 @@
   // Fungsi 3: Update RSS feed
   //'https://postnetlify.netlify.app/rssfeed' diberi alternatif baru berupa single proses:
 //https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML
+//untuk validasi hasilnya rssfeed.xml tunggu netlify build and publish dulu
   
   // Fungsi 4: Update sitemap
   //'https://postnetlify.netlify.app/sitemap-xml'
