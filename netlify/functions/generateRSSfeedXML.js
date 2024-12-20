@@ -112,7 +112,7 @@ const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
           <link>${escapeXML(postUrl)}</link>
           <description>${escapeXML(metaDescription)}</description>
           <category>${escapeXML(category || 'Uncategorized')}</category>
-          <author>${escapeXML((author || 'Master') + ` <${author || 'Master'}@${SUB_DOMAIN}.${DOMAIN}>`)}</author>
+          <author>${escapeXML(`${author || 'Master'}@${SUB_DOMAIN}.${DOMAIN} (${author || 'Master'})`)}</author>
           <pubDate>${formatRFC822(createdAt)}</pubDate>
           <guid isPermaLink="true">${escapeXML(postUrl)}</guid>
           <media:content url="${escapeXML(imageFileUrl)}" />
