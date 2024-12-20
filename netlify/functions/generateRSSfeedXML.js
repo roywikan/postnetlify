@@ -11,6 +11,9 @@ const POST_DIR = 'static';
 // hasil akhir slug harus seperti ini: https://postnetlify.netlify.app/static/post-slug-blah.html
 
 
+const formatRFC822 = (date) => {
+  return new Date(date).toUTCString(); // Mengubah tanggal menjadi format RFC-822
+};
 
 
 
