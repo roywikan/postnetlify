@@ -73,7 +73,7 @@ exports.handler = async (event) => {
 
     // Membuat RSS feed
     const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>${escapeXML(SITE_NAME_TITLE)}</title>
     <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
@@ -99,15 +99,17 @@ exports.handler = async (event) => {
         const postSlug = slug || `post-${index + 1}`;
         const postUrl = `https://${SUB_DOMAIN}.${DOMAIN}/${POST_DIR}/${postSlug}.html`;
 
+
+
         return `
         <item>
           <title>${escapeXML(title || `Submission ${index + 1}`)}</title>
           <link>${escapeXML(postUrl)}</link>
           <description>${escapeXML(metaDescription)}</description>
           <category>${escapeXML(category || 'Uncategorized')}</category>
-          <author>${escapeXML(author || 'Unknown')}</author>
-          <pubDate>${createdAt}</pubDate>
-          <guid>${escapeXML(ip || `submission-${index + 1}`)}</guid>
+          <author>${escapeXML(author ? author + `@${SUB_DOMAIN}.${DOMAIN}` : `Master@${SUB_DOMAIN}.${DOMAIN}`)}</author>
+          <pubDate>${formatRFC822(createdAt)}</pubDate>
+          <guid isPermaLink="true">${escapeXML(postUrl)}</guid>
           <media:content url="${escapeXML(imageFileUrl)}" />
         </item>`;
       })
