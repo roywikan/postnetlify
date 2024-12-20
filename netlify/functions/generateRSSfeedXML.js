@@ -74,9 +74,9 @@ exports.handler = async (event) => {
       return truncated;
     };
 
-    // Membuat RSS feed
-    const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+// Membuat RSS feed
+const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeXML(SITE_NAME_TITLE)}</title>
     <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
