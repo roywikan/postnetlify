@@ -36,7 +36,6 @@ const truncateToWords = (text, maxLength) => {
   return truncated;
 };
 
-const MAX_POSTS_PER_PAGE = 5;
 
 const saveFileToGitHub = async (fileName, content, message, sha = null) => {
   const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
@@ -79,7 +78,7 @@ exports.handler = async (event) => {
   try {
     const { page = 1 } = event.queryStringParameters || {};
     const currentPage = parseInt(page, 10);
-    const postsPerPage = 5;
+    const postsPerPage = 3;
 
     if (isNaN(currentPage) || currentPage < 1) {
       throw new Error('Invalid page parameter');
@@ -178,7 +177,15 @@ exports.handler = async (event) => {
 
     console.log(`RSS feed saved successfully for page ${currentPage}`);
 
-    // Generate Index RSS feed
+    // Check if there are more pages and create additional files if necessary
+    if (currentPage < totalPages) {
+      const nextPageResponse = await exports.handler({
+        queryStringParameters: { page: currentPage + 1 },
+      });
+      return nextPageResponse;
+    }
+
+    // Generate Index RSS feed after all sub-RSS files have been created
     const indexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel>
@@ -219,14 +226,6 @@ exports.handler = async (event) => {
     }
 
     console.log('RSS index generated successfully');
-
-    // Check if there are more pages and create additional files if necessary
-    if (currentPage < totalPages) {
-      const nextPageResponse = await exports.handler({
-        queryStringParameters: { page: currentPage + 1 },
-      });
-      return nextPageResponse;
-    }
 
     return {
       statusCode: 200,
