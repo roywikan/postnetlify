@@ -41,46 +41,66 @@ function generateSnippet(body) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+              
         const posts = await response.json();
         console.log('Posts fetched:', posts);
-
+        
         const escapeXML = str => str
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&apos;');
-
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+        
+        const generateSnippet = text => {
+        if (!text) return '';
+        const snippet = text
+          .replace(/<[^>]*>/g, '') // Remove HTML tags
+          .replace(/[^\x20-\x7E]/g, '') // Remove non-ASCII characters
+          .split(' ')
+          .slice(0, 20)
+          .join(' ');
+        return snippet + '...';
+        };
+        
         const baseUrl = window.location.origin;
         let rss = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-        rss += `<rss version="2.0">\n`;
+        rss += `<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
         rss += `<channel>\n`;
-        rss += `<title>Your Blog Name</title>\n`;
+        rss += `<title>POSTS</title>\n`;
         rss += `<link>${baseUrl}</link>\n`;
-        rss += `<description>Latest posts from Your Blog</description>\n`;
-        rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />\n`;
-
-        posts.forEach(post => {
-          const title = escapeXML(post.data.title);
-          const slug = escapeXML(post.data.slug);
-          //const url = `${baseUrl}/post/${slug}`;
-          const url = `${baseUrl}/static/${slug}`;
-          const createdAt = new Date(post.created_at).toUTCString();
-          //const snippet = escapeXML(post.data.bodypost.split(' ').slice(0, 20).join(' ') + '...');
-          const snippet = escapeXML(generateSnippet(post.data.bodypost));
-
-          rss += `
-            <item>
-              <title>${title}</title>
-              <link>${url}</link>
-              <description>${snippet}</description>
-              <pubDate>${createdAt}</pubDate>
-              <guid>${url}</guid>
-            </item>\n`;
+        rss += `<description>Latest posts from your blog</description>\n`;
+        rss += `<atom:link href="${baseUrl}/rssfeed.xml" rel="self" type="application/rss+xml" />\n`;
+        
+        posts.forEach((post, index) => {
+        const title = escapeXML(post.data.title || `Submission ${index + 1}`);
+        const slug = escapeXML(post.data.slug || `post-${index + 1}`);
+        const url = `${baseUrl}/static/${slug}.html`;
+        const createdAt = new Date(post.created_at).toUTCString();
+        const snippet = escapeXML(generateSnippet(post.data.bodypost));
+        const author = escapeXML(`${post.data.author || 'Master'}@postnetlify.netlify.app (${post.data.author || 'Master'})`);
+        const category = escapeXML(post.data.category || 'Uncategorized');
+        const imageFileUrl = escapeXML(post.data.imagefile?.url || 'No image URL');
+        
+        rss += `
+          <item>
+            <title>${title}</title>
+            <link>${url}</link>
+            <description>${snippet}</description>
+            <category>${category}</category>
+            <author>${author}</author>
+            <pubDate>${createdAt}</pubDate>
+            <guid isPermaLink="true">${url}</guid>
+            <media:content url="${imageFileUrl}" />
+          </item>\n`;
         });
-
+        
         rss += `</channel>\n`;
         rss += `</rss>`;
+        
+        console.log(rss);
+        
+
 
         // Tampilkan RSS feed di elemen <pre>
         document.getElementById('rss-feed').textContent = rss;
