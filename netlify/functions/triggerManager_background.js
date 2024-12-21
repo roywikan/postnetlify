@@ -1,3 +1,4 @@
+//ini isi file https://postnetlify.netlify.app/.netlify/functions/triggerManager_background.js
 //Fungsi-fungsi :
   // Fungsi 1: Create static version of the post
   //'https://postnetlify.netlify.app/saveFormsToStatic'
