@@ -5,10 +5,14 @@
   // Fungsi 2: Create static index page files
   //'https://postnetlify.netlify.app/staticIndexMaker'
   
-  // Fungsi 3: Update RSS feed
+  // Fungsi 3: Update RSS feed 1 page:
   //'https://postnetlify.netlify.app/rssfeed' diberi alternatif baru berupa single proses:
-//https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML
-//untuk validasi hasilnya rssfeed.xml tunggu netlify build and publish dulu
+  //https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML
+  //untuk validasi hasilnya rssfeed.xml tunggu netlify build and publish dulu
+
+  // Fungsi 3a: Update RSS feed multi sub page and 1 index page:
+  //https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXMLperPage
+
   
   // Fungsi 4: Update sitemap
   //'https://postnetlify.netlify.app/sitemap-xml'
