@@ -13,7 +13,7 @@ const formatRFC822 = (date) => {
 const escapeXML = (str) =>
   str
     .replace(/&/g, '&amp;')
-    .replace(/<//g, '&lt;')
+    .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
@@ -38,7 +38,7 @@ const truncateToWords = (text, maxLength) => {
 
 const MAX_POSTS_PER_PAGE = 5;
 
-const saveFileToGitHub = async (fileName, content, currentPage, sha = null) => {
+const saveFileToGitHub = async (fileName, content, message, sha = null) => {
   const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
   const response = await fetch(GITHUB_API_URL, {
     method: 'PUT',
@@ -47,7 +47,7 @@ const saveFileToGitHub = async (fileName, content, currentPage, sha = null) => {
       Authorization: `token ${GITHUB_TOKEN}`,
     },
     body: JSON.stringify({
-      message: `Update RSS feed for page ${currentPage}`,
+      message,
       content,
       sha: sha || undefined,
     }),
@@ -166,11 +166,11 @@ exports.handler = async (event) => {
     let result;
 
     try {
-      result = await saveFileToGitHub(fileName, encodedContent, currentPage, sha);
+      result = await saveFileToGitHub(fileName, encodedContent, `Update RSS feed for page ${currentPage}`, sha);
     } catch (error) {
       if (error.message.includes('is at') && error.message.includes('expected')) {
         sha = await getFileShaFromGitHub(fileName);
-        result = await saveFileToGitHub(fileName, encodedContent, currentPage, sha);
+        result = await saveFileToGitHub(fileName, encodedContent, `Update RSS feed for page ${currentPage}`, sha);
       } else {
         throw error;
       }
@@ -186,7 +186,6 @@ exports.handler = async (event) => {
         <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
         <description>Index for paginated RSS feed</description>
         <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rss.xml" rel="self" type="application/rss+xml" />
-
         ${Array.from({ length: totalPages }, (_, i) => {
           const pageIndex = i + 1;
           const pageUrl = `https://${SUB_DOMAIN}.${DOMAIN}/rssfeed-page-${pageIndex}.xml`;
@@ -209,11 +208,11 @@ exports.handler = async (event) => {
     sha = await getFileShaFromGitHub(indexFileName);
 
     try {
-      await saveFileToGitHub(indexFileName, indexEncodedContent, 'index', sha);
+      await saveFileToGitHub(indexFileName, indexEncodedContent, 'Update RSS feed index', sha);
     } catch (error) {
       if (error.message.includes('is at') && error.message.includes('expected')) {
         sha = await getFileShaFromGitHub(indexFileName);
-        await saveFileToGitHub(indexFileName, indexEncodedContent, 'index', sha);
+        await saveFileToGitHub(indexFileName, indexEncodedContent, 'Update RSS feed index', sha);
       } else {
         throw error;
       }
