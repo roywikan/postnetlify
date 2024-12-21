@@ -216,7 +216,6 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" id="meta-description" content="${metaDescription || "No meta description"}">
   <meta name="author" id="meta-author" content="${author || "Unknown"}">
-
   <meta property="og:title" content="${safeTitle}">
   <meta property="og:description" content="${metaDescription || "No og description"}">
   <meta property="og:image" content="${imageFileUrl}">
@@ -226,7 +225,10 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
   <meta name="twitter:description" content="${metaDescription || "No twitter description"}">
   <meta name="twitter:image" content="${imageFileUrl}">
   <meta name="twitter:card" content="summary_large_image">
+  
   <link rel="dns-prefetch" href="https://res.cloudinary.com">
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
   <title id="page-title">${safeTitle}</title>
 
@@ -319,11 +321,9 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
     <a href="/about">About</a>
     <a href="/tos">ToS</a>
     <a href="/login/">Login</a>
-    
-    <a href="/rssfeed.xml">RSS Single Page</a>
-    <a href="/rss.xml">RSS Multi Pages</a>
+    <a href="/rssfeed.xml">RSS Single</a>
+    <a href="/rss.xml">RSS Multi</a>
     <a href="/sitemap.html">HTML Sitemap</a>
-    
     <a href="/sitemap.xml">XML Sitemap</a>
 
     </nav>
