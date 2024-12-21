@@ -56,6 +56,7 @@ exports.handler = async (event) => {
     const currentPage = parseInt(page, 10);
     const postsPerPage = 5;
 
+    
     if (isNaN(currentPage) || currentPage < 1) {
       throw new Error('Invalid page parameter');
     }
@@ -74,12 +75,29 @@ exports.handler = async (event) => {
     }
 
     const submissions = await formResponse.json();
+////////////////////////////
+
+
+
+
 
     // Pagination logic
     const totalPosts = submissions.length;
     const totalPages = Math.ceil(totalPosts / postsPerPage);
     const startIndex = (currentPage - 1) * postsPerPage;
     const paginatedSubmissions = submissions.slice(startIndex, startIndex + postsPerPage);
+
+    if (currentPage > totalPages) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Page not found' }),
+      };
+    }
+
+
+
+    ///////////////////
+
 
     if (currentPage > totalPages) {
       return {
@@ -176,6 +194,71 @@ exports.handler = async (event) => {
         message: `RSS feed saved successfully for page ${currentPage}`,
         url: result.content.html_url,
       }),
+    };
+  } catch (error) {
+    console.error('Error in handler:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
+};
+
+
+// Membuat file indeks RSS utama
+    // Generate Index RSS feed
+    const indexContent = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXML(SITE_NAME_TITLE)} - Index</title>
+    <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
+    <description>Index for paginated RSS feed</description>
+    <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rssfeed.xml" rel="self" type="application/rss+xml" />
+
+    ${Array.from({ length: totalPages }, (_, i) => {
+      const pageIndex = i + 1;
+      const pageUrl = `https://${SUB_DOMAIN}.${DOMAIN}/rssfeed-page-${pageIndex}.xml`;
+
+      return `
+      <item>
+        <title>${escapeXML(SITE_NAME_TITLE)} - Page ${pageIndex}</title>
+        <link>${escapeXML(pageUrl)}</link>
+        <description>RSS feed for page ${pageIndex}</description>
+        <guid isPermaLink="true">${escapeXML(pageUrl)}</guid>
+      </item>`;
+    }).join('\n')}
+  </channel>
+</rss>`;
+
+
+   // Save RSS feed index ke GitHub
+    const indexEncodedContent = Buffer.from(indexContent).toString('base64');
+    const INDEX_FILE_PATH = FILE_PATH.replace('rssfeed.xml', 'rssfeed.xml');
+    const indexSaveResponse = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${INDEX_FILE_PATH}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
+        body: JSON.stringify({
+          message: 'Update RSS feed index',
+          content: indexEncodedContent,
+          sha: undefined,
+        }),
+      }
+    );
+
+    if (!indexSaveResponse.ok) {
+      const errorDetails = await indexSaveResponse.text();
+      throw new Error(`Failed to save RSS feed index: ${errorDetails}`);
+    }
+
+    // Response saat berhasil
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'RSS index generated successfully' }),
     };
   } catch (error) {
     console.error('Error in handler:', error);
