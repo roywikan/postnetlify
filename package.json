@@ -13,7 +13,7 @@
      "axios": "^1.5.0"
   },
   "devDependencies": {
-    "@netlify/plugin-functions-core": "^1.0.0"
+    "@netlify/plugin-functions-core"
   },
   "engines": {
     "node": ">=18.0.0"
