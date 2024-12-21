@@ -50,7 +50,7 @@ exports.handler = async (event) => {
   try {
     const { page = 1 } = event.queryStringParameters || {};
     const currentPage = parseInt(page, 10);
-    const postsPerPage = 50000; // Maximum number of URLs per sitemap file
+    const postsPerPage = 4; // Maximum number of URLs per sitemap file
 
     if (isNaN(currentPage) || currentPage < 1) {
       throw new Error('Invalid page parameter');
