@@ -3,6 +3,16 @@
       
         <sitemap>
           <loc>https://postnetlify.netlify.app/sitemap-1.xml</loc>
-          <lastmod>2024-12-21T05:53:03.635Z</lastmod>
+          <lastmod>2024-12-21T06:04:51.017Z</lastmod>
+        </sitemap>
+
+        <sitemap>
+          <loc>https://postnetlify.netlify.app/sitemap-2.xml</loc>
+          <lastmod>2024-12-21T06:04:51.017Z</lastmod>
+        </sitemap>
+
+        <sitemap>
+          <loc>https://postnetlify.netlify.app/sitemap-3.xml</loc>
+          <lastmod>2024-12-21T06:04:51.017Z</lastmod>
         </sitemap>
     </sitemapindex>
