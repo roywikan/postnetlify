@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <title>POSTS - Index</title>
+        <link>https://postnetlify.netlify.app</link>
+        <description>Index for paginated RSS feed</description>
+        <atom:link href="https://postnetlify.netlify.app/rss.xml" rel="self" type="application/rss+xml" />
+        
+          <item>
+            <title>POSTS - Page 1</title>
+            <link>https://postnetlify.netlify.app/rssfeed-page-1.xml</link>
+            <description>RSS feed for page 1</description>
+            <guid isPermaLink="true">https://postnetlify.netlify.app/rssfeed-page-1.xml</guid>
+          </item>
+
+          <item>
+            <title>POSTS - Page 2</title>
+            <link>https://postnetlify.netlify.app/rssfeed-page-2.xml</link>
+            <description>RSS feed for page 2</description>
+            <guid isPermaLink="true">https://postnetlify.netlify.app/rssfeed-page-2.xml</guid>
+          </item>
+
+          <item>
+            <title>POSTS - Page 3</title>
+            <link>https://postnetlify.netlify.app/rssfeed-page-3.xml</link>
+            <description>RSS feed for page 3</description>
+            <guid isPermaLink="true">https://postnetlify.netlify.app/rssfeed-page-3.xml</guid>
+          </item>
+      </channel>
+    </rss>
