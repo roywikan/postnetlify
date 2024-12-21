@@ -1,7 +1,7 @@
-{
+d{
   "name": "readPosts",
   "version": "1.0.0",
-  "description": "A serverless post html content function for Netlify",
+  "description": "Membaca isi form netlify. A serverless post html content reader function for Netlify",
   "main": "readPosts.js",
   "scripts": {
     "start": "netlify dev",
