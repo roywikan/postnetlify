@@ -15,7 +15,32 @@ const formatRFC822 = (date) => {
   return new Date(date).toUTCString(); // Mengubah tanggal menjadi format RFC-822
 };
 
+    // Fungsi utilitas
+    const escapeXML = (str) =>
+      str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
 
+    const cleanText = (text) => {
+      if (!text) return '';
+      return text
+        .replace(/<[^>]*>/g, '') // Hapus tag HTML
+        .replace(/[^\x20-\x7E]/g, ''); // Hapus simbol non-ASCII
+    };
+
+    const truncateToWords = (text, maxLength) => {
+      if (!text) return '';
+      const words = text.split(/\s+/);
+      let truncated = '';
+      for (const word of words) {
+        if ((truncated + word).length > maxLength) break;
+        truncated += (truncated ? ' ' : '') + word;
+      }
+      return truncated;
+    };
 
 const MAX_POSTS_PER_PAGE = 5; // Maksimal jumlah posting per halaman
 
