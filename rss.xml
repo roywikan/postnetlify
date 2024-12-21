@@ -26,5 +26,12 @@
             <description>RSS feed for page 3</description>
             <guid isPermaLink="true">https://postnetlify.netlify.app/rssfeed-page-3.xml</guid>
           </item>
+
+          <item>
+            <title>POSTS - Page 4</title>
+            <link>https://postnetlify.netlify.app/rssfeed-page-4.xml</link>
+            <description>RSS feed for page 4</description>
+            <guid isPermaLink="true">https://postnetlify.netlify.app/rssfeed-page-4.xml</guid>
+          </item>
       </channel>
     </rss>
