@@ -17,6 +17,8 @@
   // Fungsi 4: Update sitemap
   //'https://postnetlify.netlify.app/sitemap-xml'
 
+  // Fungsi 4a: Update Site map XML multi sub page and 1 index page:
+  //https://postnetlify.netlify.app/.netlify/functions/generateSiteMapXMLperPage
 
 
 //////////////////////////////////////////
@@ -27,8 +29,8 @@ exports.handler = async () => {
   const functionUrls = [
     'https://postnetlify.netlify.app/.netlify/functions/saveFormsToStatic',
     'https://postnetlify.netlify.app/.netlify/functions/staticIndexMaker',
-    'https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXML',
-    'https://postnetlify.netlify.app/.netlify/functions/saveSitemap'
+    'https://postnetlify.netlify.app/.netlify/functions/generateRSSfeedXMLperPage',
+    'https://postnetlify.netlify.app/.netlify/functions/generateSiteMapXMLperPage'
   ];
 
 
