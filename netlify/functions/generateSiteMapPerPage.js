@@ -50,7 +50,7 @@ exports.handler = async (event) => {
   try {
     const { page = 1 } = event.queryStringParameters || {};
     const currentPage = parseInt(page, 10);
-    const postsPerPage = 4; // Maximum number of URLs per sitemap file
+    const postsPerPage = 3; // Maximum number of URLs per sitemap file
 
     if (isNaN(currentPage) || currentPage < 1) {
       throw new Error('Invalid page parameter');
@@ -123,7 +123,15 @@ exports.handler = async (event) => {
 
     console.log(`Sitemap saved successfully for page ${currentPage}`);
 
-    // Generate Index Sitemap
+    // Check if there are more pages and create additional files if necessary
+    if (currentPage < totalPages) {
+      const nextPageResponse = await exports.handler({
+        queryStringParameters: { page: currentPage + 1 },
+      });
+      return nextPageResponse;
+    }
+
+    // Generate Index Sitemap after all sub-sitemap files have been created
     const indexContent = `<?xml version="1.0" encoding="UTF-8"?>
     <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${Array.from({ length: totalPages }, (_, i) => {
@@ -157,14 +165,6 @@ exports.handler = async (event) => {
     }
 
     console.log('Sitemap index generated successfully');
-
-    // Check if there are more pages and create additional files if necessary
-    if (currentPage < totalPages) {
-      const nextPageResponse = await exports.handler({
-        queryStringParameters: { page: currentPage + 1 },
-      });
-      return nextPageResponse;
-    }
 
     return {
       statusCode: 200,
