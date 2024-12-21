@@ -12,9 +12,6 @@
     "node-fetch": "2.6.1",
      "axios": "^1.5.0"
   },
-  "devDependencies": {
-    "@netlify/plugin-functions-core": "^1.0.0"
-  },
   "engines": {
     "node": ">=18.0.0"
   },
