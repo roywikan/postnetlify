@@ -38,7 +38,7 @@ const truncateToWords = (text, maxLength) => {
 
 const MAX_POSTS_PER_PAGE = 5;
 
-const saveFileToGitHub = async (fileName, content, sha = null) => {
+const saveFileToGitHub = async (fileName, content, currentPage, sha = null) => {
   const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
   const response = await fetch(GITHUB_API_URL, {
     method: 'PUT',
@@ -166,11 +166,11 @@ exports.handler = async (event) => {
     let result;
 
     try {
-      result = await saveFileToGitHub(fileName, encodedContent, sha);
+      result = await saveFileToGitHub(fileName, encodedContent, currentPage, sha);
     } catch (error) {
       if (error.message.includes('is at') && error.message.includes('expected')) {
         sha = await getFileShaFromGitHub(fileName);
-        result = await saveFileToGitHub(fileName, encodedContent, sha);
+        result = await saveFileToGitHub(fileName, encodedContent, currentPage, sha);
       } else {
         throw error;
       }
