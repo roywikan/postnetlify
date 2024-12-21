@@ -32,9 +32,24 @@
   to = "/.netlify/functions/staticIndexMaker"
   status = 200
 
+
+[[redirects]]
+  from = "/forms/postForm"
+  to = "/.netlify/functions/afterFormSubmitReaction"
+  status = 200
+
+
 [functions]
-included_files = ["netlify/functions/static-post-template.html"]
+  included_files = ["netlify/functions/static-post-template.html"]
+  node_bundler = "esbuild"
+
+
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+
+
 
 [build]
   functions = "netlify/functions"
-
