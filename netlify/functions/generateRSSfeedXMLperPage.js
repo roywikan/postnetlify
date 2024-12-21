@@ -38,6 +38,43 @@ const truncateToWords = (text, maxLength) => {
 
 const MAX_POSTS_PER_PAGE = 5;
 
+const saveFileToGitHub = async (fileName, content, sha = null) => {
+  const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
+  const response = await fetch(GITHUB_API_URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `token ${GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({
+      message: `Update RSS feed for page ${currentPage}`,
+      content,
+      sha: sha || undefined,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorDetails = await response.text();
+    throw new Error(`Failed to save RSS feed: ${errorDetails}`);
+  }
+
+  return response.json();
+};
+
+const getFileShaFromGitHub = async (fileName) => {
+  const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
+  const response = await fetch(GITHUB_API_URL, {
+    headers: { Authorization: `token ${GITHUB_TOKEN}` },
+  });
+
+  if (response.ok) {
+    const fileData = await response.json();
+    return fileData.sha;
+  }
+
+  return null;
+};
+
 exports.handler = async (event) => {
   try {
     const { page = 1 } = event.queryStringParameters || {};
@@ -124,40 +161,21 @@ exports.handler = async (event) => {
     const encodedContent = Buffer.from(rssContent).toString('base64');
     const fileName = `rssfeed-page-${currentPage}.xml`;
 
-    // GitHub API URL for the specific file
-    const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
+    // Try to save the RSS feed file for the current page, handle conflicts
+    let sha = await getFileShaFromGitHub(fileName);
+    let result;
 
-    // Check if file exists on GitHub and get its SHA if needed
-    let sha = null;
-    const fileResponse = await fetch(GITHUB_API_URL, {
-      headers: { Authorization: `token ${GITHUB_TOKEN}` },
-    });
-
-    if (fileResponse.ok) {
-      const fileData = await fileResponse.json();
-      sha = fileData.sha;
+    try {
+      result = await saveFileToGitHub(fileName, encodedContent, sha);
+    } catch (error) {
+      if (error.message.includes('is at') && error.message.includes('expected')) {
+        sha = await getFileShaFromGitHub(fileName);
+        result = await saveFileToGitHub(fileName, encodedContent, sha);
+      } else {
+        throw error;
+      }
     }
 
-    // Save the RSS feed file for the current page
-    const saveResponse = await fetch(GITHUB_API_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `token ${GITHUB_TOKEN}`,
-      },
-      body: JSON.stringify({
-        message: `Update RSS feed for page ${currentPage}`,
-        content: encodedContent,
-        sha: sha || undefined,
-      }),
-    });
-
-    if (!saveResponse.ok) {
-      const errorDetails = await saveResponse.text();
-      throw new Error(`Failed to save RSS feed: ${errorDetails}`);
-    }
-
-    const result = await saveResponse.json();
     console.log(`RSS feed saved successfully for page ${currentPage}`);
 
     // Check if there are more pages and create additional files if necessary
