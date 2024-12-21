@@ -227,9 +227,12 @@ const cleanText = (text) => {
       <meta name="description" id="meta-description" content="${metaDescription}">
       <meta name="author" id="meta-author" content="${metaAuthor}">
       <meta name="robots" content="index, follow">
-      <title id="page-title">${pageTitle}</title>
-      <!-- Prefetch DNS untuk Cloudinary -->
       <link rel="dns-prefetch" href="https://res.cloudinary.com">
+      <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+      <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  
+      <title id="page-title">${pageTitle}</title>
+
       <link rel="stylesheet" href="/index-html.css">
 
       <!-- JSON-LD Schema -->
