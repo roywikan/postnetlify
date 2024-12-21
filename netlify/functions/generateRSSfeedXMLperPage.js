@@ -1,6 +1,5 @@
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO = process.env.REPO;
-const FILE_PATH = process.env.RSS_FILE_PATH; // Make sure this variable is set
 const NETLIFY_ACCESS_TOKEN = process.env.NET_TOKEN;
 const SUB_DOMAIN = 'postnetlify';
 const DOMAIN = 'netlify.app';
@@ -8,7 +7,7 @@ const SITE_NAME_TITLE = 'POSTS';
 const POST_DIR = 'static';
 
 const formatRFC822 = (date) => {
-  return new Date(date).toUTCString(); // Convert date to RFC-822 format
+  return new Date(date).toUTCString();
 };
 
 const escapeXML = (str) =>
@@ -22,8 +21,8 @@ const escapeXML = (str) =>
 const cleanText = (text) => {
   if (!text) return '';
   return text
-    .replace(/<[^>]*>/g, '') // Remove HTML tags
-    .replace(/[^\x20-\x7E]/g, ''); // Remove non-ASCII symbols
+    .replace(/<[^>]*>/g, '')
+    .replace(/[^\x20-\x7E]/g, '');
 };
 
 const truncateToWords = (text, maxLength) => {
@@ -37,17 +36,10 @@ const truncateToWords = (text, maxLength) => {
   return truncated;
 };
 
-const MAX_POSTS_PER_PAGE = 5; // Maximum posts per page
+const MAX_POSTS_PER_PAGE = 5;
 
-// Make sure exports.handler is async
 exports.handler = async (event) => {
   try {
-    // Validate environment variables
-    if (!NETLIFY_ACCESS_TOKEN || !GITHUB_TOKEN || !REPO || !FILE_PATH) {
-      throw new Error('Missing required environment variables');
-    }
-
-    // Get the page parameter from query string (default to page 1 if not present)
     const { page = 1 } = event.queryStringParameters || {};
     const currentPage = parseInt(page, 10);
     const postsPerPage = 5;
@@ -129,12 +121,13 @@ exports.handler = async (event) => {
       </channel>
     </rss>`;
 
-    // Encode content for GitHub API
     const encodedContent = Buffer.from(rssContent).toString('base64');
-    const fileName = `rssfeed-page-${currentPage}.xml`; // Dynamic file name for each page
+    const fileName = `rssfeed-page-${currentPage}.xml`;
+
+    // GitHub API URL for the specific file
     const GITHUB_API_URL = `https://api.github.com/repos/${REPO}/contents/${fileName}`;
 
-    // Check if the file exists on GitHub
+    // Check if file exists on GitHub and get its SHA if needed
     let sha = null;
     const fileResponse = await fetch(GITHUB_API_URL, {
       headers: { Authorization: `token ${GITHUB_TOKEN}` },
@@ -145,7 +138,7 @@ exports.handler = async (event) => {
       sha = fileData.sha;
     }
 
-    // Save updated RSS feed to GitHub
+    // Save the RSS feed file for the current page
     const saveResponse = await fetch(GITHUB_API_URL, {
       method: 'PUT',
       headers: {
@@ -165,6 +158,16 @@ exports.handler = async (event) => {
     }
 
     const result = await saveResponse.json();
+    console.log(`RSS feed saved successfully for page ${currentPage}`);
+
+    // Check if there are more pages and create additional files if necessary
+    if (currentPage < totalPages) {
+      const nextPageResponse = await exports.handler({
+        queryStringParameters: { page: currentPage + 1 },
+      });
+      return nextPageResponse;
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({
