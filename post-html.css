@@ -40,6 +40,13 @@ p a:hover, div a:hover, table a:hover, span a:hover {
   color: navyblue;  /* Warna saat hover */
 }
 
+pre {
+    max-width: 98%;
+    overflow-wrap: break-word;
+    text-wrap: initial;
+    overflow-wrap: break-word;
+}
+
 /* Header title */
 h1 {
   font-size: 4rem;
