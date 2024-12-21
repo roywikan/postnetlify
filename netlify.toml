@@ -33,10 +33,10 @@
   status = 200
 
 
-[[redirects]]
-  from = "/forms/postForm"
-  to = "/.netlify/functions/afterFormSubmitReaction"
-  status = 200
+#[[redirects]]
+#  from = "/forms/postForm"
+#  to = "/.netlify/functions/afterFormSubmitReaction"
+#  status = 200
 
 
 [functions]
