@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="meta-description" content="Memahami Cara Kerja Sistem CRUD Berbasis Netlify FormsArtikel ini membahas inti dari sebuah sistem berbasis&nbsp;CRUD&nbsp;(Create, Read, Update, Delete)">
+  <meta name="author" id="meta-author" content="Master">
+
+  <meta property="og:title" content="Cara Kerja Sistem CRUD Berbasis Netlify Forms">
+  <meta property="og:description" content="Memahami Cara Kerja Sistem CRUD Berbasis Netlify FormsArtikel ini membahas inti dari sebuah sistem berbasis&nbsp;CRUD&nbsp;(Create, Read, Update, Delete)">
+  <meta property="og:image" content="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp">
+  <meta property="og:url" content="https://postnetlify.netlify.app/ed">
+
+  <meta name="twitter:title" content="Cara Kerja Sistem CRUD Berbasis Netlify Forms">
+  <meta name="twitter:description" content="Memahami Cara Kerja Sistem CRUD Berbasis Netlify FormsArtikel ini membahas inti dari sebuah sistem berbasis&nbsp;CRUD&nbsp;(Create, Read, Update, Delete)">
+  <meta name="twitter:image" content="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <title id="page-title">Cara Kerja Sistem CRUD Berbasis Netlify Forms</title>
+
+  <!-- JSON-LD schema -->
+  <script type="application/ld+json" id="json-ld-schema">
+  {
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "headline": "Cara Kerja Sistem CRUD Berbasis Netlify Forms",
+  "author": {
+    "@type": "Person",
+    "name": "Master"
+  },
+  "datePublished": "2024-12-21T07:52:01.527Z",
+  "articleBody": "Memahami Cara Kerja Sistem CRUD Berbasis Netlify FormsArtikel ini membahas inti dari sebuah sistem berbasis&nbsp;CRUD&nbsp;(Create, Read, Update, Delete)",
+  "keywords": "crud, netlify, github repo",
+  "image": "https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp"
+}
+  </script>
+  <link rel="stylesheet" href="/post-html.css">
+  <script src="/post-html-main.js"></script>
+</head>
+<body>
+
+  <div class="container" style="min-height: 1300px;"  itemscope itemtype="http://schema.org/Article" >
+    <header>
+      <nav class="menu">
+        <a href="/">Home</a> | 
+        <a href="#search_input" onclick="focusSearchInput()">Search</a>
+      </nav>
+  
+      <!-- Post Title -->
+        <h1 class="post-title" style="" itemprop="headline">
+          <span id="post-title">Cara Kerja Sistem CRUD Berbasis Netlify Forms</span>
+        </h1>
+    </header>
+
+
+
+    <!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
+    <div id="post-meta" class="post-meta" style="">
+      <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span id="post-author" itemprop="name">Master</span>
+      </div>
+      <span id="post-category">Category :development</span> <span id="post-tags">Tags: crud, netlify, github repo</span> <time itemprop="datePublished" datetime="12/21/2024, 7:52:01 AM"><span id="post-date">Date: 12/21/2024, 7:52:01 AM</span></time>
+    </div><!-- class post-meta ditutup -->
+
+
+
+    
+    <!-- Container for post content -->
+    <div id="post-container" class="post-container">
+        <figure>
+            <img itemprop="image" id="post-image" class="post-image" alt="Cara Kerja Sistem CRUD Berbasis Netlify Forms" style="top: 40%;" src="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp"  />
+            <!-- URL: <a href="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp" target="_blank">https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp</a -->
+        </figure>
+
+        <!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
+        <div id="post-body" class="post-body" style="" itemprop="articleBody"><h3 id="memahami-cara-kerja-sistem-crud-berbasis-netlify-forms">Memahami Cara Kerja Sistem CRUD Berbasis Netlify Forms</h3>
+<p>Artikel ini membahas inti dari sebuah sistem berbasis&nbsp;<strong>CRUD</strong>&nbsp;(Create, Read, Update, Delete) yang menggunakan&nbsp;<strong>Netlify Forms</strong>. Untuk Anda yang awam, mari kita telusuri bagaimana script ini dirancang dan berfungsi.</p>
+<h4 id="apa-itu-sistem-crud">Apa Itu Sistem CRUD?</h4>
+<p>CRUD adalah konsep inti dalam pengelolaan data di aplikasi. Berikut ini penjelasan sederhana tiap operasinya:</p>
+<ol>
+<li><strong>Create</strong>: Menambahkan data baru.</li>
+<li><strong>Read</strong>: Membaca atau menampilkan data yang ada.</li>
+<li><strong>Update</strong>: Mengedit data yang sudah ada.</li>
+<li><strong>Delete</strong>: Menghapus data.</li>
+</ol>
+<p>Dalam kasus ini, CRUD digunakan untuk membuat, mengelola, dan mempublikasikan konten menggunakan form berbasis web.</p>
+<hr>
+<h3 id="komponen-utama-script">Komponen Utama Script</h3>
+<ol>
+<li>
+<p><strong>Netlify Forms untuk Penyimpanan Data</strong>&nbsp;Form di dalam script ini dihubungkan dengan&nbsp;<strong>Netlify Forms</strong>&nbsp;melalui atribut&nbsp;<code>data-netlify="true"</code>. Ini berarti data yang dikirimkan melalui form akan disimpan secara otomatis oleh Netlify.</p>
+</li>
+<li>
+<p><strong>Editor Konten dengan TinyMCE</strong></p>
+<ul>
+<li>Editor teks kaya (rich text editor)&nbsp;<strong>TinyMCE</strong>&nbsp;digunakan untuk menulis dan memformat konten.</li>
+<li>Pengguna bisa membuat teks tebal, miring, daftar, tabel, dan menambahkan media seperti gambar atau tautan.</li>
+</ul>
+</li>
+<li>
+<p><strong>Slug Otomatis</strong></p>
+<ul>
+<li>Sistem ini secara otomatis membuat "slug" (bagian dari URL yang menggambarkan konten). Misalnya, judul artikel diubah menjadi format URL-friendly: huruf kecil dengan tanda hubung, ditambah angka acak untuk menghindari duplikasi.</li>
+</ul>
+</li>
+<li>
+<p><strong>UI yang Responsif</strong></p>
+<ul>
+<li>Menggunakan&nbsp;<strong>UIkit</strong>, framework CSS yang membantu membuat tampilan responsif dan estetis.</li>
+<li>Formulir dirancang agar nyaman digunakan di perangkat desktop maupun mobile.</li>
+</ul>
+</li>
+<li>
+<p><strong>Pengelolaan Gambar</strong></p>
+<ul>
+<li>Pengguna dapat mengunggah gambar langsung melalui form. Script ini juga menyediakan tips praktis untuk mencari dan mengunduh gambar secara efisien.</li>
+</ul>
+</li>
+<li>
+<p><strong>Keamanan Dasar</strong></p>
+<ul>
+<li>Formulir dilengkapi dengan CAPTCHA untuk memverifikasi bahwa pengirim adalah manusia.</li>
+<li>Netlify Identity digunakan untuk login/logout, yang memungkinkan hanya pengguna terautentikasi dapat mengakses atau mengedit data.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="cara-menggunakan-sistem">Cara Menggunakan Sistem</h3>
+<ol>
+<li>
+<p><strong>Menulis Konten</strong></p>
+<ul>
+<li>Isi judul, slug, kategori, dan tag.</li>
+<li>Gunakan editor TinyMCE untuk menulis dan memformat isi artikel.</li>
+</ul>
+</li>
+<li>
+<p><strong>Mengunggah Gambar</strong></p>
+<ul>
+<li>Unggah gambar pendukung melalui bagian yang telah disediakan.</li>
+</ul>
+</li>
+<li>
+<p><strong>Mengirimkan Konten</strong></p>
+<ul>
+<li>Klik tombol "Submit" untuk mengirimkan data ke server.</li>
+</ul>
+</li>
+<li>
+<p><strong>Melihat dan Mengelola Konten</strong></p>
+<ul>
+<li>Klik tautan "Lihat Posts" untuk memeriksa hasil kiriman Anda.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="kenapa-ini-relevan-untuk-anda">Kenapa Ini Relevan untuk Anda?</h3>
+<p>Sistem ini sangat praktis untuk membuat situs blog sederhana atau platform publikasi tanpa perlu pengaturan server yang rumit. Dengan memanfaatkan layanan seperti Netlify, pengguna dapat fokus pada pembuatan konten tanpa khawatir tentang backend atau pengelolaan database.</p>
+        </div><!-- class post-body ditutup -->
+        
+          <!-- start of  Comment Section -->
+            <br><br>
+              <div id="comment_thread"></div>
+          <!-- end of  Comment Section -->
+
+
+
+          <script>
+            createSearchForm();
+
+            // Memanggil loadCusdis setelah halaman sepenuhnya dimuat
+            window.addEventListener('load', loadCusdis);
+
+
+          </script>
+        </div><!-- class post-body ditutup -->
+      <br><br><br><br>
+            <!-- p>IP: 2400:9800:6032:1613:c8cf:ed15:7533:acbc | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 | Ref: https://postnetlify.netlify.app/ed</p -->   
+      <br>
+    </div><!-- class post-container ditutup -->
+    
+    <!-- Placeholder untuk Footer -->
+    <div id="footer-placeholder" class="footer-placeholder"></div>
+
+    <footer>
+    <nav class="footer-menu">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+      <a href="/tos">ToS</a>
+      <a href="/login/">Login</a>
+      <a href="/rssfeed.html">RSS Feed Generator</a>
+      <a href="/rssfeed.xml">RSS Feed</a>
+      <a href="/sitemap.html">HTML Sitemap</a>
+      <a href="/sitemap-xml.html">XML Sitemap Generator</a>
+      <a href="/sitemap.xml">XML Sitemap</a>
+    </nav>
+    <br>
+    <p>&copy; 2024 <a href="/">Your Blog Name</a>. All rights reserved.</p>
+    </footer>
+
+  
+
+    <script>
+      /* document.addEventListener('DOMContentLoaded', async () => {
+        await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
+        updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
+      });
+    
+
+      // Panggil fungsi saat halaman dimuat
+      document.addEventListener('DOMContentLoaded', fetchPostBySlug);
+      */
+
+    </script>
+
+  
+    <!-- debug -->
+    <div id="debug-info" class="debug-hidden">
+      <p>
+        siteName :<span id="siteNameFooter"></span><br>
+        domain :<span id="domainFooter"></span><br>
+        subdomain :<span id="subdomainFooter"></span><br>
+        baseUrl :<a id="baseUrlFooter" href="#"></a><br>
+        fullUrl :<span id="fullUrlFooter"></span><br>
+        path :<span id="pathFooter"></span><br>
+        supportEmail :<a id="supportEmailFooter" href="#"></a><br>
+        current-year :<span id="current-yearFooter"></span><br>
+        site-name :<span id="site-nameFooter"></span><br>
+      </p>
+    </div>
+
+
+
+    
+
+  
+  </div><!-- class container ditutup -->
+
+  <script src="/constanta.js" defer></script>
+  <script>
+    //Debugging akan muncul hanya jika Anda menambahkan ?debug=true ke URL, misalnya:
+    //https://example.com/about.html?debug=true.
+    if (window.location.search.includes('debug=true')) {
+      document.getElementById('debug-info').classList.remove('debug-hidden');
+    }
+  </script>
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
