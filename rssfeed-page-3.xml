@@ -3,9 +3,20 @@
       <channel>
         <title>POSTS - Page 3</title>
         <link>https://postnetlify.netlify.app</link>
-        <description>RSS feed for form submissions (Page 3 of 4)</description>
+        <description>RSS feed for form submissions (Page 3 of 5)</description>
         <atom:link href="https://postnetlify.netlify.app/rssfeed-page-3.xml" rel="self" type="application/rss+xml" />
         
+            <item>
+              <title>ROI Website Measurement</title>
+              <link>https://postnetlify.netlify.app/static/roi-website-measurement-550.html</link>
+              <description>Market segment yang sangat mudah menyetujui untuk membuat website usaha mereka segera, tanpa banyak bertanya atau meragukan pentingnya website, biasanya</description>
+              <category>development</category>
+              <author>Master@postnetlify.netlify.app (Master)</author>
+              <pubDate>Tue, 10 Dec 2024 21:48:31 GMT</pubDate>
+              <guid isPermaLink="true">https://postnetlify.netlify.app/static/roi-website-measurement-550.html</guid>
+              <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733867310/roi-website-measurement-550.webp.webp" />
+            </item>
+
             <item>
               <title>Segmen Bisnis Yang Membutuhkan Website</title>
               <link>https://postnetlify.netlify.app/static/segmen-bisnis-yang-membutuhkan-website-457.html</link>
@@ -26,17 +37,6 @@
               <pubDate>Sun, 08 Dec 2024 07:01:42 GMT</pubDate>
               <guid isPermaLink="true">https://postnetlify.netlify.app/static/tips-seo-untuk-artikel-ini-188.html</guid>
               <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733641301/tips-seo-untuk-artikel-ini-188.jpg.jpg" />
-            </item>
-
-            <item>
-              <title>Hosting HTML Static Secara Gratis di Google Cloud</title>
-              <link>https://postnetlify.netlify.app/static/hosting-html-static-secara-gratis-di-google-cloud-841.html</link>
-              <description>Berikut adalah langkah-langkah membuat dan menghosting HTML static di Google Cloud secara gratis, sekaligus mengimplementasikan form untuk mencatat</description>
-              <category>hosting</category>
-              <author>Master@postnetlify.netlify.app (Master)</author>
-              <pubDate>Sun, 08 Dec 2024 06:31:30 GMT</pubDate>
-              <guid isPermaLink="true">https://postnetlify.netlify.app/static/hosting-html-static-secara-gratis-di-google-cloud-841.html</guid>
-              <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1733639489/hosting-html-static-secara-gratis-di-google-cloud-841.jpg.jpg" />
             </item>
       </channel>
     </rss>
