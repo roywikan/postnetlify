@@ -13,7 +13,7 @@ const formatRFC822 = (date) => {
 const escapeXML = (str) =>
   str
     .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
+    .replace(/<//g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
@@ -177,6 +177,49 @@ exports.handler = async (event) => {
     }
 
     console.log(`RSS feed saved successfully for page ${currentPage}`);
+
+    // Generate Index RSS feed
+    const indexContent = `<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <title>${escapeXML(SITE_NAME_TITLE)} - Index</title>
+        <link>https://${SUB_DOMAIN}.${DOMAIN}</link>
+        <description>Index for paginated RSS feed</description>
+        <atom:link href="https://${SUB_DOMAIN}.${DOMAIN}/rss.xml" rel="self" type="application/rss+xml" />
+
+        ${Array.from({ length: totalPages }, (_, i) => {
+          const pageIndex = i + 1;
+          const pageUrl = `https://${SUB_DOMAIN}.${DOMAIN}/rssfeed-page-${pageIndex}.xml`;
+
+          return `
+          <item>
+            <title>${escapeXML(SITE_NAME_TITLE)} - Page ${pageIndex}</title>
+            <link>${escapeXML(pageUrl)}</link>
+            <description>RSS feed for page ${pageIndex}</description>
+            <guid isPermaLink="true">${escapeXML(pageUrl)}</guid>
+          </item>`;
+        }).join('\n')}
+      </channel>
+    </rss>`;
+
+    const indexEncodedContent = Buffer.from(indexContent).toString('base64');
+    const indexFileName = 'rss.xml';
+
+    // Save RSS feed index to GitHub
+    sha = await getFileShaFromGitHub(indexFileName);
+
+    try {
+      await saveFileToGitHub(indexFileName, indexEncodedContent, 'index', sha);
+    } catch (error) {
+      if (error.message.includes('is at') && error.message.includes('expected')) {
+        sha = await getFileShaFromGitHub(indexFileName);
+        await saveFileToGitHub(indexFileName, indexEncodedContent, 'index', sha);
+      } else {
+        throw error;
+      }
+    }
+
+    console.log('RSS index generated successfully');
 
     // Check if there are more pages and create additional files if necessary
     if (currentPage < totalPages) {
