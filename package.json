@@ -1,4 +1,4 @@
-d{
+{
   "name": "readPosts",
   "version": "1.0.0",
   "description": "Membaca isi form netlify. A serverless post html content reader function for Netlify",
