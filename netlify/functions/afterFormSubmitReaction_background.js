@@ -1,4 +1,15 @@
 //based on https://chatgpt.com/share/6766c624-0db4-8011-8246-bc86fa33808d
+//simpan code ini sebagai /netlify/functions/afterFormSubmitReaction_background.js
+//lalu buka https://app.netlify.com/sites/postnetlify/configuration/notifications#form-submission-notifications
+//bagian Form submission notifications
+//Add Notification
+//HTTP POST request
+//Event to listen for : New form submission
+//URL to notify, isi dengan url ke file ini : https://postnetlify.netlify.app/.netlify/functions/afterFormSubmitReaction_background
+//Form : postForm
+//lainnya kosongkan
+//Save!
+//nanti kalau ada kiriman post ke form ini lagi, akan memicu script ini di background process
 
 const fetch = require("node-fetch");
 
