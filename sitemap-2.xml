@@ -2,17 +2,17 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       
           <url>
+            <loc>https://postnetlify.netlify.app/static/memaksa-file-di-github-diikutsertakan-ke-dalam-deployment-netlify-670.html</loc>
+            <lastmod>2024-12-15T07:29:31.192Z</lastmod>
+          </url>
+
+          <url>
+            <loc>https://postnetlify.netlify.app/static/write-static-html-generator-using-netlify-function-into-github-122.html</loc>
+            <lastmod>2024-12-14T22:20:57.475Z</lastmod>
+          </url>
+
+          <url>
             <loc>https://postnetlify.netlify.app/static/saving-a-payload-to-a-file-in-a-github-repo-using-netlify-function-and-github-api-549.html</loc>
             <lastmod>2024-12-12T03:12:32.769Z</lastmod>
-          </url>
-
-          <url>
-            <loc>https://postnetlify.netlify.app/static/blogging-using-netlify-function-to-write-to-github-593.html</loc>
-            <lastmod>2024-12-12T02:50:24.974Z</lastmod>
-          </url>
-
-          <url>
-            <loc>https://postnetlify.netlify.app/static/write-to-github-repo-using-a-netlify-function-744.html</loc>
-            <lastmod>2024-12-12T02:44:27.179Z</lastmod>
           </url>
     </urlset>
