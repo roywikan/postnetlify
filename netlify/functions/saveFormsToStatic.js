@@ -128,7 +128,7 @@ exports.handler = async (event) => {
         .sort((a, b) => b.similarity - a.similarity)
         .slice(0, 3); //diubah
 
-      const relatedPostsHtml = similarPosts.map(post => `<a href="/${post.slug}">${post.title}</a>`).join("<br>"); //diubah
+      const relatedPostsHtml = similarPosts.map(post => `<a href="/static/${post.slug}">${post.title}</a>`).join("<br>"); //diubah
 
       const htmlContent = `
 <!DOCTYPE html>
