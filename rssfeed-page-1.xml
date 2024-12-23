@@ -3,9 +3,20 @@
       <channel>
         <title>POSTS - Page 1</title>
         <link>https://postnetlify.netlify.app</link>
-        <description>RSS feed for form submissions (Page 1 of 5)</description>
+        <description>RSS feed for form submissions (Page 1 of 6)</description>
         <atom:link href="https://postnetlify.netlify.app/rssfeed-page-1.xml" rel="self" type="application/rss+xml" />
         
+            <item>
+              <title>CRUD on Netlify Form</title>
+              <link>https://postnetlify.netlify.app/static/crud-on-netlify-form-715.html</link>
+              <description>CRUD on Netlify Forms: A Step-by-Step GuideNetlify Forms is a powerful feature of the Netlify platform that allows developers to handle form submissions</description>
+              <category>development</category>
+              <author>Master@postnetlify.netlify.app (Master)</author>
+              <pubDate>Mon, 23 Dec 2024 02:08:29 GMT</pubDate>
+              <guid isPermaLink="true">https://postnetlify.netlify.app/static/crud-on-netlify-form-715.html</guid>
+              <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734919708/crud-on-netlify-form-715.webp.webp" />
+            </item>
+
             <item>
               <title>Page Speed Desktop version score 100</title>
               <link>https://postnetlify.netlify.app/static/page-speed-desktop-version-score-100-955.html</link>
@@ -26,17 +37,6 @@
               <pubDate>Sat, 21 Dec 2024 15:28:56 GMT</pubDate>
               <guid isPermaLink="true">https://postnetlify.netlify.app/static/laporan-pagespeed-insights-454.html</guid>
               <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734794935/laporan-pagespeed-insights-454.webp.webp" />
-            </item>
-
-            <item>
-              <title>Cara Kerja Sistem CRUD Berbasis Netlify Forms</title>
-              <link>https://postnetlify.netlify.app/static/cara-kerja-sistem-crud-berbasis-netlify-forms-338.html</link>
-              <description>Memahami Cara Kerja Sistem CRUD Berbasis Netlify FormsArtikel ini membahas inti dari sebuah sistem berbasis&amp;nbsp;CRUD&amp;nbsp;(Create, Read, Update, Delete)</description>
-              <category>development</category>
-              <author>Master@postnetlify.netlify.app (Master)</author>
-              <pubDate>Sat, 21 Dec 2024 07:52:01 GMT</pubDate>
-              <guid isPermaLink="true">https://postnetlify.netlify.app/static/cara-kerja-sistem-crud-berbasis-netlify-forms-338.html</guid>
-              <media:content url="https://res.cloudinary.com/harga-promo-diskon/image/upload/f_auto/v1734767520/cara-kerja-sistem-crud-berbasis-netlify-forms-338.webp.webp" />
             </item>
       </channel>
     </rss>
