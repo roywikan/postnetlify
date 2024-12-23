@@ -3,6 +3,37 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
+// Function to calculate cosine similarity between two strings //diubah
+const cosineSimilarity = (str1, str2) => { //diubah
+  const getTermFrequency = (str) => { //diubah
+    const words = str.split(/\s+/); //diubah
+    const termFreq = {}; //diubah
+    words.forEach(word => { //diubah
+      termFreq[word] = (termFreq[word] || 0) + 1; //diubah
+    }); //diubah
+    return termFreq; //diubah
+  }; //diubah
+
+  const termFreqA = getTermFrequency(str1); //diubah
+  const termFreqB = getTermFrequency(str2); //diubah
+
+  const terms = new Set([...Object.keys(termFreqA), ...Object.keys(termFreqB)]); //diubah
+
+  let dotProduct = 0; //diubah
+  let magA = 0; //diubah
+  let magB = 0; //diubah
+
+  terms.forEach(term => { //diubah
+    const a = termFreqA[term] || 0; //diubah
+    const b = termFreqB[term] || 0; //diubah
+    dotProduct += a * b; //diubah
+    magA += a * a; //diubah
+    magB += b * b; //diubah
+  }); //diubah
+
+  return dotProduct / (Math.sqrt(magA) * Math.sqrt(magB)); //diubah
+}; //diubah
+
 exports.handler = async (event) => {
   try {
     // Ambil environment variables
@@ -39,176 +70,67 @@ exports.handler = async (event) => {
     }
 
     const submissions = await response.json();
-/*
-// debugger Print properti di dalam submission.data
-submissions.forEach((submission, index) => {
-  console.log(`Submission ${index + 1} keys:`, Object.keys(submission.data));
-});
 
-// debugger Print seluruh objek submission
-submissions.forEach((submission, index) => {
-  console.log(`Submission ${index + 1} full object:`, JSON.stringify(submission, null, 2));
-});
-*/
-
-
-    
     // Step 2: Buat direktori sementara di /tmp
     const tmpPath = path.join("/tmp", "static");
     if (!fs.existsSync(tmpPath)) {
       fs.mkdirSync(tmpPath, { recursive: true });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    
     // Step 3: Tulis file sementara
-/*
-    // Data level tertinggi
-const number = submission.number || null;
-const title = submission.title || null;
-const email = submission.email || null;
-const name = submission.name || null;
-const firstName = submission.first_name || null;
-const lastName = submission.last_name || null;
-const company = submission.company || null;
-const summary = submission.summary || null;
-const body = submission.body || null;
-const createdAt = submission.created_at || null;
-const id = submission.id || null;
-const formId = submission.form_id || null;
-const siteUrl = submission.site_url || null;
-const siteName = submission.site_name || null;
-const formName = submission.form_name || null;
-
-// Data di dalam submission.data
-const dataTitle = submission.data?.title || null;
-const slug = submission.data?.slug || null;
-const tags = submission.data?.tags || null;
-const category = submission.data?.category || null;
-const bodyPost = submission.data?.bodypost || null;
-const author = submission.data?.author || null;
-const imageFile = submission.data?.imagefile || null; // Bisa berupa objek
-const imageFileName = submission.data?.imagefile?.filename || null;
-const imageFileUrl = submission.data?.imagefile?.url || null;
-const ip = submission.data?.ip || null;
-const userAgent = submission.data?.user_agent || null;
-const referrer = submission.data?.referrer || null;
-
-// Data di dalam submission.human_fields
-const humanTitle = submission.human_fields?.Title || null;
-const humanSlug = submission.human_fields?.Slug || null;
-const humanTags = submission.human_fields?.Tags || null;
-const humanCategory = submission.human_fields?.Category || null;
-const humanBodyPost = submission.human_fields?.Bodypost || null;
-const humanAuthor = submission.human_fields?.Author || null;
-const humanImageFile = submission.human_fields?.Imagefile || null;
-
-// Data di dalam submission.ordered_human_fields (array)
-const orderedHumanFields = submission.ordered_human_fields || [];
-*/
-    
-    /*
     submissions.forEach((submission, index) => {
-      const slug = submission.data.slug || `submission-${index + 1}`; // Gunakan slug jika ada, fallback ke nama default
+      const { 
+        title,
+        slug, 
+        tags, 
+        category, 
+        bodypost, 
+        author, 
+        imagefile, 
+        ip, 
+        user_agent, 
+        referrer 
+      } = submission.data;
+
+      // Properti tambahan dari submission di luar data
+      const createdAt = submission.created_at || new Date().toISOString();
+      const imageFileUrl = imagefile?.url || "No image URL";
+
+      // Fungsi untuk membersihkan bodypost
+      const cleanText = (text) => {
+        if (!text) return "";
+        return text
+          .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
+          .replace(/[^\x20-\x7E]/g, ""); // Hapus semua simbol non-ASCII
+      };
+
+      const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
+      const truncateToWords = (text, maxLength) => {
+        if (!text) return "";
+        const words = text.split(/\s+/); // Pecah teks berdasarkan spasi
+        let truncated = "";
+        for (const word of words) {
+          if ((truncated + word).length > maxLength) break;
+          truncated += (truncated ? " " : "") + word;
+        }
+        return truncated;
+      };
+
+      const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost content available";
+
+      const safeTitle = title || `Submission ${index + 1}`;
+      const imageFileName = safeTitle || metaDescription;
+
+      // Find the 3 most similar 'bodypost' columns and get their slugs
+      const similarPosts = submissions
+        .filter(sub => sub.data.bodypost !== bodypost)
+        .map(sub => ({ slug: sub.data.slug, similarity: cosineSimilarity(bodypost, sub.data.bodypost) }))
+        .sort((a, b) => b.similarity - a.similarity)
+        .slice(0, 3); //diubah
+
+      const relatedPostsHtml = similarPosts.map(post => `<a href="/${post.slug}">${post.slug}</a>`).join("<br>"); //diubah
+
       const htmlContent = `
-        <html>
-        <head><title>${submission.data.title || `Submission ${index + 1}`}</title></head>
-        <body>
-          <h1>${submission.data.title || `Submission ${index + 1}`}</h1>
-          <p>Author: ${submission.data.author || "Unknown"}</p>
-          <p>Body: ${submission.data.bodypost || "No content"}</p>
-        </body>
-        </html>
-      `;
-      const filePath = path.join(tmpPath, `${slug}.html`); // Nama file berdasarkan slug
-      fs.writeFileSync(filePath, htmlContent, "utf8");
-    }); */
-
-
-
-///////////////////////////////
-
-
-
-
-submissions.forEach((submission, index) => {
-  const { 
-    title,
-    slug, 
-    tags, 
-    category, 
-    bodypost, 
-    author, 
-    imagefile, 
-    ip, 
-    user_agent, 
-    referrer 
-  } = submission.data;
-
-
-
-
-
-
-    // Properti tambahan dari submission di luar data
-
-  const createdAt = submission.created_at || new Date().toISOString();
-
-  const imageFileUrl = imagefile?.url || "No image URL";
-
-
-  //adaptasi dari post-simplified.html dan post-html-main.js
-  //
-  // Fungsi untuk membersihkan bodypost
-  const cleanText = (text) => {
-    if (!text) return "";
-    return text
-      .replace(/<[^>]*>/g, "") // Hapus semua HTML tags
-      .replace(/[^\x20-\x7E]/g, ""); // Hapus semua simbol non-ASCII
-  };
-
-  const cleanedBody = cleanText(bodypost); // Membersihkan bodypost
-  //const metaDescription = cleanedBody ? cleanedBody.slice(0, 155) : "No bodypost content available"; // First 155 chars
-
-  const truncateToWords = (text, maxLength) => {
-  if (!text) return "";
-  
-  const words = text.split(/\s+/); // Pecah teks berdasarkan spasi
-  let truncated = "";
-  
-  for (const word of words) {
-    if ((truncated + word).length > maxLength) break;
-    truncated += (truncated ? " " : "") + word;
-  }
-
-  return truncated;
-};
-
-// Menghasilkan metaDescription dengan batas 155 karakter
-const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost content available";
-
-
-   //const url             = window.location.href;
-
-   // Properti tambahan lainnya
-  //const pageUrl = referrer || "Unknown"; // Menggunakan referrer sebagai fallback untuk URL halaman
-  const safeTitle = title || `Submission ${index + 1}`; 
-  const imageFileName = safeTitle || metaDescription;
-
-
-  
-
-  const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -266,19 +188,14 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
         </h1>
     </header>
 
-
-
     <!-- Post Meta (akan ditampilkan setelah post-title muncul) -->
     <div id="post-meta" class="post-meta" style="">
       <div itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span id="post-author" itemprop="name">${author || "Unknown Author"}</span>
       </div>
-      <span id="post-category">Category :${category || "Uncategorized"}</span> <span id="post-tags">Tags: ${tags || "No tags"}</span> <time itemprop="datePublished" datetime="${new Date(createdAt).toLocaleString() || "Unknown Date"}"><span id="post-date">Date: ${new Date(createdAt).toLocaleString() || "Unknown Date"}</span></time>
+      <span id="post-category">Category :${category || "Uncategorized"}</span> <span id="post-tags">Tags: ${tags || "No tags"}</span> <time itemprop="datePublished" datetime="${new Date(createdAt).toISOString()}">${new Date(createdAt).toLocaleDateString()}</time>
     </div><!-- class post-meta ditutup -->
 
-
-
-    
     <!-- Container for post content -->
     <div id="post-container" class="post-container">
         <figure>
@@ -289,23 +206,20 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
         <!-- post-body yang akan ditampilkan setelah gambar selesai dimuat -->
         <div id="post-body" class="post-body" style="" itemprop="articleBody">${bodypost || "No bodypost content"}
         </div><!-- class post-body ditutup -->
-        
+
         <div id="relatedPostBody" class="relatedPostBody">
+          ${relatedPostsHtml} <!-- diubah -->
         </div>
           <!-- start of  Comment Section -->
             <br><br>
               <div id="comment_thread"></div>
           <!-- end of  Comment Section -->
 
-
-
           <script>
             createSearchForm();
 
             // Memanggil loadCusdis setelah halaman sepenuhnya dimuat
             window.addEventListener('load', loadCusdis);
-
-
           </script>
         </div><!-- class post-body ditutup -->
       <br><br><br><br>
@@ -333,42 +247,6 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
     <p>&copy; 2024 <a href="/">Post Netlify</a>. All rights reserved.</p>
     </footer>
 
-  
-
-    <script>
-      /* document.addEventListener('DOMContentLoaded', async () => {
-        await fetchPostBySlug(); // Fungsi untuk mengambil data dari Netlify
-        updateJsonLdSchema();  // Fungsi untuk memperbarui schema JSON-LD
-      });
-    
-
-      // Panggil fungsi saat halaman dimuat
-      document.addEventListener('DOMContentLoaded', fetchPostBySlug);
-      */
-
-    </script>
-
-  
-    <!-- debug -->
-    <div id="debug-info" class="debug-hidden">
-      <p>
-        siteName :<span id="siteNameFooter"></span><br>
-        domain :<span id="domainFooter"></span><br>
-        subdomain :<span id="subdomainFooter"></span><br>
-        baseUrl :<a id="baseUrlFooter" href="#"></a><br>
-        fullUrl :<span id="fullUrlFooter"></span><br>
-        path :<span id="pathFooter"></span><br>
-        supportEmail :<a id="supportEmailFooter" href="#"></a><br>
-        current-year :<span id="current-yearFooter"></span><br>
-        site-name :<span id="site-nameFooter"></span><br>
-      </p>
-    </div>
-
-
-
-    
-
-  
   </div><!-- class container ditutup -->
 
   <script src="/constanta.js" defer></script>
@@ -379,64 +257,17 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
       document.getElementById('debug-info').classList.remove('debug-hidden');
     }
   </script>
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
 `;
 
-  const fileName = `${submission.data.slug || `submission-${index + 1}`}.html`;
-  const filePath = path.join(tmpPath, fileName);
+      const fileName = `${submission.data.slug || `submission-${index + 1}`}.html`;
+      const filePath = path.join(tmpPath, fileName);
 
-  fs.writeFileSync(filePath, htmlContent, "utf8");
-  console.log(`File saved: ${filePath}`);
-});
+      fs.writeFileSync(filePath, htmlContent, "utf8");
+      console.log(`File saved: ${filePath}`);
+    });
 
-
-    
-//////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     // Step 4: Upload file ke GitHub
     const fileList = fs.readdirSync(tmpPath);
     const report = []; // Array untuk menyimpan laporan status file
@@ -513,16 +344,6 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message }, null, 2),
-
-
-
-
-
-
-
-
-
-      
     };
   }
 };
