@@ -290,6 +290,8 @@ const metaDescription = truncateToWords(cleanedBody, 155) || "No bodypost conten
         <div id="post-body" class="post-body" style="" itemprop="articleBody">${bodypost || "No bodypost content"}
         </div><!-- class post-body ditutup -->
         
+        <div id="relatedPostBody" class="relatedPostBody">
+        </div>
           <!-- start of  Comment Section -->
             <br><br>
               <div id="comment_thread"></div>
