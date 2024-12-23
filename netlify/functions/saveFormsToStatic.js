@@ -121,14 +121,14 @@ exports.handler = async (event) => {
       const safeTitle = title || `Submission ${index + 1}`;
       const imageFileName = safeTitle || metaDescription;
 
-      // Find the 3 most similar 'bodypost' columns and get their slugs
+      // Find the 3 most similar 'bodypost' columns and get their slugs and titles
       const similarPosts = submissions
         .filter(sub => sub.data.bodypost !== bodypost)
-        .map(sub => ({ slug: sub.data.slug, similarity: cosineSimilarity(bodypost, sub.data.bodypost) }))
+        .map(sub => ({ slug: sub.data.slug, title: sub.data.title, similarity: cosineSimilarity(bodypost, sub.data.bodypost) }))
         .sort((a, b) => b.similarity - a.similarity)
         .slice(0, 3); //diubah
 
-      const relatedPostsHtml = similarPosts.map(post => `<a href="/${post.slug}">${post.slug}</a>`).join("<br>"); //diubah
+      const relatedPostsHtml = similarPosts.map(post => `<a href="/${post.slug}">${post.title}</a>`).join("<br>"); //diubah
 
       const htmlContent = `
 <!DOCTYPE html>
