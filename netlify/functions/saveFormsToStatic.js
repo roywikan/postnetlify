@@ -207,7 +207,7 @@ exports.handler = async (event) => {
         <div id="post-body" class="post-body" style="" itemprop="articleBody">${bodypost || "No bodypost content"}
         </div><!-- class post-body ditutup -->
 
-        <div id="relatedPostBody" class="relatedPostBody">
+        <div id="relatedPostBody" class="relatedPostBody">Related Articles :<br>
           ${relatedPostsHtml} <!-- diubah -->
         </div>
           <!-- start of  Comment Section -->
